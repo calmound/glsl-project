@@ -4,7 +4,6 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import MainLayout from '../../components/layout/main-layout';
 import Card from '../../components/ui/card';
-import { Button } from '@/components/ui/button';
 import { useLanguage } from '../../contexts/LanguageContext';
 
 interface Tutorial {

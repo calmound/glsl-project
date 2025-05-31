@@ -1,11 +1,10 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
-import { promises as fsPromises } from 'fs';
 
-export async function GET(request: Request, { params }: { params: { category: string; id: string } }) {
+export async function GET(request: Request, { params }: { params: Promise<{ category: string; id: string }> }) {
   try {
-    const { category, id } = params;
+    const { category, id } = await params;
     const { searchParams } = new URL(request.url);
     const lang = searchParams.get('lang') || 'zh'; // 默认中文
     

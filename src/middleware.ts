@@ -16,7 +16,7 @@ function getLocale(request: NextRequest): string {
 
   // 从路径中提取语言
   const locale = pathname.split('/')[1];
-  return locales.includes(locale) ? locale : defaultLocale;
+  return (locales as readonly string[]).includes(locale) ? locale as typeof defaultLocale : defaultLocale;
 }
 
 export function middleware(request: NextRequest) {
@@ -44,7 +44,7 @@ export function middleware(request: NextRequest) {
 
   // 检查语言是否有效
   const locale = pathname.split('/')[1];
-  if (!locales.includes(locale)) {
+  if (!(locales as readonly string[]).includes(locale)) {
     return NextResponse.redirect(
       new URL(`/${defaultLocale}${pathname.slice(locale.length + 1)}`, request.url)
     );

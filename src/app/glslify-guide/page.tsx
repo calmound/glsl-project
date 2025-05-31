@@ -79,7 +79,7 @@ void main() {
                 <div>
                   <h3 className="text-lg font-medium mb-2">导入模块</h3>
                   <div className="bg-gray-100 p-3 rounded text-sm font-mono">
-                    #pragma glslify: 模块名 = require('包名')
+                    #pragma glslify: 模块名 = require(&apos;包名&apos;)
                   </div>
                 </div>
                 <div>
@@ -101,7 +101,6 @@ void main() {
                 <CodeEditor
                   value={basicExample}
                   onChange={() => {}}
-                  language="glsl"
                   readOnly
                   height="400px"
                 />
@@ -118,7 +117,6 @@ void main() {
                 <CodeEditor
                   value={customModuleExample}
                   onChange={() => {}}
-                  language="glsl"
                   readOnly
                   height="400px"
                 />

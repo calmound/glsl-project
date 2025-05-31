@@ -1,14 +1,14 @@
 import { Metadata } from 'next';
-import { getValidLocale, type Locale } from '../../lib/i18n';
+import { getValidLocale } from '../../lib/i18n';
 import { getTranslationFunction } from '../../lib/translations';
 import { LanguageProvider } from '../../contexts/LanguageContext';
 import '../globals.css';
 
 interface LocaleLayoutProps {
   children: React.ReactNode;
-  params: {
+  params: Promise<{
     locale: string;
-  };
+  }>;
 }
 
 // 生成元数据

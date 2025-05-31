@@ -9,7 +9,7 @@ interface ShaderCanvasProps {
   height?: number | string;
   className?: string;
   timeScale?: number;
-  uniforms?: Record<string, any>;
+  uniforms?: Record<string, number | boolean | number[] | string>;
 }
 
 const defaultVertexShader = `
@@ -34,7 +34,7 @@ const ShaderCanvas: React.FC<ShaderCanvasProps> = ({
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const glRef = useRef<WebGLRenderingContext | null>(null);
   const programRef = useRef<WebGLProgram | null>(null);
-  const animationRef = useRef<number>();
+  const animationRef = useRef<number>(0);
   const startTimeRef = useRef<number>(Date.now());
 
   // 创建着色器

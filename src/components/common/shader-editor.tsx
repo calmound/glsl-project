@@ -7,7 +7,6 @@ import { Button } from '@/components/ui/button';
 
 interface ShaderEditorProps {
   initialFragmentShader: string;
-  initialVertexShader?: string;
   width?: number | string;
   height?: number | string;
   editable?: boolean;
@@ -27,7 +26,6 @@ void main() {
 
 const ShaderEditor: React.FC<ShaderEditorProps> = ({
   initialFragmentShader,
-  initialVertexShader = defaultVertexShader,
   width = '100%',
   height = 400,
   editable = true,
@@ -108,7 +106,6 @@ const ShaderEditor: React.FC<ShaderEditorProps> = ({
             u_time: 0.0,
             u_resolution: [300, 300],
           }}
-          onError={setCompileError}
         />
       </div>
     </>

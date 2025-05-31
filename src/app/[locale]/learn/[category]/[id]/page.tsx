@@ -6,11 +6,11 @@ import { getTranslationFunction } from '../../../../../lib/translations';
 import TutorialPageClient from './tutorial-client';
 
 interface TutorialPageProps {
-  params: {
+  params: Promise<{
     locale: string;
     category: string;
     id: string;
-  };
+  }>;
 }
 
 // 生成元数据

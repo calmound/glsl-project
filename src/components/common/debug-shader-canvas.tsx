@@ -9,7 +9,7 @@ interface DebugShaderCanvasProps {
   height?: number | string;
   className?: string;
   timeScale?: number;
-  uniforms?: Record<string, any>;
+  uniforms?: Record<string, number | boolean | number[] | string>;
 }
 
 const defaultVertexShader = `
@@ -40,11 +40,6 @@ const DebugShaderCanvas: React.FC<DebugShaderCanvasProps> = ({
   const [isRendering, setIsRendering] = useState<boolean>(false);
 
   // 确保基本的uniforms存在
-  const actualUniforms = {
-    u_time: 0.0,
-    u_resolution: [300, 300],
-    ...uniforms,
-  };
 
   // 创建着色器
   const createShader = (

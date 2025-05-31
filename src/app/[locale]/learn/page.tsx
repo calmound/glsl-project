@@ -8,9 +8,9 @@ import { getTranslationFunction } from '../../../lib/translations';
 import { getTutorials } from '../../../lib/tutorials-server';
 
 interface PageProps {
-  params: {
+  params: Promise<{
     locale: string;
-  };
+  }>;
 }
 
 // 生成元数据

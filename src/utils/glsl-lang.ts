@@ -8,7 +8,7 @@ export function glsl() {
     name: 'glsl',
     startState: function () {
       return {
-        tokenize: null,
+        tokenize: null as ((stream: any, state: any) => string) | null,
         inBlock: false,
         blockType: '',
         lastToken: null,
@@ -321,7 +321,7 @@ export function glsl() {
 
       // 匹配保留字
       if (stream.match(/^[a-zA-Z_][a-zA-Z0-9_]*/)) {
-        var word = stream.current();
+        const word = stream.current();
         if (keywords.includes(word)) return 'keyword';
         if (builtins.includes(word)) return 'builtin';
         if (builtin_variables.includes(word)) return 'variable-3';
@@ -347,13 +347,13 @@ export function glsl() {
       stream.next();
       return null;
     },
-    indent: function (state, textAfter) {
+    indent: function () {
       return 0;
     },
   });
 
-  // 处理注释的辅助函数
-  function tokenComment(stream, state) {
+    // 处理注释的辅助函数
+  function tokenComment(stream: any, state: any) {
     let maybeEnd = false,
       ch;
     while ((ch = stream.next())) {
@@ -367,7 +367,7 @@ export function glsl() {
   }
 
   // 处理字符串的辅助函数
-  function tokenString(stream, state) {
+  function tokenString(stream: any, state: any) {
     let escaped = false,
       ch;
     while ((ch = stream.next()) != null) {

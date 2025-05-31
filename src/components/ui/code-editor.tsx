@@ -7,10 +7,11 @@ import { glslLanguage } from '../../utils/glsl-lang';
 import './code-editor.css';
 
 interface CodeEditorProps {
-  initialCode: string;
+  initialCode?: string;
   onChange?: (value: string) => void;
   height?: string;
   readOnly?: boolean;
+  value?: string;
 }
 
 const CodeEditor: React.FC<CodeEditorProps> = ({ initialCode, onChange, readOnly = false }) => {

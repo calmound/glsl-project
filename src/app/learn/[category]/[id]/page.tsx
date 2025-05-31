@@ -10,7 +10,7 @@ import { ShaderExample, getShaderById, loadShaderFromFile } from '../../../../li
 import { useLanguage } from '../../../../contexts/LanguageContext';
 import ShaderCanvasNew from '../../../../components/common/shader-canvas-new';
 import CodeEditor from '../../../../components/ui/code-editor';
-import { ArrowPathIcon, CheckIcon, XMarkIcon } from '@heroicons/react/24/outline';
+// 移除未使用的图标导入
 
 // 着色器详情页面
 export default function ShaderDetailPage() {
@@ -26,7 +26,7 @@ export default function ShaderDetailPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [fragmentShader, setFragmentShader] = useState<string>('');
-  const [exerciseShader, setExerciseShader] = useState<string>('');
+  // 移除未使用的 exerciseShader 变量
   const [readmeContent, setReadmeContent] = useState<string>('');
 
   const [vertexShader, setVertexShader] = useState<string>('');
@@ -34,7 +34,7 @@ export default function ShaderDetailPage() {
   const [initialCode, setInitialCode] = useState<string>('');
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
-  const [feedback, setFeedback] = useState<string>('');
+  // 移除未使用的 feedback 变量
   const [toasts, setToasts] = useState<Array<{
     id: string;
     message: string;
@@ -299,7 +299,6 @@ export default function ShaderDetailPage() {
             
             // 计算像素差异
             let diffCount = 0;
-            let totalPixels = 256 * 256;
             const threshold = 10; // 增加容错阈值
             
             // 采样比较（每隔4个像素比较一次，减少计算量）
@@ -370,7 +369,6 @@ export default function ShaderDetailPage() {
     console.log('顶点着色器代码:', vertexCode ? vertexCode.substring(0, 100) + '...' : '无');
 
     setFragmentShader(fragmentCode);
-    setExerciseShader(shaderData.exerciseShader || '');
     setReadmeContent(shaderData.readme || '');
     setVertexShader(vertexCode);
     
@@ -422,7 +420,6 @@ export default function ShaderDetailPage() {
     setUserCode(code);
     setIsSubmitted(false);
     setIsCorrect(null);
-    setFeedback('');
   };
 
   // 运行用户代码
@@ -451,7 +448,6 @@ export default function ShaderDetailPage() {
     setUserCode(initialCode);
     setIsSubmitted(false);
     setIsCorrect(null);
-    setFeedback('');
   };
 
   // 提交代码进行检查
@@ -478,63 +474,18 @@ export default function ShaderDetailPage() {
       setIsCorrect(isRenderingCorrect);
       
       if (isRenderingCorrect) {
-        setFeedback('恭喜！你的着色器渲染效果正确，已经掌握了这个知识点。');
         addToast('🎉 恭喜！渲染效果正确，代码通过验证！', 'success', 4000);
       } else {
-        setFeedback('着色器可以编译，但渲染效果与预期不符。请检查你的代码逻辑。');
         addToast('渲染效果与预期不符，请检查代码逻辑', 'error');
       }
     } catch (error) {
       console.error('验证渲染效果时出错:', error);
       setIsCorrect(false);
-      setFeedback('验证过程中出现错误，请重试。');
       addToast('验证过程中出现错误，请重试', 'error');
     }
   };
 
-  // 检查代码正确性
-  const checkCodeCorrectness = (userCode: string, correctCode: string): boolean => {
-    // 移除空白字符和注释进行比较
-    const normalizeCode = (code: string) => {
-      return code
-        .replace(/\/\/.*$/gm, '') // 移除单行注释
-        .replace(/\/\*[\s\S]*?\*\//g, '') // 移除多行注释
-        .replace(/\s+/g, ' ') // 标准化空白字符
-        .trim();
-    };
-    
-    const normalizedUserCode = normalizeCode(userCode);
-    const normalizedCorrectCode = normalizeCode(correctCode);
-    
-    // 基本检查：必须包含 gl_FragColor 且不能有占位符
-    if (!normalizedUserCode.includes('gl_FragColor') || 
-        normalizedUserCode.includes('vec4(0.0, 0.0, 0.0, 1.0)') ||
-        normalizedUserCode.includes('请修改这里')) {
-      return false;
-    }
-    
-    // 提取 gl_FragColor 赋值部分进行比较
-    const extractFragColorAssignment = (code: string) => {
-      const match = code.match(/gl_FragColor\s*=\s*([^;]+);/);
-      return match ? match[1].trim() : '';
-    };
-    
-    const userFragColor = extractFragColorAssignment(normalizedUserCode);
-    const correctFragColor = extractFragColorAssignment(normalizedCorrectCode);
-    
-    // 如果能提取到正确的赋值，进行比较
-    if (correctFragColor && userFragColor) {
-      // 标准化向量表示（处理空格差异）
-      const normalizeVector = (vec: string) => {
-        return vec.replace(/\s+/g, '').toLowerCase();
-      };
-      
-      return normalizeVector(userFragColor) === normalizeVector(correctFragColor);
-    }
-    
-    // 如果无法精确匹配，至少确保用户修改了代码
-    return userFragColor !== '' && userFragColor !== 'vec4(0.0,0.0,0.0,1.0)';
-  };
+  // 移除未使用的 checkCodeCorrectness 函数
 
   // 返回列表页
   const handleBack = () => {
@@ -571,8 +522,8 @@ export default function ShaderDetailPage() {
           <div className="text-center py-12">
             <p className="text-lg text-red-500">{error || '找不到该着色器示例'}</p>
             <Button
-              variant="primary"
-              size="md"
+              variant="default"
+              size="default"
               className="mt-4"
               onClick={() => router.push('/learn')}
             >
@@ -669,10 +620,10 @@ export default function ShaderDetailPage() {
                   重置
                 </Button>
                 <Button 
-                  variant={isCorrect ? "default" : "primary"} 
+                  variant={isCorrect ? "default" : "secondary"} 
                   size="sm" 
                   onClick={handleSubmitCode}
-                  disabled={isSubmitted && isCorrect}
+                  disabled={!!(isSubmitted && isCorrect)}
                 >
                   {isSubmitted && isCorrect ? '已通过' : '提交'}
                 </Button>

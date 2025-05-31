@@ -14,10 +14,12 @@ export interface ShaderExample {
   fragmentShader: string;
   vertexShader?: string;
   tags: string[];
-  uniforms?: Record<string, any>;
+  uniforms?: Record<string, number | boolean | number[] | string>;
   defaultControls?: ShaderControl[];
   thumbnail?: string;
   references?: { title: string; url: string }[];
+  readme?: string;
+  exerciseShader?: string;
 }
 
 export type ShaderCategory =
@@ -40,7 +42,7 @@ export interface ShaderControl {
   min?: number;
   max?: number;
   step?: number;
-  defaultValue: any;
+  defaultValue: number | string | boolean;
 }
 
 // 显示名称映射

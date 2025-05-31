@@ -104,7 +104,6 @@ export const translations: Record<Locale, Translations> = {
     
     // Tutorial detail page
     'tutorial.exercise_goal': '练习目标',
-    'tutorial.content': '教程内容',
     'tutorial.knowledge_points': '知识点',
     
     // Common
@@ -217,7 +216,6 @@ export const translations: Record<Locale, Translations> = {
     
     // Tutorial detail page
     'tutorial.exercise_goal': 'Exercise Goal',
-    'tutorial.content': 'Tutorial Content',
     'tutorial.knowledge_points': 'Knowledge Points',
     
     // Common
@@ -234,11 +232,11 @@ export const translations: Record<Locale, Translations> = {
 };
 
 // 获取翻译文本的函数
-export function getTranslation(locale: Locale, key: string): string {
-  return translations[locale]?.[key] || key;
+export function getTranslation(locale: Locale, key: string, defaultValue?: string): string {
+  return translations[locale]?.[key] || defaultValue || key;
 }
 
 // 获取翻译函数的函数（用于组件中）
-export function getTranslationFunction(locale: Locale): (key: string) => string {
-  return (key: string) => getTranslation(locale, key);
+export function getTranslationFunction(locale: Locale): (key: string, defaultValue?: string) => string {
+  return (key: string, defaultValue?: string) => getTranslation(locale, key, defaultValue);
 }

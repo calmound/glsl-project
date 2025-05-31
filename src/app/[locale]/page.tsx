@@ -1,12 +1,12 @@
 import { Metadata } from 'next';
-import { getValidLocale, type Locale } from '../../lib/i18n';
+import { getValidLocale } from '../../lib/i18n';
 import { getTranslationFunction } from '../../lib/translations';
 import HomePageClient from './home-client';
 
 interface HomePageProps {
-  params: {
+  params: Promise<{
     locale: string;
-  };
+  }>;
 }
 
 // 生成元数据

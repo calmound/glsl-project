@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { ToastContainer } from '@/components/ui/toast';
@@ -35,18 +35,15 @@ export default function TutorialPageClient({
   readme,
   shaders,
   locale,
-  category,
-  tutorialId,
 }: TutorialPageClientProps) {
   const router = useRouter();
   const { t } = useLanguage();
   // 优先使用练习代码，确保学员看到需要补全的代码
   const exerciseCode = shaders.exercise || shaders.fragment;
   const [userCode, setUserCode] = useState(exerciseCode);
-  const [initialCode, setInitialCode] = useState(exerciseCode);
+  const [initialCode] = useState(exerciseCode);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
-  const [feedback, setFeedback] = useState<string>('');
   const [toasts, setToasts] = useState<Array<{
     id: string;
     message: string;
@@ -366,7 +363,6 @@ export default function TutorialPageClient({
     setUserCode(code);
     setIsSubmitted(false);
     setIsCorrect(null);
-    setFeedback('');
   };
 
   // 运行用户代码
@@ -386,7 +382,7 @@ export default function TutorialPageClient({
       return;
     }
     
-    addToast(t('tutorial.compile_success', '着色器编译成功！'), 'success');
+    addToast(t('tutorial.compile_success'), 'success');
     console.log('着色器编译成功');
   };
 
@@ -395,7 +391,6 @@ export default function TutorialPageClient({
     setUserCode(initialCode);
     setIsSubmitted(false);
     setIsCorrect(null);
-    setFeedback('');
   };
 
   // 提交代码进行检查
@@ -421,16 +416,13 @@ export default function TutorialPageClient({
       setIsCorrect(isRenderingCorrect);
       
       if (isRenderingCorrect) {
-        setFeedback(t('tutorial.success_feedback', '恭喜！你的着色器渲染效果正确，已经掌握了这个知识点。'));
         addToast('🎉 ' + t('tutorial.success_toast', '恭喜！渲染效果正确，代码通过验证！'), 'success', 4000);
       } else {
-        setFeedback(t('tutorial.incorrect_feedback', '着色器可以编译，但渲染效果与预期不符。请检查你的代码逻辑。'));
         addToast(t('tutorial.incorrect_toast', '渲染效果与预期不符，请检查代码逻辑'), 'error');
       }
     } catch (error) {
       console.error('验证渲染效果时出错:', error);
       setIsCorrect(false);
-      setFeedback(t('tutorial.error_feedback', '验证过程中出现错误，请重试。'));
       addToast(t('tutorial.error_toast', '验证过程中出现错误，请重试'), 'error');
     }
   };
@@ -524,10 +516,10 @@ export default function TutorialPageClient({
                   {t('tutorial.reset', '重置')}
                 </Button>
                 <Button 
-                  variant={isCorrect ? "default" : "primary"} 
+                  variant={"default"} 
                   size="sm" 
                   onClick={handleSubmitCode}
-                  disabled={isSubmitted && isCorrect}
+                  disabled={!!(isSubmitted && isCorrect)}
                 >
                   {isSubmitted && isCorrect ? t('tutorial.passed', '已通过') : t('tutorial.submit', '提交')}
                 </Button>

@@ -2,13 +2,13 @@
 
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
-import { type Locale, getValidLocale, addLocaleToPathname, removeLocaleFromPathname, getLocaleFromPathname } from '../lib/i18n';
+import { type Locale, addLocaleToPathname, removeLocaleFromPathname, getLocaleFromPathname } from '../lib/i18n';
 import { getTranslation } from '../lib/translations';
 
 interface LanguageContextType {
   language: Locale;
   setLanguage: (lang: Locale) => void;
-  t: (key: string) => string;
+  t: (key: string, defaultValue?: string) => string;
 }
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
@@ -39,8 +39,8 @@ export function LanguageProvider({ children, initialLocale = 'zh' }: LanguagePro
   };
   
   // 翻译函数
-  const t = (key: string): string => {
-    return getTranslation(language, key);
+  const t = (key: string, defaultValue?: string): string => {
+    return getTranslation(language, key, defaultValue);
   };
   
   const value: LanguageContextType = {

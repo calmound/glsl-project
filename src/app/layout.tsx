@@ -1,5 +1,7 @@
 import './globals.css';
 
+import { LanguageProvider } from '../contexts/LanguageContext';
+
 export default function RootLayout({
   children,
 }: {
@@ -8,7 +10,9 @@ export default function RootLayout({
   return (
     <html suppressHydrationWarning>
       <body suppressHydrationWarning>
-        {children}
+        <LanguageProvider>
+          {children}
+        </LanguageProvider>
       </body>
     </html>
   );

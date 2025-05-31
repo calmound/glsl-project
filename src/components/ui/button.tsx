@@ -43,11 +43,12 @@ function Button({
 }: React.ComponentProps<'button'> &
   VariantProps<typeof buttonVariants> & {
     asChild?: boolean;
+    href?: string;
   }) {
   const Comp = asChild ? Slot : 'button';
 
-  let onClick = () => {
-    props.onClick?.();
+  let onClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    props.onClick?.(event);
   };
 
   if (href) {

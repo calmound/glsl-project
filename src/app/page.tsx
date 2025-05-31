@@ -1,14 +1,14 @@
 import React from 'react';
 import MainLayout from '../components/layout/main-layout';
 import Card from '../components/ui/card';
-import ShaderShowcaseWrapper from '../components/examples/shader-showcase-wrapper';
+
 import { Button } from '@/components/ui/button';
 
 export default function Home() {
   return (
     <MainLayout>
       {/* 英雄区域 */}
-      <section className="bg-gradient-to-br from-primary to-blue-800 -mt-8 py-24 px-4 text-white">
+      <section className="bg-gradient-to-br from-primary to-blue-800 py-24 px-4 text-white">
         <div className="container mx-auto flex flex-col md:flex-row items-center justify-between gap-8">
           <div className="md:w-1/2 space-y-6">
             <h1 className="text-4xl md:text-5xl font-bold leading-tight">
@@ -21,15 +21,7 @@ export default function Home() {
               <Button variant="secondary" size="lg" href="/learn">
                 开始学习
               </Button>
-              <Button
-                variant="outline"
-                size="lg"
-                className="bg-white/10 hover:bg-white/20 border-white/30 text-white"
-                // handleClick={() => (window.location.href = '/examples')}
-                href="/examples"
-              >
-                查看示例
-              </Button>
+
             </div>
           </div>
           <div className="md:w-1/2 flex justify-center">
@@ -123,24 +115,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 着色器示例 */}
-      <section className="py-16 bg-gray-50">
-        <div className="container mx-auto">
-          <h2 className="text-3xl font-bold text-center mb-4">着色器示例</h2>
-          <p className="text-center text-gray-600 mb-12 max-w-2xl mx-auto">
-            浏览我们精选的 GLSL 着色器示例，了解着色器能够创造的各种视觉效果。
-          </p>
 
-          {/* 使用动态加载的着色器展示组件 */}
-          <ShaderShowcaseWrapper />
-
-          <div className="text-center mt-12">
-            <Button variant="primary" size="lg">
-              查看更多示例
-            </Button>
-          </div>
-        </div>
-      </section>
 
       {/* 入门指南 */}
       <section className="py-16">
@@ -218,7 +193,7 @@ export default function Home() {
                   掌握着色器语言的核心特性
                 </li>
               </ul>
-              <Button variant="primary">开始学习</Button>
+              <Button variant="primary" href="/learn">开始学习</Button>
             </div>
             <div className="md:w-1/2 flex justify-center items-center">
               <div className="max-w-sm p-6 bg-gray-100 rounded-lg">

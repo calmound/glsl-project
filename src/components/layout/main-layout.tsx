@@ -18,8 +18,13 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
                 </a>
               </li>
               <li>
-                <a href="/examples" className="text-gray-600 hover:text-primary transition-colors">
-                  示例
+                <a href="/learn" className="text-gray-600 hover:text-primary transition-colors">
+                  学习
+                </a>
+              </li>
+              <li>
+                <a href="/glslify-guide" className="text-gray-600 hover:text-primary transition-colors">
+                  Glslify 指南
                 </a>
               </li>
               <li>

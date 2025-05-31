@@ -137,16 +137,15 @@ export default function LearnPage() {
           {/* 教程列表 */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredTutorials.map(tutorial => (
-              <Card key={tutorial.id} className="overflow-hidden">
-                <div className="aspect-video bg-gray-100 -mx-6 -mt-6 mb-4 flex items-center justify-center">
-                  <div className="text-5xl text-primary opacity-20">
-                    {tutorial.category.charAt(0).toUpperCase()}
-                  </div>
-                </div>
-                <div className="flex justify-between items-center mb-2">
-                  <h3 className="text-xl font-semibold">{tutorial.title}</h3>
+              <Card 
+                key={tutorial.id} 
+                className="cursor-pointer hover:shadow-lg transition-shadow duration-200"
+                onClick={() => window.location.href = `/learn/${tutorial.category}/${tutorial.id}`}
+              >
+                <div className="flex justify-between items-start mb-3">
+                  <h3 className="text-xl font-semibold text-gray-900">{tutorial.title}</h3>
                   <span
-                    className={`inline-block text-xs px-2 py-1 rounded ${
+                    className={`inline-block text-xs px-2 py-1 rounded-full font-medium ${
                       tutorial.difficulty === 'beginner'
                         ? 'bg-green-100 text-green-800'
                         : tutorial.difficulty === 'intermediate'
@@ -157,14 +156,12 @@ export default function LearnPage() {
                     {difficultyMap[tutorial.difficulty]}
                   </span>
                 </div>
-                <p className="text-gray-600 mb-4">{tutorial.description}</p>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  href={`/learn/${tutorial.category}/${tutorial.id}`}
-                >
-                  开始学习
-                </Button>
+                <p className="text-gray-600 text-sm leading-relaxed">{tutorial.description}</p>
+                <div className="mt-4 pt-3 border-t border-gray-100">
+                  <span className="text-xs text-gray-500 font-medium">
+                    {categoryMap[tutorial.category as keyof typeof categoryMap] || tutorial.category}
+                  </span>
+                </div>
               </Card>
             ))}
           </div>

@@ -16,6 +16,11 @@ interface CodeEditorProps {
 const CodeEditor: React.FC<CodeEditorProps> = ({ initialCode, onChange, readOnly = false }) => {
   const [code, setCode] = useState(initialCode);
 
+  // 当 initialCode 变化时更新内部状态
+  useEffect(() => {
+    setCode(initialCode);
+  }, [initialCode]);
+
   // 处理代码变更
   const handleChange = (value: string) => {
     setCode(value);

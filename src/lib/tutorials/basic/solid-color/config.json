@@ -1,7 +1,9 @@
 {
   "id": "solid-color",
   "title": "纯色填充",
+  "title_en": "Solid Color Fill",
   "description": "学习最基础的着色器概念，创建纯色填充效果。理解gl_FragColor的作用和RGBA颜色模式。",
+  "description_en": "Learn the most basic shader concepts and create solid color fill effects. Understand the role of gl_FragColor and RGBA color mode.",
   "difficulty": "beginner",
   "category": "basic",
   "tags": ["基础", "颜色", "入门"],

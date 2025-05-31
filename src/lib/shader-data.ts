@@ -65,9 +65,9 @@ export const difficultyDisplayNames: Record<ShaderDifficulty, string> = {
 /**
  * 从文件加载着色器内容
  */
-export const loadShaderFromFile = async (category: string, id: string): Promise<ShaderExample | null> => {
+export const loadShaderFromFile = async (category: string, id: string, lang: string = 'zh'): Promise<ShaderExample | null> => {
   try {
-    const response = await fetch(`/api/shader/${category}/${id}`);
+    const response = await fetch(`/api/shader/${category}/${id}?lang=${lang}`);
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }

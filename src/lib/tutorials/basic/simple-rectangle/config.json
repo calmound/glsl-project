@@ -1,7 +1,9 @@
 {
   "id": "simple-rectangle",
   "title": "简单矩形",
+  "title_en": "Simple Rectangle",
   "description": "学习使用条件判断绘制矩形，理解坐标范围和边界检测。",
+  "description_en": "Learn to draw rectangles using conditional statements and understand coordinate ranges and boundary detection.",
   "difficulty": "beginner",
   "category": "basic",
   "tags": ["矩形", "图形", "边界"],

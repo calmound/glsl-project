@@ -1,7 +1,9 @@
 {
   "id": "simple-fractal",
   "title": "简单分形",
+  "title_en": "Simple Fractals",
   "description": "学习创建简单的分形图案，理解递归和自相似的概念在着色器中的应用。",
+  "description_en": "Learn to create simple fractal patterns and understand the application of recursion and self-similarity concepts in shaders.",
   "difficulty": "beginner",
   "category": "basic",
   "tags": ["分形", "图案", "递归"],

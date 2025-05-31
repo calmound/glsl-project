@@ -1,7 +1,9 @@
 {
   "id": "sine-wave",
   "title": "正弦波动画",
+  "title_en": "Sine Wave Animation",
   "description": "学习使用sin函数创建波形效果，理解频率、振幅和相位的概念。",
+  "description_en": "Learn to create wave effects using the sin function and understand the concepts of frequency, amplitude, and phase.",
   "difficulty": "beginner",
   "category": "basic",
   "tags": ["正弦波", "动画", "数学"],

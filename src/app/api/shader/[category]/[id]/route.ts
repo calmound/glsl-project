@@ -3,59 +3,76 @@ import fs from 'fs';
 import path from 'path';
 import { promises as fsPromises } from 'fs';
 
-export async function GET(
-  request: NextRequest,
-  { params }: { params: { category: string; id: string } }
-) {
+export async function GET(request: Request, { params }: { params: { category: string; id: string } }) {
   try {
     const { category, id } = params;
-
-    if (!category || !id) {
-      return NextResponse.json({ error: '缺少必要参数' }, { status: 400 });
+    const { searchParams } = new URL(request.url);
+    const lang = searchParams.get('lang') || 'zh'; // 默认中文
+    
+    // 构建教程目录路径
+    const tutorialDir = path.join(process.cwd(), 'src', 'lib', 'tutorials', category, id);
+    
+    // 检查目录是否存在
+    if (!fs.existsSync(tutorialDir)) {
+      return NextResponse.json({ error: 'Tutorial not found' }, { status: 404 });
     }
-
-    // 构建新的文件夹路径
-    const tutorialDir = path.join(process.cwd(), 'src/lib/tutorials', category, id);
+    
+    // 读取配置文件
     const configPath = path.join(tutorialDir, 'config.json');
+    let config = {};
+    if (fs.existsSync(configPath)) {
+      const configContent = fs.readFileSync(configPath, 'utf-8');
+      config = JSON.parse(configContent);
+    }
+    
+    // 读取片段着色器
     const fragmentPath = path.join(tutorialDir, 'fragment.glsl');
+    let fragmentShader = '';
+    if (fs.existsSync(fragmentPath)) {
+      fragmentShader = fs.readFileSync(fragmentPath, 'utf-8');
+    }
+    
+    // 读取练习文件
     const exercisePath = path.join(tutorialDir, 'fragment-exercise.glsl');
-    const readmePath = path.join(tutorialDir, 'README.md');
-
-    // 检查文件夹和必要文件是否存在
-    if (!fs.existsSync(tutorialDir) || !fs.existsSync(configPath) || !fs.existsSync(fragmentPath)) {
-      return NextResponse.json({ error: `找不到着色器文件: ${category}/${id}` }, { status: 404 });
-    }
-
-    // 读取配置文件和着色器文件
-    const configContent = await fsPromises.readFile(configPath, 'utf8');
-    const fragmentContent = await fsPromises.readFile(fragmentPath, 'utf8');
-    
-    // 读取练习文件（如果存在）
-    let exerciseContent = '';
+    let exerciseShader = '';
     if (fs.existsSync(exercisePath)) {
-      exerciseContent = await fsPromises.readFile(exercisePath, 'utf8');
+      exerciseShader = fs.readFileSync(exercisePath, 'utf-8');
     }
     
-    // 读取README文件（如果存在）
-    let readmeContent = '';
-    if (fs.existsSync(readmePath)) {
-      readmeContent = await fsPromises.readFile(readmePath, 'utf8');
-    }
-
-    // 解析配置文件
-    const config = JSON.parse(configContent);
+    // 读取多语言README文件
+    let readme = '';
+    const readmeFiles = [
+      `${lang}-README.md`,  // 优先读取指定语言的README
+      'README.md'           // 回退到默认README
+    ];
     
-    // 构建着色器数据
-    const shaderData = {
-      ...config,
-      fragmentShader: fragmentContent,
-      exerciseShader: exerciseContent,
-      readme: readmeContent
-    };
-
-    return NextResponse.json(shaderData);
+    for (const readmeFile of readmeFiles) {
+      const readmePath = path.join(tutorialDir, readmeFile);
+      if (fs.existsSync(readmePath)) {
+        readme = fs.readFileSync(readmePath, 'utf-8');
+        break;
+      }
+    }
+    
+    // 读取顶点着色器（可选）
+    const vertexPath = path.join(tutorialDir, 'vertex.glsl');
+    let vertexShader = '';
+    if (fs.existsSync(vertexPath)) {
+      vertexShader = fs.readFileSync(vertexPath, 'utf-8');
+    }
+    
+    return NextResponse.json({
+      id,
+      category,
+      fragmentShader,
+      exerciseShader,
+      readme,
+      vertexShader,
+      language: lang,
+      ...config
+    });
   } catch (error) {
-    console.error('读取着色器文件时发生错误:', error);
-    return NextResponse.json({ error: '服务器错误' }, { status: 500 });
+    console.error('Error loading shader:', error);
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }

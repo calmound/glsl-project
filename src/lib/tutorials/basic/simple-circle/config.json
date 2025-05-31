@@ -1,7 +1,9 @@
 {
   "id": "simple-circle",
   "title": "绘制圆形",
+  "title_en": "Drawing Circles",
   "description": "学习使用距离函数绘制基本图形，理解像素坐标系统和distance函数的应用。",
+  "description_en": "Learn to draw basic shapes using distance functions and understand the pixel coordinate system and distance function applications.",
   "difficulty": "beginner",
   "category": "basic",
   "tags": ["图形", "圆形", "距离函数"],

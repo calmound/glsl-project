@@ -1,7 +1,9 @@
 {
   "id": "time-animation",
   "title": "时间动画",
+  "title_en": "Time Animation",
   "description": "学习使用u_time uniform变量创建随时间变化的动画效果，理解sin函数在动画中的应用。",
+  "description_en": "Learn to create time-based animation effects using the u_time uniform variable and understand the application of sin functions in animation.",
   "difficulty": "beginner",
   "category": "basic",
   "tags": ["动画", "时间", "sin函数"],

@@ -7,6 +7,7 @@ import { ToastContainer } from '@/components/ui/toast';
 
 import { usePathname, useRouter } from 'next/navigation';
 import { ShaderExample, getShaderById, loadShaderFromFile } from '../../../../lib/shader-data';
+import { useLanguage } from '../../../../contexts/LanguageContext';
 import ShaderCanvasNew from '../../../../components/common/shader-canvas-new';
 import CodeEditor from '../../../../components/ui/code-editor';
 import { ArrowPathIcon, CheckIcon, XMarkIcon } from '@heroicons/react/24/outline';
@@ -14,6 +15,7 @@ import { ArrowPathIcon, CheckIcon, XMarkIcon } from '@heroicons/react/24/outline
 // 着色器详情页面
 export default function ShaderDetailPage() {
   const router = useRouter();
+  const { language, t } = useLanguage();
   const pathname = usePathname();
   // 从路径中提取参数
   const segments = pathname.split('/');
@@ -26,6 +28,7 @@ export default function ShaderDetailPage() {
   const [fragmentShader, setFragmentShader] = useState<string>('');
   const [exerciseShader, setExerciseShader] = useState<string>('');
   const [readmeContent, setReadmeContent] = useState<string>('');
+
   const [vertexShader, setVertexShader] = useState<string>('');
   const [userCode, setUserCode] = useState<string>('');
   const [initialCode, setInitialCode] = useState<string>('');
@@ -394,7 +397,7 @@ export default function ShaderDetailPage() {
     const loadShader = async () => {
       try {
         // 优先尝试从预定义数据获取
-        const shaderData = getShaderById(id) || (await loadShaderFromFile(category, id));
+        const shaderData = getShaderById(id) || (await loadShaderFromFile(category, id, language));
 
         if (shaderData) {
           processShaderData(shaderData);
@@ -410,7 +413,9 @@ export default function ShaderDetailPage() {
     };
 
     loadShader();
-  }, [category, id]);
+  }, [category, id, language]);
+
+
 
   // 处理用户代码变化
   const handleUserCodeChange = (code: string) => {
@@ -594,7 +599,7 @@ export default function ShaderDetailPage() {
           <div className="p-4 border-b flex items-center justify-between">
             <div className="flex items-center gap-2">
               <Button variant="outline" size="sm" onClick={handleBack}>
-                返回
+                {t('common.back') || '返回'}
               </Button>
               <h1 className="text-lg font-semibold">{shader.title}</h1>
             </div>
@@ -604,7 +609,7 @@ export default function ShaderDetailPage() {
           <div className="flex-1 overflow-auto p-4">
             {/* 练习目标 */}
             <div className="mb-6">
-              <h2 className="text-md font-semibold mb-3 text-blue-600">📝 练习目标</h2>
+              <h2 className="text-md font-semibold mb-3 text-blue-600">📝 {t('tutorial.exercise_goal') || '练习目标'}</h2>
               <div className="text-sm text-gray-700 bg-blue-50 p-3 rounded-lg">
                 {shader.description}
               </div>
@@ -613,7 +618,10 @@ export default function ShaderDetailPage() {
             {/* README 内容 */}
             {readmeContent && (
               <div className="mb-6">
-                <h2 className="text-md font-semibold mb-3 text-green-600">💡 教程内容</h2>
+                <div className="flex items-center justify-between mb-3">
+                  <h2 className="text-md font-semibold text-green-600">💡 {t('tutorial.content') || '教程内容'}</h2>
+
+                </div>
                 <div className="text-sm text-gray-700 bg-green-50 p-3 rounded-lg prose prose-sm max-w-none">
                   <div 
                     className="markdown-content"
@@ -636,7 +644,7 @@ export default function ShaderDetailPage() {
             {/* 如果没有README内容，显示默认知识点 */}
             {!readmeContent && (
               <div className="mb-6">
-                <h2 className="text-md font-semibold mb-3 text-green-600">💡 知识点</h2>
+                <h2 className="text-md font-semibold mb-3 text-green-600">💡 {t('tutorial.knowledge_points') || '知识点'}</h2>
                 <div className="text-sm text-gray-700 bg-green-50 p-3 rounded-lg">
                   <p className="mb-2">在GLSL中，<code className="bg-gray-200 px-1 rounded">gl_FragColor</code> 是片段着色器的输出变量。</p>
                   <p className="mb-2">它是一个 <code className="bg-gray-200 px-1 rounded">vec4</code> 类型，表示RGBA颜色值。</p>

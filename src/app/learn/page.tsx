@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import MainLayout from '../../components/layout/main-layout';
 import Card from '../../components/ui/card';
 import { Button } from '@/components/ui/button';
+import { useLanguage } from '../../contexts/LanguageContext';
 
 interface Tutorial {
   id: string;
@@ -16,6 +17,7 @@ interface Tutorial {
 
 export default function LearnPage() {
   const router = useRouter();
+  const { t, language } = useLanguage();
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [selectedDifficulty, setSelectedDifficulty] = useState<string>('all');
   const [tutorials, setTutorials] = useState<Tutorial[]>([]);
@@ -26,22 +28,22 @@ export default function LearnPage() {
     const loadTutorials = async () => {
       try {
         setLoading(true);
-        // 从API动态获取教程数据
-        const response = await fetch('/api/tutorials');
+        // 从API动态获取教程数据，传递语言参数
+        const response = await fetch(`/api/tutorials?lang=${language}`);
         if (!response.ok) {
           throw new Error('Failed to fetch tutorials');
         }
         const data = await response.json();
         setTutorials(data.tutorials || []);
       } catch (error) {
-        console.error('加载教程数据失败:', error);
+        console.error('Failed to load tutorials:', error);
       } finally {
         setLoading(false);
       }
     };
 
     loadTutorials();
-  }, []);
+  }, [language]);
 
   // 提取所有唯一的分类
   const categories = ['all', ...Array.from(new Set(tutorials.map(tutorial => tutorial.category)))];
@@ -53,24 +55,25 @@ export default function LearnPage() {
       (selectedDifficulty === 'all' || tutorial.difficulty === selectedDifficulty)
   );
 
-  // 难度级别转中文显示
-  const difficultyMap = {
-    beginner: '初级',
-    intermediate: '中级',
-    advanced: '高级',
-    all: '全部',
+  // 难度级别显示
+  const getDifficultyDisplayName = (difficulty: string) => {
+    const difficultyMap: { [key: string]: string } = {
+      beginner: t('learn.difficulty.beginner') || '初级',
+      intermediate: t('learn.difficulty.intermediate') || '中级', 
+      advanced: t('learn.difficulty.advanced') || '高级',
+      all: t('learn.difficulty.all') || '全部',
+    };
+    return difficultyMap[difficulty] || difficulty;
   };
 
-  // 分类转中文显示
-  const categoryMap: { [key: string]: string } = {
-    basic: '基础',
-    noise: '噪声',
-    lighting: '光照',
-    all: '全部',
-  };
-
-  // 为未知分类提供默认显示名称
+  // 分类显示
   const getCategoryDisplayName = (category: string) => {
+    const categoryMap: { [key: string]: string } = {
+      basic: t('learn.category.basic') || '基础',
+      noise: t('learn.category.noise') || '噪声',
+      lighting: t('learn.category.lighting') || '光照',
+      all: t('learn.category.all') || '全部',
+    };
     return categoryMap[category] || category;
   };
 
@@ -78,10 +81,9 @@ export default function LearnPage() {
     <MainLayout>
       <section className="py-8">
         <div className="container mx-auto">
-          <h1 className="text-3xl font-bold mb-2">GLSL 学习中心</h1>
+          <h1 className="text-3xl font-bold mb-2">{t('learn.title')}</h1>
           <p className="text-gray-600 mb-8">
-            通过交互式练习和教程，系统学习 GLSL
-            着色器编程。从基础概念到高级技术，循序渐进掌握图形渲染的精髓。
+            {t('learn.description')}
           </p>
 
           {/* 分类标签页 */}
@@ -110,7 +112,7 @@ export default function LearnPage() {
             
             {/* 难度筛选 */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">难度筛选</label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">{t('learn.filter.difficulty') || '难度筛选'}</label>
               <div className="flex flex-wrap gap-2">
                 {['all', 'beginner', 'intermediate', 'advanced'].map(difficulty => (
                   <button
@@ -122,7 +124,7 @@ export default function LearnPage() {
                         : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                     }`}
                   >
-                    {difficultyMap[difficulty as keyof typeof difficultyMap]}
+                    {getDifficultyDisplayName(difficulty)}
                   </button>
                 ))}
               </div>
@@ -133,7 +135,7 @@ export default function LearnPage() {
           {loading ? (
             <div className="flex justify-center items-center py-12">
               <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div>
-              <span className="ml-3 text-gray-600">加载教程中...</span>
+              <span className="ml-3 text-gray-600">{t('loading')}</span>
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -154,7 +156,7 @@ export default function LearnPage() {
                           : 'bg-red-100 text-red-800'
                       }`}
                     >
-                      {difficultyMap[tutorial.difficulty]}
+                      {getDifficultyDisplayName(tutorial.difficulty)}
                     </span>
                   </div>
                   <p className="text-gray-600 text-sm leading-relaxed">{tutorial.description}</p>
@@ -170,7 +172,7 @@ export default function LearnPage() {
 
           {!loading && filteredTutorials.length === 0 && (
             <div className="text-center py-12">
-              <p className="text-lg text-gray-500">没有找到匹配的教程</p>
+              <p className="text-lg text-gray-500">{t('learn.no_tutorials') || '没有找到匹配的教程'}</p>
             </div>
           )}
         </div>

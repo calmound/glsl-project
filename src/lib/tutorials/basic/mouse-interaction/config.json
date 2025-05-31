@@ -1,7 +1,9 @@
 {
   "id": "mouse-interaction",
   "title": "鼠标交互",
+  "title_en": "Mouse Interaction",
   "description": "学习使用鼠标坐标创建交互效果，理解uniform变量的传递和使用。",
+  "description_en": "Learn to create interactive effects using mouse coordinates and understand the passing and usage of uniform variables.",
   "difficulty": "beginner",
   "category": "basic",
   "tags": ["交互", "鼠标", "uniform"],

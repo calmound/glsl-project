@@ -1,7 +1,9 @@
 {
   "id": "noise-texture",
   "title": "噪声纹理",
+  "title_en": "Noise Texture",
   "description": "学习创建伪随机噪声纹理，理解噪声在程序化纹理生成中的重要作用。",
+  "description_en": "Learn to create pseudo-random noise textures and understand the important role of noise in procedural texture generation.",
   "difficulty": "beginner",
   "category": "basic",
   "tags": ["噪声", "纹理", "随机"],

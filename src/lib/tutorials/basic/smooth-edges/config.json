@@ -1,7 +1,9 @@
 {
   "id": "smooth-edges",
   "title": "平滑边缘",
+  "title_en": "Smooth Edges",
   "description": "学习使用smoothstep函数创建平滑的边缘过渡效果，对比step函数的硬边缘。",
+  "description_en": "Learn to create smooth edge transition effects using the smoothstep function, contrasting with the hard edges of the step function.",
   "difficulty": "beginner",
   "category": "basic",
   "tags": ["平滑", "边缘", "过渡"],

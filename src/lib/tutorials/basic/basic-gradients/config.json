@@ -1,7 +1,9 @@
 {
   "id": "basic-gradients",
   "title": "基础渐变效果",
+  "title_en": "Basic Gradient Effects",
   "description": "学习如何使用GLSL创建线性和径向渐变效果",
+  "description_en": "Learn how to create linear and radial gradient effects using GLSL",
   "difficulty": "beginner",
   "category": "basic",
   "tags": ["渐变", "基础", "颜色"],

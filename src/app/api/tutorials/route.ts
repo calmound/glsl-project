@@ -14,6 +14,9 @@ interface Tutorial {
 
 export async function GET(request: NextRequest) {
   try {
+    const { searchParams } = new URL(request.url);
+    const lang = searchParams.get('lang') || 'zh';
+    
     const tutorialsDir = path.join(process.cwd(), 'src/lib/tutorials');
     const tutorials: Tutorial[] = [];
 
@@ -42,10 +45,19 @@ export async function GET(request: NextRequest) {
             
             // 验证必要字段
             if (config.id && config.title && config.description && config.difficulty && config.category) {
+              // 根据语言选择标题和描述
+              let title = config.title;
+              let description = config.description;
+              
+              if (lang === 'en') {
+                title = config.title_en || config.title;
+                description = config.description_en || config.description;
+              }
+              
               tutorials.push({
                 id: config.id,
-                title: config.title,
-                description: config.description,
+                title: title,
+                description: description,
                 difficulty: config.difficulty,
                 category: config.category,
                 tags: config.tags || [],

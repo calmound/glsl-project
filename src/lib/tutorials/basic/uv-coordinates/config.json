@@ -1,7 +1,9 @@
 {
   "id": "uv-coordinates",
   "title": "UV坐标基础",
+  "title_en": "UV Coordinates Basics",
   "description": "理解着色器中的UV坐标系统及其应用",
+  "description_en": "Understanding UV coordinate system in shaders and its applications",
   "difficulty": "beginner",
   "category": "basic",
   "tags": ["UV坐标", "基础", "坐标系统"],

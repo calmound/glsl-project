@@ -88,7 +88,7 @@ export default async function LocaleLayout({ children, params }: LocaleLayoutPro
         <meta name="theme-color" content="#3b82f6" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </head>
-      <body className="antialiased">
+      <body className="antialiased" suppressHydrationWarning>
         <LanguageProvider initialLocale={locale}>
           {children}
         </LanguageProvider>

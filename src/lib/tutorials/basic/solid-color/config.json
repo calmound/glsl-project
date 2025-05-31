@@ -1,0 +1,13 @@
+{
+  "id": "solid-color",
+  "title": "纯色填充",
+  "description": "学习最基础的着色器概念，创建纯色填充效果。理解gl_FragColor的作用和RGBA颜色模式。",
+  "difficulty": "beginner",
+  "category": "basic",
+  "tags": ["基础", "颜色", "入门"],
+  "uniforms": {
+    "u_time": 0.0,
+    "u_resolution": [300, 300]
+  },
+  "preview": "/api/shader/basic/solid-color"
+}

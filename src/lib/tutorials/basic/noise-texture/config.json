@@ -1,0 +1,13 @@
+{
+  "id": "noise-texture",
+  "title": "噪声纹理",
+  "description": "学习创建伪随机噪声纹理，理解噪声在程序化纹理生成中的重要作用。",
+  "difficulty": "beginner",
+  "category": "basic",
+  "tags": ["噪声", "纹理", "随机"],
+  "uniforms": {
+    "u_time": 0.0,
+    "u_resolution": [300, 300]
+  },
+  "preview": "/api/shader/basic/noise-texture"
+}

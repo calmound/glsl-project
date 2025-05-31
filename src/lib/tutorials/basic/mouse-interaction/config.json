@@ -1,0 +1,14 @@
+{
+  "id": "mouse-interaction",
+  "title": "鼠标交互",
+  "description": "学习使用鼠标坐标创建交互效果，理解uniform变量的传递和使用。",
+  "difficulty": "beginner",
+  "category": "basic",
+  "tags": ["交互", "鼠标", "uniform"],
+  "uniforms": {
+    "u_time": 0.0,
+    "u_resolution": [300, 300],
+    "u_mouse": [150, 150]
+  },
+  "preview": "/api/shader/basic/mouse-interaction"
+}

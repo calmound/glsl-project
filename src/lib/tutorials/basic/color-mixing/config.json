@@ -1,0 +1,13 @@
+{
+  "id": "color-mixing",
+  "title": "颜色混合",
+  "description": "学习使用mix函数进行颜色混合，理解线性插值的概念和应用。",
+  "difficulty": "beginner",
+  "category": "basic",
+  "tags": ["颜色", "混合", "插值"],
+  "uniforms": {
+    "u_time": 0.0,
+    "u_resolution": [300, 300]
+  },
+  "preview": "/api/shader/basic/color-mixing"
+}

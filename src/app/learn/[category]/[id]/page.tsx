@@ -24,6 +24,8 @@ export default function ShaderDetailPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [fragmentShader, setFragmentShader] = useState<string>('');
+  const [exerciseShader, setExerciseShader] = useState<string>('');
+  const [readmeContent, setReadmeContent] = useState<string>('');
   const [vertexShader, setVertexShader] = useState<string>('');
   const [userCode, setUserCode] = useState<string>('');
   const [initialCode, setInitialCode] = useState<string>('');
@@ -365,10 +367,12 @@ export default function ShaderDetailPage() {
     console.log('顶点着色器代码:', vertexCode ? vertexCode.substring(0, 100) + '...' : '无');
 
     setFragmentShader(fragmentCode);
+    setExerciseShader(shaderData.exerciseShader || '');
+    setReadmeContent(shaderData.readme || '');
     setVertexShader(vertexCode);
     
-    // 创建初始的不完整代码（移除部分关键代码让用户填写）
-    const incompleteCode = createIncompleteCode(fragmentCode);
+    // 优先使用练习代码，如果没有则创建初始的不完整代码
+    const incompleteCode = shaderData.exerciseShader || createIncompleteCode(fragmentCode);
     setInitialCode(incompleteCode);
     setUserCode(incompleteCode);
 
@@ -437,7 +441,7 @@ export default function ShaderDetailPage() {
     console.log('着色器编译成功');
   };
 
-  // 重置代码到初始状态
+  // 重置代码到初始状态（练习代码）
   const handleResetCode = () => {
     setUserCode(initialCode);
     setIsSubmitted(false);
@@ -598,7 +602,7 @@ export default function ShaderDetailPage() {
 
           {/* 问题描述和知识点 */}
           <div className="flex-1 overflow-auto p-4">
-            {/* 问题描述 */}
+            {/* 练习目标 */}
             <div className="mb-6">
               <h2 className="text-md font-semibold mb-3 text-blue-600">📝 练习目标</h2>
               <div className="text-sm text-gray-700 bg-blue-50 p-3 rounded-lg">
@@ -606,35 +610,40 @@ export default function ShaderDetailPage() {
               </div>
             </div>
 
-            {/* 知识点介绍 */}
-            <div className="mb-6">
-              <h2 className="text-md font-semibold mb-3 text-green-600">💡 知识点</h2>
-              <div className="text-sm text-gray-700 bg-green-50 p-3 rounded-lg">
-                <p className="mb-2">在GLSL中，<code className="bg-gray-200 px-1 rounded">gl_FragColor</code> 是片段着色器的输出变量。</p>
-                <p className="mb-2">它是一个 <code className="bg-gray-200 px-1 rounded">vec4</code> 类型，表示RGBA颜色值。</p>
-                <p>每个分量的取值范围是 0.0 到 1.0。</p>
+            {/* README 内容 */}
+            {readmeContent && (
+              <div className="mb-6">
+                <h2 className="text-md font-semibold mb-3 text-green-600">💡 教程内容</h2>
+                <div className="text-sm text-gray-700 bg-green-50 p-3 rounded-lg prose prose-sm max-w-none">
+                  <div 
+                    className="markdown-content"
+                    dangerouslySetInnerHTML={{ 
+                      __html: readmeContent
+                        .replace(/^# .+$/gm, '') // 移除一级标题
+                        .replace(/^## (.+)$/gm, '<h3 class="font-semibold text-green-700 mt-4 mb-2">$1</h3>') // 二级标题
+                        .replace(/^### (.+)$/gm, '<h4 class="font-medium text-green-600 mt-3 mb-1">$1</h4>') // 三级标题
+                        .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>') // 粗体
+                        .replace(/`(.+?)`/g, '<code class="bg-gray-200 px-1 rounded text-xs">$1</code>') // 行内代码
+                        .replace(/\n\n/g, '</p><p class="mb-2">') // 段落
+                        .replace(/^(.+)$/gm, '<p class="mb-2">$1</p>') // 包装段落
+                        .replace(/<p class="mb-2"><\/p>/g, '') // 移除空段落
+                    }}
+                  />
+                </div>
               </div>
-            </div>
+            )}
 
-            {/* 正确效果预览 */}
-            <div className="mb-4">
-              <h3 className="text-md font-semibold mb-2 text-purple-600">🎯 预期效果</h3>
-              <div
-                className="border rounded-md shadow-sm overflow-hidden"
-                style={{ height: '200px' }}
-              >
-                <ShaderCanvasNew
-                  fragmentShader={fragmentShader}
-                  vertexShader={vertexShader || undefined}
-                  uniforms={{
-                    u_time: 0.1,
-                    u_resolution: [200, 200],
-                  }}
-                  width="100%"
-                  height="100%"
-                />
+            {/* 如果没有README内容，显示默认知识点 */}
+            {!readmeContent && (
+              <div className="mb-6">
+                <h2 className="text-md font-semibold mb-3 text-green-600">💡 知识点</h2>
+                <div className="text-sm text-gray-700 bg-green-50 p-3 rounded-lg">
+                  <p className="mb-2">在GLSL中，<code className="bg-gray-200 px-1 rounded">gl_FragColor</code> 是片段着色器的输出变量。</p>
+                  <p className="mb-2">它是一个 <code className="bg-gray-200 px-1 rounded">vec4</code> 类型，表示RGBA颜色值。</p>
+                  <p>每个分量的取值范围是 0.0 到 1.0。</p>
+                </div>
               </div>
-            </div>
+            )}
           </div>
         </div>
 

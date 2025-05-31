@@ -1,0 +1,13 @@
+{
+  "id": "sine-wave",
+  "title": "正弦波动画",
+  "description": "学习使用sin函数创建波形效果，理解频率、振幅和相位的概念。",
+  "difficulty": "beginner",
+  "category": "basic",
+  "tags": ["正弦波", "动画", "数学"],
+  "uniforms": {
+    "u_time": 0.0,
+    "u_resolution": [300, 300]
+  },
+  "preview": "/api/shader/basic/sine-wave"
+}

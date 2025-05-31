@@ -1,0 +1,13 @@
+{
+  "id": "time-animation",
+  "title": "时间动画",
+  "description": "学习使用u_time uniform变量创建随时间变化的动画效果，理解sin函数在动画中的应用。",
+  "difficulty": "beginner",
+  "category": "basic",
+  "tags": ["动画", "时间", "sin函数"],
+  "uniforms": {
+    "u_time": 0.0,
+    "u_resolution": [300, 300]
+  },
+  "preview": "/api/shader/basic/time-animation"
+}

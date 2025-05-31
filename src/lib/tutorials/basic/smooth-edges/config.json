@@ -1,0 +1,13 @@
+{
+  "id": "smooth-edges",
+  "title": "平滑边缘",
+  "description": "学习使用smoothstep函数创建平滑的边缘过渡效果，对比step函数的硬边缘。",
+  "difficulty": "beginner",
+  "category": "basic",
+  "tags": ["平滑", "边缘", "过渡"],
+  "uniforms": {
+    "u_time": 0.0,
+    "u_resolution": [300, 300]
+  },
+  "preview": "/api/shader/basic/smooth-edges"
+}

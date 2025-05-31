@@ -1,0 +1,13 @@
+{
+  "id": "simple-rectangle",
+  "title": "简单矩形",
+  "description": "学习使用条件判断绘制矩形，理解坐标范围和边界检测。",
+  "difficulty": "beginner",
+  "category": "basic",
+  "tags": ["矩形", "图形", "边界"],
+  "uniforms": {
+    "u_time": 0.0,
+    "u_resolution": [300, 300]
+  },
+  "preview": "/api/shader/basic/simple-rectangle"
+}

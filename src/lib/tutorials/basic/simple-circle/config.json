@@ -1,0 +1,13 @@
+{
+  "id": "simple-circle",
+  "title": "绘制圆形",
+  "description": "学习使用距离函数绘制基本图形，理解像素坐标系统和distance函数的应用。",
+  "difficulty": "beginner",
+  "category": "basic",
+  "tags": ["图形", "圆形", "距离函数"],
+  "uniforms": {
+    "u_time": 0.0,
+    "u_resolution": [300, 300]
+  },
+  "preview": "/api/shader/basic/simple-circle"
+}

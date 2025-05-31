@@ -22,16 +22,11 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
                   学习
                 </a>
               </li>
-              <li>
+              {/* <li>
                 <a href="/glslify-guide" className="text-gray-600 hover:text-primary transition-colors">
                   Glslify 指南
                 </a>
-              </li>
-              <li>
-                <a href="/about" className="text-gray-600 hover:text-primary transition-colors">
-                  关于
-                </a>
-              </li>
+              </li> */}
             </ul>
           </nav>
         </div>

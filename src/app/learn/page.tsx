@@ -26,52 +26,13 @@ export default function LearnPage() {
     const loadTutorials = async () => {
       try {
         setLoading(true);
-        // 这里暂时使用静态数据，后续可以改为动态加载
-        const tutorialData: Tutorial[] = [
-          {
-            id: 'basic-gradients',
-            title: '基础渐变效果',
-            description: '学习如何使用GLSL创建线性和径向渐变效果',
-            difficulty: 'beginner',
-            category: 'basic',
-          },
-          {
-            id: 'uv-coordinates',
-            title: 'UV坐标基础',
-            description: '理解着色器中的UV坐标系统及其应用',
-            difficulty: 'beginner',
-            category: 'basic',
-          },
-          {
-            id: 'noise-functions',
-            title: '噪声函数',
-            description: '学习如何在着色器中实现不同类型的噪声函数',
-            difficulty: 'intermediate',
-            category: 'noise',
-          },
-          {
-            id: 'fractal-brownian-motion',
-            title: '分形布朗运动',
-            description: '使用分形布朗运动技术创建复杂的纹理和地形',
-            difficulty: 'intermediate',
-            category: 'noise',
-          },
-          {
-            id: 'phong-lighting',
-            title: 'Phong光照模型',
-            description: '实现基础的Phong光照模型计算反射光',
-            difficulty: 'intermediate',
-            category: 'lighting',
-          },
-          {
-            id: 'toon-shading',
-            title: '卡通渲染',
-            description: '创建卡通风格的渲染效果',
-            difficulty: 'advanced',
-            category: 'lighting',
-          },
-        ];
-        setTutorials(tutorialData);
+        // 从API动态获取教程数据
+        const response = await fetch('/api/tutorials');
+        if (!response.ok) {
+          throw new Error('Failed to fetch tutorials');
+        }
+        const data = await response.json();
+        setTutorials(data.tutorials || []);
       } catch (error) {
         console.error('加载教程数据失败:', error);
       } finally {
@@ -101,11 +62,16 @@ export default function LearnPage() {
   };
 
   // 分类转中文显示
-  const categoryMap = {
+  const categoryMap: { [key: string]: string } = {
     basic: '基础',
     noise: '噪声',
     lighting: '光照',
     all: '全部',
+  };
+
+  // 为未知分类提供默认显示名称
+  const getCategoryDisplayName = (category: string) => {
+    return categoryMap[category] || category;
   };
 
   return (
@@ -135,7 +101,7 @@ export default function LearnPage() {
                         : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                     }`}
                   >
-                    {categoryMap[category as keyof typeof categoryMap] || category}
+                    {getCategoryDisplayName(category)}
                     <span className="ml-1 text-xs opacity-75">({count})</span>
                   </button>
                 );
@@ -194,7 +160,7 @@ export default function LearnPage() {
                   <p className="text-gray-600 text-sm leading-relaxed">{tutorial.description}</p>
                   <div className="mt-4 pt-3 border-t border-gray-100">
                     <span className="text-xs text-gray-500 font-medium">
-                      {categoryMap[tutorial.category as keyof typeof categoryMap] || tutorial.category}
+                      {getCategoryDisplayName(tutorial.category)}
                     </span>
                   </div>
                 </Card>

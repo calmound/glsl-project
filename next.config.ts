@@ -1,6 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  
   webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
     // 添加对 GLSL 文件的支持
     config.module.rules.push({
@@ -24,6 +25,8 @@ const nextConfig: NextConfig = {
   },
   // 添加文件扩展名支持
   pageExtensions: ['ts', 'tsx', 'js', 'jsx', 'md', 'mdx'],
+  
+
 };
 
 export default nextConfig;

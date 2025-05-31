@@ -1,12 +1,24 @@
 'use client';
-import React from 'react';
-import MainLayout from '../components/layout/main-layout';
-import Card from '../components/ui/card';
-import { Button } from '@/components/ui/button';
-import { useLanguage } from '../contexts/LanguageContext';
 
-export default function Home() {
+import React from 'react';
+import { useRouter } from 'next/navigation';
+import MainLayout from '../../components/layout/main-layout';
+import Card from '../../components/ui/card';
+import { Button } from '@/components/ui/button';
+import { useLanguage } from '../../contexts/LanguageContext';
+import { type Locale } from '../../lib/i18n';
+
+interface HomePageClientProps {
+  locale: Locale;
+}
+
+export default function HomePageClient({ locale }: HomePageClientProps) {
   const { t } = useLanguage();
+  const router = useRouter();
+  
+  const handleStartLearning = () => {
+    router.push(`/${locale}/learn`);
+  };
   
   return (
     <MainLayout>
@@ -41,10 +53,9 @@ export default function Home() {
               </div>
             </div>
             <div className="flex flex-wrap gap-4 pt-4">
-              <Button variant="secondary" size="lg" href="/learn">
+              <Button variant="secondary" size="lg" onClick={handleStartLearning}>
                 {t('home.start_learning')}
               </Button>
-
             </div>
           </div>
           <div className="md:w-1/2 flex justify-center">
@@ -270,7 +281,7 @@ export default function Home() {
                   {t('home.learning.optimization') || '性能优化：让您的着色器在各种设备上流畅运行'}
                 </li>
               </ul>
-              <Button  variant="secondary"  href="/learn">{t('home.start_learning')}</Button>
+              <Button variant="secondary" onClick={handleStartLearning}>{t('home.start_learning')}</Button>
             </div>
             <div className="md:w-1/2 flex justify-center items-center">
               <div className="max-w-sm p-6 bg-gray-100 rounded-lg">
@@ -299,10 +310,9 @@ void main() {
             {t('home.cta.description') || '加入我们的学习平台，从今天开始掌握现代图形编程技能。无论您是想要提升职业技能，还是纯粹出于兴趣，我们都将陪伴您的每一步成长。'}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button variant="secondary" size="lg" href="/learn">
+            <Button variant="secondary" size="lg" onClick={handleStartLearning}>
               {t('home.start_learning')}
             </Button>
-          
           </div>
           <div className="mt-8 text-sm text-blue-200">
             <p>{t('home.cta.features') || ' 🚀 即学即用 • 💡 持续更新'}</p>

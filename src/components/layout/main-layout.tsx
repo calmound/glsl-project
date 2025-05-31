@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import Link from 'next/link';
 import { useLanguage } from '../../contexts/LanguageContext';
 import LanguageSwitcher from '../ui/language-switcher';
 
@@ -9,31 +10,28 @@ interface MainLayoutProps {
 }
 
 const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   
   return (
     <div className="min-h-screen flex flex-col">
       <header className="bg-white shadow-sm border-b">
         <div className="container mx-auto py-4 px-4 flex items-center justify-between">
-          <h1 className="text-xl font-bold text-gray-800">{t('header.title')}</h1>
+          <Link href={`/${language}`} className="text-xl font-bold text-gray-800 hover:text-primary transition-colors">
+            {t('header.title')}
+          </Link>
           <div className="flex items-center space-x-6">
             <nav>
               <ul className="flex space-x-6">
                 <li>
-                  <a href="/" className="text-gray-600 hover:text-primary transition-colors">
+                  <Link href={`/${language}`} className="text-gray-600 hover:text-primary transition-colors">
                     {t('nav.home')}
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="/learn" className="text-gray-600 hover:text-primary transition-colors">
+                  <Link href={`/${language}/learn`} className="text-gray-600 hover:text-primary transition-colors">
                     {t('nav.learn')}
-                  </a>
+                  </Link>
                 </li>
-                {/* <li>
-                  <a href="/glslify-guide" className="text-gray-600 hover:text-primary transition-colors">
-                    Glslify 指南
-                  </a>
-                </li> */}
               </ul>
             </nav>
             <LanguageSwitcher />

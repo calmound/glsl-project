@@ -1,0 +1,30 @@
+{
+  "id": "pattern-repetition",
+  "title": {
+    "zh": "图案重复",
+    "en": "Pattern Repetition"
+  },
+  "description": {
+    "zh": "学习如何创建重复的几何图案，包括网格系统、随机变化和动画效果",
+    "en": "Learn how to create repetitive geometric patterns, including grid systems, random variations, and animation effects"
+  },
+  "difficulty": "intermediate",
+  "category": "basic",
+  "tags": ["pattern", "repetition", "grid", "procedural", "animation"],
+  "estimatedTime": 30,
+  "prerequisites": ["coordinate-transformation", "simple-circle"],
+  "learningObjectives": {
+    "zh": [
+      "掌握网格系统的创建方法",
+      "学习使用fract函数创建重复效果",
+      "了解如何为每个网格单元添加随机变化",
+      "掌握程序化图案生成技巧"
+    ],
+    "en": [
+      "Master methods for creating grid systems",
+      "Learn to use the fract function to create repetitive effects",
+      "Understand how to add random variations to each grid cell",
+      "Master procedural pattern generation techniques"
+    ]
+  }
+}

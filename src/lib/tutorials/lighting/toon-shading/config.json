@@ -1,0 +1,19 @@
+{
+  "id": "toon-shading",
+  "title": "卡通渲染",
+  "description": "创建卡通风格的渲染效果",
+  "difficulty": "advanced",
+  "category": "lighting",
+  "tags": ["卡通渲染", "非真实感渲染", "风格化"],
+  "uniforms": {
+    "u_resolution": {
+      "type": "vec2",
+      "description": "画布尺寸"
+    },
+    "u_time": {
+      "type": "float",
+      "description": "时间（秒）"
+    }
+  },
+  "preview": "preview.png"
+}

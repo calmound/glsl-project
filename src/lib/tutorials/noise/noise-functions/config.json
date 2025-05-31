@@ -1,0 +1,19 @@
+{
+  "id": "noise-functions",
+  "title": "噪声函数",
+  "description": "学习如何在着色器中实现不同类型的噪声函数",
+  "difficulty": "intermediate",
+  "category": "noise",
+  "tags": ["噪声", "随机", "纹理生成"],
+  "uniforms": {
+    "u_resolution": {
+      "type": "vec2",
+      "description": "画布尺寸"
+    },
+    "u_time": {
+      "type": "float",
+      "description": "时间（秒）"
+    }
+  },
+  "preview": "preview.png"
+}

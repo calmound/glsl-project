@@ -1,0 +1,19 @@
+{
+  "id": "fractal-brownian-motion",
+  "title": "分形布朗运动",
+  "description": "使用分形布朗运动技术创建复杂的纹理和地形",
+  "difficulty": "intermediate",
+  "category": "noise",
+  "tags": ["分形", "布朗运动", "地形生成"],
+  "uniforms": {
+    "u_resolution": {
+      "type": "vec2",
+      "description": "画布尺寸"
+    },
+    "u_time": {
+      "type": "float",
+      "description": "时间（秒）"
+    }
+  },
+  "preview": "preview.png"
+}

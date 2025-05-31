@@ -14,81 +14,32 @@ export async function GET(
       return NextResponse.json({ error: '缺少必要参数' }, { status: 400 });
     }
 
-    // 构建文件路径
-    const filePath = path.join(process.cwd(), 'src/lib/tutorials', category, `${id}.glsl`);
+    // 构建新的文件夹路径
+    const tutorialDir = path.join(process.cwd(), 'src/lib/tutorials', category, id);
+    const configPath = path.join(tutorialDir, 'config.json');
+    const fragmentPath = path.join(tutorialDir, 'fragment.glsl');
 
-    // 检查文件是否存在
-    if (!fs.existsSync(filePath)) {
+    // 检查文件夹和必要文件是否存在
+    if (!fs.existsSync(tutorialDir) || !fs.existsSync(configPath) || !fs.existsSync(fragmentPath)) {
       return NextResponse.json({ error: `找不到着色器文件: ${category}/${id}` }, { status: 404 });
     }
 
-    // 读取文件内容
-    const fileContent = await fsPromises.readFile(filePath, 'utf8');
+    // 读取配置文件和着色器文件
+    const configContent = await fsPromises.readFile(configPath, 'utf8');
+    const fragmentContent = await fsPromises.readFile(fragmentPath, 'utf8');
 
-    // 解析GLSL文件内容，提取元数据和着色器代码
-    const shaderData = parseGLSLFile(fileContent, category, id);
+    // 解析配置文件
+    const config = JSON.parse(configContent);
+    
+    // 构建着色器数据
+    const shaderData = {
+      ...config,
+      fragmentShader: fragmentContent
+    };
 
     return NextResponse.json(shaderData);
   } catch (error) {
     console.error('读取着色器文件时发生错误:', error);
     return NextResponse.json({ error: '服务器错误' }, { status: 500 });
   }
-}
-
-/**
- * 解析GLSL文件内容，提取元数据和着色器代码
- */
-function parseGLSLFile(content: string, category: string, id: string) {
-  const lines = content.split('\n');
-  const metadata: any = {
-    id,
-    category,
-    title: id.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase()),
-    description: '',
-    difficulty: 'beginner',
-    fragmentShader: '',
-    tags: [],
-    uniforms: {
-      u_time: 0.0,
-      u_resolution: [300, 300],
-    },
-  };
-
-  let inFragmentShader = false;
-  let fragmentShaderLines: string[] = [];
-
-  for (const line of lines) {
-    const trimmedLine = line.trim();
-
-    // 解析注释中的元数据
-    if (trimmedLine.startsWith('//')) {
-      const comment = trimmedLine.substring(2).trim();
-      
-      if (comment.startsWith('title:')) {
-        metadata.title = comment.substring(6).trim();
-      } else if (comment.startsWith('description:')) {
-        metadata.description = comment.substring(12).trim();
-      } else if (comment.startsWith('difficulty:')) {
-        metadata.difficulty = comment.substring(11).trim();
-      } else if (comment.startsWith('tags:')) {
-        metadata.tags = comment.substring(5).trim().split(',').map(tag => tag.trim());
-      }
-    }
-
-    // 检测片段着色器开始
-    if (trimmedLine.includes('precision mediump float;') || 
-        trimmedLine.includes('precision highp float;') ||
-        trimmedLine.includes('precision lowp float;')) {
-      inFragmentShader = true;
-    }
-
-    // 收集片段着色器代码
-    if (inFragmentShader) {
-      fragmentShaderLines.push(line);
-    }
-  }
-
-  metadata.fragmentShader = fragmentShaderLines.join('\n');
-
-  return metadata;
 }

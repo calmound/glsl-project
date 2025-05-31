@@ -635,17 +635,6 @@ export default function ShaderDetailPage() {
                 />
               </div>
             </div>
-
-            {/* 提交反馈 */}
-            {isSubmitted && (
-              <div className={`p-3 rounded-lg ${isCorrect ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`}>
-                <div className="flex items-center gap-2 mb-2">
-                  {isCorrect ? <CheckIcon className="w-5 h-5" /> : <XMarkIcon className="w-5 h-5" />}
-                  <span className="font-medium">{isCorrect ? '正确！' : '需要改进'}</span>
-                </div>
-                <p className="text-sm">{feedback}</p>
-              </div>
-            )}
           </div>
         </div>
 

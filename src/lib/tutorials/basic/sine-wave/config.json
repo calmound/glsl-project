@@ -1,12 +1,32 @@
 {
   "id": "sine-wave",
-  "title": "正弦波动画",
-  "title_en": "Sine Wave Animation",
-  "description": "学习使用sin函数创建波形效果，理解频率、振幅和相位的概念。",
-  "description_en": "Learn to create wave effects using the sin function and understand the concepts of frequency, amplitude, and phase.",
+  "title": {
+    "zh": "正弦波动画",
+    "en": "Sine Wave Animation"
+  },
+  "description": {
+    "zh": "学习使用sin函数创建波形效果，理解频率、振幅和相位的概念。",
+    "en": "Learn to create wave effects using the sin function and understand the concepts of frequency, amplitude, and phase."
+  },
   "difficulty": "beginner",
   "category": "basic",
-  "tags": ["正弦波", "动画", "数学"],
+  "tags": ["正弦波", "动画", "数学", "sin函数", "时间"],
+  "estimatedTime": 20,
+  "prerequisites": ["uv-coordinates", "time-animation"],
+  "learningObjectives": {
+    "zh": [
+      "理解`sin()`函数如何生成周期性波形。",
+      "学习调整频率、振幅和相位参数以改变波形特征。",
+      "掌握将时间变量`u_time`与`sin()`函数结合创建动态波形。",
+      "了解如何将波形应用于颜色变化或形状位移。"
+    ],
+    "en": [
+      "Understand how the `sin()` function generates periodic waveforms.",
+      "Learn to adjust frequency, amplitude, and phase parameters to change waveform characteristics.",
+      "Master combining the time variable `u_time` with the `sin()` function to create dynamic waveforms.",
+      "Understand how to apply waveforms to color changes or shape displacements."
+    ]
+  },
   "uniforms": {
     "u_time": 0.0,
     "u_resolution": [300, 300]

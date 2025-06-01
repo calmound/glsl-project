@@ -1,8 +1,35 @@
 {
   "id": "step-function-mask",
-  "title": "硬边遮罩",
-  "title_en": "Step Function Mask",
+  "title": {
+    "zh": "硬边遮罩",
+    "en": "Step Function Mask"
+  },
+  "description": {
+    "zh": "通过 step() 函数构造一个具有明确边界的遮罩，掌握 GLSL 中的二值化处理。",
+    "en": "Construct a mask with clear boundaries using the step() function, mastering binary processing in GLSL."
+  },
+  "difficulty": "beginner",
   "category": "basic",
-  "description": "通过 step() 函数构造一个具有明确边界的遮罩，掌握 GLSL 中的二值化处理。",
-  "difficulty": "beginner"
+  "tags": ["step函数", "遮罩", "二值化", "条件渲染"],
+  "estimatedTime": 15,
+  "prerequisites": ["simple-circle", "uv-coordinates"],
+  "learningObjectives": {
+    "zh": [
+      "理解`step(edge, x)`函数的工作原理及其如何返回0.0或1.0。",
+      "学习使用`step()`函数根据阈值创建硬边缘效果。",
+      "掌握将`step()`函数应用于距离场或UV坐标以创建形状遮罩。",
+      "能够利用遮罩实现特定区域的着色或效果。"
+    ],
+    "en": [
+      "Understand how the `step(edge, x)` function works and how it returns 0.0 or 1.0.",
+      "Learn to use the `step()` function to create hard edge effects based on a threshold.",
+      "Master applying the `step()` function to distance fields or UV coordinates to create shape masks.",
+      "Be able to use masks to achieve coloring or effects in specific areas."
+    ]
+  },
+  "uniforms": {
+    "u_time": 0.0,
+    "u_resolution": [300, 300]
+  },
+  "preview": "/api/shader/basic/step-function-mask"
 }

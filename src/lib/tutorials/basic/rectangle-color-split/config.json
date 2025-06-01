@@ -1,8 +1,28 @@
 {
   "id": "rectangle-color-split",
-  "title": "双色矩形分割",
-  "title_en": "Rectangle Color Split",
+  "title": {
+    "zh": "双色矩形分割",
+    "en": "Rectangle Color Split"
+  },
+  "description": {
+    "zh": "利用 if 条件将屏幕区域分为左右两色，掌握片元判断逻辑。",
+    "en": "Divide the screen area into two colors (left and right) using an if condition, mastering fragment judgment logic."
+  },
+  "difficulty": "beginner",
   "category": "basic",
-  "description": "利用 if 条件将屏幕区域分为左右两色，掌握片元判断逻辑。",
-  "difficulty": "beginner"
+  "tags": ["条件判断", "矩形", "颜色分割", "逻辑控制"],
+  "estimatedTime": 10,
+  "prerequisites": ["uv-coordinates", "solid-color"],
+  "learningObjectives": {
+    "zh": [
+      "理解如何在GLSL中使用`if`条件语句。",
+      "学习根据UV坐标的x值分割屏幕。",
+      "掌握为不同区域分配不同颜色的方法。"
+    ],
+    "en": [
+      "Understand how to use `if` conditional statements in GLSL.",
+      "Learn to divide the screen based on the x-value of UV coordinates.",
+      "Master the method of assigning different colors to different regions."
+    ]
+  }
 }

@@ -1,19 +1,45 @@
 {
   "id": "noise-functions",
-  "title": "噪声函数",
-  "description": "学习如何在着色器中实现不同类型的噪声函数",
+  "title": {
+    "zh": "噪声函数",
+    "en": "Noise Functions"
+  },
+  "description": {
+    "zh": "学习和实现 GLSL 中常用的噪声函数，如随机噪声、值噪声和梯度噪声（如Perlin噪声的简化版），用于生成各种程序化纹理和效果。",
+    "en": "Learn and implement common noise functions in GLSL, such as random noise, value noise, and gradient noise (like a simplified version of Perlin noise), used for generating various procedural textures and effects."
+  },
   "difficulty": "intermediate",
   "category": "noise",
-  "tags": ["噪声", "随机", "纹理生成"],
+  "tags": ["噪声函数", "随机噪声", "值噪声", "梯度噪声", "Perlin噪声", "程序化生成"],
+  "estimatedTime": 50,
+  "prerequisites": ["glsl-data-types", "glsl-functions", "vector-operations"],
+  "learningObjectives": {
+    "zh": [
+      "理解不同类型噪声（随机噪声、值噪声、梯度噪声）的基本原理和特性。",
+      "学习如何在GLSL中实现一个简单的伪随机数生成器。",
+      "掌握值噪声的实现方法，包括晶格点和插值。",
+      "初步了解梯度噪声（如Perlin噪声）的概念和实现思路。",
+      "能够运用所学噪声函数生成简单的程序化纹理。"
+    ],
+    "en": [
+      "Understand the basic principles and characteristics of different types of noise (random noise, value noise, gradient noise).",
+      "Learn how to implement a simple pseudo-random number generator in GLSL.",
+      "Master the implementation of value noise, including lattice points and interpolation.",
+      "Gain an initial understanding of the concept and implementation ideas of gradient noise (like Perlin noise).",
+      "Be able to use the learned noise functions to generate simple procedural textures."
+    ]
+  },
   "uniforms": {
     "u_resolution": {
       "type": "vec2",
-      "description": "画布尺寸"
+      "description_zh": "画布尺寸",
+      "description_en": "Canvas dimensions"
     },
     "u_time": {
       "type": "float",
-      "description": "时间（秒）"
+      "description_zh": "时间（秒）",
+      "description_en": "Time (seconds)"
     }
   },
-  "preview": "preview.png"
+  "preview": "/api/shader/noise/noise-functions"
 }

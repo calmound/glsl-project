@@ -1,19 +1,43 @@
 {
   "id": "fractal-brownian-motion",
-  "title": "分形布朗运动",
-  "description": "使用分形布朗运动技术创建复杂的纹理和地形",
+  "title": {
+    "zh": "分形布朗运动 (FBM)",
+    "en": "Fractal Brownian Motion (FBM)"
+  },
+  "description": {
+    "zh": "通过叠加多个不同频率和振幅的噪声层（通常是Perlin噪声或Simplex噪声）来创建具有自相似性的复杂图案，常用于生成自然现象如山脉、云彩、水面等。",
+    "en": "Create complex patterns with self-similarity by layering multiple noise octaves (usually Perlin or Simplex noise) with varying frequencies and amplitudes, often used to generate natural phenomena like mountains, clouds, and water surfaces."
+  },
   "difficulty": "intermediate",
   "category": "noise",
-  "tags": ["分形", "布朗运动", "地形生成"],
+  "tags": ["分形", "布朗运动", "FBM", "噪声叠加", "程序化纹理", "地形生成"],
+  "estimatedTime": 60,
+  "prerequisites": ["noise-functions", "looping-constructs"],
+  "learningObjectives": {
+    "zh": [
+      "理解分形布朗运动的基本原理：通过迭代叠加噪声实现。",
+      "学习如何在GLSL中实现FBM算法，包括控制倍频程(octaves)、持续性(persistence)和疏密度(lacunarity)。",
+      "掌握如何使用FBM生成类似地形、云朵等自然纹理。",
+      "能够调整FBM参数以获得不同风格的噪声效果。"
+    ],
+    "en": [
+      "Understand the basic principle of Fractal Brownian Motion: achieved by iteratively layering noise.",
+      "Learn how to implement the FBM algorithm in GLSL, including controlling octaves, persistence, and lacunarity.",
+      "Master how to use FBM to generate natural-looking textures like terrain and clouds.",
+      "Be able to adjust FBM parameters to achieve different styles of noise effects."
+    ]
+  },
   "uniforms": {
     "u_resolution": {
       "type": "vec2",
-      "description": "画布尺寸"
+      "description_zh": "画布尺寸",
+      "description_en": "Canvas dimensions"
     },
     "u_time": {
       "type": "float",
-      "description": "时间（秒）"
+      "description_zh": "时间（秒）",
+      "description_en": "Time (seconds)"
     }
   },
-  "preview": "preview.png"
+  "preview": "/api/shader/noise/fractal-brownian-motion"
 }

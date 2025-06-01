@@ -1,12 +1,32 @@
 {
   "id": "solid-color",
-  "title": "纯色填充",
-  "title_en": "Solid Color Fill",
-  "description": "学习最基础的着色器概念，创建纯色填充效果。理解gl_FragColor的作用和RGBA颜色模式。",
-  "description_en": "Learn the most basic shader concepts and create solid color fill effects. Understand the role of gl_FragColor and RGBA color mode.",
+  "title": {
+    "zh": "纯色填充",
+    "en": "Solid Color Fill"
+  },
+  "description": {
+    "zh": "学习最基础的着色器概念，创建纯色填充效果。理解gl_FragColor的作用和RGBA颜色模式。",
+    "en": "Learn the most basic shader concepts and create solid color fill effects. Understand the role of gl_FragColor and RGBA color mode."
+  },
   "difficulty": "beginner",
   "category": "basic",
-  "tags": ["基础", "颜色", "入门"],
+  "tags": ["基础", "颜色", "入门", "gl_FragColor", "RGBA"],
+  "estimatedTime": 10,
+  "prerequisites": [],
+  "learningObjectives": {
+    "zh": [
+      "理解GLSL着色器的基本结构和入口点`main()`函数。",
+      "学习如何使用`gl_FragColor`输出片元颜色。",
+      "掌握RGBA颜色模式以及如何在GLSL中表示颜色值（0.0到1.0范围）。",
+      "能够编写一个最简单的GLSL着色器来填充整个画布为单一颜色。"
+    ],
+    "en": [
+      "Understand the basic structure of a GLSL shader and the entry point `main()` function.",
+      "Learn how to use `gl_FragColor` to output fragment color.",
+      "Master the RGBA color model and how to represent color values in GLSL (0.0 to 1.0 range).",
+      "Be able to write a minimal GLSL shader to fill the entire canvas with a single color."
+    ]
+  },
   "uniforms": {
     "u_time": 0.0,
     "u_resolution": [300, 300]

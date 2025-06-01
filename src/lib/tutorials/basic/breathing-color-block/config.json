@@ -1,8 +1,35 @@
 {
   "id": "breathing-color-block",
-  "title": "呼吸色块",
-  "title_en": "Breathing Color Block",
+  "title": {
+    "zh": "呼吸色块",
+    "en": "Breathing Color Block"
+  },
+  "description": {
+    "zh": "使用 sin() 函数和时间变量实现周期变化的颜色呼吸动画。",
+    "en": "Implement a periodically changing color breathing animation using the sin() function and a time variable."
+  },
+  "difficulty": "beginner",
   "category": "basic",
-  "description": "使用 sin() 函数和时间变量实现周期变化的颜色呼吸动画。",
-  "difficulty": "beginner"
+  "tags": ["颜色动画", "sin函数", "时间变量", "动态效果", "GLSL基础"],
+  "estimatedTime": 15,
+  "prerequisites": ["time-animation", "solid-color"],
+  "learningObjectives": {
+    "zh": [
+      "理解如何使用`sin()`函数和`u_time`创建平滑的周期性变化。",
+      "学习将周期性变化的值映射到颜色通道。",
+      "掌握创建颜色随时间平滑过渡的动画效果。",
+      "了解如何调整`sin()`函数的频率和振幅来改变动画的速度和范围。"
+    ],
+    "en": [
+      "Understand how to use the `sin()` function and `u_time` to create smooth periodic changes.",
+      "Learn to map periodically changing values to color channels.",
+      "Master creating animation effects where colors transition smoothly over time.",
+      "Understand how to adjust the frequency and amplitude of the `sin()` function to change the speed and range of the animation."
+    ]
+  },
+  "uniforms": {
+    "u_time": 0.0,
+    "u_resolution": [300, 300]
+  },
+  "preview": "/api/shader/basic/breathing-color-block"
 }

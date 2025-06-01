@@ -1,12 +1,30 @@
 {
   "id": "simple-rectangle",
-  "title": "简单矩形",
-  "title_en": "Simple Rectangle",
-  "description": "学习使用条件判断绘制矩形，理解坐标范围和边界检测。",
-  "description_en": "Learn to draw rectangles using conditional statements and understand coordinate ranges and boundary detection.",
+  "title": {
+    "zh": "简单矩形",
+    "en": "Simple Rectangle"
+  },
+  "description": {
+    "zh": "学习使用条件判断绘制矩形，理解坐标范围和边界检测。",
+    "en": "Learn to draw rectangles using conditional statements and understand coordinate ranges and boundary detection."
+  },
   "difficulty": "beginner",
   "category": "basic",
-  "tags": ["矩形", "图形", "边界"],
+  "tags": ["矩形", "图形", "边界", "条件判断", "坐标系统"],
+  "estimatedTime": 15,
+  "prerequisites": ["uv-coordinates", "solid-color"],
+  "learningObjectives": {
+    "zh": [
+      "理解如何使用逻辑与（&&）组合条件来定义矩形区域。",
+      "学习根据UV坐标的x和y值进行边界检测。",
+      "掌握在GLSL中使用条件语句（如`if`或`step`）绘制简单形状。"
+    ],
+    "en": [
+      "Understand how to use logical AND (&&) to combine conditions to define a rectangular area.",
+      "Learn to perform boundary detection based on the x and y values of UV coordinates.",
+      "Master drawing simple shapes in GLSL using conditional statements (e.g., `if` or `step`)."
+    ]
+  },
   "uniforms": {
     "u_time": 0.0,
     "u_resolution": [300, 300]

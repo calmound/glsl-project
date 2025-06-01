@@ -1,8 +1,35 @@
 {
   "id": "uv-visualizer",
-  "title": "UV 可视化",
-  "title_en": "UV Visualizer",
+  "title": {
+    "zh": "UV 可视化",
+    "en": "UV Visualizer"
+  },
+  "description": {
+    "zh": "将 UV 坐标直接转为颜色值，便于理解 vUv 的颜色映射。",
+    "en": "Directly convert UV coordinates to color values to facilitate understanding of vUv color mapping."
+  },
+  "difficulty": "beginner",
   "category": "basic",
-  "description": "将 UV 坐标直接转为颜色值，便于理解 vUv 的颜色映射。",
-  "difficulty": "beginner"
+  "tags": ["UV坐标", "可视化", "颜色映射", "调试"],
+  "estimatedTime": 10,
+  "prerequisites": ["uv-coordinates"],
+  "learningObjectives": {
+    "zh": [
+      "学习如何将UV坐标的x和y分量分别映射到颜色的R和G通道。",
+      "理解这种可视化方法如何帮助调试和理解UV坐标的分布。",
+      "能够创建一个简单的UV可视化着色器。",
+      "认识到UV坐标在纹理采样和程序化图案生成中的重要性。"
+    ],
+    "en": [
+      "Learn how to map the x and y components of UV coordinates to the R and G channels of color, respectively.",
+      "Understand how this visualization method can help debug and understand the distribution of UV coordinates.",
+      "Be able to create a simple UV visualizer shader.",
+      "Recognize the importance of UV coordinates in texture sampling and procedural pattern generation."
+    ]
+  },
+  "uniforms": {
+    "u_time": 0.0,
+    "u_resolution": [300, 300]
+  },
+  "preview": "/api/shader/basic/uv-visualizer"
 }

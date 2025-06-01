@@ -1,12 +1,32 @@
 {
   "id": "simple-circle",
-  "title": "绘制圆形",
-  "title_en": "Drawing Circles",
-  "description": "学习使用距离函数绘制基本图形，理解像素坐标系统和distance函数的应用。",
-  "description_en": "Learn to draw basic shapes using distance functions and understand the pixel coordinate system and distance function applications.",
+  "title": {
+    "zh": "绘制圆形",
+    "en": "Drawing Circles"
+  },
+  "description": {
+    "zh": "学习使用距离函数绘制基本图形，理解像素坐标系统和distance函数的应用。",
+    "en": "Learn to draw basic shapes using distance functions and understand the pixel coordinate system and distance function applications."
+  },
   "difficulty": "beginner",
   "category": "basic",
-  "tags": ["图形", "圆形", "距离函数"],
+  "tags": ["图形", "圆形", "距离函数", "坐标系统"],
+  "estimatedTime": 15,
+  "prerequisites": ["uv-coordinates"],
+  "learningObjectives": {
+    "zh": [
+      "理解像素坐标系以及如何将坐标中心化。",
+      "掌握`distance()`函数的用法，计算点到圆心的距离。",
+      "学习如何根据距离和半径绘制圆形。",
+      "了解`step()`或`smoothstep()`函数在边缘处理中的应用。"
+    ],
+    "en": [
+      "Understand the pixel coordinate system and how to center coordinates.",
+      "Master the usage of the `distance()` function to calculate the distance from a point to the circle's center.",
+      "Learn how to draw a circle based on distance and radius.",
+      "Understand the application of `step()` or `smoothstep()` functions in edge handling."
+    ]
+  },
   "uniforms": {
     "u_time": 0.0,
     "u_resolution": [300, 300]

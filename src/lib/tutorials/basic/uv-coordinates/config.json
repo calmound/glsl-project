@@ -1,12 +1,32 @@
 {
   "id": "uv-coordinates",
-  "title": "UV坐标基础",
-  "title_en": "UV Coordinates Basics",
-  "description": "理解着色器中的UV坐标系统及其应用",
-  "description_en": "Understanding UV coordinate system in shaders and its applications",
+  "title": {
+    "zh": "UV坐标基础",
+    "en": "UV Coordinates Basics"
+  },
+  "description": {
+    "zh": "理解着色器中的UV坐标系统及其应用。学习如何将UV坐标映射到颜色，创建渐变效果。",
+    "en": "Understanding UV coordinate system in shaders and its applications. Learn how to map UV coordinates to colors to create gradient effects."
+  },
   "difficulty": "beginner",
   "category": "basic",
-  "tags": ["UV坐标", "基础", "坐标系统"],
+  "tags": ["UV坐标", "基础", "坐标系统", "渐变", "纹理映射"],
+  "estimatedTime": 10,
+  "prerequisites": ["solid-color"],
+  "learningObjectives": {
+    "zh": [
+      "理解UV坐标系（通常为0到1范围）及其在2D平面上的表示。",
+      "学习如何在片元着色器中访问内置的UV坐标（例如`gl_FragCoord.xy / u_resolution.xy`）。",
+      "掌握将UV坐标的x或y分量直接用作颜色通道的值，以创建简单的线性渐变。",
+      "了解UV坐标是纹理映射的基础。"
+    ],
+    "en": [
+      "Understand the UV coordinate system (typically ranging from 0 to 1) and its representation on a 2D plane.",
+      "Learn how to access built-in UV coordinates in a fragment shader (e.g., `gl_FragCoord.xy / u_resolution.xy`).",
+      "Master using the x or y component of UV coordinates directly as values for color channels to create simple linear gradients.",
+      "Understand that UV coordinates are fundamental for texture mapping."
+    ]
+  },
   "uniforms": {
     "u_resolution": {
       "type": "vec2",
@@ -17,5 +37,5 @@
       "description": "时间（秒）"
     }
   },
-  "preview": "preview.png"
+  "preview": "/api/shader/basic/uv-coordinates"
 }

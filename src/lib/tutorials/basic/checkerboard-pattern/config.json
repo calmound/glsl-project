@@ -1,8 +1,35 @@
 {
   "id": "checkerboard-pattern",
-  "title": "棋盘格图案",
-  "title_en": "Checkerboard Pattern",
+  "title": {
+    "zh": "棋盘格图案",
+    "en": "Checkerboard Pattern"
+  },
+  "description": {
+    "zh": "结合 mod() 函数与 floor()，生成黑白相间的棋盘格纹理。",
+    "en": "Combine the mod() function with floor() to generate a black and white checkerboard texture."
+  },
+  "difficulty": "beginner",
   "category": "basic",
-  "description": "结合 mod() 函数与 floor()，生成黑白相间的棋盘格纹理。",
-  "difficulty": "beginner"
+  "tags": ["棋盘格", "图案生成", "mod函数", "floor函数", "程序化纹理"],
+  "estimatedTime": 20,
+  "prerequisites": ["uv-coordinates", "step-function-mask"],
+  "learningObjectives": {
+    "zh": [
+      "理解`floor()`函数如何取整以及`mod()`函数如何取模。",
+      "学习如何通过缩放UV坐标来控制棋盘格的大小。",
+      "掌握将`floor(uv.x) + floor(uv.y)`的结果通过`mod(sum, 2.0)`来区分不同方块的逻辑。",
+      "能够生成自定义颜色和大小的棋盘格图案。"
+    ],
+    "en": [
+      "Understand how the `floor()` function rounds down and the `mod()` function calculates the modulus.",
+      "Learn how to control the size of the checkerboard by scaling UV coordinates.",
+      "Master the logic of distinguishing different squares by using `mod(sum, 2.0)` on the result of `floor(uv.x) + floor(uv.y)`.",
+      "Be able to generate checkerboard patterns with custom colors and sizes."
+    ]
+  },
+  "uniforms": {
+    "u_time": 0.0,
+    "u_resolution": [300, 300]
+  },
+  "preview": "/api/shader/basic/checkerboard-pattern"
 }

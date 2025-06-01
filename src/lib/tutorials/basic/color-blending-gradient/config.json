@@ -1,8 +1,35 @@
 {
   "id": "color-blending-gradient",
-  "title": "颜色混合渐变",
-  "title_en": "Color Blending Gradient",
+  "title": {
+    "zh": "颜色混合渐变",
+    "en": "Color Blending Gradient"
+  },
+  "description": {
+    "zh": "通过 mix() 函数在红蓝两色之间实现水平渐变，帮助理解线性插值。",
+    "en": "Implement a horizontal gradient between red and blue using the mix() function to help understand linear interpolation."
+  },
+  "difficulty": "beginner",
   "category": "basic",
-  "description": "通过 mix() 函数在红蓝两色之间实现水平渐变，帮助理解线性插值。",
-  "difficulty": "beginner"
+  "tags": ["颜色混合", "渐变", "mix函数", "线性插值", "GLSL基础"],
+  "estimatedTime": 15,
+  "prerequisites": ["basic-color-blend", "uv-coordinates"],
+  "learningObjectives": {
+    "zh": [
+      "深入理解`mix(colorA, colorB, factor)`函数如何根据因子在两种颜色之间进行插值。",
+      "学习使用UV坐标的x分量作为`mix`函数的插值因子。",
+      "掌握创建从一种指定颜色平滑过渡到另一种指定颜色的渐变效果。",
+      "能够调整插值因子来改变渐变的过渡方式。"
+    ],
+    "en": [
+      "Gain a deeper understanding of how the `mix(colorA, colorB, factor)` function interpolates between two colors based on a factor.",
+      "Learn to use the x-component of UV coordinates as the interpolation factor for the `mix` function.",
+      "Master creating gradient effects that smoothly transition from one specified color to another.",
+      "Be able to adjust the interpolation factor to change the way the gradient transitions."
+    ]
+  },
+  "uniforms": {
+    "u_time": 0.0,
+    "u_resolution": [300, 300]
+  },
+  "preview": "/api/shader/basic/color-blending-gradient"
 }

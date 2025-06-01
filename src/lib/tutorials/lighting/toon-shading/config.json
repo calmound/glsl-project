@@ -1,19 +1,45 @@
 {
   "id": "toon-shading",
-  "title": "卡通渲染",
-  "description": "创建卡通风格的渲染效果",
+  "title": {
+    "zh": "卡通渲染 (Toon Shading)",
+    "en": "Toon Shading"
+  },
+  "description": {
+    "zh": "实现一种非真实感渲染技术，通过将光照强度量化为离散的色阶，并通常结合边缘检测来模拟卡通或漫画书的视觉风格。",
+    "en": "Implement a non-photorealistic rendering technique that simulates the visual style of cartoons or comic books by quantizing light intensity into discrete color levels, often combined with edge detection."
+  },
   "difficulty": "advanced",
   "category": "lighting",
-  "tags": ["卡通渲染", "非真实感渲染", "风格化"],
+  "tags": ["卡通渲染", "NPR", "非真实感渲染", "色阶", "边缘检测", "风格化渲染"],
+  "estimatedTime": 75,
+  "prerequisites": ["phong-lighting", "step-function", "edge-detection-techniques"],
+  "learningObjectives": {
+    "zh": [
+      "理解卡通渲染的基本原理：光照的离散化处理。",
+      "学习如何使用`step()`或`floor()`函数将连续的光照强度映射到有限的色阶。",
+      "掌握边缘检测的基本方法（如基于法线和视点方向的点积）及其在卡通渲染中的应用。",
+      "能够实现一个包含硬阴影和轮廓线的卡通着色器。",
+      "探索如何通过调整色阶数量和颜色来改变卡通渲染的风格。"
+    ],
+    "en": [
+      "Understand the basic principles of toon shading: discretization of lighting.",
+      "Learn how to use `step()` or `floor()` functions to map continuous light intensity to a limited number of color levels.",
+      "Master basic edge detection methods (e.g., based on the dot product of normal and view direction) and their application in toon shading.",
+      "Be able to implement a toon shader with hard shadows and outlines.",
+      "Explore how to change the style of toon rendering by adjusting the number of color levels and colors."
+    ]
+  },
   "uniforms": {
     "u_resolution": {
       "type": "vec2",
-      "description": "画布尺寸"
+      "description_zh": "画布尺寸",
+      "description_en": "Canvas dimensions"
     },
     "u_time": {
       "type": "float",
-      "description": "时间（秒）"
+      "description_zh": "时间（秒）",
+      "description_en": "Time (seconds)"
     }
   },
-  "preview": "preview.png"
+  "preview": "/api/shader/lighting/toon-shading"
 }

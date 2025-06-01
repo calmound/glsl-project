@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import { getTutorials } from '../../lib/tutorials-server';
 import { locales } from '../../lib/i18n';
 
-const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.shader-learn.com/sitemap.xml';
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.shader-learn.com';
 
 export async function GET() {
   try {
@@ -46,66 +46,70 @@ ${generateUrlEntries(Array.from(allTutorialIds), currentDate)}
 function generateUrlEntries(tutorialIds: string[], currentDate: string): string {
   const urls: string[] = [];
   
-  // 为每种语言生成URL条目
-  locales.forEach(locale => {
-    const localePrefix = locale === 'zh' ? '' : `/${locale}`;
-    
-    // 首页
+  // 生成多语言页面的URL（每个页面只生成一次，包含所有语言的alternate链接）
+  const pages = [
+    { path: '/', changefreq: 'daily', priority: '1.0' },
+    { path: '/learn', changefreq: 'weekly', priority: '0.8' }
+  ];
+  
+  // 添加教程详情页
+  tutorialIds.forEach(tutorialId => {
+    pages.push({
+      path: `/learn/${tutorialId}`,
+      changefreq: 'weekly',
+      priority: '0.7'
+    });
+  });
+  
+  // 为中文版本生成URL条目（带/zh前缀）
+  pages.forEach(page => {
     urls.push(`  <url>
-    <loc>${baseUrl}${localePrefix}/</loc>
+    <loc>${baseUrl}/zh${page.path}</loc>
     <lastmod>${currentDate}</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>1.0</priority>
-    ${generateAlternateLinks('/')}
+    <changefreq>${page.changefreq}</changefreq>
+    <priority>${page.priority}</priority>
+    ${generateAlternateLinks(page.path)}
   </url>`);
-    
-    // 学习页面（列表页）
+  });
+  
+  // 为英文版本生成独立的URL条目
+  pages.forEach(page => {
     urls.push(`  <url>
-    <loc>${baseUrl}${localePrefix}/learn</loc>
+    <loc>${baseUrl}/en${page.path}</loc>
     <lastmod>${currentDate}</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-    ${generateAlternateLinks('/learn')}
+    <changefreq>${page.changefreq}</changefreq>
+    <priority>${page.priority}</priority>
+    ${generateAlternateLinks(page.path)}
   </url>`);
-    
-    // 关于页面
-    urls.push(`  <url>
+  });
+  
+  // 添加不区分语言的页面（只添加一次）
+  // 关于页面
+  urls.push(`  <url>
     <loc>${baseUrl}/about</loc>
     <lastmod>${currentDate}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>`);
-    
-    // GLSL指南页面
-    urls.push(`  <url>
+  
+  // GLSL指南页面
+  urls.push(`  <url>
     <loc>${baseUrl}/glslify-guide</loc>
     <lastmod>${currentDate}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>`);
-    
-    // 教程详情页
-    tutorialIds.forEach(tutorialId => {
-      urls.push(`  <url>
-    <loc>${baseUrl}${localePrefix}/learn/${tutorialId}</loc>
-    <lastmod>${currentDate}</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-    ${generateAlternateLinks(`/learn/${tutorialId}`)}
-  </url>`);
-    });
-  });
   
   return urls.join('\n');
 }
 
 function generateAlternateLinks(path: string): string {
   const alternates = locales.map(locale => {
-    const href = locale === 'zh' ? `${baseUrl}${path}` : `${baseUrl}/${locale}${path}`;
+    const href = `${baseUrl}/${locale}${path}`;
     return `    <xhtml:link rel="alternate" hreflang="${locale}" href="${href}" />`;
   }).join('\n');
   
-  // 添加 x-default
-  const defaultHref = `${baseUrl}${path}`;
+  // 添加 x-default（默认指向中文版本）
+  const defaultHref = `${baseUrl}/zh${path}`;
   return `${alternates}\n    <xhtml:link rel="alternate" hreflang="x-default" href="${defaultHref}" />`;
 }

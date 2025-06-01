@@ -138,6 +138,9 @@ export async function getTutorialReadme(category: string, id: string, locale?: L
   try {
     // 根据语言选择对应的README文件
     let readmePath: string;
+
+    console.log('%c [  ]-142', 'font-size:13px; background:pink; color:#bf2c9f;', locale);
+
     if (locale === 'en') {
       // 优先尝试英文README
       const enReadmePath = path.join(tutorialDir, 'en-README.md');
@@ -151,6 +154,7 @@ export async function getTutorialReadme(category: string, id: string, locale?: L
       // 中文或其他语言，使用默认README
       readmePath = path.join(tutorialDir, 'README.md');
     }
+    console.log(readmePath)
     
     if (fs.existsSync(readmePath)) {
       return fs.readFileSync(readmePath, 'utf-8');

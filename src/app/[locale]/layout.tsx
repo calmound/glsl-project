@@ -42,6 +42,9 @@ export async function generateMetadata({ params }: LocaleLayoutProps): Promise<M
         'en': '/en',
       },
     },
+    other: {
+      'sitemap': '/sitemap.xml',
+    },
     openGraph: {
       type: 'website',
       locale: locale === 'zh' ? 'zh_CN' : 'en_US',

@@ -4,7 +4,7 @@ exports.getTranslationFunction = exports.getTranslation = exports.translations =
 exports.translations = {
     zh: {
         // Header
-        'header.title': 'GLSL 项目',
+        'header.title': 'Shader 学习',
         'nav.home': '首页',
         'nav.learn': '学习',
         'nav.examples': '示例',

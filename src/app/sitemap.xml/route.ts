@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import { getTutorials } from '../../lib/tutorials-server';
 import { locales } from '../../lib/i18n';
 
-const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://glsl-project.vercel.app';
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.shader-learn.com/sitemap.xml';
 
 export async function GET() {
   try {

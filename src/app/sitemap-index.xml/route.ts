@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 
-const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://glsl-project.vercel.app';
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.shader-learn.com/sitemap.xml';
 
 export async function GET() {
   const currentDate = new Date().toISOString();

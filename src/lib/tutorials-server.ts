@@ -154,11 +154,13 @@ export async function getTutorialReadme(category: string, id: string, locale?: L
       // 中文或其他语言，使用默认README
       readmePath = path.join(tutorialDir, 'README.md');
     }
-    console.log(readmePath)
+    console.log('157',readmePath)
     
     if (fs.existsSync(readmePath)) {
+      console.log('%c [  ]-161', 'font-size:13px; background:pink; color:#bf2c9f;', fs.existsSync(readmePath))
       return fs.readFileSync(readmePath, 'utf-8');
     }
+    console.log('163',fs.existsSync(readmePath))
     return '';
   } catch (error) {
     console.error(`Error reading README for ${category}/${id}:`, error);

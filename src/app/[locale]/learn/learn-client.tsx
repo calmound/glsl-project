@@ -22,12 +22,12 @@ interface LearnPageClientProps {
 export default function LearnPageClient({ initialTutorials, locale }: LearnPageClientProps) {
   const router = useRouter();
   const { t } = useLanguage();
-  const [selectedCategory, setSelectedCategory] = useState<string>('all');
+  const [selectedCategory] = useState<string>('all');
   const [selectedDifficulty, setSelectedDifficulty] = useState<string>('all');
   const [tutorials] = useState<Tutorial[]>(initialTutorials);
 
   // 提取所有唯一的分类
-  const categories = ['all', ...Array.from(new Set(tutorials.map(tutorial => tutorial.category)))];
+  // const categories = ['all', ...Array.from(new Set(tutorials.map(tutorial => tutorial.category)))];
 
   // 过滤教程
   const filteredTutorials = tutorials.filter(
@@ -95,9 +95,13 @@ export default function LearnPageClient({ initialTutorials, locale }: LearnPageC
               {t('learn.filter.difficulty')}:
             </span>
             {['all', 'beginner', 'intermediate', 'advanced'].map(difficulty => {
+              // Calculate count based on tutorials filtered by category, not by selected difficulty
+              const tutorialsForCount = selectedCategory === 'all' 
+                ? tutorials 
+                : tutorials.filter(t => t.category === selectedCategory);
               const count = difficulty === 'all'
-                ? filteredTutorials.length
-                : filteredTutorials.filter(t => t.difficulty === difficulty).length;
+                ? tutorialsForCount.length
+                : tutorialsForCount.filter(t => t.difficulty === difficulty).length;
               return (
                 <button
                   key={difficulty}

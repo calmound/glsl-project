@@ -113,19 +113,29 @@ export default function LearnPage() {
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">{t('learn.filter.difficulty') || '难度筛选'}</label>
               <div className="flex flex-wrap gap-2">
-                {['all', 'beginner', 'intermediate', 'advanced'].map(difficulty => (
-                  <button
-                    key={difficulty}
-                    onClick={() => setSelectedDifficulty(difficulty)}
-                    className={`px-3 py-1 rounded-full text-xs font-medium transition-colors duration-200 ${
-                      selectedDifficulty === difficulty
-                        ? 'bg-green-500 text-white'
-                        : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-                    }`}
-                  >
-                    {getDifficultyDisplayName(difficulty)}
-                  </button>
-                ))}
+                {['all', 'beginner', 'intermediate', 'advanced'].map(difficulty => {
+                  // Calculate count based on tutorials filtered by category, not by selected difficulty
+                  const tutorialsForCount = selectedCategory === 'all' 
+                    ? tutorials 
+                    : tutorials.filter(t => t.category === selectedCategory);
+                  const count = difficulty === 'all'
+                    ? tutorialsForCount.length
+                    : tutorialsForCount.filter(t => t.difficulty === difficulty).length;
+                  return (
+                    <button
+                      key={difficulty}
+                      onClick={() => setSelectedDifficulty(difficulty)}
+                      className={`px-3 py-1 rounded-full text-xs font-medium transition-colors duration-200 ${
+                        selectedDifficulty === difficulty
+                          ? 'bg-green-500 text-white'
+                          : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                      }`}
+                    >
+                      {getDifficultyDisplayName(difficulty)}
+                      <span className="ml-1 text-xs opacity-75">({count})</span>
+                    </button>
+                  );
+                })}
               </div>
             </div>
           </div>

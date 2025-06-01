@@ -1,0 +1,8 @@
+{
+  "id": "step-function-mask",
+  "title": "硬边遮罩",
+  "title_en": "Step Function Mask",
+  "category": "basic",
+  "description": "通过 step() 函数构造一个具有明确边界的遮罩，掌握 GLSL 中的二值化处理。",
+  "difficulty": "beginner"
+}

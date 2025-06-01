@@ -1,0 +1,8 @@
+{
+  "id": "breathing-color-block",
+  "title": "呼吸色块",
+  "title_en": "Breathing Color Block",
+  "category": "basic",
+  "description": "使用 sin() 函数和时间变量实现周期变化的颜色呼吸动画。",
+  "difficulty": "beginner"
+}

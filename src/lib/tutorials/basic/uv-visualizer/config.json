@@ -1,0 +1,8 @@
+{
+  "id": "uv-visualizer",
+  "title": "UV 可视化",
+  "title_en": "UV Visualizer",
+  "category": "basic",
+  "description": "将 UV 坐标直接转为颜色值，便于理解 vUv 的颜色映射。",
+  "difficulty": "beginner"
+}

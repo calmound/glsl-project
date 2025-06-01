@@ -1,0 +1,8 @@
+{
+  "id": "rectangle-color-split",
+  "title": "双色矩形分割",
+  "title_en": "Rectangle Color Split",
+  "category": "basic",
+  "description": "利用 if 条件将屏幕区域分为左右两色，掌握片元判断逻辑。",
+  "difficulty": "beginner"
+}

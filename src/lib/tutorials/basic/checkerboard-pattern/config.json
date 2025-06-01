@@ -1,0 +1,8 @@
+{
+  "id": "checkerboard-pattern",
+  "title": "棋盘格图案",
+  "title_en": "Checkerboard Pattern",
+  "category": "basic",
+  "description": "结合 mod() 函数与 floor()，生成黑白相间的棋盘格纹理。",
+  "difficulty": "beginner"
+}

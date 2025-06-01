@@ -1,0 +1,8 @@
+{
+  "id": "centered-circle-mask",
+  "title": "中心圆遮罩",
+  "title_en": "Centered Circle Mask",
+  "category": "basic",
+  "description": "使用 distance() 创建一个以画布中心为圆心的遮罩区域。",
+  "difficulty": "beginner"
+}

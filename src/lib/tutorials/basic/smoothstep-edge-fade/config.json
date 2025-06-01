@@ -1,0 +1,8 @@
+{
+  "id": "smoothstep-edge-fade",
+  "title": "柔边渐隐",
+  "title_en": "Smoothstep Edge Fade",
+  "category": "basic",
+  "description": "使用 smoothstep() 实现图形边缘的渐隐过渡，对比 step()。",
+  "difficulty": "beginner"
+}

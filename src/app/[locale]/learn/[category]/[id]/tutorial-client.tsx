@@ -44,6 +44,7 @@ export default function TutorialPageClient({
   const [initialCode] = useState(exerciseCode);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
+  const [activeTab, setActiveTab] = useState<'tutorial' | 'answer'>('tutorial');
   const [toasts, setToasts] = useState<Array<{
     id: string;
     message: string;
@@ -453,51 +454,121 @@ export default function TutorialPageClient({
             </div>
           </div>
 
-          {/* 问题描述和知识点 */}
-          <div className="flex-1 overflow-auto p-4">
-            {/* 练习目标 */}
-            <div className="mb-6">
-              <h2 className="text-md font-semibold mb-3 text-blue-600">📝 {t('tutorial.exercise_goal', '练习目标')}</h2>
-              <div className="text-sm text-gray-700 bg-blue-50 p-3 rounded-lg">
-                {tutorial.description}
-              </div>
+          {/* Tab 切换 */}
+          <div className="border-b">
+            <div className="flex">
+              <button
+                onClick={() => setActiveTab('tutorial')}
+                className={`px-4 py-3 text-sm font-medium border-b-2 transition-colors ${
+                  activeTab === 'tutorial'
+                    ? 'border-blue-500 text-blue-600 bg-blue-50'
+                    : 'border-transparent text-gray-500 hover:text-gray-700 hover:bg-gray-50'
+                }`}
+              >
+                📚 {t('tutorial.tab.tutorial', '教程介绍')}
+              </button>
+              <button
+                onClick={() => setActiveTab('answer')}
+                className={`px-4 py-3 text-sm font-medium border-b-2 transition-colors ${
+                  activeTab === 'answer'
+                    ? 'border-green-500 text-green-600 bg-green-50'
+                    : 'border-transparent text-gray-500 hover:text-gray-700 hover:bg-gray-50'
+                }`}
+              >
+                💡 {t('tutorial.tab.answer', '参考答案')}
+              </button>
             </div>
+          </div>
 
-            {/* README 内容 */}
-            {readme && (
-              <div className="mb-6">
-                <div className="flex items-center justify-between mb-3">
-                  <h2 className="text-md font-semibold text-green-600">💡 {t('tutorial.content', '教程内容')}</h2>
+          {/* Tab 内容 */}
+          <div className="flex-1 overflow-auto p-4">
+            {activeTab === 'tutorial' ? (
+              <>
+                {/* 练习目标 */}
+                <div className="mb-6">
+                  <h2 className="text-md font-semibold mb-3 text-blue-600">📝 {t('tutorial.exercise_goal', '练习目标')}</h2>
+                  <div className="text-sm text-gray-700 bg-blue-50 p-3 rounded-lg">
+                    {tutorial.description}
+                  </div>
                 </div>
-                <div className="text-sm text-gray-700 bg-green-50 p-3 rounded-lg prose prose-sm max-w-none">
-                  <div 
-                    className="markdown-content"
-                    dangerouslySetInnerHTML={{ 
-                      __html: readme
-                        .replace(/^# .+$/gm, '') // 移除一级标题
-                        .replace(/^## (.+)$/gm, '<h3 class="font-semibold text-green-700 mt-4 mb-2">$1</h3>') // 二级标题
-                        .replace(/^### (.+)$/gm, '<h4 class="font-medium text-green-600 mt-3 mb-1">$1</h4>') // 三级标题
-                        .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>') // 粗体
-                        .replace(/`(.+?)`/g, '<code class="bg-gray-200 px-1 rounded text-xs">$1</code>') // 行内代码
-                        .replace(/\n\n/g, '</p><p class="mb-2">') // 段落
-                        .replace(/^(.+)$/gm, '<p class="mb-2">$1</p>') // 包装段落
-                        .replace(/<p class="mb-2"><\/p>/g, '') // 移除空段落
-                    }}
-                  />
-                </div>
-              </div>
-            )}
 
-            {/* 如果没有README内容，显示默认知识点 */}
-            {!readme && (
-              <div className="mb-6">
-                <h2 className="text-md font-semibold mb-3 text-green-600">💡 {t('tutorial.knowledge_points', '知识点')}</h2>
-                <div className="text-sm text-gray-700 bg-green-50 p-3 rounded-lg">
-                  <p className="mb-2">{t('tutorial.default_knowledge_1', '在GLSL中，gl_FragColor 是片段着色器的输出变量。')}</p>
-                  <p className="mb-2">{t('tutorial.default_knowledge_2', '它是一个 vec4 类型，表示RGBA颜色值。')}</p>
-                  <p>{t('tutorial.default_knowledge_3', '每个分量的取值范围是 0.0 到 1.0。')}</p>
+                {/* README 内容 */}
+                {readme && (
+                  <div className="mb-6">
+                    <div className="flex items-center justify-between mb-3">
+                      <h2 className="text-md font-semibold text-green-600">💡 {t('tutorial.content', '教程内容')}</h2>
+                    </div>
+                    <div className="text-sm text-gray-700 bg-green-50 p-3 rounded-lg prose prose-sm max-w-none">
+                      <div 
+                        className="markdown-content"
+                        dangerouslySetInnerHTML={{ 
+                          __html: readme
+                            .replace(/^# .+$/gm, '') // 移除一级标题
+                            .replace(/^## (.+)$/gm, '<h3 class="font-semibold text-green-700 mt-4 mb-2">$1</h3>') // 二级标题
+                            .replace(/^### (.+)$/gm, '<h4 class="font-medium text-green-600 mt-3 mb-1">$1</h4>') // 三级标题
+                            .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>') // 粗体
+                            .replace(/`(.+?)`/g, '<code class="bg-gray-200 px-1 rounded text-xs">$1</code>') // 行内代码
+                            .replace(/\n\n/g, '</p><p class="mb-2">') // 段落
+                            .replace(/^(.+)$/gm, '<p class="mb-2">$1</p>') // 包装段落
+                            .replace(/<p class="mb-2"><\/p>/g, '') // 移除空段落
+                        }}
+                      />
+                    </div>
+                  </div>
+                )}
+
+                {/* 如果没有README内容，显示默认知识点 */}
+                {!readme && (
+                  <div className="mb-6">
+                    <h2 className="text-md font-semibold mb-3 text-green-600">💡 {t('tutorial.knowledge_points', '知识点')}</h2>
+                    <div className="text-sm text-gray-700 bg-green-50 p-3 rounded-lg">
+                      <p className="mb-2">{t('tutorial.default_knowledge_1', '在GLSL中，gl_FragColor 是片段着色器的输出变量。')}</p>
+                      <p className="mb-2">{t('tutorial.default_knowledge_2', '它是一个 vec4 类型，表示RGBA颜色值。')}</p>
+                      <p>{t('tutorial.default_knowledge_3', '每个分量的取值范围是 0.0 到 1.0。')}</p>
+                    </div>
+                  </div>
+                )}
+              </>
+            ) : (
+              <>
+                {/* 参考答案 */}
+                <div className="mb-6">
+                  <h2 className="text-md font-semibold mb-3 text-green-600">✅ {t('tutorial.answer.title', '参考答案')}</h2>
+                  <div className="text-sm text-gray-700 bg-green-50 p-3 rounded-lg mb-4">
+                    <p className="mb-2">{t('tutorial.answer.description', '以下是本练习的完整解决方案，你可以参考这个代码来理解正确的实现方式。')}</p>
+                    <p className="text-amber-600">{t('tutorial.answer.tip', '💡 建议先尝试自己完成，遇到困难时再查看答案。')}</p>
+                  </div>
                 </div>
-              </div>
+
+                {/* 答案代码展示 */}
+                <div className="mb-6">
+                  <h3 className="text-sm font-semibold mb-3 text-gray-700">{t('tutorial.answer.code', 'GLSL 代码:')}</h3>
+                  <div className="bg-gray-900 text-gray-100 p-4 rounded-lg overflow-auto text-xs font-mono">
+                    <pre className="whitespace-pre-wrap">{shaders.fragment}</pre>
+                  </div>
+                </div>
+
+                {/* 代码说明 */}
+                <div className="mb-6">
+                  <h3 className="text-sm font-semibold mb-3 text-gray-700">{t('tutorial.answer.explanation', '代码说明:')}</h3>
+                  <div className="text-sm text-gray-700 bg-blue-50 p-3 rounded-lg">
+                    <p className="mb-2">{t('tutorial.answer.explanation_1', '• 这段代码展示了如何正确实现本练习的要求')}</p>
+                    <p className="mb-2">{t('tutorial.answer.explanation_2', '• 注意变量的声明和使用方式')}</p>
+                    <p>{t('tutorial.answer.explanation_3', '• 观察输出结果与预期效果的对应关系')}</p>
+                  </div>
+                </div>
+
+                {/* 学习建议 */}
+                <div className="mb-6">
+                  <h3 className="text-sm font-semibold mb-3 text-gray-700">{t('tutorial.answer.tips', '学习建议:')}</h3>
+                  <div className="text-sm text-gray-700 bg-yellow-50 p-3 rounded-lg">
+                    <p className="mb-2">{t('tutorial.answer.tip_1', '1. 尝试理解每一行代码的作用')}</p>
+                    <p className="mb-2">{t('tutorial.answer.tip_2', '2. 可以修改参数值观察效果变化')}</p>
+                    <p className="mb-2">{t('tutorial.answer.tip_3', '3. 将答案代码复制到编辑器中运行验证')}</p>
+                    <p>{t('tutorial.answer.tip_4', '4. 基于答案代码尝试创造自己的变化')}</p>
+                  </div>
+                </div>
+              </>
             )}
           </div>
         </div>

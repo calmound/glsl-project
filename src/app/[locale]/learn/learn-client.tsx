@@ -68,7 +68,7 @@ export default function LearnPageClient({ initialTutorials, locale }: LearnPageC
 
         {/* 分类标签页 */}
         <div className="bg-white shadow rounded-lg p-6 mb-8">
-          <div className="flex flex-wrap gap-2 mb-6">
+          {/* <div className="flex flex-wrap gap-2 mb-6">
             {categories.map(category => {
               const count = category === 'all' 
                 ? tutorials.length 
@@ -87,7 +87,7 @@ export default function LearnPageClient({ initialTutorials, locale }: LearnPageC
                 </button>
               );
             })}
-          </div>
+          </div> */}
 
           {/* 难度筛选 */}
           <div className="flex flex-wrap gap-2">

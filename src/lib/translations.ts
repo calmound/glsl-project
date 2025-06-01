@@ -105,6 +105,21 @@ export const translations: Record<Locale, Translations> = {
     // Tutorial detail page
     'tutorial.exercise_goal': '练习目标',
     'tutorial.knowledge_points': '知识点',
+    'tutorial.tab.tutorial': '教程介绍',
+    'tutorial.tab.answer': '参考答案',
+    'tutorial.answer.title': '参考答案',
+    'tutorial.answer.description': '以下是本练习的完整解决方案，你可以参考这个代码来理解正确的实现方式。',
+    'tutorial.answer.tip': '💡 建议先尝试自己完成，遇到困难时再查看答案。',
+    'tutorial.answer.code': 'GLSL 代码:',
+    'tutorial.answer.explanation': '代码说明:',
+    'tutorial.answer.explanation_1': '• 这段代码展示了如何正确实现本练习的要求',
+    'tutorial.answer.explanation_2': '• 注意变量的声明和使用方式',
+    'tutorial.answer.explanation_3': '• 观察输出结果与预期效果的对应关系',
+    'tutorial.answer.tips': '学习建议:',
+    'tutorial.answer.tip_1': '1. 尝试理解每一行代码的作用',
+    'tutorial.answer.tip_2': '2. 可以修改参数值观察效果变化',
+    'tutorial.answer.tip_3': '3. 将答案代码复制到编辑器中运行验证',
+    'tutorial.answer.tip_4': '4. 基于答案代码尝试创造自己的变化',
     
     // Common
     'common.back': '返回',
@@ -217,6 +232,21 @@ export const translations: Record<Locale, Translations> = {
     // Tutorial detail page
     'tutorial.exercise_goal': 'Exercise Goal',
     'tutorial.knowledge_points': 'Knowledge Points',
+    'tutorial.tab.tutorial': 'Tutorial',
+    'tutorial.tab.answer': 'Answer',
+    'tutorial.answer.title': 'Reference Answer',
+    'tutorial.answer.description': 'Below is the complete solution for this exercise. You can refer to this code to understand the correct implementation approach.',
+    'tutorial.answer.tip': '💡 It is recommended to try completing it yourself first, and check the answer when you encounter difficulties.',
+    'tutorial.answer.code': 'GLSL Code:',
+    'tutorial.answer.explanation': 'Code Explanation:',
+    'tutorial.answer.explanation_1': '• This code demonstrates how to correctly implement the requirements of this exercise',
+    'tutorial.answer.explanation_2': '• Pay attention to variable declaration and usage patterns',
+    'tutorial.answer.explanation_3': '• Observe the correspondence between output results and expected effects',
+    'tutorial.answer.tips': 'Learning Tips:',
+    'tutorial.answer.tip_1': '1. Try to understand the purpose of each line of code',
+    'tutorial.answer.tip_2': '2. Modify parameter values to observe effect changes',
+    'tutorial.answer.tip_3': '3. Copy the answer code to the editor to run and verify',
+    'tutorial.answer.tip_4': '4. Try to create your own variations based on the answer code',
     
     // Common
     'common.back': 'Back',

@@ -27,10 +27,10 @@ export function middleware(request: NextRequest) {
     (locale) => !pathname.startsWith(`/${locale}/`) && pathname !== `/${locale}`
   );
 
-  // 如果是根路径，重定向到默认语言
+  // 如果是根路径，重定向到英文页面
   if (pathname === '/') {
     return NextResponse.redirect(
-      new URL(`/${defaultLocale}`, request.url)
+      new URL('/en', request.url)
     );
   }
 

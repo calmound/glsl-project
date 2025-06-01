@@ -148,11 +148,11 @@ export async function getTutorialReadme(category: string, id: string, locale?: L
         readmePath = enReadmePath;
       } else {
         // 如果没有英文版本，回退到中文版本
-        readmePath = path.join(tutorialDir, 'README.md');
+        readmePath = path.join(tutorialDir, 'zh-README.md');
       }
     } else {
-      // 中文或其他语言，使用默认README
-      readmePath = path.join(tutorialDir, 'README.md');
+      // 中文或其他语言，使用zh-README
+      readmePath = path.join(tutorialDir, 'zh-README.md');
     }
     console.log('157',readmePath)
     

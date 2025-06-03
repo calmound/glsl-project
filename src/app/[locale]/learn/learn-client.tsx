@@ -30,7 +30,6 @@ export default function LearnPageClient({ initialTutorials, locale }: LearnPageC
   const categoryOrder = ['basic', 'math','lighting', 'patterns', 'animation', 'noise', ];
   const uniqueCategories = Array.from(new Set(tutorials.map(tutorial => tutorial.category)));
   const sortedCategories = categoryOrder.filter(cat => uniqueCategories.includes(cat));
-  const categories = ['all', ...sortedCategories];
 
   // 过滤教程 - 只有选择了具体分类才显示教程
   const filteredTutorials = selectedCategory && selectedCategory !== '' 

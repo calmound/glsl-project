@@ -18,8 +18,8 @@ export const translations: Record<Locale, Translations> = {
     'language.english': 'English',
     
     // Learn page
-    'learn.title': 'GLSL 学习中心',
-    'learn.description': '通过交互式练习和教程，系统学习 GLSL 着色器编程。从基础概念到高级技术，循序渐进掌握图形渲染的精髓。',
+    'learn.title': 'GLSL 学习平台',
+    'learn.description': '掌握现代图形编程技能，通过实战练习深入理解 GLSL 着色器开发。从基础语法到高级特效，打造属于你的视觉作品。',
     'learn.basic': '基础教程',
     'learn.intermediate': '中级教程',
     'learn.advanced': '高级教程',
@@ -42,8 +42,8 @@ export const translations: Record<Locale, Translations> = {
     'learn.category.all': '全部',
     
     // Learning path
-    'learn.path.title': '🎯 选择学习路径',
-    'learn.path.subtitle': '点击上方分类开始你的 GLSL 学习之旅',
+    'learn.path.title': '🎯 探索学习路径',
+    'learn.path.subtitle': '选择感兴趣的主题，开启你的 GLSL 编程之旅',
     'learn.path.tutorials_count': '个教程',
     'learn.path.basic.desc': '从最基础的概念开始，学习 GLSL 语法和基本图形绘制',
     'learn.path.math.desc': '掌握图形编程中的数学函数和坐标变换',
@@ -169,8 +169,8 @@ export const translations: Record<Locale, Translations> = {
     'language.english': 'English',
     
     // Learn page
-    'learn.title': 'GLSL Learning Center',
-    'learn.description': 'Learn GLSL shader programming systematically through interactive exercises and tutorials. From basic concepts to advanced techniques, master the essence of graphics rendering step by step.',
+    'learn.title': 'GLSL Learning Platform',
+    'learn.description': 'Master modern graphics programming skills through hands-on practice and deep understanding of GLSL shader development. From basic syntax to advanced effects, create your own visual masterpieces.',
     'learn.basic': 'Basic Tutorials',
     'learn.intermediate': 'Intermediate Tutorials',
     'learn.advanced': 'Advanced Tutorials',
@@ -193,8 +193,8 @@ export const translations: Record<Locale, Translations> = {
     'learn.category.all': 'All',
     
     // Learning path
-    'learn.path.title': '🎯 Choose Learning Path',
-    'learn.path.subtitle': 'Click on the categories above to start your GLSL learning journey',
+    'learn.path.title': '🎯 Explore Learning Paths',
+    'learn.path.subtitle': 'Choose topics that interest you and begin your GLSL programming journey',
     'learn.path.tutorials_count': 'tutorials',
     'learn.path.basic.desc': 'Start with the most basic concepts, learn GLSL syntax and basic graphics rendering',
     'learn.path.math.desc': 'Master mathematical functions and coordinate transformations in graphics programming',

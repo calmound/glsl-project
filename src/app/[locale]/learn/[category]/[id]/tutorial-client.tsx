@@ -28,6 +28,7 @@ interface TutorialPageClientProps {
   locale: Locale;
   category: string;
   tutorialId: string;
+  categoryTutorials: Tutorial[];
 }
 
 export default function TutorialPageClient({
@@ -35,6 +36,9 @@ export default function TutorialPageClient({
   readme,
   shaders,
   locale,
+  category,
+  tutorialId,
+  categoryTutorials,
 }: TutorialPageClientProps) {
   const router = useRouter();
   const { t } = useLanguage();
@@ -418,6 +422,17 @@ export default function TutorialPageClient({
       
       if (isRenderingCorrect) {
         addToast('🎉 ' + t('tutorial.success_toast', '恭喜！渲染效果正确，代码通过验证！'), 'success', 4000);
+        
+        // 如果有下一个教程，显示跳转提示
+        if (nextTutorial) {
+          setTimeout(() => {
+            addToast(
+              `✨ ${t('tutorial.next_tutorial_hint', '准备好了吗？')} "${nextTutorial.title}" ${t('tutorial.next_tutorial_action', '等你来挑战！')}`,
+              'info',
+              6000
+            );
+          }, 2000);
+        }
       } else {
         addToast(t('tutorial.incorrect_toast', '渲染效果与预期不符，请检查代码逻辑'), 'error');
       }
@@ -428,9 +443,28 @@ export default function TutorialPageClient({
     }
   };
 
+  // 获取当前教程在列表中的位置
+  const currentIndex = categoryTutorials.findIndex(t => t.id === tutorialId);
+  const prevTutorial = currentIndex > 0 ? categoryTutorials[currentIndex - 1] : null;
+  const nextTutorial = currentIndex < categoryTutorials.length - 1 ? categoryTutorials[currentIndex + 1] : null;
+
   // 返回列表页
   const handleBack = () => {
     router.push(`/${locale}/learn`);
+  };
+
+  // 导航到上一个教程
+  const handlePrevTutorial = () => {
+    if (prevTutorial) {
+      router.push(`/${locale}/learn/${category}/${prevTutorial.id}`);
+    }
+  };
+
+  // 导航到下一个教程
+  const handleNextTutorial = () => {
+    if (nextTutorial) {
+      router.push(`/${locale}/learn/${category}/${nextTutorial.id}`);
+    }
   };
 
   return (
@@ -451,6 +485,39 @@ export default function TutorialPageClient({
                 {t('common.back', '返回')}
               </Button>
               <h1 className="text-lg font-semibold">{tutorial.title}</h1>
+            </div>
+            
+            {/* 导航按钮 */}
+            <div className="flex items-center gap-2">
+              <Button 
+                variant="outline" 
+                size="sm" 
+                onClick={handlePrevTutorial}
+                disabled={!prevTutorial}
+                className="flex items-center gap-1"
+              >
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                </svg>
+                {t('tutorial.prev', '上一个')}
+              </Button>
+              
+              <span className="text-sm text-gray-500">
+                {currentIndex + 1} / {categoryTutorials.length}
+              </span>
+              
+              <Button 
+                variant="outline" 
+                size="sm" 
+                onClick={handleNextTutorial}
+                disabled={!nextTutorial}
+                className="flex items-center gap-1"
+              >
+                {t('tutorial.next', '下一个')}
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </Button>
             </div>
           </div>
 
@@ -606,41 +673,84 @@ export default function TutorialPageClient({
           </div>
 
           {/* 下部分：双预览区域 */}
-          <div className="border-t bg-white p-4" style={{ height: '280px' }}>
-            <div className="flex gap-4 h-full">
-              {/* 正确代码预览 */}
-              <div className="flex-1">
-                <h4 className="text-sm font-medium mb-2 text-green-600">{t('tutorial.correct_preview', '正确代码预览')}</h4>
-                <div className="border rounded-lg overflow-hidden h-full">
-                  <ShaderCanvasNew
-                    fragmentShader={shaders.fragment}
-                    vertexShader={shaders.vertex || undefined}
-                    uniforms={{
-                      u_time: 0.1,
-                      u_resolution: [200, 200],
-                    }}
-                    width="100%"
-                    height="100%"
-                  />
+          <div className="border-t bg-white p-4" style={{ height: '320px' }}>
+            <div className="flex gap-4 h-full flex-col">
+              {/* 预览区域 */}
+              <div className="flex gap-4 flex-1">
+                {/* 正确代码预览 */}
+                <div className="flex-1">
+                  <h4 className="text-sm font-medium mb-2 text-green-600">{t('tutorial.correct_preview', '正确代码预览')}</h4>
+                  <div className="border rounded-lg overflow-hidden h-full">
+                    <ShaderCanvasNew
+                      fragmentShader={shaders.fragment}
+                      vertexShader={shaders.vertex || undefined}
+                      uniforms={{
+                        u_time: 0.1,
+                        u_resolution: [200, 200],
+                      }}
+                      width="100%"
+                      height="100%"
+                    />
+                  </div>
                 </div>
-              </div>
 
-              {/* 当前代码预览 */}
-              <div className="flex-1">
-                <h4 className="text-sm font-medium mb-2 text-blue-600">{t('tutorial.current_preview', '当前代码预览')}</h4>
-                <div className="border rounded-lg overflow-hidden h-full">
-                  <ShaderCanvasNew
-                    fragmentShader={userCode}
-                    vertexShader={shaders.vertex || undefined}
-                    uniforms={{
-                      u_time: 0.1,
-                      u_resolution: [200, 200],
-                    }}
-                    width="100%"
-                    height="100%"
-                  />
+                {/* 当前代码预览 */}
+                <div className="flex-1">
+                  <h4 className="text-sm font-medium mb-2 text-blue-600">{t('tutorial.current_preview', '当前代码预览')}</h4>
+                  <div className="border rounded-lg overflow-hidden h-full">
+                    <ShaderCanvasNew
+                      fragmentShader={userCode}
+                      vertexShader={shaders.vertex || undefined}
+                      uniforms={{
+                        u_time: 0.1,
+                        u_resolution: [200, 200],
+                      }}
+                      width="100%"
+                      height="100%"
+                    />
+                  </div>
                 </div>
               </div>
+              
+              {/* 导航区域 - 只在完成练习后显示 */}
+              {isCorrect && (
+                <div className="border-t pt-3 mt-3">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <span className="text-green-600 font-medium">✅ {t('tutorial.completed', '练习完成！')}</span>
+                      {nextTutorial && (
+                        <span className="text-sm text-gray-600">
+                          {t('tutorial.ready_for_next', '准备挑战下一个教程吗？')}
+                        </span>
+                      )}
+                    </div>
+                    
+                    <div className="flex items-center gap-2">
+                      {prevTutorial && (
+                        <Button variant="outline" size="sm" onClick={handlePrevTutorial}>
+                          ← {prevTutorial.title}
+                        </Button>
+                      )}
+                      
+                      {nextTutorial && (
+                        <Button 
+                          onClick={handleNextTutorial}
+                          className="bg-blue-600 hover:bg-blue-700 text-white"
+                          size="sm"
+                        >
+                          {nextTutorial.title} →
+                        </Button>
+                      )}
+                      
+                      {!nextTutorial && (
+                        <Button variant="outline" size="sm" onClick={handleBack}>
+                          {t('tutorial.back_to_list', '返回列表')}
+                        </Button>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </div>

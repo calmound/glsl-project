@@ -1,0 +1,35 @@
+{
+  "id": "simple-fractal",
+  "title": {
+    "zh": "简单分形",
+    "en": "Simple Fractals"
+  },
+  "description": {
+    "zh": "学习创建简单的分形图案，理解递归和自相似的概念在着色器中的应用。",
+    "en": "Learn to create simple fractal patterns and understand the application of recursion and self-similarity concepts in shaders."
+  },
+  "difficulty": "beginner",
+  "category": "math",
+  "tags": ["分形", "图案", "递归", "自相似", "程序化生成"],
+  "estimatedTime": 25,
+  "prerequisites": ["uv-coordinates", "pattern-repetition"],
+  "learningObjectives": {
+    "zh": [
+      "理解分形图案中自相似性的基本概念。",
+      "学习通过迭代或递归的方式在片元着色器中生成简单分形。",
+      "掌握坐标变换（如缩放、平移）在分形生成中的应用。",
+      "了解如何控制迭代次数以调整分形的复杂度和细节。"
+    ],
+    "en": [
+      "Understand the basic concept of self-similarity in fractal patterns.",
+      "Learn to generate simple fractals in a fragment shader through iteration or recursion.",
+      "Master the application of coordinate transformations (e.g., scaling, translation) in fractal generation.",
+      "Understand how to control the number of iterations to adjust the complexity and detail of fractals."
+    ]
+  },
+  "uniforms": {
+    "u_time": 0.0,
+    "u_resolution": [300, 300]
+  },
+  "preview": "/api/shader/basic/simple-fractal"
+}

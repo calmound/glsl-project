@@ -1,0 +1,28 @@
+{
+  "id": "radial-gradient-center",
+  "title": {
+    "zh": "中心径向渐变",
+    "en": "Radial Gradient Center"
+  },
+  "description": {
+    "zh": "以画布中心为起点，通过 distance() 创建向外扩散的径向渐变。",
+    "en": "Create an outward-spreading radial gradient starting from the canvas center using distance()."
+  },
+  "difficulty": "beginner",
+  "category": "patterns",
+  "tags": ["渐变", "径向渐变", "distance函数", "图形基础"],
+  "estimatedTime": 15,
+  "prerequisites": ["uv-coordinates", "simple-circle"],
+  "learningObjectives": {
+    "zh": [
+      "理解如何计算像素点到画布中心的距离。",
+      "学习使用`distance()`函数创建径向效果。",
+      "掌握如何将距离值映射到颜色渐变。"
+    ],
+    "en": [
+      "Understand how to calculate the distance from a pixel to the canvas center.",
+      "Learn to use the `distance()` function to create radial effects.",
+      "Master how to map distance values to color gradients."
+    ]
+  }
+}

@@ -68,9 +68,12 @@ export default function LearnPage() {
   // 分类显示
   const getCategoryDisplayName = (category: string) => {
     const categoryMap: { [key: string]: string } = {
-      basic: t('learn.category.basic') || '基础',
-      noise: t('learn.category.noise') || '噪声',
-      lighting: t('learn.category.lighting') || '光照',
+      basic: t('learn.category.basic') || '基础入门',
+      math: t('learn.category.math') || '数学公式',
+      patterns: t('learn.category.patterns') || '图案纹理',
+      animation: t('learn.category.animation') || '动画交互',
+      noise: t('learn.category.noise') || '噪声函数',
+      lighting: t('learn.category.lighting') || '光照渲染',
       all: t('learn.category.all') || '全部',
     };
     return categoryMap[category] || category;

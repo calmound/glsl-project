@@ -1,0 +1,30 @@
+{
+  "id": "gradient-effects",
+  "title": {
+    "zh": "渐变效果",
+    "en": "Gradient Effects"
+  },
+  "description": {
+    "zh": "学习创建多种渐变效果，包括线性渐变、径向渐变、角度渐变和动态混合",
+    "en": "Learn to create various gradient effects, including linear gradients, radial gradients, angular gradients, and dynamic blending"
+  },
+  "difficulty": "intermediate",
+  "category": "patterns",
+  "tags": ["gradient", "color", "blending", "animation", "effects"],
+  "estimatedTime": 20,
+  "prerequisites": ["basic-gradients", "uv-coordinates"],
+  "learningObjectives": {
+    "zh": [
+      "掌握多种渐变效果的创建方法",
+      "理解线性渐变和径向渐变的区别",
+      "学习角度渐变和波浪渐变的实现",
+      "了解如何动态混合多种渐变效果"
+    ],
+    "en": [
+      "Master methods for creating various gradient effects",
+      "Understand the differences between linear and radial gradients",
+      "Learn to implement angular and wave gradients",
+      "Understand how to dynamically blend multiple gradient effects"
+    ]
+  }
+}

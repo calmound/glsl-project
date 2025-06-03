@@ -33,10 +33,25 @@ export const translations: Record<Locale, Translations> = {
     'learn.difficulty.all': '全部',
     
     // Categories
-    'learn.category.basic': '基础',
-    'learn.category.noise': '噪声',
-    'learn.category.lighting': '光照',
+    'learn.category.basic': '基础入门',
+    'learn.category.math': '数学公式',
+    'learn.category.patterns': '图案纹理',
+    'learn.category.animation': '动画交互',
+    'learn.category.noise': '噪声函数',
+    'learn.category.lighting': '光照渲染',
     'learn.category.all': '全部',
+    
+    // Learning path
+    'learn.path.title': '🎯 选择学习路径',
+    'learn.path.subtitle': '点击上方分类开始你的 GLSL 学习之旅',
+    'learn.path.tutorials_count': '个教程',
+    'learn.path.basic.desc': '从最基础的概念开始，学习 GLSL 语法和基本图形绘制',
+    'learn.path.math.desc': '掌握图形编程中的数学函数和坐标变换',
+    'learn.path.patterns.desc': '创建各种图案和纹理效果',
+    'learn.path.animation.desc': '学习时间动画和交互效果',
+    'learn.path.noise.desc': '掌握噪声函数生成自然纹理',
+    'learn.path.lighting.desc': '实现光照模型和渲染效果',
+    'learn.back_to_categories': '返回分类选择',
     
     // Tutorial page
     'tutorial.objective': '📝 练习目标',
@@ -121,6 +136,15 @@ export const translations: Record<Locale, Translations> = {
     'tutorial.answer.tip_3': '3. 将答案代码复制到编辑器中运行验证',
     'tutorial.answer.tip_4': '4. 基于答案代码尝试创造自己的变化',
     
+    // Tutorial navigation
+    'tutorial.prev': '上一个',
+    'tutorial.next': '下一个',
+    'tutorial.completed': '练习完成！',
+    'tutorial.ready_for_next': '准备挑战下一个教程吗？',
+    'tutorial.next_tutorial_hint': '准备好了吗？',
+    'tutorial.next_tutorial_action': '等你来挑战！',
+    'tutorial.back_to_list': '返回列表',
+    
     // Common
     'common.back': '返回',
     
@@ -161,9 +185,24 @@ export const translations: Record<Locale, Translations> = {
     
     // Categories
     'learn.category.basic': 'Basic',
+    'learn.category.math': 'Math',
+    'learn.category.patterns': 'Patterns',
+    'learn.category.animation': 'Animation',
     'learn.category.noise': 'Noise',
     'learn.category.lighting': 'Lighting',
     'learn.category.all': 'All',
+    
+    // Learning path
+    'learn.path.title': '🎯 Choose Learning Path',
+    'learn.path.subtitle': 'Click on the categories above to start your GLSL learning journey',
+    'learn.path.tutorials_count': 'tutorials',
+    'learn.path.basic.desc': 'Start with the most basic concepts, learn GLSL syntax and basic graphics rendering',
+    'learn.path.math.desc': 'Master mathematical functions and coordinate transformations in graphics programming',
+    'learn.path.patterns.desc': 'Create various patterns and texture effects',
+    'learn.path.animation.desc': 'Learn time-based animations and interactive effects',
+    'learn.path.noise.desc': 'Master noise functions to generate natural textures',
+    'learn.path.lighting.desc': 'Implement lighting models and rendering effects',
+    'learn.back_to_categories': 'Back to Categories',
     
     // Tutorial page
     'tutorial.objective': '📝 Exercise Objective',
@@ -247,6 +286,15 @@ export const translations: Record<Locale, Translations> = {
     'tutorial.answer.tip_2': '2. Modify parameter values to observe effect changes',
     'tutorial.answer.tip_3': '3. Copy the answer code to the editor to run and verify',
     'tutorial.answer.tip_4': '4. Try to create your own variations based on the answer code',
+    
+    // Tutorial navigation
+    'tutorial.prev': 'Previous',
+    'tutorial.next': 'Next',
+    'tutorial.completed': 'Exercise Completed!',
+    'tutorial.ready_for_next': 'Ready for the next tutorial?',
+    'tutorial.next_tutorial_hint': 'Ready?',
+    'tutorial.next_tutorial_action': 'is waiting for your challenge!',
+    'tutorial.back_to_list': 'Back to List',
     
     // Common
     'common.back': 'Back',

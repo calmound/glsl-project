@@ -22,19 +22,20 @@ interface LearnPageClientProps {
 export default function LearnPageClient({ initialTutorials, locale }: LearnPageClientProps) {
   const router = useRouter();
   const { t } = useLanguage();
-  const [selectedCategory] = useState<string>('all');
-  const [selectedDifficulty, setSelectedDifficulty] = useState<string>('all');
+  const [selectedCategory, setSelectedCategory] = useState<string>('');
+
   const [tutorials] = useState<Tutorial[]>(initialTutorials);
 
-  // 提取所有唯一的分类
-  // const categories = ['all', ...Array.from(new Set(tutorials.map(tutorial => tutorial.category)))];
+  // 提取所有唯一的分类并按学习难度排序
+  const categoryOrder = ['basic', 'math','lighting', 'patterns', 'animation', 'noise', ];
+  const uniqueCategories = Array.from(new Set(tutorials.map(tutorial => tutorial.category)));
+  const sortedCategories = categoryOrder.filter(cat => uniqueCategories.includes(cat));
+  const categories = ['all', ...sortedCategories];
 
-  // 过滤教程
-  const filteredTutorials = tutorials.filter(
-    tutorial =>
-      (selectedCategory === 'all' || tutorial.category === selectedCategory) &&
-      (selectedDifficulty === 'all' || tutorial.difficulty === selectedDifficulty)
-  );
+  // 过滤教程 - 只有选择了具体分类才显示教程
+  const filteredTutorials = selectedCategory && selectedCategory !== '' 
+    ? tutorials.filter(tutorial => tutorial.category === selectedCategory)
+    : [];
 
   // 难度级别显示
   const getDifficultyDisplayName = (difficulty: string) => {
@@ -50,9 +51,12 @@ export default function LearnPageClient({ initialTutorials, locale }: LearnPageC
   // 分类显示
   const getCategoryDisplayName = (category: string) => {
     const categoryMap: { [key: string]: string } = {
-      basic: t('learn.category.basic') || '基础',
-      noise: t('learn.category.noise') || '噪声',
-      lighting: t('learn.category.lighting') || '光照',
+      basic: t('learn.category.basic') || '基础入门',
+      math: t('learn.category.math') || '数学公式',
+      patterns: t('learn.category.patterns') || '图案纹理',
+      animation: t('learn.category.animation') || '动画交互',
+      noise: t('learn.category.noise') || '噪声函数',
+      lighting: t('learn.category.lighting') || '光照渲染',
       all: t('learn.category.all') || '全部',
     };
     return categoryMap[category] || category;
@@ -66,94 +70,101 @@ export default function LearnPageClient({ initialTutorials, locale }: LearnPageC
           {t('learn.description')}
         </p>
 
-        {/* 分类标签页 */}
-        <div className="bg-white shadow rounded-lg p-6 mb-8">
-          {/* <div className="flex flex-wrap gap-2 mb-6">
-            {categories.map(category => {
-              const count = category === 'all' 
-                ? tutorials.length 
-                : tutorials.filter(t => t.category === category).length;
-              return (
-                <button
-                  key={category}
-                  onClick={() => setSelectedCategory(category)}
-                  className={`px-4 py-2 rounded-full text-sm font-medium transition-colors duration-200 ${
-                    selectedCategory === category
-                      ? 'bg-blue-500 text-white'
-                      : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                  }`}
-                >
-                  {getCategoryDisplayName(category)} ({count})
-                </button>
-              );
-            })}
-          </div> */}
-
-          {/* 难度筛选 */}
-          <div className="flex flex-wrap gap-2">
-            <span className="text-sm font-medium text-gray-700 mr-2 py-2">
-              {t('learn.filter.difficulty')}:
-            </span>
-            {['all', 'beginner', 'intermediate', 'advanced'].map(difficulty => {
-              // Calculate count based on tutorials filtered by category, not by selected difficulty
-              const tutorialsForCount = selectedCategory === 'all' 
-                ? tutorials 
-                : tutorials.filter(t => t.category === selectedCategory);
-              const count = difficulty === 'all'
-                ? tutorialsForCount.length
-                : tutorialsForCount.filter(t => t.difficulty === difficulty).length;
-              return (
-                <button
-                  key={difficulty}
-                  onClick={() => setSelectedDifficulty(difficulty)}
-                  className={`px-3 py-1 rounded-full text-xs font-medium transition-colors duration-200 ${
-                    selectedDifficulty === difficulty
-                      ? 'bg-green-500 text-white'
-                      : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-                  }`}
-                >
-                  {getDifficultyDisplayName(difficulty)} ({count})
-                </button>
-              );
-            })}
+        {/* 返回按钮 - 仅在选择了分类时显示 */}
+        {selectedCategory && (
+          <div className="mb-6">
+            <button
+              onClick={() => setSelectedCategory('')}
+              className="inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 transition-colors duration-200"
+            >
+              <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              </svg>
+              {t('learn.back_to_categories')}
+            </button>
           </div>
-        </div>
+        )}
 
-        {/* 教程列表 */}
-        {filteredTutorials.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredTutorials.map(tutorial => (
-              <Card 
-                key={tutorial.id} 
-                className="cursor-pointer hover:shadow-lg transition-shadow duration-200"
-                onClick={() => router.push(`/${locale}/learn/${tutorial.category}/${tutorial.id}`)}
-              >
-                <div className="flex justify-between items-start mb-3">
-                  <h3 className="text-xl font-semibold text-gray-900">{tutorial.title}</h3>
-                  <span
-                    className={`inline-block text-xs px-2 py-1 rounded-full font-medium ${
-                      tutorial.difficulty === 'beginner'
-                        ? 'bg-green-100 text-green-800'
-                        : tutorial.difficulty === 'intermediate'
-                        ? 'bg-blue-100 text-blue-800'
-                        : 'bg-red-100 text-red-800'
-                    }`}
-                  >
-                    {getDifficultyDisplayName(tutorial.difficulty)}
-                  </span>
-                </div>
-                <p className="text-gray-600 text-sm leading-relaxed">{tutorial.description}</p>
-                <div className="mt-4 pt-3 border-t border-gray-100">
-                  <span className="text-xs text-gray-500 font-medium">
-                    {getCategoryDisplayName(tutorial.category)}
-                  </span>
-                </div>
-              </Card>
-            ))}
-          </div>
+        {/* 内容区域 */}
+        {selectedCategory ? (
+          /* 教程列表 */
+          filteredTutorials.length > 0 ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {filteredTutorials.map(tutorial => (
+                <Card 
+                  key={tutorial.id} 
+                  className="cursor-pointer hover:shadow-lg transition-shadow duration-200"
+                  onClick={() => router.push(`/${locale}/learn/${tutorial.category}/${tutorial.id}`)}
+                >
+                  <div className="flex justify-between items-start mb-3">
+                    <h3 className="text-xl font-semibold text-gray-900">{tutorial.title}</h3>
+                    <span
+                      className={`inline-block text-xs px-2 py-1 rounded-full font-medium ${
+                        tutorial.difficulty === 'beginner'
+                          ? 'bg-green-100 text-green-800'
+                          : tutorial.difficulty === 'intermediate'
+                          ? 'bg-blue-100 text-blue-800'
+                          : 'bg-red-100 text-red-800'
+                      }`}
+                    >
+                      {getDifficultyDisplayName(tutorial.difficulty)}
+                    </span>
+                  </div>
+                  <p className="text-gray-600 text-sm leading-relaxed">{tutorial.description}</p>
+                  <div className="mt-4 pt-3 border-t border-gray-100">
+                    <span className="text-xs text-gray-500 font-medium">
+                      {getCategoryDisplayName(tutorial.category)}
+                    </span>
+                  </div>
+                </Card>
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-12">
+              <p className="text-gray-500 text-lg">{t('learn.no_tutorials')}</p>
+            </div>
+          )
         ) : (
-          <div className="text-center py-12">
-            <p className="text-gray-500 text-lg">{t('learn.no_tutorials')}</p>
+          /* 学习路径推荐 */
+          <div className="space-y-8">
+            <div className="text-center py-8">
+              <h2 className="text-2xl font-bold text-gray-900 mb-4">{t('learn.path.title')}</h2>
+              <p className="text-gray-600 text-lg">{t('learn.path.subtitle')}</p>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {sortedCategories.map(category => {
+                const count = tutorials.filter(t => t.category === category).length;
+                const categoryInfo = {
+                  basic: { icon: '📚', desc: t('learn.path.basic.desc') },
+                  math: { icon: '🔢', desc: t('learn.path.math.desc') },
+                  patterns: { icon: '🎨', desc: t('learn.path.patterns.desc') },
+                  animation: { icon: '⚡', desc: t('learn.path.animation.desc') },
+                  noise: { icon: '🌊', desc: t('learn.path.noise.desc') },
+                  lighting: { icon: '💡', desc: t('learn.path.lighting.desc') }
+                };
+                const info = categoryInfo[category as keyof typeof categoryInfo] || { icon: '📖', desc: t('learn.path.basic.desc') };
+                
+                return (
+                  <Card 
+                    key={category}
+                    className="cursor-pointer hover:shadow-lg transition-all duration-200 hover:scale-105"
+                    onClick={() => setSelectedCategory(category)}
+                  >
+                    <div className="text-center p-6">
+                      <div className="text-4xl mb-4">{info.icon}</div>
+                      <h3 className="text-xl font-semibold text-gray-900 mb-2">
+                        {getCategoryDisplayName(category)}
+                      </h3>
+                      <p className="text-gray-600 text-sm mb-4">{info.desc}</p>
+                      <div className="inline-block bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full">
+                        {count} {t('learn.path.tutorials_count')}
+                      </div>
+                    </div>
+                  </Card>
+                );
+              })}
+            </div>
           </div>
         )}
       </div>

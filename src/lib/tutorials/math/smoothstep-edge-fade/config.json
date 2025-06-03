@@ -1,0 +1,35 @@
+{
+  "id": "smoothstep-edge-fade",
+  "title": {
+    "zh": "柔边渐隐",
+    "en": "Smoothstep Edge Fade"
+  },
+  "description": {
+    "zh": "使用 smoothstep() 实现图形边缘的渐隐过渡，对比 step()。",
+    "en": "Use smoothstep() to achieve a fade transition at the edges of a shape, contrasting with step()."
+  },
+  "difficulty": "beginner",
+  "category": "math",
+  "tags": ["smoothstep", "边缘渐隐", "过渡效果", "GLSL函数"],
+  "estimatedTime": 15,
+  "prerequisites": ["smooth-edges", "step-function"],
+  "learningObjectives": {
+    "zh": [
+      "深入理解`smoothstep()`在边缘处理中的应用。",
+      "学习如何通过调整`smoothstep()`的参数来控制渐隐的范围和强度。",
+      "掌握创建具有柔和边缘的图形效果。",
+      "能够解释`smoothstep()`与`step()`在视觉效果上的主要区别。"
+    ],
+    "en": [
+      "Gain a deeper understanding of the application of `smoothstep()` in edge processing.",
+      "Learn how to control the range and intensity of the fade by adjusting the parameters of `smoothstep()`.",
+      "Master creating graphical effects with soft edges.",
+      "Be able to explain the main visual differences between `smoothstep()` and `step()`."
+    ]
+  },
+  "uniforms": {
+    "u_time": 0.0,
+    "u_resolution": [300, 300]
+  },
+  "preview": "/api/shader/basic/smoothstep-edge-fade"
+}

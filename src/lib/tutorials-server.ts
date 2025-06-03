@@ -168,6 +168,65 @@ export async function getTutorialReadme(category: string, id: string, locale?: L
   }
 }
 
+// 获取指定分类下的所有教程
+export async function getTutorialsByCategory(category: string, locale: Locale): Promise<Tutorial[]> {
+  const tutorials: Tutorial[] = [];
+  const categoryDir = path.join(process.cwd(), 'src/lib/tutorials', category);
+  
+  try {
+    if (!fs.existsSync(categoryDir)) {
+      return [];
+    }
+    
+    // 读取分类下的所有教程目录
+    const tutorialDirs = fs.readdirSync(categoryDir, { withFileTypes: true })
+      .filter(dirent => dirent.isDirectory())
+      .map(dirent => dirent.name);
+    
+    for (const tutorialDir of tutorialDirs) {
+      const configPath = path.join(categoryDir, tutorialDir, 'config.json');
+      
+      if (fs.existsSync(configPath)) {
+        try {
+          const configContent = fs.readFileSync(configPath, 'utf-8');
+          const config: TutorialConfig = JSON.parse(configContent);
+          
+          // 根据语言选择标题和描述
+          let title: string;
+          let description: string;
+          
+          if (typeof config.title === 'object') {
+            title = config.title[locale] || config.title.zh;
+          } else {
+            title = locale === 'en' && config.title_en ? config.title_en : config.title;
+          }
+          
+          if (typeof config.description === 'object') {
+            description = config.description[locale] || config.description.zh;
+          } else {
+            description = locale === 'en' && config.description_en ? config.description_en : config.description;
+          }
+          
+          tutorials.push({
+            id: config.id,
+            title,
+            description,
+            difficulty: config.difficulty,
+            category: config.category,
+          });
+        } catch (error) {
+          console.error(`Error parsing config for ${tutorialDir}:`, error);
+        }
+      }
+    }
+    
+    return tutorials;
+  } catch (error) {
+    console.error(`Error reading tutorials for category ${category}:`, error);
+    return [];
+  }
+}
+
 // 获取教程的着色器代码
 export async function getTutorialShaders(category: string, id: string): Promise<{
   fragment: string;

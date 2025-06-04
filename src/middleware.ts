@@ -1,24 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { defaultLocale, locales } from './lib/i18n';
 
-// 获取首选语言
-function getLocale(request: NextRequest): string {
-  // 从 URL 路径中提取语言
-  const pathname = request.nextUrl.pathname;
-  const pathnameIsMissingLocale = locales.every(
-    (locale) => !pathname.startsWith(`/${locale}/`) && pathname !== `/${locale}`
-  );
-
-  // 如果路径中没有语言前缀，返回默认语言
-  if (pathnameIsMissingLocale) {
-    return defaultLocale;
-  }
-
-  // 从路径中提取语言
-  const locale = pathname.split('/')[1];
-  return (locales as readonly string[]).includes(locale) ? locale as typeof defaultLocale : defaultLocale;
-}
-
 export function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
   

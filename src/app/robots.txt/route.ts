@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 
-const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.shader-learn.com/sitemap.xml';
+const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.shader-learn.com';
 
 export async function GET() {
   const robotsTxt = `User-agent: *
@@ -11,12 +11,6 @@ Sitemap: ${baseUrl}/sitemap.xml
 
 # Disallow API routes
 Disallow: /api/
-
-# Allow specific paths
-Allow: /zh/
-Allow: /learn/
-Allow: /about
-Allow: /glslify-guide
 
 # Crawl delay
 Crawl-delay: 1`;

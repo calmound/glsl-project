@@ -27,18 +27,18 @@ export function middleware(request: NextRequest) {
     (locale) => !pathname.startsWith(`/${locale}/`) && pathname !== `/${locale}`
   );
 
-  // 如果是根路径，重定向到英文页面
-  if (pathname === '/') {
-    return NextResponse.redirect(
-      new URL('/en', request.url)
+  // 如果路径缺少语言前缀且不是根路径，则重写为默认语言路径
+  if (pathnameIsMissingLocale && pathname !== '/') {
+    // 对于没有语言前缀的路径，重写为英文路径
+    return NextResponse.rewrite(
+      new URL(`/en${pathname}`, request.url)
     );
   }
 
-  // 如果路径缺少语言前缀，重定向到带语言前缀的路径
-  if (pathnameIsMissingLocale) {
-    const locale = getLocale(request);
-    return NextResponse.redirect(
-      new URL(`/${locale}${pathname}`, request.url)
+  // 如果是根路径，重写为英文首页
+  if (pathname === '/') {
+    return NextResponse.rewrite(
+      new URL('/en', request.url)
     );
   }
 

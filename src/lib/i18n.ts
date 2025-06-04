@@ -1,6 +1,6 @@
 // i18n 配置文件
-export const defaultLocale = 'zh' as const;
-export const locales = ['zh', 'en'] as const;
+export const defaultLocale = 'en' as const;
+export const locales = ['en', 'zh'] as const;
 
 export type Locale = typeof locales[number];
 

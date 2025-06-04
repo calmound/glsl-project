@@ -41,8 +41,8 @@ export async function generateMetadata({ params }: TutorialPageProps): Promise<M
     },
     alternates: {
       languages: {
+        'en': `/learn/${category}/${id}`,
         'zh': `/zh/learn/${category}/${id}`,
-        'en': `/en/learn/${category}/${id}`,
       },
     },
   };

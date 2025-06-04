@@ -1,24 +1,24 @@
 import type { Metadata } from 'next';
-import { getTranslationFunction } from '../../lib/translations';
-import LearnPageContent from './learn-content';
+import { getTranslationFunction } from '../lib/translations';
+import HomePageClient from './[locale]/home-client';
 
 // 生成元数据
 export async function generateMetadata(): Promise<Metadata> {
   const t = getTranslationFunction('en');
   
-  const title = t('learn.title');
-  const description = t('learn.description');
+  const title = t('home.title');
+  const description = t('home.description');
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.shader-learn.com';
   
   return {
     title,
     description,
-    keywords: 'GLSL tutorial, WebGL programming, shader learning, graphics programming, fragment shader, vertex shader, OpenGL',
+    keywords: 'GLSL tutorial, WebGL programming, shader learning, graphics programming, fragment shader, vertex shader',
     openGraph: {
       title,
       description,
       type: 'website',
-      url: `${baseUrl}/learn`,
+      url: baseUrl,
       images: [{
         url: `${baseUrl}/og-image.png`,
         width: 1200,
@@ -34,15 +34,26 @@ export async function generateMetadata(): Promise<Metadata> {
       images: [`${baseUrl}/og-image.png`],
     },
     alternates: {
-      canonical: '/learn',
+      canonical: '/',
       languages: {
-        'en': '/learn',
-        'zh': '/zh/learn',
+        'en': '/',
+        'zh': '/zh',
+      },
+    },
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        'max-video-preview': -1,
+        'max-image-preview': 'large',
+        'max-snippet': -1,
       },
     },
   };
 }
 
-export default function LearnPage() {
-  return <LearnPageContent locale="en" />;
+export default function HomePage() {
+  return <HomePageClient locale="en" />;
 }

@@ -14,7 +14,6 @@ Disallow: /api/
 
 # Allow specific paths
 Allow: /zh/
-Allow: /en/
 Allow: /learn/
 Allow: /about
 Allow: /glslify-guide

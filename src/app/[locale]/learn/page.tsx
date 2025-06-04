@@ -49,10 +49,10 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       images: [`${baseUrl}/og-image.png`],
     },
     alternates: {
-      canonical: `/${locale}/learn`,
+      canonical: locale === 'en' ? '/learn' : `/${locale}/learn`,
       languages: {
+        'en': '/learn',
         'zh': '/zh/learn',
-        'en': '/en/learn',
       },
     },
   };

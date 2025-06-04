@@ -45,10 +45,10 @@ export async function generateMetadata({ params }: HomePageProps): Promise<Metad
       images: [`${baseUrl}/og-image.png`],
     },
     alternates: {
-      canonical: `/${locale}`,
+      canonical: locale === 'en' ? '/' : `/${locale}`,
       languages: {
+        'en': '/',
         'zh': '/zh',
-        'en': '/en',
       },
     },
   };

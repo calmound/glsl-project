@@ -38,10 +38,10 @@ export async function generateMetadata({ params }: LocaleLayoutProps): Promise<M
     },
     metadataBase: new URL(baseUrl),
     alternates: {
-      canonical: `/${locale}`,
+      canonical: locale === 'en' ? '/' : `/${locale}`,
       languages: {
+        'en': '/',
         'zh': '/zh',
-        'en': '/en',
       },
     },
     other: {

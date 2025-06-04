@@ -48,68 +48,53 @@ function generateUrlEntries(tutorialIds: string[], currentDate: string): string 
   
   // 生成多语言页面的URL（每个页面只生成一次，包含所有语言的alternate链接）
   const pages = [
-    { path: '/', changefreq: 'daily', priority: '1.0' },
-    { path: '/learn', changefreq: 'weekly', priority: '0.8' }
+    // 主要页面
+    { path: '', priority: '1.0', changefreq: 'daily' },
+    { path: 'learn', priority: '0.9', changefreq: 'weekly' },
+    { path: 'about', priority: '0.7', changefreq: 'monthly' },
+    { path: 'glslify-guide', priority: '0.8', changefreq: 'monthly' },
+    { path: 'examples', priority: '0.8', changefreq: 'weekly' },
   ];
   
-  // 添加教程详情页
-  tutorialIds.forEach(tutorialId => {
-    pages.push({
-      path: `/learn/${tutorialId}`,
-      changefreq: 'weekly',
-      priority: '0.7'
+  // 为每个页面生成多语言版本
+  pages.forEach(page => {
+    locales.forEach(locale => {
+      const url = page.path ? `${baseUrl}/${locale}/${page.path}` : `${baseUrl}/${locale}`;
+      
+      urls.push(`
+  <url>
+    <loc>${url}</loc>
+    <lastmod>${currentDate}</lastmod>
+    <changefreq>${page.changefreq}</changefreq>
+    <priority>${page.priority}</priority>
+    ${locales.map(altLocale => {
+      const altUrl = page.path ? `${baseUrl}/${altLocale}/${page.path}` : `${baseUrl}/${altLocale}`;
+      return `<xhtml:link rel="alternate" hreflang="${altLocale}" href="${altUrl}" />`;
+    }).join('\n    ')}
+    <xhtml:link rel="alternate" hreflang="x-default" href="${page.path ? `${baseUrl}/zh/${page.path}` : `${baseUrl}/zh`}" />
+  </url>`);
     });
   });
   
-  // 为中文版本生成URL条目（带/zh前缀）
-  pages.forEach(page => {
-    urls.push(`  <url>
-    <loc>${baseUrl}/zh${page.path}</loc>
+  // 生成教程页面
+  tutorialIds.forEach(tutorialId => {
+    locales.forEach(locale => {
+      const url = `${baseUrl}/${locale}/learn/${tutorialId}`;
+      
+      urls.push(`
+  <url>
+    <loc>${url}</loc>
     <lastmod>${currentDate}</lastmod>
-    <changefreq>${page.changefreq}</changefreq>
-    <priority>${page.priority}</priority>
-    ${generateAlternateLinks(page.path)}
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    ${locales.map(altLocale => {
+      const altUrl = `${baseUrl}/${altLocale}/learn/${tutorialId}`;
+      return `<xhtml:link rel="alternate" hreflang="${altLocale}" href="${altUrl}" />`;
+    }).join('\n    ')}
+    <xhtml:link rel="alternate" hreflang="x-default" href="${baseUrl}/zh/learn/${tutorialId}" />
   </url>`);
+    });
   });
   
-  // 为英文版本生成独立的URL条目
-  pages.forEach(page => {
-    urls.push(`  <url>
-    <loc>${baseUrl}/en${page.path}</loc>
-    <lastmod>${currentDate}</lastmod>
-    <changefreq>${page.changefreq}</changefreq>
-    <priority>${page.priority}</priority>
-    ${generateAlternateLinks(page.path)}
-  </url>`);
-  });
-  
-  // 添加不区分语言的页面（只添加一次）
-  // 关于页面
-  urls.push(`  <url>
-    <loc>${baseUrl}/about</loc>
-    <lastmod>${currentDate}</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>`);
-  
-  // GLSL指南页面
-  urls.push(`  <url>
-    <loc>${baseUrl}/glslify-guide</loc>
-    <lastmod>${currentDate}</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>`);
-  
-  return urls.join('\n');
-}
-
-function generateAlternateLinks(path: string): string {
-  const alternates = locales.map(locale => {
-    const href = `${baseUrl}/${locale}${path}`;
-    return `    <xhtml:link rel="alternate" hreflang="${locale}" href="${href}" />`;
-  }).join('\n');
-  
-  // 添加 x-default（默认指向中文版本）
-  const defaultHref = `${baseUrl}/zh${path}`;
-  return `${alternates}\n    <xhtml:link rel="alternate" hreflang="x-default" href="${defaultHref}" />`;
+  return urls.join('');
 }

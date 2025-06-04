@@ -17,16 +17,35 @@ export async function generateMetadata({ params }: HomePageProps): Promise<Metad
   
   const title = t('home.title');
   const description = t('home.description');
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.shader-learn.com';
   
   return {
     title,
     description,
+    keywords: locale === 'en' 
+      ? 'GLSL tutorial, WebGL programming, shader learning, graphics programming, fragment shader, vertex shader'
+      : 'GLSL教程, WebGL编程, 着色器学习, 图形编程, 片段着色器, 顶点着色器',
     openGraph: {
       title,
       description,
       type: 'website',
+      url: `${baseUrl}/${locale}`,
+      images: [{
+        url: `${baseUrl}/og-image.png`,
+        width: 1200,
+        height: 630,
+        alt: title
+      }],
+      locale: locale === 'zh' ? 'zh_CN' : 'en_US',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: [`${baseUrl}/og-image.png`],
     },
     alternates: {
+      canonical: `/${locale}`,
       languages: {
         'zh': '/zh',
         'en': '/en',

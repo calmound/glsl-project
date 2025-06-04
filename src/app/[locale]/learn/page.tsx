@@ -17,11 +17,39 @@ interface PageProps {
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { locale: localeParam } = await params;
   const locale = getValidLocale(localeParam) as Locale;
+  const t = getTranslationFunction(locale);
+  
+  const title = t('learn.title');
+  const description = t('learn.description');
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.shader-learn.com';
   
   return {
-    title: getTranslationFunction(locale)('learn.title') + ' - ' + getTranslationFunction(locale)('header.title'),
-    description: getTranslationFunction(locale)('learn.description'),
+    title: `${title} - ${t('header.title')}`,
+    description,
+    keywords: locale === 'en' 
+      ? 'GLSL tutorials, WebGL lessons, shader programming course, graphics programming learning'
+      : 'GLSL教程, WebGL课程, 着色器编程学习, 图形编程教学',
+    openGraph: {
+      title,
+      description,
+      type: 'website',
+      url: `${baseUrl}/${locale}/learn`,
+      images: [{
+        url: `${baseUrl}/og-image.png`,
+        width: 1200,
+        height: 630,
+        alt: title
+      }],
+      locale: locale === 'zh' ? 'zh_CN' : 'en_US',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: [`${baseUrl}/og-image.png`],
+    },
     alternates: {
+      canonical: `/${locale}/learn`,
       languages: {
         'zh': '/zh/learn',
         'en': '/en/learn',

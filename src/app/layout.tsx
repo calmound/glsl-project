@@ -1,6 +1,7 @@
 import './globals.css';
 
 import { LanguageProvider } from '../contexts/LanguageContext';
+import { AuthProvider } from '../contexts/AuthContext';
 
 export default function RootLayout({
   children,
@@ -22,9 +23,11 @@ export default function RootLayout({
         </script>
       </head>
       <body suppressHydrationWarning>
-        <LanguageProvider>
-          {children}
-        </LanguageProvider>
+        <AuthProvider>
+          <LanguageProvider>
+            {children}
+          </LanguageProvider>
+        </AuthProvider>
       </body>
     </html>
   );

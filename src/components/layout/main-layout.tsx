@@ -4,6 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import { useLanguage } from '../../contexts/LanguageContext';
 import LanguageSwitcher from '../ui/language-switcher';
+import UserMenu from '../ui/user-menu';
 
 interface MainLayoutProps {
   children: React.ReactNode;
@@ -34,7 +35,10 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
                 </li>
               </ul>
             </nav>
-            <LanguageSwitcher />
+            <div className="flex items-center space-x-4">
+              <LanguageSwitcher />
+              <UserMenu />
+            </div>
           </div>
         </div>
       </header>

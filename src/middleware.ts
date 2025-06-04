@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { withAuth } from 'next-auth/middleware';
 import { defaultLocale, locales } from './lib/i18n';
 
 // 获取首选语言
@@ -19,8 +20,13 @@ function getLocale(request: NextRequest): string {
   return (locales as readonly string[]).includes(locale) ? locale as typeof defaultLocale : defaultLocale;
 }
 
-export function middleware(request: NextRequest) {
+function handleI18nRouting(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
+  
+  // 跳过 API 路由和认证路由
+  if (pathname.startsWith('/api/') || pathname.startsWith('/auth/')) {
+    return NextResponse.next();
+  }
   
   // 检查路径是否已经包含支持的语言
   const pathnameIsMissingLocale = locales.every(
@@ -53,17 +59,52 @@ export function middleware(request: NextRequest) {
   return NextResponse.next();
 }
 
+export default withAuth(
+  function middleware(request: NextRequest) {
+    return handleI18nRouting(request);
+  },
+  {
+    callbacks: {
+      authorized: ({ token, req }) => {
+        const pathname = req.nextUrl.pathname;
+        
+        // 受保护的路由
+        const protectedRoutes = [
+          '/dashboard',
+          '/profile',
+          '/projects'
+        ];
+        
+        // 检查是否是受保护的路由
+        const isProtectedRoute = protectedRoutes.some(route => 
+          pathname.includes(route)
+        );
+        
+        // 如果是受保护的路由，需要登录
+        if (isProtectedRoute) {
+          return !!token;
+        }
+        
+        // 其他路由允许访问
+        return true;
+      },
+    },
+    pages: {
+      signIn: '/auth/signin',
+    },
+  }
+);
+
 export const config = {
-  // 匹配所有路径，除了 API 路由、静态文件等
   matcher: [
     /*
      * 匹配所有请求路径，除了以下开头的路径：
-     * - api (API 路由)
+     * - api/auth (NextAuth API 路由)
      * - _next/static (静态文件)
      * - _next/image (图像优化文件)
      * - favicon.ico (网站图标)
      * - 其他静态资源
      */
-    '/((?!api|_next/static|_next/image|favicon.ico|.*\\.).*)',
+    '/((?!api/auth|_next/static|_next/image|favicon.ico|.*\\.).*)',
   ],
 };

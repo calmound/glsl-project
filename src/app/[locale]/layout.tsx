@@ -59,12 +59,6 @@ export async function generateMetadata({ params }: LocaleLayoutProps): Promise<M
       siteName: t('header.title'),
       title: t('header.title'),
       description: t('header.description'),
-      siteName: t('header.title'),
-    },
-    twitter: {
-      card: 'summary_large_image',
-      title: t('header.title'),
-      description: t('header.description'),
     },
     robots: {
       index: true,

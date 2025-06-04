@@ -74,6 +74,7 @@ export async function generateMetadata({ params }: LocaleLayoutProps): Promise<M
   };
 }
 
+
 // 生成静态参数
 export async function generateStaticParams() {
   return [

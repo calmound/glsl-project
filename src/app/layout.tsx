@@ -14,6 +14,11 @@ export default function RootLayout({
         {/* 基础 Meta 标签 */}
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>GLSL Learning - Professional Shader Programming Platform</title>
+        <meta name="description" content="Professional GLSL shader programming learning platform, providing complete learning paths from basic to advanced. Master modern graphics programming skills through hands-on practice and deep understanding of WebGL and shader development." />
+        <meta name="keywords" content="GLSL, WebGL, Shader, Graphics Programming, Tutorial, Learning, Fragment Shader, Vertex Shader, WebGL Programming" />
+        <meta name="author" content="GLSL Learning Platform" />
+        <link rel="canonical" href={process.env.NEXT_PUBLIC_BASE_URL || "https://www.shader-learn.com"} />
         
         {/* 预连接优化 */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />

@@ -8,6 +8,7 @@ export const translations: Record<Locale, Translations> = {
   zh: {
     // Header
     'header.title': 'Shader 学习',
+    'header.description': '专业的 GLSL 着色器编程学习平台，提供从基础到高级的完整学习路径。掌握现代图形编程技能，通过实战练习深入理解 WebGL 和着色器开发。',
     'nav.home': '首页',
     'nav.learn': '学习',
     'nav.examples': '示例',
@@ -67,6 +68,7 @@ export const translations: Record<Locale, Translations> = {
     
     // Home page
     'home.title': '掌握 GLSL 着色器编程',
+    'home.description': '专业的 GLSL 着色器编程学习平台，从零开始学习 WebGL 和着色器开发。提供交互式在线编辑器、完整学习路径和丰富的实战项目，帮助您掌握现代图形编程技能。',
     'home.subtitle': '从零开始学习 GLSL 着色器语言，释放 GPU 的强大图形渲染能力，创建令人惊叹的视觉效果。',
     'home.start_learning': '开始学习',
     'home.view_examples': '查看示例',
@@ -159,6 +161,7 @@ export const translations: Record<Locale, Translations> = {
   en: {
     // Header
     'header.title': 'GLSL Learning',
+    'header.description': 'Professional GLSL shader programming learning platform, providing complete learning paths from basic to advanced. Master modern graphics programming skills through hands-on practice and deep understanding of WebGL and shader development.',
     'nav.home': 'Home',
     'nav.learn': 'Learn',
     'nav.examples': 'Examples',
@@ -218,6 +221,7 @@ export const translations: Record<Locale, Translations> = {
     
     // Home page
     'home.title': 'Master GLSL Shader Programming',
+    'home.description': 'Professional GLSL shader programming learning platform. Learn WebGL and shader development from scratch. Features interactive online editor, complete learning paths, and rich practical projects to help you master modern graphics programming skills.',
     'home.subtitle': 'Learn GLSL shader language from scratch, unleash the powerful graphics rendering capabilities of GPU, and create stunning visual effects.',
     'home.start_learning': 'Start Learning',
     'home.view_examples': 'View Examples',

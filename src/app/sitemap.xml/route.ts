@@ -1,6 +1,5 @@
 import { NextResponse } from 'next/server';
 import { getTutorials } from '../../lib/tutorials-server';
-import { locales } from '../../lib/i18n';
 
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.shader-learn.com';
 
@@ -47,7 +46,7 @@ export async function GET() {
 function generateUrlEntries(tutorialIds: string[], currentDate: string): string {
   const urls: string[] = [];
   
-  // 生成多语言页面的URL（每个页面只生成一次，包含所有语言的alternate链接）
+  // 生成页面URL
   const pages = [
     // 主要页面
     { path: '', priority: '1.0', changefreq: 'daily' },
@@ -57,34 +56,56 @@ function generateUrlEntries(tutorialIds: string[], currentDate: string): string 
     { path: 'examples', priority: '0.8', changefreq: 'weekly' },
   ];
   
-  // 为每个页面生成多语言版本
+  // 生成默认英文页面（无语言前缀）
   pages.forEach(page => {
-    locales.forEach(locale => {
-      const url = page.path ? `${baseUrl}/${locale}/${page.path}` : `${baseUrl}/${locale}`;
-      
-      urls.push(`
+    const url = page.path ? `${baseUrl}/${page.path}` : baseUrl;
+    
+    urls.push(`
   <url>
     <loc>${url}</loc>
     <lastmod>${currentDate}</lastmod>
     <changefreq>${page.changefreq}</changefreq>
     <priority>${page.priority}</priority>
   </url>`);
-    });
   });
   
-  // 生成教程页面
+  // 生成中文页面（/zh前缀）
+  pages.forEach(page => {
+    const url = page.path ? `${baseUrl}/zh/${page.path}` : `${baseUrl}/zh`;
+    
+    urls.push(`
+  <url>
+    <loc>${url}</loc>
+    <lastmod>${currentDate}</lastmod>
+    <changefreq>${page.changefreq}</changefreq>
+    <priority>${page.priority}</priority>
+  </url>`);
+  });
+  
+  // 生成默认英文教程页面
   tutorialIds.forEach(tutorialId => {
-    locales.forEach(locale => {
-      const url = `${baseUrl}/${locale}/learn/${tutorialId}`;
-      
-      urls.push(`
+    const url = `${baseUrl}/learn/${tutorialId}`;
+    
+    urls.push(`
   <url>
     <loc>${url}</loc>
     <lastmod>${currentDate}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>`);
-    });
+  });
+  
+  // 生成中文教程页面
+  tutorialIds.forEach(tutorialId => {
+    const url = `${baseUrl}/zh/learn/${tutorialId}`;
+    
+    urls.push(`
+  <url>
+    <loc>${url}</loc>
+    <lastmod>${currentDate}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>`);
   });
   
   return urls.join('');

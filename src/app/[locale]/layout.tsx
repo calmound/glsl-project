@@ -25,9 +25,9 @@ export async function generateMetadata({ params }: LocaleLayoutProps): Promise<M
       default: t('header.title'),
     },
     description: t('header.description') || '专业的 GLSL 着色器编程学习平台，提供从基础到高级的完整学习路径',
-    keywords: locale === 'en' 
-      ? 'GLSL, WebGL, Shader, Graphics Programming, Tutorial, Learning, Fragment Shader, Vertex Shader, WebGL Programming'
-      : 'GLSL, WebGL, 着色器, 图形编程, 教程, 学习, 片段着色器, 顶点着色器, WebGL编程',
+    keywords: locale === 'zh' ?
+    'GLSL, WebGL, 着色器, 图形编程, 教程, 学习, 片段着色器, 顶点着色器, WebGL编程':
+    'GLSL, WebGL, Shader, Graphics Programming, Tutorial, Learning, Fragment Shader, Vertex Shader, WebGL Programming',
     authors: [{ name: 'GLSL Learning Platform', url: baseUrl }],
     creator: 'GLSL Learning Platform',
     publisher: 'GLSL Learning Platform',

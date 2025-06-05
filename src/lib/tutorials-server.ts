@@ -24,6 +24,15 @@ interface TutorialConfig {
   description_en?: string; // 向后兼容
   difficulty: 'beginner' | 'intermediate' | 'advanced';
   category: string;
+  tags?: string[];
+  estimatedTime?: number;
+  prerequisites?: string[];
+  learningObjectives?: {
+    zh: string[];
+    en: string[];
+  };
+  uniforms?: Record<string, any>;
+  preview?: string;
 }
 
 // 获取教程数据的服务端函数
@@ -264,5 +273,24 @@ export async function getTutorialShaders(category: string, id: string): Promise<
   } catch (error) {
     console.error(`Error reading shaders for ${category}/${id}:`, error);
     return result;
+  }
+}
+
+// 获取教程的完整配置信息（用于SEO）
+export async function getTutorialConfig(category: string, id: string): Promise<TutorialConfig | null> {
+  const configPath = path.join(process.cwd(), 'src/lib/tutorials', category, id, 'config.json');
+  
+  try {
+    if (!fs.existsSync(configPath)) {
+      return null;
+    }
+    
+    const configContent = fs.readFileSync(configPath, 'utf-8');
+    const config: TutorialConfig = JSON.parse(configContent);
+    
+    return config;
+  } catch (error) {
+    console.error(`Error reading config for ${category}/${id}:`, error);
+    return null;
   }
 }

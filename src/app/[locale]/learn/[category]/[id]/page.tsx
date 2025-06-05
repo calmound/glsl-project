@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { getTutorial, getTutorialReadme, getTutorialShaders, getTutorialsByCategory } from '../../../../../lib/tutorials-server';
+import { getTutorial, getTutorialReadme, getTutorialShaders, getTutorialsByCategory, getTutorialConfig } from '../../../../../lib/tutorials-server';
 import { getValidLocale, type Locale } from '../../../../../lib/i18n';
 import { getTranslationFunction } from '../../../../../lib/translations';
 import TutorialPageClient from './tutorial-client';
@@ -28,22 +28,79 @@ export async function generateMetadata({ params }: TutorialPageProps): Promise<M
     };
   }
   
-  const title = `${tutorial.title} - ${t('nav.learn')}`;
+  // 获取教程配置以获取更多SEO信息
+  const tutorialConfig = await getTutorialConfig(category, id);
+  
+  const title = `${tutorial.title} - ${t('nav.learn')} | GLSL ${locale === 'zh' ? '着色器教程' : 'Shader Tutorial'}`;
   const description = tutorial.description;
+  
+  // 生成关键词
+  const keywords = [
+    'GLSL',
+    locale === 'zh' ? '着色器' : 'shader',
+    locale === 'zh' ? '教程' : 'tutorial',
+    tutorial.title,
+    category,
+    tutorial.difficulty,
+    ...(tutorialConfig?.tags || [])
+  ].join(', ');
+  
+  // 生成更详细的描述
+  const detailedDescription = tutorialConfig?.estimatedTime 
+    ? `${description} ${locale === 'zh' ? '预计学习时间' : 'Estimated learning time'}: ${tutorialConfig.estimatedTime} ${locale === 'zh' ? '分钟' : 'minutes'}. ${locale === 'zh' ? '难度级别' : 'Difficulty level'}: ${tutorial.difficulty}.`
+    : `${description} ${locale === 'zh' ? '难度级别' : 'Difficulty level'}: ${tutorial.difficulty}.`;
   
   return {
     title,
-    description,
+    description: detailedDescription,
+    keywords,
+    authors: [{ name: 'GLSL Tutorial' }],
+    creator: 'GLSL Tutorial',
+    publisher: 'GLSL Tutorial',
+    category: `${locale === 'zh' ? '编程教程' : 'Programming Tutorial'}`,
     openGraph: {
       title,
-      description,
+      description: detailedDescription,
       type: 'article',
+      siteName: 'GLSL Tutorial',
+      locale: locale === 'zh' ? 'zh_CN' : 'en_US',
+      images: [
+        {
+          url: `/api/shader/${category}/${id}/preview.png`,
+          width: 1200,
+          height: 630,
+          alt: tutorial.title,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description: detailedDescription,
+      images: [`/api/shader/${category}/${id}/preview.png`],
     },
     alternates: {
+      canonical: `/${locale}/learn/${category}/${id}`,
       languages: {
         'en': `/learn/${category}/${id}`,
         'zh': `/zh/learn/${category}/${id}`,
       },
+    },
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        'max-video-preview': -1,
+        'max-image-preview': 'large',
+        'max-snippet': -1,
+      },
+    },
+    other: {
+      'article:author': 'GLSL Tutorial',
+      'article:section': locale === 'zh' ? '着色器教程' : 'Shader Tutorial',
+      'article:tag': keywords,
     },
   };
 }

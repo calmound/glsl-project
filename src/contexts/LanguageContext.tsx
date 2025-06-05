@@ -20,7 +20,7 @@ interface LanguageProviderProps {
   initialLocale?: Locale;
 }
 
-export function LanguageProvider({ children, initialLocale = 'zh' }: LanguageProviderProps) {
+export function LanguageProvider({ children, initialLocale = 'en' }: LanguageProviderProps) {
   const router = useRouter();
   const pathname = usePathname();
   const [language, setLanguageState] = useState<Locale>(initialLocale);

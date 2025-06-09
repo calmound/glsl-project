@@ -1,6 +1,8 @@
-import type { Metadata } from 'next';
+import { Metadata } from 'next';
 import { getTranslationFunction } from '../../lib/translations';
-import LearnPageContent from './learn-content';
+import { getTutorials } from '../../lib/tutorials-server';
+import MainLayout from '../../components/layout/main-layout';
+import LearnPageClient from '../[locale]/learn/learn-client';
 
 // 生成元数据
 export async function generateMetadata(): Promise<Metadata> {
@@ -43,6 +45,16 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export default function LearnPage() {
-  return <LearnPageContent locale="en" />;
+export default async function LearnPage() {
+  // 服务端获取教程数据，使用默认语言 'en'
+  const tutorials = await getTutorials('en');
+  
+  return (
+    <MainLayout>
+      <LearnPageClient 
+        initialTutorials={tutorials}
+        locale="en"
+      />
+    </MainLayout>
+  );
 }

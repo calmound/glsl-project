@@ -117,10 +117,10 @@ export default function LearnPageContent({ locale }: LearnPageContentProps) {
               onChange={(e) => setSelectedDifficulty(e.target.value)}
               className="px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
-              <option value="all">{t('learn.allDifficulties')}</option>
-              <option value="beginner">{t('learn.difficulties.beginner')}</option>
-              <option value="intermediate">{t('learn.difficulties.intermediate')}</option>
-              <option value="advanced">{t('learn.difficulties.advanced')}</option>
+              <option value="all">{t('learn.difficulty.all')}</option>
+              <option value="beginner">{t('learn.difficulty.beginner')}</option>
+              <option value="intermediate">{t('learn.difficulty.intermediate')}</option>
+              <option value="advanced">{t('learn.difficulty.advanced')}</option>
             </select>
           </div>
         </div>
@@ -144,7 +144,7 @@ export default function LearnPageContent({ locale }: LearnPageContentProps) {
                       {tutorial.title}
                     </h3>
                     <span className={`px-2 py-1 rounded-full text-xs font-medium ${getDifficultyColor(tutorial.difficulty)}`}>
-                      {t(`learn.difficulties.${tutorial.difficulty}`)}
+                      {t(`learn.difficulty.${tutorial.difficulty}`)}
                     </span>
                   </div>
                   <p className="text-gray-600 text-sm mb-4 line-clamp-3">

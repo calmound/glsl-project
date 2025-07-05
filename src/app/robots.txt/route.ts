@@ -6,19 +6,38 @@ export async function GET() {
   const robotsTxt = `User-agent: *
 Allow: /
 
-# Sitemap
+# Sitemaps
 Sitemap: ${baseUrl}/sitemap.xml
+Sitemap: ${baseUrl}/sitemap-index.xml
 
-# Disallow API routes
+# Disallow API routes and admin paths
 Disallow: /api/
+Disallow: /_next/
+Disallow: /admin/
+Disallow: /.well-known/
 
-# Crawl delay
-Crawl-delay: 1`;
+# Allow specific static files
+Allow: /favicon.ico
+Allow: /manifest.json
+Allow: /*.css
+Allow: /*.js
+Allow: /*.png
+Allow: /*.jpg
+Allow: /*.jpeg
+Allow: /*.gif
+Allow: /*.svg
+Allow: /*.webp
+
+# Crawl delay for respectful crawling
+Crawl-delay: 1
+
+# Host directive
+Host: ${baseUrl}`;
 
   return new NextResponse(robotsTxt, {
     headers: {
-      'Content-Type': 'text/plain',
-      'Cache-Control': 'public, max-age=86400, s-maxage=86400'
-    }
+      'Content-Type': 'text/plain; charset=utf-8',
+      'Cache-Control': 'public, max-age=86400, s-maxage=86400',
+    },
   });
 }

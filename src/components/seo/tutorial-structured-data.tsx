@@ -28,7 +28,7 @@ export default function TutorialStructuredData({
 }: TutorialStructuredDataProps) {
   const pathname = usePathname();
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.shader-learn.com';
-  
+
   useEffect(() => {
     // 生成结构化数据
     const structuredData = {
@@ -39,29 +39,33 @@ export default function TutorialStructuredData({
       author: {
         '@type': 'Organization',
         name: 'GLSL Learning Platform',
-        url: baseUrl
+        url: baseUrl,
       },
       publisher: {
         '@type': 'Organization',
         name: 'GLSL Learning Platform',
-        url: baseUrl
+        url: baseUrl,
       },
       datePublished,
       dateModified: dateModified || datePublished,
       mainEntityOfPage: {
         '@type': 'WebPage',
-        '@id': `${baseUrl}${pathname}`
+        '@id': `${baseUrl}${pathname}`,
       },
       image: `${baseUrl}/og-image.png?title=${encodeURIComponent(title)}&type=tutorial`,
       keywords: keywords.join(', '),
       inLanguage: language,
       about: {
         '@type': 'Thing',
-        name: 'GLSL Programming'
+        name: 'GLSL Programming',
       },
       teaches: keywords.join(', ') || 'GLSL, WebGL, Shader Programming',
-      educationalLevel: difficulty === 'beginner' ? 'Beginner' : 
-                        difficulty === 'intermediate' ? 'Intermediate' : 'Advanced',
+      educationalLevel:
+        difficulty === 'beginner'
+          ? 'Beginner'
+          : difficulty === 'intermediate'
+          ? 'Intermediate'
+          : 'Advanced',
       timeRequired: duration,
       // 添加课程结构
       isPartOf: {
@@ -71,24 +75,24 @@ export default function TutorialStructuredData({
         provider: {
           '@type': 'Organization',
           name: 'GLSL Learning Platform',
-          url: baseUrl
-        }
-      }
+          url: baseUrl,
+        },
+      },
     };
-    
+
     // 移除已存在的结构化数据
     const existingScript = document.querySelector('script[data-type="tutorial-structured-data"]');
     if (existingScript) {
       existingScript.remove();
     }
-    
+
     // 添加新的结构化数据
     const script = document.createElement('script');
     script.type = 'application/ld+json';
     script.textContent = JSON.stringify(structuredData);
     script.dataset.type = 'tutorial-structured-data';
     document.head.appendChild(script);
-    
+
     // 清理函数
     return () => {
       const scriptToRemove = document.querySelector('script[data-type="tutorial-structured-data"]');
@@ -96,7 +100,19 @@ export default function TutorialStructuredData({
         scriptToRemove.remove();
       }
     };
-  }, [title, description, category, difficulty, datePublished, dateModified, keywords, language, duration, pathname]);
+  }, [
+    title,
+    description,
+    category,
+    difficulty,
+    datePublished,
+    dateModified,
+    keywords,
+    language,
+    duration,
+    pathname,
+    baseUrl,
+  ]);
 
   return null;
 }

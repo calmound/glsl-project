@@ -1,0 +1,9 @@
+# Node.js scripts
+scripts/
+# Build output
+.next/
+out/
+# Dependencies
+node_modules/
+# Environment variables
+.env* 

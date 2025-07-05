@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useCallback } from 'react';
 
 interface DebugShaderCanvasProps {
   fragmentShader: string;
@@ -41,72 +41,72 @@ const DebugShaderCanvas: React.FC<DebugShaderCanvasProps> = ({
 
   // 确保基本的uniforms存在
 
-  // 创建着色器
-  const createShader = (
-    gl: WebGLRenderingContext,
-    type: number,
-    source: string
-  ): WebGLShader | null => {
-    console.log(
-      '创建着色器',
-      type === gl.VERTEX_SHADER ? '顶点' : '片段',
-      source.substring(0, 50) + '...'
-    );
-    const shader = gl.createShader(type);
-    if (!shader) {
-      setError('无法创建着色器对象');
+  // 使用useCallback包裹以稳定函数引用
+  const createShader = useCallback(
+    (gl: WebGLRenderingContext, type: number, source: string): WebGLShader | null => {
+      console.log(
+        '创建着色器',
+        type === gl.VERTEX_SHADER ? '顶点' : '片段',
+        source.substring(0, 50) + '...'
+      );
+      const shader = gl.createShader(type);
+      if (!shader) {
+        setError('无法创建着色器对象');
+        return null;
+      }
+
+      gl.shaderSource(shader, source);
+      gl.compileShader(shader);
+
+      const success = gl.getShaderParameter(shader, gl.COMPILE_STATUS);
+      if (success) return shader;
+
+      const errorMsg = gl.getShaderInfoLog(shader) || '未知着色器错误';
+      console.error('着色器编译错误:', errorMsg);
+      setError(`着色器编译错误: ${errorMsg}`);
+      gl.deleteShader(shader);
       return null;
-    }
+    },
+    [] // 空依赖数组，因为此函数不依赖外部变量
+  );
 
-    gl.shaderSource(shader, source);
-    gl.compileShader(shader);
+  const createProgram = useCallback(
+    (
+      gl: WebGLRenderingContext,
+      vertexSource: string,
+      fragmentSource: string
+    ): WebGLProgram | null => {
+      console.log('创建着色器程序');
+      const vertShader = createShader(gl, gl.VERTEX_SHADER, vertexSource);
+      const fragShader = createShader(gl, gl.FRAGMENT_SHADER, fragmentSource);
 
-    const success = gl.getShaderParameter(shader, gl.COMPILE_STATUS);
-    if (success) return shader;
+      if (!vertShader || !fragShader) {
+        return null;
+      }
 
-    const errorMsg = gl.getShaderInfoLog(shader) || '未知着色器错误';
-    console.error('着色器编译错误:', errorMsg);
-    setError(`着色器编译错误: ${errorMsg}`);
-    gl.deleteShader(shader);
-    return null;
-  };
+      const program = gl.createProgram();
+      if (!program) {
+        setError('无法创建着色器程序');
+        return null;
+      }
 
-  // 创建着色器程序
-  const createProgram = (
-    gl: WebGLRenderingContext,
-    vertexSource: string,
-    fragmentSource: string
-  ): WebGLProgram | null => {
-    console.log('创建着色器程序');
-    const vertShader = createShader(gl, gl.VERTEX_SHADER, vertexSource);
-    const fragShader = createShader(gl, gl.FRAGMENT_SHADER, fragmentSource);
+      gl.attachShader(program, vertShader);
+      gl.attachShader(program, fragShader);
+      gl.linkProgram(program);
 
-    if (!vertShader || !fragShader) {
+      const success = gl.getProgramParameter(program, gl.LINK_STATUS);
+      if (success) return program;
+
+      const errorMsg = gl.getProgramInfoLog(program) || '未知程序链接错误';
+      console.error('程序链接错误:', errorMsg);
+      setError(`程序链接错误: ${errorMsg}`);
+      gl.deleteProgram(program);
       return null;
-    }
+    },
+    [createShader] // 依赖createShader
+  );
 
-    const program = gl.createProgram();
-    if (!program) {
-      setError('无法创建着色器程序');
-      return null;
-    }
-
-    gl.attachShader(program, vertShader);
-    gl.attachShader(program, fragShader);
-    gl.linkProgram(program);
-
-    const success = gl.getProgramParameter(program, gl.LINK_STATUS);
-    if (success) return program;
-
-    const errorMsg = gl.getProgramInfoLog(program) || '未知程序链接错误';
-    console.error('程序链接错误:', errorMsg);
-    setError(`程序链接错误: ${errorMsg}`);
-    gl.deleteProgram(program);
-    return null;
-  };
-
-  // 渲染循环
-  const render = () => {
+  const render = useCallback(() => {
     const gl = glRef.current;
     const program = programRef.current;
     const canvas = canvasRef.current;
@@ -173,7 +173,7 @@ const DebugShaderCanvas: React.FC<DebugShaderCanvasProps> = ({
         animationRef.current = null;
       }
     }
-  };
+  }, [uniforms, timeScale]); // 依赖uniforms和timeScale
 
   // 初始化GL
   useEffect(() => {
@@ -278,7 +278,7 @@ const DebugShaderCanvas: React.FC<DebugShaderCanvasProps> = ({
 
       console.log('DebugShaderCanvas清理完成');
     };
-  }, [vertexShader, fragmentShader, width, height]);
+  }, [vertexShader, fragmentShader, width, height, createProgram, render]);
 
   return (
     <div

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useCallback } from 'react';
 
 interface ShaderCanvasProps {
   fragmentShader: string;
@@ -38,53 +38,55 @@ const ShaderCanvas: React.FC<ShaderCanvasProps> = ({
   const startTimeRef = useRef<number>(Date.now());
 
   // 创建着色器
-  const createShader = (
-    gl: WebGLRenderingContext,
-    type: number,
-    source: string
-  ): WebGLShader | null => {
-    const shader = gl.createShader(type);
-    if (!shader) return null;
+  const createShader = useCallback(
+    (gl: WebGLRenderingContext, type: number, source: string): WebGLShader | null => {
+      const shader = gl.createShader(type);
+      if (!shader) return null;
 
-    gl.shaderSource(shader, source);
-    gl.compileShader(shader);
+      gl.shaderSource(shader, source);
+      gl.compileShader(shader);
 
-    const success = gl.getShaderParameter(shader, gl.COMPILE_STATUS);
-    if (success) return shader;
+      const success = gl.getShaderParameter(shader, gl.COMPILE_STATUS);
+      if (success) return shader;
 
-    console.error(gl.getShaderInfoLog(shader));
-    gl.deleteShader(shader);
-    return null;
-  };
+      console.error(gl.getShaderInfoLog(shader));
+      gl.deleteShader(shader);
+      return null;
+    },
+    []
+  );
 
   // 创建着色器程序
-  const createProgram = (
-    gl: WebGLRenderingContext,
-    vertexSource: string,
-    fragmentSource: string
-  ): WebGLProgram | null => {
-    const vertShader = createShader(gl, gl.VERTEX_SHADER, vertexSource);
-    const fragShader = createShader(gl, gl.FRAGMENT_SHADER, fragmentSource);
+  const createProgram = useCallback(
+    (
+      gl: WebGLRenderingContext,
+      vertexSource: string,
+      fragmentSource: string
+    ): WebGLProgram | null => {
+      const vertShader = createShader(gl, gl.VERTEX_SHADER, vertexSource);
+      const fragShader = createShader(gl, gl.FRAGMENT_SHADER, fragmentSource);
 
-    if (!vertShader || !fragShader) return null;
+      if (!vertShader || !fragShader) return null;
 
-    const program = gl.createProgram();
-    if (!program) return null;
+      const program = gl.createProgram();
+      if (!program) return null;
 
-    gl.attachShader(program, vertShader);
-    gl.attachShader(program, fragShader);
-    gl.linkProgram(program);
+      gl.attachShader(program, vertShader);
+      gl.attachShader(program, fragShader);
+      gl.linkProgram(program);
 
-    const success = gl.getProgramParameter(program, gl.LINK_STATUS);
-    if (success) return program;
+      const success = gl.getProgramParameter(program, gl.LINK_STATUS);
+      if (success) return program;
 
-    console.error(gl.getProgramInfoLog(program));
-    gl.deleteProgram(program);
-    return null;
-  };
+      console.error(gl.getProgramInfoLog(program));
+      gl.deleteProgram(program);
+      return null;
+    },
+    [createShader]
+  );
 
   // 渲染循环
-  const render = () => {
+  const render = useCallback(() => {
     const gl = glRef.current;
     const program = programRef.current;
     const canvas = canvasRef.current;
@@ -137,7 +139,7 @@ const ShaderCanvas: React.FC<ShaderCanvasProps> = ({
 
     // 继续渲染循环
     animationRef.current = requestAnimationFrame(render);
-  };
+  }, [timeScale, uniforms]);
 
   // 初始化GL
   useEffect(() => {
@@ -199,7 +201,7 @@ const ShaderCanvas: React.FC<ShaderCanvasProps> = ({
         gl.deleteProgram(program);
       }
     };
-  }, [vertexShader, fragmentShader, width, height, timeScale]);
+  }, [vertexShader, fragmentShader, width, height, createProgram, render]);
 
   return (
     <canvas

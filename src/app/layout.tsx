@@ -7,15 +7,15 @@ import Script from 'next/script';
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className="antialiased" suppressHydrationWarning>
-        {/* Google tag (gtag.js) 使用 next/script */}
+      <head>
+        {/* Google tag (gtag.js) 使用 next/script，放置在 head 以便验证 */}
         <Script
-          strategy="afterInteractive"
+          strategy="beforeInteractive"
           src="https://www.googletagmanager.com/gtag/js?id=G-6X7J4WLHJ6"
         />
         <Script
           id="gtag-init"
-          strategy="afterInteractive"
+          strategy="beforeInteractive"
           dangerouslySetInnerHTML={{
             __html: `
               window.dataLayer = window.dataLayer || [];
@@ -27,6 +27,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             `,
           }}
         />
+      </head>
+      <body className="antialiased" suppressHydrationWarning>
         <LanguageProvider>
           <StructuredData
             type="website"

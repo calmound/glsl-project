@@ -80,7 +80,7 @@ export async function generateMetadata({ params }: TutorialPageProps): Promise<M
       images: [`/api/shader/${category}/${id}/preview.png`],
     },
     alternates: {
-      canonical: `/${locale}/learn/${category}/${id}`,
+      canonical: locale === 'en' ? `/learn/${category}/${id}` : `/zh/learn/${category}/${id}`,
       languages: {
         'en': `/learn/${category}/${id}`,
         'zh': `/zh/learn/${category}/${id}`,

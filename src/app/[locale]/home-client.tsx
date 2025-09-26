@@ -6,7 +6,7 @@ import MainLayout from '../../components/layout/main-layout';
 import Card from '../../components/ui/card';
 import { Button } from '@/components/ui/button';
 import { useLanguage } from '../../contexts/LanguageContext';
-import { type Locale } from '../../lib/i18n';
+import { type Locale, addLocaleToPathname } from '../../lib/i18n';
 
 interface HomePageClientProps {
   locale: Locale;
@@ -17,7 +17,7 @@ export default function HomePageClient({ locale }: HomePageClientProps) {
   const router = useRouter();
   
   const handleStartLearning = () => {
-    router.push(`/${locale}/learn`);
+    router.push(addLocaleToPathname('/learn', locale));
   };
   
   return (

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" 
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://www.shader-learn.com</loc>
-    <lastmod>2025-07-05T00:00:00Z</lastmod>
+    <lastmod>2025-09-26T00:00:00Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.shader-learn.com" />
@@ -12,7 +12,7 @@
   </url>
   <url>
     <loc>https://www.shader-learn.com/zh</loc>
-    <lastmod>2025-07-05T00:00:00Z</lastmod>
+    <lastmod>2025-09-26T00:00:00Z</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.shader-learn.com" />
@@ -21,7 +21,7 @@
   </url>
   <url>
     <loc>https://www.shader-learn.com/learn</loc>
-    <lastmod>2025-07-05T00:00:00Z</lastmod>
+    <lastmod>2025-09-26T00:00:00Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.shader-learn.com/learn" />
@@ -30,7 +30,7 @@
   </url>
   <url>
     <loc>https://www.shader-learn.com/zh/learn</loc>
-    <lastmod>2025-07-05T00:00:00Z</lastmod>
+    <lastmod>2025-09-26T00:00:00Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.shader-learn.com/learn" />
@@ -39,7 +39,7 @@
   </url>
   <url>
     <loc>https://www.shader-learn.com/about</loc>
-    <lastmod>2025-07-05T00:00:00Z</lastmod>
+    <lastmod>2025-09-26T00:00:00Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.shader-learn.com/about" />
@@ -48,7 +48,7 @@
   </url>
   <url>
     <loc>https://www.shader-learn.com/zh/about</loc>
-    <lastmod>2025-07-05T00:00:00Z</lastmod>
+    <lastmod>2025-09-26T00:00:00Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.shader-learn.com/about" />
@@ -57,27 +57,25 @@
   </url>
   <url>
     <loc>https://www.shader-learn.com/glslify-guide</loc>
-    <lastmod>2025-07-05T00:00:00Z</lastmod>
+    <lastmod>2025-09-26T00:00:00Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.shader-learn.com/glslify-guide" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://www.shader-learn.com/zh/glslify-guide" />
-    <xhtml:link rel="alternate" hreflang="x-default"
-      href="https://www.shader-learn.com/glslify-guide" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shader-learn.com/glslify-guide" />
   </url>
   <url>
     <loc>https://www.shader-learn.com/zh/glslify-guide</loc>
-    <lastmod>2025-07-05T00:00:00Z</lastmod>
+    <lastmod>2025-09-26T00:00:00Z</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.shader-learn.com/glslify-guide" />
     <xhtml:link rel="alternate" hreflang="zh" href="https://www.shader-learn.com/zh/glslify-guide" />
-    <xhtml:link rel="alternate" hreflang="x-default"
-      href="https://www.shader-learn.com/glslify-guide" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shader-learn.com/glslify-guide" />
   </url>
   <url>
     <loc>https://www.shader-learn.com/examples</loc>
-    <lastmod>2025-07-05T00:00:00Z</lastmod>
+    <lastmod>2025-09-26T00:00:00Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.shader-learn.com/examples" />
@@ -86,7 +84,7 @@
   </url>
   <url>
     <loc>https://www.shader-learn.com/zh/examples</loc>
-    <lastmod>2025-07-05T00:00:00Z</lastmod>
+    <lastmod>2025-09-26T00:00:00Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.shader-learn.com/examples" />
@@ -95,722 +93,542 @@
   </url>
   <url>
     <loc>https://www.shader-learn.com/learn/animation/breathing-color-block</loc>
-    <lastmod>2025-07-05T00:00:00Z</lastmod>
+    <lastmod>2025-09-26T00:00:00Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en"
-      href="https://www.shader-learn.com/learn/animation/breathing-color-block" />
-    <xhtml:link rel="alternate" hreflang="zh"
-      href="https://www.shader-learn.com/zh/learn/animation/breathing-color-block" />
-    <xhtml:link rel="alternate" hreflang="x-default"
-      href="https://www.shader-learn.com/learn/animation/breathing-color-block" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shader-learn.com/learn/animation/breathing-color-block" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://www.shader-learn.com/zh/learn/animation/breathing-color-block" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shader-learn.com/learn/animation/breathing-color-block" />
   </url>
   <url>
     <loc>https://www.shader-learn.com/zh/learn/animation/breathing-color-block</loc>
-    <lastmod>2025-07-05T00:00:00Z</lastmod>
+    <lastmod>2025-09-26T00:00:00Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en"
-      href="https://www.shader-learn.com/learn/animation/breathing-color-block" />
-    <xhtml:link rel="alternate" hreflang="zh"
-      href="https://www.shader-learn.com/zh/learn/animation/breathing-color-block" />
-    <xhtml:link rel="alternate" hreflang="x-default"
-      href="https://www.shader-learn.com/learn/animation/breathing-color-block" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shader-learn.com/learn/animation/breathing-color-block" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://www.shader-learn.com/zh/learn/animation/breathing-color-block" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shader-learn.com/learn/animation/breathing-color-block" />
   </url>
   <url>
     <loc>https://www.shader-learn.com/learn/animation/mouse-interaction</loc>
-    <lastmod>2025-07-05T00:00:00Z</lastmod>
+    <lastmod>2025-09-26T00:00:00Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en"
-      href="https://www.shader-learn.com/learn/animation/mouse-interaction" />
-    <xhtml:link rel="alternate" hreflang="zh"
-      href="https://www.shader-learn.com/zh/learn/animation/mouse-interaction" />
-    <xhtml:link rel="alternate" hreflang="x-default"
-      href="https://www.shader-learn.com/learn/animation/mouse-interaction" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shader-learn.com/learn/animation/mouse-interaction" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://www.shader-learn.com/zh/learn/animation/mouse-interaction" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shader-learn.com/learn/animation/mouse-interaction" />
   </url>
   <url>
     <loc>https://www.shader-learn.com/zh/learn/animation/mouse-interaction</loc>
-    <lastmod>2025-07-05T00:00:00Z</lastmod>
+    <lastmod>2025-09-26T00:00:00Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en"
-      href="https://www.shader-learn.com/learn/animation/mouse-interaction" />
-    <xhtml:link rel="alternate" hreflang="zh"
-      href="https://www.shader-learn.com/zh/learn/animation/mouse-interaction" />
-    <xhtml:link rel="alternate" hreflang="x-default"
-      href="https://www.shader-learn.com/learn/animation/mouse-interaction" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shader-learn.com/learn/animation/mouse-interaction" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://www.shader-learn.com/zh/learn/animation/mouse-interaction" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shader-learn.com/learn/animation/mouse-interaction" />
   </url>
   <url>
     <loc>https://www.shader-learn.com/learn/animation/rectangle-color-split</loc>
-    <lastmod>2025-07-05T00:00:00Z</lastmod>
+    <lastmod>2025-09-26T00:00:00Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en"
-      href="https://www.shader-learn.com/learn/animation/rectangle-color-split" />
-    <xhtml:link rel="alternate" hreflang="zh"
-      href="https://www.shader-learn.com/zh/learn/animation/rectangle-color-split" />
-    <xhtml:link rel="alternate" hreflang="x-default"
-      href="https://www.shader-learn.com/learn/animation/rectangle-color-split" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shader-learn.com/learn/animation/rectangle-color-split" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://www.shader-learn.com/zh/learn/animation/rectangle-color-split" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shader-learn.com/learn/animation/rectangle-color-split" />
   </url>
   <url>
     <loc>https://www.shader-learn.com/zh/learn/animation/rectangle-color-split</loc>
-    <lastmod>2025-07-05T00:00:00Z</lastmod>
+    <lastmod>2025-09-26T00:00:00Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en"
-      href="https://www.shader-learn.com/learn/animation/rectangle-color-split" />
-    <xhtml:link rel="alternate" hreflang="zh"
-      href="https://www.shader-learn.com/zh/learn/animation/rectangle-color-split" />
-    <xhtml:link rel="alternate" hreflang="x-default"
-      href="https://www.shader-learn.com/learn/animation/rectangle-color-split" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shader-learn.com/learn/animation/rectangle-color-split" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://www.shader-learn.com/zh/learn/animation/rectangle-color-split" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shader-learn.com/learn/animation/rectangle-color-split" />
   </url>
   <url>
     <loc>https://www.shader-learn.com/learn/animation/time-animation</loc>
-    <lastmod>2025-07-05T00:00:00Z</lastmod>
+    <lastmod>2025-09-26T00:00:00Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en"
-      href="https://www.shader-learn.com/learn/animation/time-animation" />
-    <xhtml:link rel="alternate" hreflang="zh"
-      href="https://www.shader-learn.com/zh/learn/animation/time-animation" />
-    <xhtml:link rel="alternate" hreflang="x-default"
-      href="https://www.shader-learn.com/learn/animation/time-animation" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shader-learn.com/learn/animation/time-animation" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://www.shader-learn.com/zh/learn/animation/time-animation" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shader-learn.com/learn/animation/time-animation" />
   </url>
   <url>
     <loc>https://www.shader-learn.com/zh/learn/animation/time-animation</loc>
-    <lastmod>2025-07-05T00:00:00Z</lastmod>
+    <lastmod>2025-09-26T00:00:00Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en"
-      href="https://www.shader-learn.com/learn/animation/time-animation" />
-    <xhtml:link rel="alternate" hreflang="zh"
-      href="https://www.shader-learn.com/zh/learn/animation/time-animation" />
-    <xhtml:link rel="alternate" hreflang="x-default"
-      href="https://www.shader-learn.com/learn/animation/time-animation" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shader-learn.com/learn/animation/time-animation" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://www.shader-learn.com/zh/learn/animation/time-animation" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shader-learn.com/learn/animation/time-animation" />
   </url>
   <url>
     <loc>https://www.shader-learn.com/learn/basic/basic-color-blend</loc>
-    <lastmod>2025-07-05T00:00:00Z</lastmod>
+    <lastmod>2025-09-26T00:00:00Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en"
-      href="https://www.shader-learn.com/learn/basic/basic-color-blend" />
-    <xhtml:link rel="alternate" hreflang="zh"
-      href="https://www.shader-learn.com/zh/learn/basic/basic-color-blend" />
-    <xhtml:link rel="alternate" hreflang="x-default"
-      href="https://www.shader-learn.com/learn/basic/basic-color-blend" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shader-learn.com/learn/basic/basic-color-blend" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://www.shader-learn.com/zh/learn/basic/basic-color-blend" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shader-learn.com/learn/basic/basic-color-blend" />
   </url>
   <url>
     <loc>https://www.shader-learn.com/zh/learn/basic/basic-color-blend</loc>
-    <lastmod>2025-07-05T00:00:00Z</lastmod>
+    <lastmod>2025-09-26T00:00:00Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en"
-      href="https://www.shader-learn.com/learn/basic/basic-color-blend" />
-    <xhtml:link rel="alternate" hreflang="zh"
-      href="https://www.shader-learn.com/zh/learn/basic/basic-color-blend" />
-    <xhtml:link rel="alternate" hreflang="x-default"
-      href="https://www.shader-learn.com/learn/basic/basic-color-blend" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shader-learn.com/learn/basic/basic-color-blend" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://www.shader-learn.com/zh/learn/basic/basic-color-blend" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shader-learn.com/learn/basic/basic-color-blend" />
   </url>
   <url>
     <loc>https://www.shader-learn.com/learn/basic/basic-gradients</loc>
-    <lastmod>2025-07-05T00:00:00Z</lastmod>
+    <lastmod>2025-09-26T00:00:00Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en"
-      href="https://www.shader-learn.com/learn/basic/basic-gradients" />
-    <xhtml:link rel="alternate" hreflang="zh"
-      href="https://www.shader-learn.com/zh/learn/basic/basic-gradients" />
-    <xhtml:link rel="alternate" hreflang="x-default"
-      href="https://www.shader-learn.com/learn/basic/basic-gradients" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shader-learn.com/learn/basic/basic-gradients" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://www.shader-learn.com/zh/learn/basic/basic-gradients" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shader-learn.com/learn/basic/basic-gradients" />
   </url>
   <url>
     <loc>https://www.shader-learn.com/zh/learn/basic/basic-gradients</loc>
-    <lastmod>2025-07-05T00:00:00Z</lastmod>
+    <lastmod>2025-09-26T00:00:00Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en"
-      href="https://www.shader-learn.com/learn/basic/basic-gradients" />
-    <xhtml:link rel="alternate" hreflang="zh"
-      href="https://www.shader-learn.com/zh/learn/basic/basic-gradients" />
-    <xhtml:link rel="alternate" hreflang="x-default"
-      href="https://www.shader-learn.com/learn/basic/basic-gradients" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shader-learn.com/learn/basic/basic-gradients" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://www.shader-learn.com/zh/learn/basic/basic-gradients" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shader-learn.com/learn/basic/basic-gradients" />
   </url>
   <url>
     <loc>https://www.shader-learn.com/learn/basic/color-mixing</loc>
-    <lastmod>2025-07-05T00:00:00Z</lastmod>
+    <lastmod>2025-09-26T00:00:00Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en"
-      href="https://www.shader-learn.com/learn/basic/color-mixing" />
-    <xhtml:link rel="alternate" hreflang="zh"
-      href="https://www.shader-learn.com/zh/learn/basic/color-mixing" />
-    <xhtml:link rel="alternate" hreflang="x-default"
-      href="https://www.shader-learn.com/learn/basic/color-mixing" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shader-learn.com/learn/basic/color-mixing" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://www.shader-learn.com/zh/learn/basic/color-mixing" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shader-learn.com/learn/basic/color-mixing" />
   </url>
   <url>
     <loc>https://www.shader-learn.com/zh/learn/basic/color-mixing</loc>
-    <lastmod>2025-07-05T00:00:00Z</lastmod>
+    <lastmod>2025-09-26T00:00:00Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en"
-      href="https://www.shader-learn.com/learn/basic/color-mixing" />
-    <xhtml:link rel="alternate" hreflang="zh"
-      href="https://www.shader-learn.com/zh/learn/basic/color-mixing" />
-    <xhtml:link rel="alternate" hreflang="x-default"
-      href="https://www.shader-learn.com/learn/basic/color-mixing" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shader-learn.com/learn/basic/color-mixing" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://www.shader-learn.com/zh/learn/basic/color-mixing" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shader-learn.com/learn/basic/color-mixing" />
   </url>
   <url>
     <loc>https://www.shader-learn.com/learn/basic/simple-circle</loc>
-    <lastmod>2025-07-05T00:00:00Z</lastmod>
+    <lastmod>2025-09-26T00:00:00Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en"
-      href="https://www.shader-learn.com/learn/basic/simple-circle" />
-    <xhtml:link rel="alternate" hreflang="zh"
-      href="https://www.shader-learn.com/zh/learn/basic/simple-circle" />
-    <xhtml:link rel="alternate" hreflang="x-default"
-      href="https://www.shader-learn.com/learn/basic/simple-circle" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shader-learn.com/learn/basic/simple-circle" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://www.shader-learn.com/zh/learn/basic/simple-circle" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shader-learn.com/learn/basic/simple-circle" />
   </url>
   <url>
     <loc>https://www.shader-learn.com/zh/learn/basic/simple-circle</loc>
-    <lastmod>2025-07-05T00:00:00Z</lastmod>
+    <lastmod>2025-09-26T00:00:00Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en"
-      href="https://www.shader-learn.com/learn/basic/simple-circle" />
-    <xhtml:link rel="alternate" hreflang="zh"
-      href="https://www.shader-learn.com/zh/learn/basic/simple-circle" />
-    <xhtml:link rel="alternate" hreflang="x-default"
-      href="https://www.shader-learn.com/learn/basic/simple-circle" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shader-learn.com/learn/basic/simple-circle" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://www.shader-learn.com/zh/learn/basic/simple-circle" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shader-learn.com/learn/basic/simple-circle" />
   </url>
   <url>
     <loc>https://www.shader-learn.com/learn/basic/simple-rectangle</loc>
-    <lastmod>2025-07-05T00:00:00Z</lastmod>
+    <lastmod>2025-09-26T00:00:00Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en"
-      href="https://www.shader-learn.com/learn/basic/simple-rectangle" />
-    <xhtml:link rel="alternate" hreflang="zh"
-      href="https://www.shader-learn.com/zh/learn/basic/simple-rectangle" />
-    <xhtml:link rel="alternate" hreflang="x-default"
-      href="https://www.shader-learn.com/learn/basic/simple-rectangle" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shader-learn.com/learn/basic/simple-rectangle" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://www.shader-learn.com/zh/learn/basic/simple-rectangle" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shader-learn.com/learn/basic/simple-rectangle" />
   </url>
   <url>
     <loc>https://www.shader-learn.com/zh/learn/basic/simple-rectangle</loc>
-    <lastmod>2025-07-05T00:00:00Z</lastmod>
+    <lastmod>2025-09-26T00:00:00Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en"
-      href="https://www.shader-learn.com/learn/basic/simple-rectangle" />
-    <xhtml:link rel="alternate" hreflang="zh"
-      href="https://www.shader-learn.com/zh/learn/basic/simple-rectangle" />
-    <xhtml:link rel="alternate" hreflang="x-default"
-      href="https://www.shader-learn.com/learn/basic/simple-rectangle" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shader-learn.com/learn/basic/simple-rectangle" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://www.shader-learn.com/zh/learn/basic/simple-rectangle" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shader-learn.com/learn/basic/simple-rectangle" />
   </url>
   <url>
     <loc>https://www.shader-learn.com/learn/basic/smooth-edges</loc>
-    <lastmod>2025-07-05T00:00:00Z</lastmod>
+    <lastmod>2025-09-26T00:00:00Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en"
-      href="https://www.shader-learn.com/learn/basic/smooth-edges" />
-    <xhtml:link rel="alternate" hreflang="zh"
-      href="https://www.shader-learn.com/zh/learn/basic/smooth-edges" />
-    <xhtml:link rel="alternate" hreflang="x-default"
-      href="https://www.shader-learn.com/learn/basic/smooth-edges" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shader-learn.com/learn/basic/smooth-edges" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://www.shader-learn.com/zh/learn/basic/smooth-edges" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shader-learn.com/learn/basic/smooth-edges" />
   </url>
   <url>
     <loc>https://www.shader-learn.com/zh/learn/basic/smooth-edges</loc>
-    <lastmod>2025-07-05T00:00:00Z</lastmod>
+    <lastmod>2025-09-26T00:00:00Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en"
-      href="https://www.shader-learn.com/learn/basic/smooth-edges" />
-    <xhtml:link rel="alternate" hreflang="zh"
-      href="https://www.shader-learn.com/zh/learn/basic/smooth-edges" />
-    <xhtml:link rel="alternate" hreflang="x-default"
-      href="https://www.shader-learn.com/learn/basic/smooth-edges" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shader-learn.com/learn/basic/smooth-edges" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://www.shader-learn.com/zh/learn/basic/smooth-edges" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shader-learn.com/learn/basic/smooth-edges" />
   </url>
   <url>
     <loc>https://www.shader-learn.com/learn/basic/solid-color</loc>
-    <lastmod>2025-07-05T00:00:00Z</lastmod>
+    <lastmod>2025-09-26T00:00:00Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en"
-      href="https://www.shader-learn.com/learn/basic/solid-color" />
-    <xhtml:link rel="alternate" hreflang="zh"
-      href="https://www.shader-learn.com/zh/learn/basic/solid-color" />
-    <xhtml:link rel="alternate" hreflang="x-default"
-      href="https://www.shader-learn.com/learn/basic/solid-color" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shader-learn.com/learn/basic/solid-color" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://www.shader-learn.com/zh/learn/basic/solid-color" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shader-learn.com/learn/basic/solid-color" />
   </url>
   <url>
     <loc>https://www.shader-learn.com/zh/learn/basic/solid-color</loc>
-    <lastmod>2025-07-05T00:00:00Z</lastmod>
+    <lastmod>2025-09-26T00:00:00Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en"
-      href="https://www.shader-learn.com/learn/basic/solid-color" />
-    <xhtml:link rel="alternate" hreflang="zh"
-      href="https://www.shader-learn.com/zh/learn/basic/solid-color" />
-    <xhtml:link rel="alternate" hreflang="x-default"
-      href="https://www.shader-learn.com/learn/basic/solid-color" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shader-learn.com/learn/basic/solid-color" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://www.shader-learn.com/zh/learn/basic/solid-color" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shader-learn.com/learn/basic/solid-color" />
   </url>
   <url>
     <loc>https://www.shader-learn.com/learn/basic/step-function-mask</loc>
-    <lastmod>2025-07-05T00:00:00Z</lastmod>
+    <lastmod>2025-09-26T00:00:00Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en"
-      href="https://www.shader-learn.com/learn/basic/step-function-mask" />
-    <xhtml:link rel="alternate" hreflang="zh"
-      href="https://www.shader-learn.com/zh/learn/basic/step-function-mask" />
-    <xhtml:link rel="alternate" hreflang="x-default"
-      href="https://www.shader-learn.com/learn/basic/step-function-mask" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shader-learn.com/learn/basic/step-function-mask" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://www.shader-learn.com/zh/learn/basic/step-function-mask" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shader-learn.com/learn/basic/step-function-mask" />
   </url>
   <url>
     <loc>https://www.shader-learn.com/zh/learn/basic/step-function-mask</loc>
-    <lastmod>2025-07-05T00:00:00Z</lastmod>
+    <lastmod>2025-09-26T00:00:00Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en"
-      href="https://www.shader-learn.com/learn/basic/step-function-mask" />
-    <xhtml:link rel="alternate" hreflang="zh"
-      href="https://www.shader-learn.com/zh/learn/basic/step-function-mask" />
-    <xhtml:link rel="alternate" hreflang="x-default"
-      href="https://www.shader-learn.com/learn/basic/step-function-mask" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shader-learn.com/learn/basic/step-function-mask" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://www.shader-learn.com/zh/learn/basic/step-function-mask" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shader-learn.com/learn/basic/step-function-mask" />
   </url>
   <url>
     <loc>https://www.shader-learn.com/learn/basic/uv-coordinates</loc>
-    <lastmod>2025-07-05T00:00:00Z</lastmod>
+    <lastmod>2025-09-26T00:00:00Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en"
-      href="https://www.shader-learn.com/learn/basic/uv-coordinates" />
-    <xhtml:link rel="alternate" hreflang="zh"
-      href="https://www.shader-learn.com/zh/learn/basic/uv-coordinates" />
-    <xhtml:link rel="alternate" hreflang="x-default"
-      href="https://www.shader-learn.com/learn/basic/uv-coordinates" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shader-learn.com/learn/basic/uv-coordinates" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://www.shader-learn.com/zh/learn/basic/uv-coordinates" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shader-learn.com/learn/basic/uv-coordinates" />
   </url>
   <url>
     <loc>https://www.shader-learn.com/zh/learn/basic/uv-coordinates</loc>
-    <lastmod>2025-07-05T00:00:00Z</lastmod>
+    <lastmod>2025-09-26T00:00:00Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en"
-      href="https://www.shader-learn.com/learn/basic/uv-coordinates" />
-    <xhtml:link rel="alternate" hreflang="zh"
-      href="https://www.shader-learn.com/zh/learn/basic/uv-coordinates" />
-    <xhtml:link rel="alternate" hreflang="x-default"
-      href="https://www.shader-learn.com/learn/basic/uv-coordinates" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shader-learn.com/learn/basic/uv-coordinates" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://www.shader-learn.com/zh/learn/basic/uv-coordinates" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shader-learn.com/learn/basic/uv-coordinates" />
   </url>
   <url>
     <loc>https://www.shader-learn.com/learn/basic/uv-visualizer</loc>
-    <lastmod>2025-07-05T00:00:00Z</lastmod>
+    <lastmod>2025-09-26T00:00:00Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en"
-      href="https://www.shader-learn.com/learn/basic/uv-visualizer" />
-    <xhtml:link rel="alternate" hreflang="zh"
-      href="https://www.shader-learn.com/zh/learn/basic/uv-visualizer" />
-    <xhtml:link rel="alternate" hreflang="x-default"
-      href="https://www.shader-learn.com/learn/basic/uv-visualizer" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shader-learn.com/learn/basic/uv-visualizer" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://www.shader-learn.com/zh/learn/basic/uv-visualizer" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shader-learn.com/learn/basic/uv-visualizer" />
   </url>
   <url>
     <loc>https://www.shader-learn.com/zh/learn/basic/uv-visualizer</loc>
-    <lastmod>2025-07-05T00:00:00Z</lastmod>
+    <lastmod>2025-09-26T00:00:00Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en"
-      href="https://www.shader-learn.com/learn/basic/uv-visualizer" />
-    <xhtml:link rel="alternate" hreflang="zh"
-      href="https://www.shader-learn.com/zh/learn/basic/uv-visualizer" />
-    <xhtml:link rel="alternate" hreflang="x-default"
-      href="https://www.shader-learn.com/learn/basic/uv-visualizer" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shader-learn.com/learn/basic/uv-visualizer" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://www.shader-learn.com/zh/learn/basic/uv-visualizer" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shader-learn.com/learn/basic/uv-visualizer" />
   </url>
   <url>
     <loc>https://www.shader-learn.com/learn/lighting/phong-lighting</loc>
-    <lastmod>2025-07-05T00:00:00Z</lastmod>
+    <lastmod>2025-09-26T00:00:00Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en"
-      href="https://www.shader-learn.com/learn/lighting/phong-lighting" />
-    <xhtml:link rel="alternate" hreflang="zh"
-      href="https://www.shader-learn.com/zh/learn/lighting/phong-lighting" />
-    <xhtml:link rel="alternate" hreflang="x-default"
-      href="https://www.shader-learn.com/learn/lighting/phong-lighting" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shader-learn.com/learn/lighting/phong-lighting" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://www.shader-learn.com/zh/learn/lighting/phong-lighting" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shader-learn.com/learn/lighting/phong-lighting" />
   </url>
   <url>
     <loc>https://www.shader-learn.com/zh/learn/lighting/phong-lighting</loc>
-    <lastmod>2025-07-05T00:00:00Z</lastmod>
+    <lastmod>2025-09-26T00:00:00Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en"
-      href="https://www.shader-learn.com/learn/lighting/phong-lighting" />
-    <xhtml:link rel="alternate" hreflang="zh"
-      href="https://www.shader-learn.com/zh/learn/lighting/phong-lighting" />
-    <xhtml:link rel="alternate" hreflang="x-default"
-      href="https://www.shader-learn.com/learn/lighting/phong-lighting" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shader-learn.com/learn/lighting/phong-lighting" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://www.shader-learn.com/zh/learn/lighting/phong-lighting" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shader-learn.com/learn/lighting/phong-lighting" />
   </url>
   <url>
     <loc>https://www.shader-learn.com/learn/lighting/toon-shading</loc>
-    <lastmod>2025-07-05T00:00:00Z</lastmod>
+    <lastmod>2025-09-26T00:00:00Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en"
-      href="https://www.shader-learn.com/learn/lighting/toon-shading" />
-    <xhtml:link rel="alternate" hreflang="zh"
-      href="https://www.shader-learn.com/zh/learn/lighting/toon-shading" />
-    <xhtml:link rel="alternate" hreflang="x-default"
-      href="https://www.shader-learn.com/learn/lighting/toon-shading" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shader-learn.com/learn/lighting/toon-shading" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://www.shader-learn.com/zh/learn/lighting/toon-shading" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shader-learn.com/learn/lighting/toon-shading" />
   </url>
   <url>
     <loc>https://www.shader-learn.com/zh/learn/lighting/toon-shading</loc>
-    <lastmod>2025-07-05T00:00:00Z</lastmod>
+    <lastmod>2025-09-26T00:00:00Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en"
-      href="https://www.shader-learn.com/learn/lighting/toon-shading" />
-    <xhtml:link rel="alternate" hreflang="zh"
-      href="https://www.shader-learn.com/zh/learn/lighting/toon-shading" />
-    <xhtml:link rel="alternate" hreflang="x-default"
-      href="https://www.shader-learn.com/learn/lighting/toon-shading" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shader-learn.com/learn/lighting/toon-shading" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://www.shader-learn.com/zh/learn/lighting/toon-shading" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shader-learn.com/learn/lighting/toon-shading" />
   </url>
   <url>
     <loc>https://www.shader-learn.com/learn/math/centered-circle-mask</loc>
-    <lastmod>2025-07-05T00:00:00Z</lastmod>
+    <lastmod>2025-09-26T00:00:00Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en"
-      href="https://www.shader-learn.com/learn/math/centered-circle-mask" />
-    <xhtml:link rel="alternate" hreflang="zh"
-      href="https://www.shader-learn.com/zh/learn/math/centered-circle-mask" />
-    <xhtml:link rel="alternate" hreflang="x-default"
-      href="https://www.shader-learn.com/learn/math/centered-circle-mask" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shader-learn.com/learn/math/centered-circle-mask" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://www.shader-learn.com/zh/learn/math/centered-circle-mask" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shader-learn.com/learn/math/centered-circle-mask" />
   </url>
   <url>
     <loc>https://www.shader-learn.com/zh/learn/math/centered-circle-mask</loc>
-    <lastmod>2025-07-05T00:00:00Z</lastmod>
+    <lastmod>2025-09-26T00:00:00Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en"
-      href="https://www.shader-learn.com/learn/math/centered-circle-mask" />
-    <xhtml:link rel="alternate" hreflang="zh"
-      href="https://www.shader-learn.com/zh/learn/math/centered-circle-mask" />
-    <xhtml:link rel="alternate" hreflang="x-default"
-      href="https://www.shader-learn.com/learn/math/centered-circle-mask" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shader-learn.com/learn/math/centered-circle-mask" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://www.shader-learn.com/zh/learn/math/centered-circle-mask" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shader-learn.com/learn/math/centered-circle-mask" />
   </url>
   <url>
     <loc>https://www.shader-learn.com/learn/math/coordinate-transformation</loc>
-    <lastmod>2025-07-05T00:00:00Z</lastmod>
+    <lastmod>2025-09-26T00:00:00Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en"
-      href="https://www.shader-learn.com/learn/math/coordinate-transformation" />
-    <xhtml:link rel="alternate" hreflang="zh"
-      href="https://www.shader-learn.com/zh/learn/math/coordinate-transformation" />
-    <xhtml:link rel="alternate" hreflang="x-default"
-      href="https://www.shader-learn.com/learn/math/coordinate-transformation" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shader-learn.com/learn/math/coordinate-transformation" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://www.shader-learn.com/zh/learn/math/coordinate-transformation" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shader-learn.com/learn/math/coordinate-transformation" />
   </url>
   <url>
     <loc>https://www.shader-learn.com/zh/learn/math/coordinate-transformation</loc>
-    <lastmod>2025-07-05T00:00:00Z</lastmod>
+    <lastmod>2025-09-26T00:00:00Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en"
-      href="https://www.shader-learn.com/learn/math/coordinate-transformation" />
-    <xhtml:link rel="alternate" hreflang="zh"
-      href="https://www.shader-learn.com/zh/learn/math/coordinate-transformation" />
-    <xhtml:link rel="alternate" hreflang="x-default"
-      href="https://www.shader-learn.com/learn/math/coordinate-transformation" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shader-learn.com/learn/math/coordinate-transformation" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://www.shader-learn.com/zh/learn/math/coordinate-transformation" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shader-learn.com/learn/math/coordinate-transformation" />
   </url>
   <url>
     <loc>https://www.shader-learn.com/learn/math/simple-fractal</loc>
-    <lastmod>2025-07-05T00:00:00Z</lastmod>
+    <lastmod>2025-09-26T00:00:00Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en"
-      href="https://www.shader-learn.com/learn/math/simple-fractal" />
-    <xhtml:link rel="alternate" hreflang="zh"
-      href="https://www.shader-learn.com/zh/learn/math/simple-fractal" />
-    <xhtml:link rel="alternate" hreflang="x-default"
-      href="https://www.shader-learn.com/learn/math/simple-fractal" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shader-learn.com/learn/math/simple-fractal" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://www.shader-learn.com/zh/learn/math/simple-fractal" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shader-learn.com/learn/math/simple-fractal" />
   </url>
   <url>
     <loc>https://www.shader-learn.com/zh/learn/math/simple-fractal</loc>
-    <lastmod>2025-07-05T00:00:00Z</lastmod>
+    <lastmod>2025-09-26T00:00:00Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en"
-      href="https://www.shader-learn.com/learn/math/simple-fractal" />
-    <xhtml:link rel="alternate" hreflang="zh"
-      href="https://www.shader-learn.com/zh/learn/math/simple-fractal" />
-    <xhtml:link rel="alternate" hreflang="x-default"
-      href="https://www.shader-learn.com/learn/math/simple-fractal" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shader-learn.com/learn/math/simple-fractal" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://www.shader-learn.com/zh/learn/math/simple-fractal" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shader-learn.com/learn/math/simple-fractal" />
   </url>
   <url>
     <loc>https://www.shader-learn.com/learn/math/sine-wave</loc>
-    <lastmod>2025-07-05T00:00:00Z</lastmod>
+    <lastmod>2025-09-26T00:00:00Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en"
-      href="https://www.shader-learn.com/learn/math/sine-wave" />
-    <xhtml:link rel="alternate" hreflang="zh"
-      href="https://www.shader-learn.com/zh/learn/math/sine-wave" />
-    <xhtml:link rel="alternate" hreflang="x-default"
-      href="https://www.shader-learn.com/learn/math/sine-wave" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shader-learn.com/learn/math/sine-wave" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://www.shader-learn.com/zh/learn/math/sine-wave" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shader-learn.com/learn/math/sine-wave" />
   </url>
   <url>
     <loc>https://www.shader-learn.com/zh/learn/math/sine-wave</loc>
-    <lastmod>2025-07-05T00:00:00Z</lastmod>
+    <lastmod>2025-09-26T00:00:00Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en"
-      href="https://www.shader-learn.com/learn/math/sine-wave" />
-    <xhtml:link rel="alternate" hreflang="zh"
-      href="https://www.shader-learn.com/zh/learn/math/sine-wave" />
-    <xhtml:link rel="alternate" hreflang="x-default"
-      href="https://www.shader-learn.com/learn/math/sine-wave" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shader-learn.com/learn/math/sine-wave" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://www.shader-learn.com/zh/learn/math/sine-wave" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shader-learn.com/learn/math/sine-wave" />
   </url>
   <url>
     <loc>https://www.shader-learn.com/learn/math/smoothstep-edge-fade</loc>
-    <lastmod>2025-07-05T00:00:00Z</lastmod>
+    <lastmod>2025-09-26T00:00:00Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en"
-      href="https://www.shader-learn.com/learn/math/smoothstep-edge-fade" />
-    <xhtml:link rel="alternate" hreflang="zh"
-      href="https://www.shader-learn.com/zh/learn/math/smoothstep-edge-fade" />
-    <xhtml:link rel="alternate" hreflang="x-default"
-      href="https://www.shader-learn.com/learn/math/smoothstep-edge-fade" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shader-learn.com/learn/math/smoothstep-edge-fade" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://www.shader-learn.com/zh/learn/math/smoothstep-edge-fade" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shader-learn.com/learn/math/smoothstep-edge-fade" />
   </url>
   <url>
     <loc>https://www.shader-learn.com/zh/learn/math/smoothstep-edge-fade</loc>
-    <lastmod>2025-07-05T00:00:00Z</lastmod>
+    <lastmod>2025-09-26T00:00:00Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en"
-      href="https://www.shader-learn.com/learn/math/smoothstep-edge-fade" />
-    <xhtml:link rel="alternate" hreflang="zh"
-      href="https://www.shader-learn.com/zh/learn/math/smoothstep-edge-fade" />
-    <xhtml:link rel="alternate" hreflang="x-default"
-      href="https://www.shader-learn.com/learn/math/smoothstep-edge-fade" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shader-learn.com/learn/math/smoothstep-edge-fade" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://www.shader-learn.com/zh/learn/math/smoothstep-edge-fade" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shader-learn.com/learn/math/smoothstep-edge-fade" />
   </url>
   <url>
     <loc>https://www.shader-learn.com/learn/noise/fractal-brownian-motion</loc>
-    <lastmod>2025-07-05T00:00:00Z</lastmod>
+    <lastmod>2025-09-26T00:00:00Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en"
-      href="https://www.shader-learn.com/learn/noise/fractal-brownian-motion" />
-    <xhtml:link rel="alternate" hreflang="zh"
-      href="https://www.shader-learn.com/zh/learn/noise/fractal-brownian-motion" />
-    <xhtml:link rel="alternate" hreflang="x-default"
-      href="https://www.shader-learn.com/learn/noise/fractal-brownian-motion" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shader-learn.com/learn/noise/fractal-brownian-motion" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://www.shader-learn.com/zh/learn/noise/fractal-brownian-motion" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shader-learn.com/learn/noise/fractal-brownian-motion" />
   </url>
   <url>
     <loc>https://www.shader-learn.com/zh/learn/noise/fractal-brownian-motion</loc>
-    <lastmod>2025-07-05T00:00:00Z</lastmod>
+    <lastmod>2025-09-26T00:00:00Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en"
-      href="https://www.shader-learn.com/learn/noise/fractal-brownian-motion" />
-    <xhtml:link rel="alternate" hreflang="zh"
-      href="https://www.shader-learn.com/zh/learn/noise/fractal-brownian-motion" />
-    <xhtml:link rel="alternate" hreflang="x-default"
-      href="https://www.shader-learn.com/learn/noise/fractal-brownian-motion" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shader-learn.com/learn/noise/fractal-brownian-motion" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://www.shader-learn.com/zh/learn/noise/fractal-brownian-motion" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shader-learn.com/learn/noise/fractal-brownian-motion" />
   </url>
   <url>
     <loc>https://www.shader-learn.com/learn/noise/noise-functions</loc>
-    <lastmod>2025-07-05T00:00:00Z</lastmod>
+    <lastmod>2025-09-26T00:00:00Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en"
-      href="https://www.shader-learn.com/learn/noise/noise-functions" />
-    <xhtml:link rel="alternate" hreflang="zh"
-      href="https://www.shader-learn.com/zh/learn/noise/noise-functions" />
-    <xhtml:link rel="alternate" hreflang="x-default"
-      href="https://www.shader-learn.com/learn/noise/noise-functions" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shader-learn.com/learn/noise/noise-functions" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://www.shader-learn.com/zh/learn/noise/noise-functions" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shader-learn.com/learn/noise/noise-functions" />
   </url>
   <url>
     <loc>https://www.shader-learn.com/zh/learn/noise/noise-functions</loc>
-    <lastmod>2025-07-05T00:00:00Z</lastmod>
+    <lastmod>2025-09-26T00:00:00Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en"
-      href="https://www.shader-learn.com/learn/noise/noise-functions" />
-    <xhtml:link rel="alternate" hreflang="zh"
-      href="https://www.shader-learn.com/zh/learn/noise/noise-functions" />
-    <xhtml:link rel="alternate" hreflang="x-default"
-      href="https://www.shader-learn.com/learn/noise/noise-functions" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shader-learn.com/learn/noise/noise-functions" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://www.shader-learn.com/zh/learn/noise/noise-functions" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shader-learn.com/learn/noise/noise-functions" />
   </url>
   <url>
     <loc>https://www.shader-learn.com/learn/noise/noise-texture</loc>
-    <lastmod>2025-07-05T00:00:00Z</lastmod>
+    <lastmod>2025-09-26T00:00:00Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en"
-      href="https://www.shader-learn.com/learn/noise/noise-texture" />
-    <xhtml:link rel="alternate" hreflang="zh"
-      href="https://www.shader-learn.com/zh/learn/noise/noise-texture" />
-    <xhtml:link rel="alternate" hreflang="x-default"
-      href="https://www.shader-learn.com/learn/noise/noise-texture" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shader-learn.com/learn/noise/noise-texture" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://www.shader-learn.com/zh/learn/noise/noise-texture" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shader-learn.com/learn/noise/noise-texture" />
   </url>
   <url>
     <loc>https://www.shader-learn.com/zh/learn/noise/noise-texture</loc>
-    <lastmod>2025-07-05T00:00:00Z</lastmod>
+    <lastmod>2025-09-26T00:00:00Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en"
-      href="https://www.shader-learn.com/learn/noise/noise-texture" />
-    <xhtml:link rel="alternate" hreflang="zh"
-      href="https://www.shader-learn.com/zh/learn/noise/noise-texture" />
-    <xhtml:link rel="alternate" hreflang="x-default"
-      href="https://www.shader-learn.com/learn/noise/noise-texture" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shader-learn.com/learn/noise/noise-texture" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://www.shader-learn.com/zh/learn/noise/noise-texture" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shader-learn.com/learn/noise/noise-texture" />
   </url>
   <url>
     <loc>https://www.shader-learn.com/learn/patterns/checkerboard-pattern</loc>
-    <lastmod>2025-07-05T00:00:00Z</lastmod>
+    <lastmod>2025-09-26T00:00:00Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en"
-      href="https://www.shader-learn.com/learn/patterns/checkerboard-pattern" />
-    <xhtml:link rel="alternate" hreflang="zh"
-      href="https://www.shader-learn.com/zh/learn/patterns/checkerboard-pattern" />
-    <xhtml:link rel="alternate" hreflang="x-default"
-      href="https://www.shader-learn.com/learn/patterns/checkerboard-pattern" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shader-learn.com/learn/patterns/checkerboard-pattern" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://www.shader-learn.com/zh/learn/patterns/checkerboard-pattern" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shader-learn.com/learn/patterns/checkerboard-pattern" />
   </url>
   <url>
     <loc>https://www.shader-learn.com/zh/learn/patterns/checkerboard-pattern</loc>
-    <lastmod>2025-07-05T00:00:00Z</lastmod>
+    <lastmod>2025-09-26T00:00:00Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en"
-      href="https://www.shader-learn.com/learn/patterns/checkerboard-pattern" />
-    <xhtml:link rel="alternate" hreflang="zh"
-      href="https://www.shader-learn.com/zh/learn/patterns/checkerboard-pattern" />
-    <xhtml:link rel="alternate" hreflang="x-default"
-      href="https://www.shader-learn.com/learn/patterns/checkerboard-pattern" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shader-learn.com/learn/patterns/checkerboard-pattern" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://www.shader-learn.com/zh/learn/patterns/checkerboard-pattern" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shader-learn.com/learn/patterns/checkerboard-pattern" />
   </url>
   <url>
     <loc>https://www.shader-learn.com/learn/patterns/color-blending-gradient</loc>
-    <lastmod>2025-07-05T00:00:00Z</lastmod>
+    <lastmod>2025-09-26T00:00:00Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en"
-      href="https://www.shader-learn.com/learn/patterns/color-blending-gradient" />
-    <xhtml:link rel="alternate" hreflang="zh"
-      href="https://www.shader-learn.com/zh/learn/patterns/color-blending-gradient" />
-    <xhtml:link rel="alternate" hreflang="x-default"
-      href="https://www.shader-learn.com/learn/patterns/color-blending-gradient" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shader-learn.com/learn/patterns/color-blending-gradient" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://www.shader-learn.com/zh/learn/patterns/color-blending-gradient" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shader-learn.com/learn/patterns/color-blending-gradient" />
   </url>
   <url>
     <loc>https://www.shader-learn.com/zh/learn/patterns/color-blending-gradient</loc>
-    <lastmod>2025-07-05T00:00:00Z</lastmod>
+    <lastmod>2025-09-26T00:00:00Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en"
-      href="https://www.shader-learn.com/learn/patterns/color-blending-gradient" />
-    <xhtml:link rel="alternate" hreflang="zh"
-      href="https://www.shader-learn.com/zh/learn/patterns/color-blending-gradient" />
-    <xhtml:link rel="alternate" hreflang="x-default"
-      href="https://www.shader-learn.com/learn/patterns/color-blending-gradient" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shader-learn.com/learn/patterns/color-blending-gradient" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://www.shader-learn.com/zh/learn/patterns/color-blending-gradient" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shader-learn.com/learn/patterns/color-blending-gradient" />
   </url>
   <url>
     <loc>https://www.shader-learn.com/learn/patterns/gradient-effects</loc>
-    <lastmod>2025-07-05T00:00:00Z</lastmod>
+    <lastmod>2025-09-26T00:00:00Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en"
-      href="https://www.shader-learn.com/learn/patterns/gradient-effects" />
-    <xhtml:link rel="alternate" hreflang="zh"
-      href="https://www.shader-learn.com/zh/learn/patterns/gradient-effects" />
-    <xhtml:link rel="alternate" hreflang="x-default"
-      href="https://www.shader-learn.com/learn/patterns/gradient-effects" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shader-learn.com/learn/patterns/gradient-effects" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://www.shader-learn.com/zh/learn/patterns/gradient-effects" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shader-learn.com/learn/patterns/gradient-effects" />
   </url>
   <url>
     <loc>https://www.shader-learn.com/zh/learn/patterns/gradient-effects</loc>
-    <lastmod>2025-07-05T00:00:00Z</lastmod>
+    <lastmod>2025-09-26T00:00:00Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en"
-      href="https://www.shader-learn.com/learn/patterns/gradient-effects" />
-    <xhtml:link rel="alternate" hreflang="zh"
-      href="https://www.shader-learn.com/zh/learn/patterns/gradient-effects" />
-    <xhtml:link rel="alternate" hreflang="x-default"
-      href="https://www.shader-learn.com/learn/patterns/gradient-effects" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shader-learn.com/learn/patterns/gradient-effects" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://www.shader-learn.com/zh/learn/patterns/gradient-effects" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shader-learn.com/learn/patterns/gradient-effects" />
   </url>
   <url>
     <loc>https://www.shader-learn.com/learn/patterns/pattern-repetition</loc>
-    <lastmod>2025-07-05T00:00:00Z</lastmod>
+    <lastmod>2025-09-26T00:00:00Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en"
-      href="https://www.shader-learn.com/learn/patterns/pattern-repetition" />
-    <xhtml:link rel="alternate" hreflang="zh"
-      href="https://www.shader-learn.com/zh/learn/patterns/pattern-repetition" />
-    <xhtml:link rel="alternate" hreflang="x-default"
-      href="https://www.shader-learn.com/learn/patterns/pattern-repetition" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shader-learn.com/learn/patterns/pattern-repetition" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://www.shader-learn.com/zh/learn/patterns/pattern-repetition" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shader-learn.com/learn/patterns/pattern-repetition" />
   </url>
   <url>
     <loc>https://www.shader-learn.com/zh/learn/patterns/pattern-repetition</loc>
-    <lastmod>2025-07-05T00:00:00Z</lastmod>
+    <lastmod>2025-09-26T00:00:00Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en"
-      href="https://www.shader-learn.com/learn/patterns/pattern-repetition" />
-    <xhtml:link rel="alternate" hreflang="zh"
-      href="https://www.shader-learn.com/zh/learn/patterns/pattern-repetition" />
-    <xhtml:link rel="alternate" hreflang="x-default"
-      href="https://www.shader-learn.com/learn/patterns/pattern-repetition" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shader-learn.com/learn/patterns/pattern-repetition" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://www.shader-learn.com/zh/learn/patterns/pattern-repetition" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shader-learn.com/learn/patterns/pattern-repetition" />
   </url>
   <url>
     <loc>https://www.shader-learn.com/learn/patterns/radial-gradient-center</loc>
-    <lastmod>2025-07-05T00:00:00Z</lastmod>
+    <lastmod>2025-09-26T00:00:00Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en"
-      href="https://www.shader-learn.com/learn/patterns/radial-gradient-center" />
-    <xhtml:link rel="alternate" hreflang="zh"
-      href="https://www.shader-learn.com/zh/learn/patterns/radial-gradient-center" />
-    <xhtml:link rel="alternate" hreflang="x-default"
-      href="https://www.shader-learn.com/learn/patterns/radial-gradient-center" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shader-learn.com/learn/patterns/radial-gradient-center" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://www.shader-learn.com/zh/learn/patterns/radial-gradient-center" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shader-learn.com/learn/patterns/radial-gradient-center" />
   </url>
   <url>
     <loc>https://www.shader-learn.com/zh/learn/patterns/radial-gradient-center</loc>
-    <lastmod>2025-07-05T00:00:00Z</lastmod>
+    <lastmod>2025-09-26T00:00:00Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en"
-      href="https://www.shader-learn.com/learn/patterns/radial-gradient-center" />
-    <xhtml:link rel="alternate" hreflang="zh"
-      href="https://www.shader-learn.com/zh/learn/patterns/radial-gradient-center" />
-    <xhtml:link rel="alternate" hreflang="x-default"
-      href="https://www.shader-learn.com/learn/patterns/radial-gradient-center" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shader-learn.com/learn/patterns/radial-gradient-center" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://www.shader-learn.com/zh/learn/patterns/radial-gradient-center" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shader-learn.com/learn/patterns/radial-gradient-center" />
   </url>
   <url>
     <loc>https://www.shader-learn.com/learn/patterns/vertical-color-fade</loc>
-    <lastmod>2025-07-05T00:00:00Z</lastmod>
+    <lastmod>2025-09-26T00:00:00Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en"
-      href="https://www.shader-learn.com/learn/patterns/vertical-color-fade" />
-    <xhtml:link rel="alternate" hreflang="zh"
-      href="https://www.shader-learn.com/zh/learn/patterns/vertical-color-fade" />
-    <xhtml:link rel="alternate" hreflang="x-default"
-      href="https://www.shader-learn.com/learn/patterns/vertical-color-fade" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shader-learn.com/learn/patterns/vertical-color-fade" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://www.shader-learn.com/zh/learn/patterns/vertical-color-fade" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shader-learn.com/learn/patterns/vertical-color-fade" />
   </url>
   <url>
     <loc>https://www.shader-learn.com/zh/learn/patterns/vertical-color-fade</loc>
-    <lastmod>2025-07-05T00:00:00Z</lastmod>
+    <lastmod>2025-09-26T00:00:00Z</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en"
-      href="https://www.shader-learn.com/learn/patterns/vertical-color-fade" />
-    <xhtml:link rel="alternate" hreflang="zh"
-      href="https://www.shader-learn.com/zh/learn/patterns/vertical-color-fade" />
-    <xhtml:link rel="alternate" hreflang="x-default"
-      href="https://www.shader-learn.com/learn/patterns/vertical-color-fade" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shader-learn.com/learn/patterns/vertical-color-fade" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://www.shader-learn.com/zh/learn/patterns/vertical-color-fade" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shader-learn.com/learn/patterns/vertical-color-fade" />
   </url>
 </urlset>

@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Card from '../../../components/ui/card';
 import { useLanguage } from '../../../contexts/LanguageContext';
-import { type Locale } from '../../../lib/i18n';
+import { type Locale, addLocaleToPathname } from '../../../lib/i18n';
 
 interface Tutorial {
   id: string;
@@ -93,7 +93,9 @@ export default function LearnPageClient({ initialTutorials, locale }: LearnPageC
                 <Card 
                   key={tutorial.id} 
                   className="cursor-pointer hover:shadow-lg transition-shadow duration-200"
-                  onClick={() => router.push(`/${locale}/learn/${tutorial.category}/${tutorial.id}`)}
+                  onClick={() =>
+                    router.push(addLocaleToPathname(`/learn/${tutorial.category}/${tutorial.id}`, locale))
+                  }
                 >
                   <div className="flex justify-between items-start mb-3">
                     <h3 className="text-xl font-semibold text-gray-900">{tutorial.title}</h3>

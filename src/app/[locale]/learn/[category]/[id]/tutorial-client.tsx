@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { ToastContainer } from '@/components/ui/toast';
 import { useLanguage } from '../../../../../contexts/LanguageContext';
-import { type Locale } from '../../../../../lib/i18n';
+import { type Locale, addLocaleToPathname } from '../../../../../lib/i18n';
 import ShaderCanvasNew from '../../../../../components/common/shader-canvas-new';
 import CodeEditor from '../../../../../components/ui/code-editor';
 
@@ -450,20 +450,20 @@ export default function TutorialPageClient({
 
   // 返回列表页
   const handleBack = () => {
-    router.push(`/${locale}/learn`);
+    router.push(addLocaleToPathname('/learn', locale));
   };
 
   // 导航到上一个教程
   const handlePrevTutorial = () => {
     if (prevTutorial) {
-      router.push(`/${locale}/learn/${category}/${prevTutorial.id}`);
+      router.push(addLocaleToPathname(`/learn/${category}/${prevTutorial.id}`, locale));
     }
   };
 
   // 导航到下一个教程
   const handleNextTutorial = () => {
     if (nextTutorial) {
-      router.push(`/${locale}/learn/${category}/${nextTutorial.id}`);
+      router.push(addLocaleToPathname(`/learn/${category}/${nextTutorial.id}`, locale));
     }
   };
 

@@ -18,6 +18,7 @@ export async function generateMetadata({ params }: HomePageProps): Promise<Metad
   const title = t('home.title');
   const description = t('home.description');
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.shader-learn.com';
+  const url = locale === 'en' ? `${baseUrl}` : `${baseUrl}/${locale}`;
   
   return {
     title,
@@ -29,7 +30,7 @@ export async function generateMetadata({ params }: HomePageProps): Promise<Metad
       title,
       description,
       type: 'website',
-      url: `${baseUrl}/${locale}`,
+      url,
       images: [{
         url: `${baseUrl}/og-image.png`,
         width: 1200,

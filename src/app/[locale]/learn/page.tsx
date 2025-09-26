@@ -23,6 +23,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const description = t('learn.description');
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.shader-learn.com';
   
+  const url = locale === 'en' ? `${baseUrl}/learn` : `${baseUrl}/zh/learn`;
+
   return {
     title: `${title} - ${t('header.title')}`,
     description,
@@ -33,7 +35,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       title,
       description,
       type: 'website',
-      url: `${baseUrl}/${locale}/learn`,
+      url,
       images: [{
         url: `${baseUrl}/og-image.png`,
         width: 1200,

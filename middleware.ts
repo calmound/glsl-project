@@ -17,7 +17,7 @@ export const config = {
      * - .png, .jpg, .jpeg, .gif, .svg, .ico (images)
      * - .js, .css (static assets)
      */
-    '/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt|manifest.json|.*\\.(?:png|jpg|jpeg|gif|svg|ico|js|css)).*)',
+    '/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|sitemap-index.xml|robots.txt|manifest.json|.*\\.(?:png|jpg|jpeg|gif|svg|ico|js|css)).*)',
   ],
 };
 

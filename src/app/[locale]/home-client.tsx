@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import MainLayout from '../../components/layout/main-layout';
 import Card from '../../components/ui/card';
 import { Button } from '@/components/ui/button';
+import WelcomeMessage from '../../components/ui/welcome-message';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { type Locale, addLocaleToPathname } from '../../lib/i18n';
 
@@ -22,6 +23,11 @@ export default function HomePageClient({ locale }: HomePageClientProps) {
   
   return (
     <MainLayout>
+      {/* 欢迎消息 */}
+      <div className="container mx-auto px-4 pt-8">
+        <WelcomeMessage />
+      </div>
+      
       {/* 英雄区域 */}
       <section className="bg-gradient-to-br from-primary to-blue-800 py-24 px-4 text-white">
         <div className="container mx-auto flex flex-col md:flex-row items-center justify-between gap-8">

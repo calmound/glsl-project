@@ -1,6 +1,7 @@
 import { createServerSupabase } from "@/lib/supabase-server";
 import { redirect } from "next/navigation";
 import LogoutButton from "@/components/auth/logout-button";
+import Link from "next/link";
 
 export default async function Dashboard() {
   const supabase = await createServerSupabase();
@@ -56,22 +57,22 @@ export default async function Dashboard() {
             <div className="mt-8">
               <h2 className="text-xl font-semibold text-gray-900 mb-4">快速导航</h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                <a href="/learn" className="p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
+                <Link href="/learn" className="p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
                   <h3 className="font-medium text-gray-900">学习教程</h3>
                   <p className="text-gray-600 text-sm mt-1">开始学习 GLSL 基础知识</p>
-                </a>
-                <a href="/examples" className="p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
+                </Link>
+                <Link href="/examples" className="p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
                   <h3 className="font-medium text-gray-900">示例代码</h3>
                   <p className="text-gray-600 text-sm mt-1">浏览精选的 GLSL 示例</p>
-                </a>
-                <a href="/glslify-guide" className="p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
+                </Link>
+                <Link href="/glslify-guide" className="p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
                   <h3 className="font-medium text-gray-900">Glslify 指南</h3>
                   <p className="text-gray-600 text-sm mt-1">了解模块化 GLSL 开发</p>
-                </a>
-                <a href="/about" className="p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
+                </Link>
+                <Link href="/about" className="p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
                   <h3 className="font-medium text-gray-900">关于项目</h3>
                   <p className="text-gray-600 text-sm mt-1">了解更多项目信息</p>
-                </a>
+                </Link>
               </div>
             </div>
           </div>

@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react'
 import { createBrowserSupabase } from '@/lib/supabase'
 import type { User } from '@supabase/supabase-js'
+import Image from 'next/image'
 
 export default function UserProfile() {
   const [user, setUser] = useState<User | null>(null)
@@ -54,7 +55,7 @@ export default function UserProfile() {
   return (
     <div className="flex items-center gap-2 px-3 py-1 rounded-lg bg-gray-50 border border-gray-200">
       {avatarUrl ? (
-        <img 
+        <Image 
           src={avatarUrl} 
           alt={displayName}
           className="w-8 h-8 rounded-full object-cover"

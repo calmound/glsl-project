@@ -16,8 +16,6 @@ export const translations: Record<Locale, Translations> = {
     'nav.login': '登录',
     'nav.logout': '退出',
     'nav.contact': '联系',
-    'nav.login': '登录',
-    'nav.logout': '登出',
     
     // Language switcher
     'language.chinese': '中文',
@@ -181,8 +179,6 @@ export const translations: Record<Locale, Translations> = {
     'nav.login': 'Login',
     'nav.logout': 'Logout',
     'nav.contact': 'Contact',
-    'nav.login': 'Login',
-    'nav.logout': 'Logout',
     
     // Language switcher
     'language.chinese': '中文',

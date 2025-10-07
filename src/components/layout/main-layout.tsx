@@ -36,6 +36,11 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
                     {t('nav.learn')}
                   </Link>
                 </li>
+                <li>
+                  <Link href={addLocaleToPathname('/contact', language)} className="text-gray-600 hover:text-primary transition-colors">
+                    {t('nav.contact', 'Contact')}
+                  </Link>
+                </li>
               </ul>
             </nav>
             <LanguageSwitcher />

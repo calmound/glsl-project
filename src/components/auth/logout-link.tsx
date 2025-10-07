@@ -9,11 +9,11 @@ export default function LogoutLink() {
   const [show, setShow] = useState(false)
   const [isLoggingOut, setIsLoggingOut] = useState(false)
   const [userEmail, setUserEmail] = useState<string | null>(null)
-  const supabase = createBrowserSupabase()
   const router = useRouter()
 
   useEffect(() => {
     let mounted = true
+    const supabase = createBrowserSupabase()
     
     // 检查用户登录状态
     supabase.auth.getUser().then(({ data: { user } }) => {
@@ -37,9 +37,11 @@ export default function LogoutLink() {
       mounted = false
       subscription.unsubscribe()
     }
-  }, [supabase.auth])
+  }, []) // 空依赖数组
 
   const handleLogout = async () => {
+    const supabase = createBrowserSupabase()
+    
     // 可选：添加确认对话框
     const confirmed = window.confirm(
       language === 'zh' 

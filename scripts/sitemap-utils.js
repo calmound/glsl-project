@@ -107,6 +107,7 @@ function generateSitemapXML(tutorialIds) {
     { path: 'about', priority: '0.7', changefreq: 'monthly' },
     { path: 'glslify-guide', priority: '0.8', changefreq: 'monthly' },
     { path: 'examples', priority: '0.8', changefreq: 'weekly' },
+    { path: 'contact', priority: '0.6', changefreq: 'monthly' },
   ];
 
   // 生成首页URL（每种语言）

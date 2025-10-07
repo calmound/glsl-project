@@ -14,6 +14,9 @@ export const translations: Record<Locale, Translations> = {
     'nav.examples': '示例',
     'nav.about': '关于',
     'nav.login': '登录',
+    'nav.logout': '退出',
+    'nav.contact': '联系',
+    'nav.login': '登录',
     'nav.logout': '登出',
     
     // Language switcher
@@ -159,6 +162,13 @@ export const translations: Record<Locale, Translations> = {
     'loading': '加载中...',
     'error': '错误',
     'success': '成功',
+    
+    // Contact
+    'contact.title': '联系我们 - GLSL 学习平台',
+    'contact.heading': '联系我们',
+    'contact.description': '如果您有任何问题、建议或合作意向，欢迎通过邮箱与我们联系。',
+    'contact.details': '联系方式',
+    'contact.email_label': '邮箱',
   },
   en: {
     // Header
@@ -168,6 +178,9 @@ export const translations: Record<Locale, Translations> = {
     'nav.learn': 'Learn',
     'nav.examples': 'Examples',
     'nav.about': 'About',
+    'nav.login': 'Login',
+    'nav.logout': 'Logout',
+    'nav.contact': 'Contact',
     'nav.login': 'Login',
     'nav.logout': 'Logout',
     
@@ -314,6 +327,13 @@ export const translations: Record<Locale, Translations> = {
     'loading': 'Loading...',
     'error': 'Error',
     'success': 'Success',
+    
+    // Contact
+    'contact.title': 'Contact Us - GLSL Learning Platform',
+    'contact.heading': 'Contact Us',
+    'contact.description': 'If you have any questions, suggestions, or partnership inquiries, please contact us by email.',
+    'contact.details': 'Contact Details',
+    'contact.email_label': 'Email',
   },
 };
 

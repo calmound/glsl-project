@@ -6,10 +6,10 @@ import type { User } from '@supabase/supabase-js'
 export default function UserProfile() {
   const [user, setUser] = useState<User | null>(null)
   const [loading, setLoading] = useState(true)
-  const supabase = createBrowserSupabase()
 
   useEffect(() => {
     let mounted = true
+    const supabase = createBrowserSupabase()
     
     // 获取用户信息
     supabase.auth.getUser().then(({ data: { user } }) => {
@@ -32,7 +32,7 @@ export default function UserProfile() {
       mounted = false
       subscription.unsubscribe()
     }
-  }, [supabase.auth])
+  }, []) // 空依赖数组，只在挂载时执行
 
   if (loading) {
     return null

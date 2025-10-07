@@ -7,10 +7,10 @@ import { createBrowserSupabase } from '@/lib/supabase'
 export default function LoginLink() {
   const { t } = useLanguage()
   const [show, setShow] = useState(false)
-  const supabase = createBrowserSupabase()
 
   useEffect(() => {
     let mounted = true
+    const supabase = createBrowserSupabase()
     
     // 检查用户登录状态
     supabase.auth.getUser().then(({ data: { user } }) => {
@@ -32,7 +32,7 @@ export default function LoginLink() {
       mounted = false
       subscription.unsubscribe()
     }
-  }, [supabase.auth])
+  }, []) // 空依赖数组
 
   if (!show) return null
 

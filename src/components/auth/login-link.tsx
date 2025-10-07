@@ -21,9 +21,16 @@ export default function LoginLink() {
       // On error, conservatively show Login to allow auth
       setShow(true)
     })
+
+    // 监听认证状态变化
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      if (!mounted) return
+      setShow(!session?.user)
+    })
     
     return () => {
       mounted = false
+      subscription.unsubscribe()
     }
   }, [supabase.auth])
 

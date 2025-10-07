@@ -7,6 +7,7 @@ import { addLocaleToPathname } from '@/lib/i18n';
 import LanguageSwitcher from '../ui/language-switcher';
 import LogoutLink from '@/components/auth/logout-link';
 import LoginLink from '@/components/auth/login-link';
+import UserProfile from '@/components/auth/user-profile';
 
 interface MainLayoutProps {
   children: React.ReactNode;
@@ -38,6 +39,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
               </ul>
             </nav>
             <LanguageSwitcher />
+            <UserProfile />
             <LoginLink />
             <LogoutLink />
           </div>

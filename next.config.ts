@@ -1,6 +1,14 @@
-import type { NextConfig } from "next";
+import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: '**',
+      },
+    ],
+  },
   webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
     // 添加对 GLSL 文件的支持
     config.module.rules.push({
@@ -9,22 +17,20 @@ const nextConfig: NextConfig = {
         {
           loader: 'glslify-loader',
           options: {
-            transform: [
-              ['glslify-hex', { 'option-1': true, 'option-2': 42 }]
-            ]
-          }
+            transform: [['glslify-hex', { 'option-1': true, 'option-2': 42 }]],
+          },
         },
         {
-          loader: 'raw-loader'
-        }
-      ]
+          loader: 'raw-loader',
+        },
+      ],
     });
 
     return config;
   },
   // 添加文件扩展名支持
   pageExtensions: ['ts', 'tsx', 'js', 'jsx', 'md', 'mdx'],
-  
+
   // SEO 优化配置
   async headers() {
     return [
@@ -56,7 +62,6 @@ const nextConfig: NextConfig = {
       },
     ];
   },
-
 };
 
 export default nextConfig;

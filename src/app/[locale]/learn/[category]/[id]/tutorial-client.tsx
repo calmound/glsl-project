@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { ToastContainer } from '@/components/ui/toast';
@@ -8,6 +8,7 @@ import { useLanguage } from '../../../../../contexts/LanguageContext';
 import { type Locale, addLocaleToPathname } from '../../../../../lib/i18n';
 import ShaderCanvasNew from '../../../../../components/common/shader-canvas-new';
 import CodeEditor from '../../../../../components/ui/code-editor';
+import { createBrowserSupabase } from '../../../../../lib/supabase';
 
 interface Tutorial {
   id: string;
@@ -29,6 +30,7 @@ interface TutorialPageClientProps {
   category: string;
   tutorialId: string;
   categoryTutorials: Tutorial[];
+  initialCode?: string; // 从服务端预取的用户代码
 }
 
 export default function TutorialPageClient({
@@ -39,13 +41,26 @@ export default function TutorialPageClient({
   category,
   tutorialId,
   categoryTutorials,
+  initialCode: serverInitialCode,
 }: TutorialPageClientProps) {
   const router = useRouter();
   const { t } = useLanguage();
-  // 优先使用练习代码，确保学员看到需要补全的代码
-  const exerciseCode = shaders.exercise || shaders.fragment;
+  
+  // 优先使用服务端预取的代码，其次是练习代码
+  const exerciseCode = serverInitialCode || shaders.exercise || shaders.fragment;
+  
+  console.log('🔍 [客户端] TutorialPageClient 初始化:', {
+    tutorialId,
+    hasServerInitialCode: !!serverInitialCode,
+    serverInitialCodeLength: serverInitialCode?.length || 0,
+    hasExercise: !!shaders.exercise,
+    hasFragment: !!shaders.fragment,
+    finalExerciseCodeLength: exerciseCode.length,
+    codeSource: serverInitialCode ? '数据库' : (shaders.exercise ? '练习代码' : '完整代码')
+  });
+  
   const [userCode, setUserCode] = useState(exerciseCode);
-  const [initialCode] = useState(exerciseCode);
+  const [initialCode, setInitialCode] = useState(exerciseCode);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
   const [activeTab, setActiveTab] = useState<'tutorial' | 'answer'>('tutorial');
@@ -65,6 +80,166 @@ export default function TutorialPageClient({
   const removeToast = (id: string) => {
     setToasts(prev => prev.filter(toast => toast.id !== id));
   };
+
+  // 自动保存逻辑（防抖 2 秒）
+  const saveTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const supabase = createBrowserSupabase();
+  const fetchedOnceRef = useRef(false);
+
+  // 客户端兜底：挂载后尝试从数据库读取用户已保存代码
+  useEffect(() => {
+    // 如果服务端已经提供了初始代码，则无需再次读取；但考虑到会话不同步，仍做一次兜底。
+    if (fetchedOnceRef.current) return;
+    fetchedOnceRef.current = true;
+
+    (async () => {
+      try {
+        console.log('🔄 [客户端] 尝试从数据库读取已保存代码...');
+        const {
+          data: { user },
+          error: authError,
+        } = await supabase.auth.getUser();
+        if (authError) {
+          console.error('❌ [客户端] 获取用户失败，跳过读取：', authError);
+          return;
+        }
+        if (!user) {
+          console.log('ℹ️ [客户端] 未登录，跳过读取');
+          return;
+        }
+
+        const { data, error } = await supabase
+          .from('user_form_code')
+          .select('code_content')
+          .eq('form_id', tutorialId)
+          .eq('user_id', user.id)
+          .maybeSingle();
+
+        if (error) {
+          console.error('❌ [客户端] 读取用户代码失败：', error);
+          return;
+        }
+
+        if (data?.code_content) {
+          // 仅当和当前初始/用户代码不同，才更新，避免不必要刷新
+          if (data.code_content !== userCode) {
+            console.log('✅ [客户端] 成功读取用户代码，更新编辑器');
+            setUserCode(data.code_content);
+            setInitialCode(data.code_content);
+          } else {
+            console.log('ℹ️ [客户端] 数据库代码与当前一致，忽略更新');
+          }
+        } else {
+          console.log('ℹ️ [客户端] 数据库中未找到该教程的用户代码');
+        }
+      } catch (e) {
+        console.error('❌ [客户端] 读取用户代码发生异常：', e);
+      }
+    })();
+  }, [supabase, tutorialId]);
+
+  // 当切换到不同教程或服务端初始代码变化时，重置初始/用户代码
+  useEffect(() => {
+    setUserCode(exerciseCode);
+    setInitialCode(exerciseCode);
+  }, [tutorialId, serverInitialCode, shaders.exercise, shaders.fragment]);
+
+  const saveCodeToDatabase = useCallback(async (code: string) => {
+    console.log('💾 [客户端] 开始保存代码到数据库...');
+    
+    try {
+      // 1. 获取用户信息
+      console.log('💾 [客户端] 正在获取用户信息...');
+      const { data: { user }, error: authError } = await supabase.auth.getUser();
+      
+      if (authError) {
+        console.error('❌ [客户端] 获取用户信息失败:', authError);
+        return;
+      }
+      
+      console.log('💾 [客户端] 用户状态:', user ? `已登录 (${user.id})` : '未登录');
+      
+      if (!user) {
+        console.log('⚠️ [客户端] 未登录，跳过保存');
+        return;
+      }
+
+      // 2. 准备数据
+      const dataToSave = {
+        user_id: user.id,
+        form_id: tutorialId,
+        code_content: code,
+        language: 'glsl',
+        is_draft: true,
+      };
+      
+      console.log('💾 [客户端] 准备保存数据:', {
+        formId: tutorialId,
+        codeLength: code.length,
+        userId: user.id
+      });
+
+      // 3. 执行 upsert - 不使用 .select()，避免额外的查询
+      console.log('💾 [客户端] 发送 upsert 请求...');
+      const startTime = Date.now();
+      
+      const { error } = await supabase
+        .from('user_form_code')
+        .upsert(dataToSave, { 
+          onConflict: 'user_id,form_id',
+          ignoreDuplicates: false
+        });
+
+      const duration = Date.now() - startTime;
+      console.log(`💾 [客户端] 请求耗时: ${duration}ms`);
+
+      if (error) {
+        console.error('❌ [客户端] 保存失败:', {
+          error,
+          message: error.message,
+          details: error.details,
+          hint: error.hint,
+          code: error.code
+        });
+      } else {
+        console.log('✅ [客户端] 代码保存成功:', {
+          formId: tutorialId,
+          codeLength: code.length,
+          duration: `${duration}ms`
+        });
+      }
+    } catch (error: any) {
+      console.error('❌ [客户端] 保存异常:', {
+        error,
+        message: error?.message,
+        name: error?.name,
+        stack: error?.stack
+      });
+    }
+  }, [supabase, tutorialId]);
+
+  // 监听代码变化，实现防抖自动保存
+  useEffect(() => {
+    console.log('⏱️ [客户端] 代码已更改，设置 2 秒后自动保存...');
+    
+    // 清除之前的定时器
+    if (saveTimeoutRef.current) {
+      clearTimeout(saveTimeoutRef.current);
+    }
+
+    // 设置新的定时器（2秒后保存）
+    saveTimeoutRef.current = setTimeout(() => {
+      console.log('⏱️ [客户端] 2 秒已到，触发保存...');
+      saveCodeToDatabase(userCode);
+    }, 2000);
+
+    // 清理函数
+    return () => {
+      if (saveTimeoutRef.current) {
+        clearTimeout(saveTimeoutRef.current);
+      }
+    };
+  }, [userCode, saveCodeToDatabase]);
 
   // WebGL 着色器编译验证
   const validateShaderWithWebGL = (fragmentShaderCode: string): { isValid: boolean; errors: string[] } => {
@@ -415,13 +590,31 @@ export default function TutorialPageClient({
     
     setIsSubmitted(true);
     
-    // 比较Canvas渲染结果
+    // 比较Canvas渲染结果（本地验证）
     try {
       const isRenderingCorrect = await compareCanvasOutput(userCode, shaders.fragment);
       setIsCorrect(isRenderingCorrect);
       
       if (isRenderingCorrect) {
         addToast('🎉 ' + t('tutorial.success_toast', '恭喜！渲染效果正确，代码通过验证！'), 'success', 4000);
+        
+        // 调用 Edge Function 提交到服务端
+        try {
+          const { data: { session } } = await supabase.auth.getSession();
+          if (session) {
+            const response = await supabase.functions.invoke('submit_form', {
+              body: { formId: tutorialId }
+            });
+
+            if (response.error) {
+              console.error('提交到服务端失败:', response.error);
+            } else {
+              console.log('服务端提交成功:', response.data);
+            }
+          }
+        } catch (error) {
+          console.error('调用 Edge Function 失败:', error);
+        }
         
         // 如果有下一个教程，显示跳转提示
         if (nextTutorial) {

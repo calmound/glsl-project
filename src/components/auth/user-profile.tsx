@@ -58,6 +58,8 @@ export default function UserProfile() {
         <Image 
           src={avatarUrl} 
           alt={displayName}
+          width={32}
+          height={32}
           className="w-8 h-8 rounded-full object-cover"
         />
       ) : (

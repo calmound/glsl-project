@@ -8,7 +8,11 @@ import {
   getTutorialConfig,
 } from '@/lib/tutorials-server';
 import { getTranslationFunction } from '@/lib/translations';
+import { createServerSupabase } from '@/lib/supabase-server';
 import TutorialPageClient from '@/app/[locale]/learn/[category]/[id]/tutorial-client';
+
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 
 interface TutorialPageProps {
   params: Promise<{
@@ -105,6 +109,30 @@ export default async function TutorialPage({ params }: TutorialPageProps) {
     getTutorialsByCategory(category, locale),
   ]);
 
+  const supabase = await createServerSupabase();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  let initialCode: string | null = null;
+
+  if (user) {
+    try {
+      const { data, error } = await supabase
+        .from('user_form_code')
+        .select('code_content')
+        .eq('form_id', tutorial.id)
+        .eq('user_id', user.id)
+        .maybeSingle();
+
+      if (data && !error) {
+        initialCode = data.code_content;
+      }
+    } catch (error) {
+      console.error('[learn] Failed to load user code', error);
+    }
+  }
+
   return (
     <TutorialPageClient
       tutorial={tutorial}
@@ -114,6 +142,7 @@ export default async function TutorialPage({ params }: TutorialPageProps) {
       category={category}
       tutorialId={id}
       categoryTutorials={categoryTutorials}
+      initialCode={initialCode ?? (shaders.exercise || shaders.fragment)}
     />
   );
 }

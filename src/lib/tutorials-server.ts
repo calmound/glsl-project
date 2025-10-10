@@ -148,8 +148,6 @@ export async function getTutorialReadme(category: string, id: string, locale?: L
     // 根据语言选择对应的README文件
     let readmePath: string;
 
-    console.log('%c [  ]-142', 'font-size:13px; background:pink; color:#bf2c9f;', locale);
-
     if (locale === 'en') {
       // 优先尝试英文README
       const enReadmePath = path.join(tutorialDir, 'en-README.md');
@@ -163,13 +161,10 @@ export async function getTutorialReadme(category: string, id: string, locale?: L
       // 中文或其他语言，使用zh-README
       readmePath = path.join(tutorialDir, 'zh-README.md');
     }
-    console.log('157',readmePath)
     
     if (fs.existsSync(readmePath)) {
-      console.log('%c [  ]-161', 'font-size:13px; background:pink; color:#bf2c9f;', fs.existsSync(readmePath))
       return fs.readFileSync(readmePath, 'utf-8');
     }
-    console.log('163',fs.existsSync(readmePath))
     return '';
   } catch (error) {
     console.error(`Error reading README for ${category}/${id}:`, error);

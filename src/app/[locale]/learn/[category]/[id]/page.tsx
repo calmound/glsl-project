@@ -3,7 +3,12 @@ import { notFound } from 'next/navigation';
 import { getTutorial, getTutorialReadme, getTutorialShaders, getTutorialsByCategory, getTutorialConfig } from '../../../../../lib/tutorials-server';
 import { getValidLocale, type Locale } from '../../../../../lib/i18n';
 import { getTranslationFunction } from '../../../../../lib/translations';
+import { createServerSupabase } from '../../../../../lib/supabase-server';
 import TutorialPageClient from './tutorial-client';
+
+// 强制此页面按请求动态渲染，确保可读取用户 Cookie 并从数据库回显代码
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 
 interface TutorialPageProps {
   params: Promise<{
@@ -151,6 +156,53 @@ export default async function TutorialPage({ params }: TutorialPageProps) {
     getTutorialShaders(category, id),
     getTutorialsByCategory(category, locale),
   ]);
+
+  // 预取用户已保存的代码（如果已登录）
+  console.log('🔍 [服务端] 开始预取用户代码...');
+  const supabase = await createServerSupabase();
+  const { data: { user } } = await supabase.auth.getUser();
+  let initialCode: string | null = null;
+  
+  console.log('🔍 [服务端] 用户登录状态:', user ? `已登录 (${user.id})` : '未登录');
+  console.log('🔍 [服务端] 教程ID:', tutorial.id);
+  
+  if (user) {
+    try {
+      console.log('🔍 [服务端] 正在查询数据库...');
+      const { data, error } = await supabase
+        .from('user_form_code')
+        .select('code_content')
+        .eq('form_id', tutorial.id)
+        .eq('user_id', user.id)
+        .maybeSingle();
+      
+      console.log('🔍 [服务端] 数据库查询结果:', {
+        hasData: !!data,
+        hasError: !!error,
+        codeLength: data?.code_content?.length || 0,
+        error: error?.message
+      });
+      console.log('%c [ data ]-187', 'font-size:13px; background:pink; color:#bf2c9f;', data)
+      if (data && !error) {
+        
+        initialCode = data.code_content;
+        console.log('✅ [服务端] 成功加载用户代码:', {
+          formId: tutorial.id,
+          codeLength: data.code_content.length,
+          codePreview: data.code_content.substring(0, 50) + '...'
+        });
+      } else if (error) {
+        console.error('❌ [服务端] 数据库查询错误:', error);
+      } else {
+        console.log('ℹ️ [服务端] 用户尚未保存此教程的代码:', tutorial.id);
+      }
+    } catch (error) {
+      console.error('❌ [服务端] 读取用户代码异常:', error);
+    }
+  }
+  
+  console.log('🔍 [服务端] 最终 initialCode:', initialCode ? `已设置 (${initialCode.length} 字符)` : '使用默认代码');
+  console.log('🔍 [服务端] 默认代码来源:', shaders.exercise ? 'exercise' : 'fragment');
   
   return (
     <TutorialPageClient
@@ -161,6 +213,7 @@ export default async function TutorialPage({ params }: TutorialPageProps) {
       category={category}
       tutorialId={id}
       categoryTutorials={categoryTutorials}
+      initialCode={initialCode ?? (shaders.exercise || shaders.fragment)}
     />
   );
 }

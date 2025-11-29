@@ -25,17 +25,37 @@ export const config = {
 export async function middleware(request: NextRequest) {
   // 获取pathname
   const pathname = request.nextUrl.pathname;
-  
-  // 创建 Supabase 客户端用于中间件
+
+  // 1. 先处理locale检查（不需要认证）
+  const pathnameHasLocale = locales.some(
+    locale => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
+  );
+
+  // 如果已经有语言前缀或是根路径，直接返回（公开页面）
+  if (pathnameHasLocale || pathname === '/') {
+    return NextResponse.next();
+  }
+
+  // 2. 检查是否是受保护路径
+  const protectedPaths = ['/app', '/signin'];
+  const isProtectedPath = protectedPaths.some(path => pathname.startsWith(path));
+
+  // 如果不是受保护路径，直接放行（公开页面如 /learn, /about 等）
+  if (!isProtectedPath) {
+    return NextResponse.next();
+  }
+
+  // 3. 只对受保护路径执行认证检查
   let response = NextResponse.next({
     request: {
       headers: request.headers,
     },
   });
 
+  // 使用正确的环境变量名称（ANON_KEY 而不是 PUBLISHABLE_KEY）
   const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
     {
       cookies: {
         getAll() {
@@ -59,11 +79,9 @@ export async function middleware(request: NextRequest) {
   // 检查用户认证状态
   const { data: { user } } = await supabase.auth.getUser();
 
-  // 保护需要认证的路径
-  const protectedPaths = ['/app'];
-  const isProtectedPath = protectedPaths.some(path => pathname.startsWith(path));
-  
-  if (isProtectedPath && !user) {
+  // 4. 执行保护逻辑
+  // 保护 /app 路径，未登录则重定向到登录页
+  if (pathname.startsWith('/app') && !user) {
     return NextResponse.redirect(new URL('/signin', request.url));
   }
 
@@ -72,22 +90,5 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL('/', request.url));
   }
 
-  // 检查是否已经包含语言前缀
-  const pathnameHasLocale = locales.some(
-    locale => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
-  );
-
-  // 如果已经有语言前缀，直接返回
-  if (pathnameHasLocale) {
-    return response;
-  }
-
-  // 检查是否是根路径
-  if (pathname === '/') {
-    // 让页面组件处理重定向，这样更简单可靠
-    return response;
-  }
-
-  // 对于其他路径，如果没有语言前缀，假设是默认语言
   return response;
 }

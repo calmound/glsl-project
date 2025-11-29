@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { createBrowserSupabase } from '@/lib/supabase';
+import Link from 'next/link';
 
 export default function TestSupabasePage() {
   const [status, setStatus] = useState<any>({});
@@ -29,7 +30,7 @@ export default function TestSupabasePage() {
 
         // 3. 测试数据库连接（简单查询）
         console.log('🗄️ 测试数据库查询...');
-        const { data, error: dbError, count } = await supabase
+        const { error: dbError } = await supabase
           .from('user_form_code')
           .select('*', { count: 'exact', head: true });
         
@@ -117,7 +118,7 @@ export default function TestSupabasePage() {
           {!status.authCheck?.user && (
             <div className="mt-4 p-4 bg-yellow-50 border border-yellow-200 rounded">
               <p className="text-yellow-800">
-                ⚠️ 未登录。请先<a href="/login" className="underline text-blue-600">登录</a>
+                ⚠️ 未登录。请先<Link href="/login" className="underline text-blue-600">登录</Link>
               </p>
             </div>
           )}
@@ -159,7 +160,7 @@ export default function TestSupabasePage() {
         <div className="bg-blue-50 border border-blue-200 rounded-lg p-6">
           <h3 className="font-semibold mb-2">💡 下一步</h3>
           <ul className="list-disc list-inside space-y-1 text-sm">
-            <li>如果认证失败，请先<a href="/login" className="underline text-blue-600">登录</a></li>
+            <li>如果认证失败，请先<Link href="/login" className="underline text-blue-600">登录</Link></li>
             <li>打开浏览器控制台查看详细日志</li>
             <li>检查 Network 标签查看请求详情</li>
             <li>如果数据库连接失败，检查 RLS 策略</li>

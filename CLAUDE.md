@@ -173,6 +173,18 @@ Tutorials are file-based and stored in `src/lib/tutorials/[category]/[id]/`:
 - Pass `locale` prop to all pages that need i18n
 - Server components can read translations directly; client components use `LanguageContext`
 
+### Authentication Flow
+
+**Middleware execution order** (`middleware.ts`):
+1. Check if path has locale prefix (`/en/`, `/zh/`) or is root (`/`) → Allow through (public)
+2. Check if path is protected (`/app/*`, `/signin`) → Continue to auth check
+3. If not protected → Allow through (public pages like `/learn`, `/about`)
+4. For protected paths: Create Supabase client, check `getUser()`
+5. Redirect `/app/*` to `/signin` if not authenticated
+6. Redirect `/signin` to `/` if already authenticated
+
+**Important**: Most pages are public. Only `/app/*` paths require auth. Don't add auth checks to public learning pages.
+
 ### Shader Validation
 
 While the platform shows GLSL in editors, runtime validation happens in `ShaderCanvas` via WebGL compilation. There is no static GLSL linter integrated; errors appear in console/canvas.
@@ -184,9 +196,59 @@ While the platform shows GLSL in editors, runtime validation happens in `ShaderC
 - Static assets served from `public/`
 - Use `next/image` for optimized image loading
 
+## Supabase Integration
+
+The project uses Supabase for authentication and data persistence.
+
+### Authentication System
+
+**OAuth providers**: Google and GitHub
+- **Sign-in page**: `/signin` - OAuth login buttons
+- **Callback handler**: `/auth/callback/route.ts` - Exchanges OAuth code for session, syncs user profile
+- **Protected routes**: `/app/*` paths require authentication (enforced in `middleware.ts`)
+- **Middleware logic**: `middleware.ts` checks auth only for protected paths; public pages (`/learn`, `/about`, etc.) are not protected
+
+**Client and Server Supabase instances**:
+- **Browser client**: `src/lib/supabase.ts` exports `createBrowserSupabase()` (singleton pattern)
+- **Server client**: `src/lib/supabase-server.ts` exports `createServerSupabase()` (uses cookies from Next.js headers)
+
+### Database Schema
+
+**Tables**:
+- `profiles` - User profile data (id, email, name, avatar_url, last_login_at). Auto-synced on OAuth login.
+- `user_form_code` - User-submitted GLSL code (user_id, form_id, code_content, language, is_draft). Unique constraint: (user_id, form_id).
+- `user_form_status` - Exercise submission status (user_id, form_id, has_submitted, attempts, is_passed, first_passed_at, last_submitted_at, last_result). Unique constraint: (user_id, form_id).
+
+**Edge Functions** (`supabase/functions/`):
+- `submit_form` - Validates user submissions, updates `user_form_status` with judging results. Uses service_role for privileged writes. Current implementation has placeholder judging logic (always fails).
+- Functions use Deno runtime, not Node.js. Import from `https://deno.land/` or `https://esm.sh/`.
+- Deploy via Supabase CLI: `supabase functions deploy <function-name>`
+
+**Testing**: `/test-supabase` page provides connection diagnostics (client creation, auth check, database query, save test).
+
+### Supabase Client Patterns
+
+**Client-side components**:
+```typescript
+import { createBrowserSupabase } from '@/lib/supabase';
+const supabase = createBrowserSupabase();
+```
+
+**Server-side components and API routes**:
+```typescript
+import { createServerSupabase } from '@/lib/supabase-server';
+const supabase = await createServerSupabase();
+```
+
+**Middleware**: Uses `createServerClient` from `@supabase/ssr` with cookie management.
+
 ## Environment Variables
 
 - `NEXT_PUBLIC_BASE_URL` - Base URL for SEO, OG images, canonical links (defaults to `https://www.shader-learn.com`)
+- `NEXT_PUBLIC_SUPABASE_URL` - Supabase project URL (required)
+- `NEXT_PUBLIC_SUPABASE_ANON_KEY` - Supabase anonymous key (required, public-safe)
+- `NEXT_PUBLIC_BASE_URL` - Site URL for OAuth redirects (used in `/signin`)
+- `NEXT_PUBLIC_GA_ID` - Google Analytics tracking ID (optional)
 - Store secrets in `.env.local` (gitignored)
 
 ## Testing & Quality

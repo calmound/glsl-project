@@ -7,11 +7,11 @@ export default function SignIn() {
   const signInWith = async (provider: "google" | "github") => {
     try {
       
-      console.log('%c [  ]-10', 'font-size:13px; background:pink; color:#bf2c9f;', process.env.NEXT_PUBLIC_SITE_URL)
+      console.log('%c [  ]-10', 'font-size:13px; background:pink; color:#bf2c9f;', process.env.NEXT_PUBLIC_BASE_URL)
       const { error } = await supabase.auth.signInWithOAuth({
         provider,
         options: {
-          redirectTo: `${process.env.NEXT_PUBLIC_SITE_URL}/auth/callback`
+          redirectTo: `${process.env.NEXT_PUBLIC_BASE_URL}/auth/callback`
         }
       });
       

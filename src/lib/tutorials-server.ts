@@ -35,12 +35,33 @@ interface TutorialConfig {
   preview?: string;
 }
 
+async function createMetadataSupabaseClient() {
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+
+  if (!supabaseUrl || !supabaseAnonKey) {
+    return null;
+  }
+
+  const { createClient } = await import('@supabase/supabase-js');
+
+  return createClient(supabaseUrl, supabaseAnonKey, {
+    auth: {
+      persistSession: false,
+      autoRefreshToken: false,
+      detectSessionInUrl: false,
+    },
+  });
+}
+
 // 获取教程数据的服务端函数（优化版：从数据库读取）
 export async function getTutorials(locale: Locale): Promise<Tutorial[]> {
   try {
-    // 动态导入 Supabase 客户端以避免在构建时执行
-    const { createServerSupabase } = await import('./supabase-server');
-    const supabase = await createServerSupabase();
+    const supabase = await createMetadataSupabaseClient();
+
+    if (!supabase) {
+      return getTutorialsFromFileSystem(locale);
+    }
 
     // 从数据库查询教程元数据
     const { data, error } = await supabase
@@ -215,9 +236,11 @@ export async function getTutorialReadme(category: string, id: string, locale?: L
 // 获取指定分类下的所有教程（优化版：从数据库读取）
 export async function getTutorialsByCategory(category: string, locale: Locale): Promise<Tutorial[]> {
   try {
-    // 动态导入 Supabase 客户端
-    const { createServerSupabase } = await import('./supabase-server');
-    const supabase = await createServerSupabase();
+    const supabase = await createMetadataSupabaseClient();
+
+    if (!supabase) {
+      return getTutorialsByCategoryFromFileSystem(category, locale);
+    }
 
     // 从数据库查询指定分类的教程
     const { data, error } = await supabase

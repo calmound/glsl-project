@@ -3,6 +3,9 @@ import { redirect } from "next/navigation";
 import LogoutButton from "@/components/auth/logout-button";
 import Link from "next/link";
 
+export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+
 export default async function Dashboard() {
   const supabase = await createServerSupabase();
   const { data: { user } } = await supabase.auth.getUser();

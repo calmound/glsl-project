@@ -1,39 +1,9 @@
 "use client"
-import { useEffect, useState } from 'react'
-import { createBrowserSupabase } from '@/lib/supabase'
-import type { User } from '@supabase/supabase-js'
+import { useAuth } from '@/contexts/AuthContext'
 import Image from 'next/image'
 
 export default function UserProfile() {
-  const [user, setUser] = useState<User | null>(null)
-  const [loading, setLoading] = useState(true)
-
-  useEffect(() => {
-    let mounted = true
-    const supabase = createBrowserSupabase()
-    
-    // 获取用户信息
-    supabase.auth.getUser().then(({ data: { user } }) => {
-      if (!mounted) return
-      setUser(user)
-      setLoading(false)
-    }).catch(() => {
-      if (!mounted) return
-      setUser(null)
-      setLoading(false)
-    })
-
-    // 监听认证状态变化
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
-      if (!mounted) return
-      setUser(session?.user ?? null)
-    })
-    
-    return () => {
-      mounted = false
-      subscription.unsubscribe()
-    }
-  }, []) // 空依赖数组，只在挂载时执行
+  const { user, loading } = useAuth()
 
   if (loading) {
     return null

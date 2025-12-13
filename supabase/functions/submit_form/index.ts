@@ -1,52 +1,74 @@
 import { serve } from 'https://deno.land/std@0.177.0/http/server.ts';
 import { createClient } from 'https://esm.sh/@supabase/supabase-js@2.39.0';
 
+// CORS 响应头
+const corsHeaders = {
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+  'Access-Control-Allow-Methods': 'POST, OPTIONS',
+};
+
 serve(async (req) => {
+  // 处理 CORS 预检请求
+  if (req.method === 'OPTIONS') {
+    return new Response(null, {
+      status: 204,
+      headers: corsHeaders
+    });
+  }
+
   try {
     // 获取环境变量
     const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
+    const supabaseAnonKey = Deno.env.get('SUPABASE_ANON_KEY')!;
     const serviceRoleKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
-    
+
     // 获取 JWT token
     const authHeader = req.headers.get('Authorization') || '';
     const jwt = authHeader.replace('Bearer ', '');
-    
+
     if (!jwt) {
       return new Response(
         JSON.stringify({ error: 'Missing authorization header' }),
-        { status: 401, headers: { 'Content-Type': 'application/json' } }
+        { status: 401, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
 
     // 解析请求体
-    const { formId } = await req.json();
-    
+    const { formId, passed } = await req.json();
+
     if (!formId) {
       return new Response(
         JSON.stringify({ error: 'Missing formId' }),
-        { status: 400, headers: { 'Content-Type': 'application/json' } }
+        { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
 
-    // 创建 Supabase 客户端（使用 service_role 以便写入 user_form_status）
-    const supabase = createClient(supabaseUrl, serviceRoleKey, {
-      global: { headers: { Authorization: `Bearer ${jwt}` } },
-    });
+    // passed 参数由前端验证后传递，默认为 false
+    const isPassed = passed === true;
 
-    // 验证用户身份
-    const { data: { user }, error: authError } = await supabase.auth.getUser();
-    
+    // 步骤1: 使用 anon key 验证用户的 JWT token
+    const authClient = createClient(supabaseUrl, supabaseAnonKey);
+    const { data: { user }, error: authError } = await authClient.auth.getUser(jwt);
+
     if (authError || !user) {
+      console.error('Auth error:', authError);
       return new Response(
-        JSON.stringify({ error: 'Unauthorized' }),
-        { status: 401, headers: { 'Content-Type': 'application/json' } }
+        JSON.stringify({
+          error: 'Unauthorized',
+          details: authError?.message || 'Invalid or expired token'
+        }),
+        { status: 401, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
 
     const userId = user.id;
 
+    // 步骤2: 创建 service_role 客户端用于特权数据库操作
+    const adminClient = createClient(supabaseUrl, serviceRoleKey);
+
     // 读取用户提交的代码
-    const { data: codeRow, error: codeError } = await supabase
+    const { data: codeRow, error: codeError } = await adminClient
       .from('user_form_code')
       .select('code_content')
       .eq('user_id', userId)
@@ -56,23 +78,30 @@ serve(async (req) => {
     if (codeError) {
       return new Response(
         JSON.stringify({ error: 'Failed to fetch user code', details: codeError.message }),
-        { status: 500, headers: { 'Content-Type': 'application/json' } }
+        { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
 
     const code = codeRow?.code_content ?? '';
 
-    // TODO: 实现真实的判题逻辑
-    // 当前为占位逻辑，始终返回失败
-    // 后续可以根据实际需求实现 WebGL 编译验证或其他判题机制
-    const passed = false; // 占位：实际判题逻辑
-    const lastResult = { 
-      message: passed ? 'Shader compiled successfully' : 'Placeholder validation - please implement actual judging logic',
+    // 基本的代码验证：确保代码非空
+    if (!code || code.trim().length === 0) {
+      return new Response(
+        JSON.stringify({ error: 'No code submitted for this form' }),
+        { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+
+    // 使用前端传递的验证结果
+    // 前端已经进行了 WebGL 编译验证和渲染结果比较
+    const lastResult = {
+      message: isPassed ? 'Shader compiled successfully and rendering is correct' : 'Shader validation failed',
       timestamp: new Date().toISOString(),
+      validatedBy: 'client-webgl-renderer'
     };
 
     // 查询现有状态
-    const { data: statusRow, error: statusFetchError } = await supabase
+    const { data: statusRow, error: statusFetchError } = await adminClient
       .from('user_form_status')
       .select('*')
       .eq('user_id', userId)
@@ -82,7 +111,7 @@ serve(async (req) => {
     if (statusFetchError) {
       return new Response(
         JSON.stringify({ error: 'Failed to fetch status', details: statusFetchError.message }),
-        { status: 500, headers: { 'Content-Type': 'application/json' } }
+        { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
 
@@ -100,15 +129,15 @@ serve(async (req) => {
     };
 
     // 仅在首次通过时写入 first_passed_at，且 is_passed 只能设为 true，不回退
-    if (passed && !currentFirstPassedAt) {
+    if (isPassed && !currentFirstPassedAt) {
       updateData.first_passed_at = new Date().toISOString();
     }
-    if (passed) {
+    if (isPassed) {
       updateData.is_passed = true;
     }
 
     // 使用 service_role 权限更新 user_form_status
-    const { data: updatedStatus, error: updateError } = await supabase
+    const { data: updatedStatus, error: updateError } = await adminClient
       .from('user_form_status')
       .upsert(updateData, { onConflict: 'user_id,form_id' })
       .select()
@@ -117,33 +146,33 @@ serve(async (req) => {
     if (updateError) {
       return new Response(
         JSON.stringify({ error: 'Failed to update status', details: updateError.message }),
-        { status: 500, headers: { 'Content-Type': 'application/json' } }
+        { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
     }
 
     // 返回结果
     return new Response(
       JSON.stringify({
-        passed,
+        passed: isPassed,
         attempts: updatedStatus.attempts,
         lastResult,
         firstPassedAt: updatedStatus.first_passed_at || null,
         isPassed: updatedStatus.is_passed,
       }),
-      { 
+      {
         status: 200,
-        headers: { 'Content-Type': 'application/json' }
+        headers: { ...corsHeaders, 'Content-Type': 'application/json' }
       }
     );
 
   } catch (error) {
     console.error('Edge Function error:', error);
     return new Response(
-      JSON.stringify({ 
+      JSON.stringify({
         error: 'Internal server error',
         details: error instanceof Error ? error.message : 'Unknown error'
       }),
-      { status: 500, headers: { 'Content-Type': 'application/json' } }
+      { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
     );
   }
 });

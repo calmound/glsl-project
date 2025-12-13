@@ -10,12 +10,13 @@ interface ShaderCanvasProps {
   className?: string;
   timeScale?: number;
   uniforms?: Record<string, number | boolean | number[] | string>;
+  onCompileError?: (error: string | null) => void;
 }
 
 const defaultVertexShader = `
   attribute vec4 position;
   varying vec2 vUv;
-  
+
   void main() {
     vUv = position.xy * 0.5 + 0.5;
     gl_Position = position;
@@ -28,6 +29,7 @@ const ShaderCanvas: React.FC<ShaderCanvasProps> = ({
   width = 300,
   height = 300,
   className = '',
+  onCompileError,
   timeScale = 1.0,
   uniforms = {},
 }) => {
@@ -47,13 +49,24 @@ const ShaderCanvas: React.FC<ShaderCanvasProps> = ({
       gl.compileShader(shader);
 
       const success = gl.getShaderParameter(shader, gl.COMPILE_STATUS);
-      if (success) return shader;
+      if (success) {
+        // 编译成功，清除错误状态
+        if (onCompileError) {
+          onCompileError(null);
+        }
+        return shader;
+      }
 
-      console.error(gl.getShaderInfoLog(shader));
+      // 编译失败，记录错误
+      const errorLog = gl.getShaderInfoLog(shader);
+      console.error('Shader compilation error:', errorLog);
+      if (onCompileError && errorLog) {
+        onCompileError(errorLog);
+      }
       gl.deleteShader(shader);
       return null;
     },
-    []
+    [onCompileError]
   );
 
   // 创建着色器程序

@@ -35,49 +35,89 @@ interface TutorialConfig {
   preview?: string;
 }
 
-// 获取教程数据的服务端函数
+// 获取教程数据的服务端函数（优化版：从数据库读取）
 export async function getTutorials(locale: Locale): Promise<Tutorial[]> {
+  try {
+    // 动态导入 Supabase 客户端以避免在构建时执行
+    const { createServerSupabase } = await import('./supabase-server');
+    const supabase = await createServerSupabase();
+
+    // 从数据库查询教程元数据
+    const { data, error } = await supabase
+      .from('tutorial_metadata')
+      .select('*')
+      .order('category')
+      .order('order_index');
+
+    if (error) {
+      console.error('Error fetching tutorials from database:', error);
+      // 如果数据库查询失败，回退到文件系统读取
+      return getTutorialsFromFileSystem(locale);
+    }
+
+    if (!data || data.length === 0) {
+      console.warn('No tutorials found in database, falling back to file system');
+      return getTutorialsFromFileSystem(locale);
+    }
+
+    // 将数据库记录转换为 Tutorial 对象
+    return data.map(row => ({
+      id: row.id,
+      title: locale === 'en' ? row.title_en : row.title_zh,
+      description: locale === 'en' ? (row.description_en || row.description_zh) : (row.description_zh || row.description_en),
+      difficulty: row.difficulty as 'beginner' | 'intermediate' | 'advanced',
+      category: row.category,
+    }));
+  } catch (error) {
+    console.error('Error in getTutorials:', error);
+    // 发生任何错误时回退到文件系统读取
+    return getTutorialsFromFileSystem(locale);
+  }
+}
+
+// 回退方案：从文件系统读取教程（原有逻辑）
+function getTutorialsFromFileSystem(locale: Locale): Tutorial[] {
   const tutorials: Tutorial[] = [];
   const tutorialsDir = path.join(process.cwd(), 'src/lib/tutorials');
-  
+
   try {
     // 读取所有分类目录
     const categories = fs.readdirSync(tutorialsDir, { withFileTypes: true })
       .filter(dirent => dirent.isDirectory())
       .map(dirent => dirent.name);
-    
+
     for (const category of categories) {
       const categoryDir = path.join(tutorialsDir, category);
-      
+
       // 读取分类下的所有教程目录
       const tutorialDirs = fs.readdirSync(categoryDir, { withFileTypes: true })
         .filter(dirent => dirent.isDirectory())
         .map(dirent => dirent.name);
-      
+
       for (const tutorialDir of tutorialDirs) {
         const configPath = path.join(categoryDir, tutorialDir, 'config.json');
-        
+
         if (fs.existsSync(configPath)) {
           try {
             const configContent = fs.readFileSync(configPath, 'utf-8');
             const config: TutorialConfig = JSON.parse(configContent);
-            
+
             // 根据语言选择标题和描述
             let title: string;
             let description: string;
-            
+
             if (typeof config.title === 'object') {
               title = config.title[locale] || config.title.zh;
             } else {
               title = locale === 'en' && config.title_en ? config.title_en : config.title;
             }
-            
+
             if (typeof config.description === 'object') {
               description = config.description[locale] || config.description.zh;
             } else {
               description = locale === 'en' && config.description_en ? config.description_en : config.description;
             }
-            
+
             tutorials.push({
               id: config.id,
               title,
@@ -91,10 +131,10 @@ export async function getTutorials(locale: Locale): Promise<Tutorial[]> {
         }
       }
     }
-    
+
     return tutorials;
   } catch (error) {
-    console.error('Error reading tutorials:', error);
+    console.error('Error reading tutorials from file system:', error);
     return [];
   }
 }
@@ -172,45 +212,84 @@ export async function getTutorialReadme(category: string, id: string, locale?: L
   }
 }
 
-// 获取指定分类下的所有教程
+// 获取指定分类下的所有教程（优化版：从数据库读取）
 export async function getTutorialsByCategory(category: string, locale: Locale): Promise<Tutorial[]> {
+  try {
+    // 动态导入 Supabase 客户端
+    const { createServerSupabase } = await import('./supabase-server');
+    const supabase = await createServerSupabase();
+
+    // 从数据库查询指定分类的教程
+    const { data, error } = await supabase
+      .from('tutorial_metadata')
+      .select('*')
+      .eq('category', category)
+      .order('order_index');
+
+    if (error) {
+      console.error(`Error fetching tutorials for category ${category}:`, error);
+      // 回退到文件系统
+      return getTutorialsByCategoryFromFileSystem(category, locale);
+    }
+
+    if (!data || data.length === 0) {
+      // 如果数据库中没有数据，回退到文件系统
+      return getTutorialsByCategoryFromFileSystem(category, locale);
+    }
+
+    // 转换为 Tutorial 对象
+    return data.map(row => ({
+      id: row.id,
+      title: locale === 'en' ? row.title_en : row.title_zh,
+      description: locale === 'en' ? (row.description_en || row.description_zh) : (row.description_zh || row.description_en),
+      difficulty: row.difficulty as 'beginner' | 'intermediate' | 'advanced',
+      category: row.category,
+    }));
+  } catch (error) {
+    console.error(`Error in getTutorialsByCategory for ${category}:`, error);
+    return getTutorialsByCategoryFromFileSystem(category, locale);
+  }
+}
+
+// 回退方案：从文件系统读取指定分类的教程
+function getTutorialsByCategoryFromFileSystem(category: string, locale: Locale): Tutorial[] {
   const tutorials: Tutorial[] = [];
   const categoryDir = path.join(process.cwd(), 'src/lib/tutorials', category);
-  
+
   try {
     if (!fs.existsSync(categoryDir)) {
       return [];
     }
-    
+
     // 读取分类下的所有教程目录
     const tutorialDirs = fs.readdirSync(categoryDir, { withFileTypes: true })
       .filter(dirent => dirent.isDirectory())
       .map(dirent => dirent.name);
-    
+
     for (const tutorialDir of tutorialDirs) {
       const configPath = path.join(categoryDir, tutorialDir, 'config.json');
-      
+
       if (fs.existsSync(configPath)) {
         try {
           const configContent = fs.readFileSync(configPath, 'utf-8');
           const config: TutorialConfig = JSON.parse(configContent);
-          
+
           // 根据语言选择标题和描述
           let title: string;
           let description: string;
-          
+
           if (typeof config.title === 'object') {
             title = config.title[locale] || config.title.zh;
           } else {
             title = locale === 'en' && config.title_en ? config.title_en : config.title;
           }
-          
+
           if (typeof config.description === 'object') {
             description = config.description[locale] || config.description.zh;
           } else {
             description = locale === 'en' && config.description_en ? config.description_en : config.description;
           }
-          
+
           tutorials.push({
             id: config.id,
             title,
@@ -223,7 +302,7 @@ export async function getTutorialsByCategory(category: string, locale: Locale): 
         }
       }
     }
-    
+
     return tutorials;
   } catch (error) {
     console.error(`Error reading tutorials for category ${category}:`, error);

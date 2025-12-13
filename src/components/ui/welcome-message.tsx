@@ -1,28 +1,8 @@
 "use client";
-import { useEffect, useState } from 'react';
-import { createBrowserSupabase } from '@/lib/supabase';
-import type { User } from '@supabase/supabase-js';
+import { useAuth } from '@/contexts/AuthContext';
 
 export default function WelcomeMessage() {
-  const [user, setUser] = useState<User | null>(null);
-  const [loading, setLoading] = useState(true);
-  const supabase = createBrowserSupabase();
-
-  useEffect(() => {
-    // 获取当前用户
-    supabase.auth.getUser().then(({ data: { user } }) => {
-      setUser(user);
-      setLoading(false);
-    });
-
-    // 监听认证状态变化
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
-      setUser(session?.user ?? null);
-      setLoading(false);
-    });
-
-    return () => subscription.unsubscribe();
-  }, [supabase.auth]);
+  const { user, loading } = useAuth();
 
   if (loading) return null;
 

@@ -5,10 +5,15 @@ import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { ToastContainer } from '@/components/ui/toast';
 import { useLanguage } from '../../../../../contexts/LanguageContext';
+import { useAuth } from '../../../../../contexts/AuthContext';
 import { type Locale, addLocaleToPathname } from '../../../../../lib/i18n';
 import ShaderCanvasNew from '../../../../../components/common/shader-canvas-new';
 import CodeEditor from '../../../../../components/ui/code-editor';
 import { createBrowserSupabase } from '../../../../../lib/supabase';
+import { parseShaderError, formatErrorMessage } from '../../../../../lib/shader-error-parser';
+import { SnippetSelector } from '../../../../../components/common/snippet-selector';
+import { requiresAuth } from '../../../../../lib/access-control';
+import LoginPromptOverlay from '../../../../../components/auth/login-prompt-overlay';
 
 interface Tutorial {
   id: string;
@@ -45,7 +50,13 @@ export default function TutorialPageClient({
 }: TutorialPageClientProps) {
   const router = useRouter();
   const { t } = useLanguage();
-  
+  const { user } = useAuth();
+
+  // 权限控制
+  const needsAuth = requiresAuth(category);
+  const hasAccess = !needsAuth || !!user;
+  const [showLoginPrompt, setShowLoginPrompt] = useState(false);
+
   // 优先使用服务端预取的代码，其次是练习代码
   const exerciseCode = serverInitialCode || shaders.exercise || shaders.fragment;
   
@@ -64,6 +75,7 @@ export default function TutorialPageClient({
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
   const [activeTab, setActiveTab] = useState<'tutorial' | 'answer'>('tutorial');
+  const [compileError, setCompileError] = useState<string | null>(null);
   const [toasts, setToasts] = useState<Array<{
     id: string;
     message: string;
@@ -81,10 +93,37 @@ export default function TutorialPageClient({
     setToasts(prev => prev.filter(toast => toast.id !== id));
   };
 
+  // 处理编译错误
+  const handleCompileError = useCallback((error: string | null) => {
+    setCompileError(error);
+  }, []);
+
+  // 处理代码片段插入
+  const handleInsertSnippet = useCallback((snippetCode: string) => {
+    setUserCode(prevCode => {
+      // 如果当前代码为空或只有空白字符，直接使用片段代码
+      if (!prevCode.trim()) {
+        return snippetCode;
+      }
+      // 否则，在代码末尾添加片段（添加换行符）
+      return prevCode + '\n\n' + snippetCode;
+    });
+    addToast(t('tutorial.snippet_inserted', '代码片段已插入'), 'success', 2000);
+  }, [addToast, t]);
+
   // 自动保存逻辑（防抖 2 秒）
   const saveTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const supabase = createBrowserSupabase();
   const fetchedOnceRef = useRef(false);
+
+  // 权限检查：如果需要登录但未登录，显示登录提示
+  useEffect(() => {
+    if (needsAuth && !user) {
+      setShowLoginPrompt(true);
+    } else {
+      setShowLoginPrompt(false);
+    }
+  }, [needsAuth, user]);
 
   // 客户端兜底：挂载后尝试从数据库读取用户已保存代码
   useEffect(() => {
@@ -218,20 +257,20 @@ export default function TutorialPageClient({
     }
   }, [supabase, tutorialId]);
 
-  // 监听代码变化，实现防抖自动保存
+  // 监听代码变化，实现防抖自动保存（优化：从 2 秒增加到 5 秒）
   useEffect(() => {
-    console.log('⏱️ [客户端] 代码已更改，设置 2 秒后自动保存...');
-    
+    console.log('⏱️ [客户端] 代码已更改，设置 5 秒后自动保存...');
+
     // 清除之前的定时器
     if (saveTimeoutRef.current) {
       clearTimeout(saveTimeoutRef.current);
     }
 
-    // 设置新的定时器（2秒后保存）
+    // 设置新的定时器（5秒后保存，减少数据库写入频率）
     saveTimeoutRef.current = setTimeout(() => {
-      console.log('⏱️ [客户端] 2 秒已到，触发保存...');
+      console.log('⏱️ [客户端] 5 秒已到，触发保存...');
       saveCodeToDatabase(userCode);
-    }, 2000);
+    }, 5000);
 
     // 清理函数
     return () => {
@@ -239,6 +278,20 @@ export default function TutorialPageClient({
         clearTimeout(saveTimeoutRef.current);
       }
     };
+  }, [userCode, saveCodeToDatabase]);
+
+  // 编辑器失去焦点时立即保存
+  const handleEditorBlur = useCallback(() => {
+    console.log('👁️ [客户端] 编辑器失去焦点，立即保存代码...');
+
+    // 取消之前的延迟保存
+    if (saveTimeoutRef.current) {
+      clearTimeout(saveTimeoutRef.current);
+      saveTimeoutRef.current = null;
+    }
+
+    // 立即保存
+    saveCodeToDatabase(userCode);
   }, [userCode, saveCodeToDatabase]);
 
   // WebGL 着色器编译验证
@@ -596,35 +649,88 @@ export default function TutorialPageClient({
       setIsCorrect(isRenderingCorrect);
       
       if (isRenderingCorrect) {
-        addToast('🎉 ' + t('tutorial.success_toast', '恭喜！渲染效果正确，代码通过验证！'), 'success', 4000);
-        
+        // 先检查登录状态 - 使用 getUser() 验证 JWT 是否有效
+        const { data: { user }, error: authError } = await supabase.auth.getUser();
+
+        if (authError || !user) {
+          // 未登录或登录已过期，提示用户去登录
+          console.error('用户未登录或 session 已过期:', authError);
+          addToast(
+            '⚠️ ' + t('tutorial.login_required', '请先登录后再提交代码'),
+            'error',
+            5000
+          );
+          // 跳转到登录页
+          setTimeout(() => {
+            router.push('/signin');
+          }, 1500);
+          return;
+        }
+
         // 调用 Edge Function 提交到服务端
         try {
-          const { data: { session } } = await supabase.auth.getSession();
-          if (session) {
-            const response = await supabase.functions.invoke('submit_form', {
-              body: { formId: tutorialId }
-            });
-
-            if (response.error) {
-              console.error('提交到服务端失败:', response.error);
-            } else {
-              console.log('服务端提交成功:', response.data);
+          const response = await supabase.functions.invoke('submit_form', {
+            body: {
+              formId: tutorialId,
+              passed: true  // 前端验证通过，告知后端
             }
+          });
+
+          if (response.error) {
+            console.error('提交到服务端失败:', response.error);
+            console.error('错误详情:', JSON.stringify(response.error, null, 2));
+
+            // 检查是否是 401 错误（未授权）
+            // Supabase Functions 错误可能在 context.status 中包含状态码
+            const is401Error =
+              response.error.message?.includes('401') ||
+              response.error.message?.includes('Unauthorized') ||
+              (response.error as any).context?.status === 401 ||
+              (response.error as any).status === 401;
+
+            if (is401Error) {
+              addToast(
+                '🔒 ' + t('tutorial.session_expired', '登录已过期，请重新登录'),
+                'error',
+                5000
+              );
+              // 跳转到登录页
+              setTimeout(() => {
+                router.push('/signin');
+              }, 1500);
+              return;
+            }
+
+            // 其他错误
+            addToast(
+              '❌ ' + t('tutorial.submit_failed', '提交失败，请重试'),
+              'error',
+              4000
+            );
+            return;
+          }
+
+          // 提交成功
+          console.log('服务端提交成功:', response.data);
+          addToast('🎉 ' + t('tutorial.success_toast', '恭喜！渲染效果正确，代码通过验证！'), 'success', 4000);
+
+          // 如果有下一个教程，显示跳转提示
+          if (nextTutorial) {
+            setTimeout(() => {
+              addToast(
+                `✨ ${t('tutorial.next_tutorial_hint', '准备好了吗？')} "${nextTutorial.title}" ${t('tutorial.next_tutorial_action', '等你来挑战！')}`,
+                'info',
+                6000
+              );
+            }, 2000);
           }
         } catch (error) {
           console.error('调用 Edge Function 失败:', error);
-        }
-        
-        // 如果有下一个教程，显示跳转提示
-        if (nextTutorial) {
-          setTimeout(() => {
-            addToast(
-              `✨ ${t('tutorial.next_tutorial_hint', '准备好了吗？')} "${nextTutorial.title}" ${t('tutorial.next_tutorial_action', '等你来挑战！')}`,
-              'info',
-              6000
-            );
-          }, 2000);
+          addToast(
+            '❌ ' + t('tutorial.submit_error', '提交过程中出现错误'),
+            'error',
+            4000
+          );
         }
       } else {
         addToast(t('tutorial.incorrect_toast', '渲染效果与预期不符，请检查代码逻辑'), 'error');
@@ -662,9 +768,17 @@ export default function TutorialPageClient({
 
   return (
     <>
+      {/* 登录提示遮罩 */}
+      {showLoginPrompt && (
+        <LoginPromptOverlay
+          category={category}
+          onClose={() => setShowLoginPrompt(false)}
+        />
+      )}
+
       {/* Toast 容器 */}
       <ToastContainer toasts={toasts} onRemoveToast={removeToast} />
-      
+
       <div className="flex overflow-hidden">
         {/* 左侧区域：问题描述和知识点介绍 */}
         <div
@@ -840,19 +954,27 @@ export default function TutorialPageClient({
             <div className="flex items-center justify-between mb-3">
               <h3 className="text-md font-semibold">{t('tutorial.code_editor', 'GLSL 代码编辑器')}</h3>
               <div className="flex gap-2">
+                <SnippetSelector
+                  category={category}
+                  onInsert={handleInsertSnippet}
+                  locale={locale}
+                />
                 <Button variant="outline" size="sm" onClick={handleRunCode}>
                   {t('tutorial.run', '运行')}
                 </Button>
                 <Button variant="outline" size="sm" onClick={handleResetCode}>
                   {t('tutorial.reset', '重置')}
                 </Button>
-                <Button 
-                  variant={"default"} 
-                  size="sm" 
+                <Button
+                  variant={"default"}
+                  size="sm"
                   onClick={handleSubmitCode}
-                  disabled={!!(isSubmitted && isCorrect)}
+                  disabled={!hasAccess || !!(isSubmitted && isCorrect)}
                 >
-                  {isSubmitted && isCorrect ? t('tutorial.passed', '已通过') : t('tutorial.submit', '提交')}
+                  {!hasAccess
+                    ? t('tutorial.login_to_submit', '登录后提交')
+                    : (isSubmitted && isCorrect ? t('tutorial.passed', '已通过') : t('tutorial.submit', '提交'))
+                  }
                 </Button>
               </div>
             </div>
@@ -860,9 +982,49 @@ export default function TutorialPageClient({
               <CodeEditor
                 initialCode={userCode}
                 onChange={handleUserCodeChange}
-                readOnly={false}
+                onBlur={handleEditorBlur}
+                readOnly={!hasAccess}
               />
             </div>
+
+            {/* 编译错误提示 */}
+            {compileError && (
+              <div className="mt-2 p-3 bg-red-50 border border-red-200 rounded-lg">
+                <div className="flex items-start gap-2">
+                  <svg
+                    className="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
+                  </svg>
+                  <div className="flex-1">
+                    <h4 className="text-sm font-semibold text-red-800 mb-1">
+                      {parseShaderError(compileError, locale).title}
+                    </h4>
+                    {parseShaderError(compileError, locale).hint && (
+                      <p className="text-sm text-red-700 mb-2">
+                        💡 {parseShaderError(compileError, locale).hint}
+                      </p>
+                    )}
+                    <details className="text-xs text-red-600 mt-2">
+                      <summary className="cursor-pointer hover:text-red-800">
+                        {t('tutorial.error_details', '查看详细错误')}
+                      </summary>
+                      <pre className="mt-2 p-2 bg-red-100 rounded overflow-x-auto">
+                        {compileError}
+                      </pre>
+                    </details>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
 
           {/* 下部分：双预览区域 */}
@@ -900,6 +1062,7 @@ export default function TutorialPageClient({
                       }}
                       width="100%"
                       height="100%"
+                      onCompileError={handleCompileError}
                     />
                   </div>
                 </div>

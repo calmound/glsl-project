@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useRef, useCallback } from 'react';
+import React, { useEffect, useRef, useCallback, useState } from 'react';
 
 interface ShaderCanvasProps {
   fragmentShader: string;
@@ -10,6 +10,7 @@ interface ShaderCanvasProps {
   className?: string;
   timeScale?: number;
   uniforms?: Record<string, number | boolean | number[] | string>;
+  onCompileError?: (error: string | null) => void;
 }
 
 const defaultVertexShader = `
@@ -30,6 +31,7 @@ const ShaderCanvas: React.FC<ShaderCanvasProps> = ({
   className = '',
   timeScale = 1.0,
   uniforms = {},
+  onCompileError,
 }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const glRef = useRef<WebGLRenderingContext | null>(null);
@@ -37,7 +39,12 @@ const ShaderCanvas: React.FC<ShaderCanvasProps> = ({
   const animationRef = useRef<number>(0);
   const startTimeRef = useRef<number>(Date.now());
 
-  // 创建着色器
+  // 优化：跟踪编译状态和最后的有效代码
+  const [lastValidFragmentShader, setLastValidFragmentShader] = useState<string>('');
+  const [compileError, setCompileError] = useState<string | null>(null);
+  const compileTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  // 创建着色器（优化：捕获和传递错误信息）
   const createShader = useCallback(
     (gl: WebGLRenderingContext, type: number, source: string): WebGLShader | null => {
       const shader = gl.createShader(type);
@@ -47,13 +54,26 @@ const ShaderCanvas: React.FC<ShaderCanvasProps> = ({
       gl.compileShader(shader);
 
       const success = gl.getShaderParameter(shader, gl.COMPILE_STATUS);
-      if (success) return shader;
+      if (success) {
+        // 编译成功，清除错误状态
+        setCompileError(null);
+        if (onCompileError) {
+          onCompileError(null);
+        }
+        return shader;
+      }
 
-      console.error(gl.getShaderInfoLog(shader));
+      // 编译失败，记录错误
+      const errorLog = gl.getShaderInfoLog(shader);
+      console.error('Shader compilation error:', errorLog);
+      setCompileError(errorLog);
+      if (onCompileError && errorLog) {
+        onCompileError(errorLog);
+      }
       gl.deleteShader(shader);
       return null;
     },
-    []
+    [onCompileError]
   );
 
   // 创建着色器程序
@@ -141,7 +161,7 @@ const ShaderCanvas: React.FC<ShaderCanvasProps> = ({
     animationRef.current = requestAnimationFrame(render);
   }, [timeScale, uniforms]);
 
-  // 初始化GL
+  // 初始化GL（优化：添加编译错误处理和延迟编译）
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -165,13 +185,47 @@ const ShaderCanvas: React.FC<ShaderCanvasProps> = ({
     }
     glRef.current = gl;
 
-    // 创建着色器程序
-    const program = createProgram(gl, vertexShader, fragmentShader);
-    if (!program) {
-      console.error('Failed to create shader program');
+    // 优化：如果之前有编译错误，使用延迟编译
+    const compileShader = () => {
+      // 创建着色器程序
+      const program = createProgram(gl, vertexShader, fragmentShader);
+      if (!program) {
+        console.error('Failed to create shader program');
+        // 编译失败，保持使用最后的有效代码
+        return false;
+      }
+      programRef.current = program;
+      setLastValidFragmentShader(fragmentShader);
+      return true;
+    };
+
+    // 如果之前有编译错误，延迟编译（防抖）
+    if (compileError) {
+      console.log('⏱️ [ShaderCanvas] 上次编译失败，延迟 1 秒后重试...');
+      if (compileTimeoutRef.current) {
+        clearTimeout(compileTimeoutRef.current);
+      }
+      compileTimeoutRef.current = setTimeout(() => {
+        const success = compileShader();
+        if (!success) {
+          console.warn('⚠️ [ShaderCanvas] 延迟编译仍然失败');
+        }
+      }, 1000);
       return;
     }
-    programRef.current = program;
+
+    // 立即编译
+    const success = compileShader();
+    if (!success) {
+      return;
+    }
+
+    // 获取编译后的程序
+    const program = programRef.current;
+    if (!program) {
+      console.error('Program not available after compilation');
+      return;
+    }
 
     // 设置顶点数据
     const positionLocation = gl.getAttribLocation(program, 'position');
@@ -204,11 +258,14 @@ const ShaderCanvas: React.FC<ShaderCanvasProps> = ({
       if (animationRef.current) {
         cancelAnimationFrame(animationRef.current);
       }
+      if (compileTimeoutRef.current) {
+        clearTimeout(compileTimeoutRef.current);
+      }
       if (gl && program) {
         gl.deleteProgram(program);
       }
     };
-  }, [vertexShader, fragmentShader, width, height, createProgram, render, uniforms]);
+  }, [vertexShader, fragmentShader, width, height, createProgram, render, uniforms, compileError]);
 
   return (
     <canvas

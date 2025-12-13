@@ -9,12 +9,13 @@ import './code-editor.css';
 interface CodeEditorProps {
   initialCode?: string;
   onChange?: (value: string) => void;
+  onBlur?: () => void;
   height?: string;
   readOnly?: boolean;
   value?: string;
 }
 
-const CodeEditor: React.FC<CodeEditorProps> = ({ initialCode, onChange, readOnly = false }) => {
+const CodeEditor: React.FC<CodeEditorProps> = ({ initialCode, onChange, onBlur, readOnly = false }) => {
   const [code, setCode] = useState(initialCode);
 
   // 当 initialCode 变化时更新内部状态
@@ -36,6 +37,7 @@ const CodeEditor: React.FC<CodeEditorProps> = ({ initialCode, onChange, readOnly
       height={'100%'}
       extensions={[glslLanguage()]}
       onChange={handleChange}
+      onBlur={onBlur}
       readOnly={readOnly}
       theme={oneDark}
       basicSetup={{

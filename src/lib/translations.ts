@@ -61,6 +61,7 @@ export const translations: Record<Locale, Translations> = {
     'learn.attempts': '次尝试',
     'learn.status.completed': '已完成',
     'learn.status.in_progress': '进行中',
+    'learn.login_required': '需登录',
 
     // Tutorial page
     'tutorial.objective': '📝 练习目标',
@@ -73,7 +74,18 @@ export const translations: Record<Locale, Translations> = {
     'tutorial.passed': '已通过',
     'tutorial.correct_preview': '正确代码预览',
     'tutorial.current_preview': '当前代码预览',
-    
+    'tutorial.login_to_submit': '登录后提交',
+
+    // Auth & Premium Content
+    'auth.premium_content': '高级内容',
+    'auth.login_to_access': '此章节需要登录后才能学习和练习。登录后您可以：',
+    'auth.feature_1': '在线编辑和运行 GLSL 代码',
+    'auth.feature_2': '提交作业并获得即时反馈',
+    'auth.feature_3': '跟踪学习进度和成就',
+    'auth.feature_4': '访问所有高级教程',
+    'auth.login_now': '立即登录',
+    'auth.free_basic': 'Basic 章节免费开放，无需登录',
+
     // Home page
     'home.title': '掌握 GLSL 着色器编程',
     'home.description': '专业的 GLSL 着色器编程学习平台，从零开始学习 WebGL 和着色器开发。提供交互式在线编辑器、完整学习路径和丰富的实战项目，帮助您掌握现代图形编程技能。',
@@ -236,6 +248,7 @@ export const translations: Record<Locale, Translations> = {
     'learn.attempts': 'attempts',
     'learn.status.completed': 'Completed',
     'learn.status.in_progress': 'In Progress',
+    'learn.login_required': 'Login Required',
 
     // Tutorial page
     'tutorial.objective': '📝 Exercise Objective',
@@ -248,7 +261,18 @@ export const translations: Record<Locale, Translations> = {
     'tutorial.passed': 'Passed',
     'tutorial.correct_preview': 'Correct Code Preview',
     'tutorial.current_preview': 'Current Code Preview',
-    
+    'tutorial.login_to_submit': 'Login to Submit',
+
+    // Auth & Premium Content
+    'auth.premium_content': 'Premium Content',
+    'auth.login_to_access': 'This chapter requires login to learn and practice. After logging in, you can:',
+    'auth.feature_1': 'Edit and run GLSL code online',
+    'auth.feature_2': 'Submit exercises and get instant feedback',
+    'auth.feature_3': 'Track your learning progress and achievements',
+    'auth.feature_4': 'Access all premium tutorials',
+    'auth.login_now': 'Login Now',
+    'auth.free_basic': 'Basic chapter is free and open without login',
+
     // Home page
     'home.title': 'Master GLSL Shader Programming',
     'home.description': 'Professional GLSL shader programming learning platform. Learn WebGL and shader development from scratch. Features interactive online editor, complete learning paths, and rich practical projects to help you master modern graphics programming skills.',

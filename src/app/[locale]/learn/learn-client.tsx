@@ -1,11 +1,10 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
 import Card from '../../../components/ui/card';
 import { useLanguage } from '../../../contexts/LanguageContext';
 import { useAuth } from '../../../contexts/AuthContext';
-import { type Locale, addLocaleToPathname } from '../../../lib/i18n';
+import { type Locale } from '../../../lib/i18n';
 import { createBrowserSupabase } from '../../../lib/supabase';
 import { LearningPath } from '../../../components/learn/learning-path';
 import { requiresAuth } from '../../../lib/access-control';
@@ -32,7 +31,6 @@ interface LearnPageClientProps {
 }
 
 export default function LearnPageClient({ initialTutorials, locale }: LearnPageClientProps) {
-  const router = useRouter();
   const { t } = useLanguage();
   const { user } = useAuth();
   const [selectedCategory, setSelectedCategory] = useState<string>('');
@@ -91,20 +89,9 @@ export default function LearnPageClient({ initialTutorials, locale }: LearnPageC
   const sortedCategories = categoryOrder.filter(cat => uniqueCategories.includes(cat));
 
   // 过滤教程 - 只有选择了具体分类才显示教程
-  const filteredTutorials = selectedCategory && selectedCategory !== '' 
+  const filteredTutorials = selectedCategory && selectedCategory !== ''
     ? tutorials.filter(tutorial => tutorial.category === selectedCategory)
     : [];
-
-  // 难度级别显示
-  const getDifficultyDisplayName = (difficulty: string) => {
-    const difficultyMap: { [key: string]: string } = {
-      beginner: t('learn.difficulty.beginner') || '初级',
-      intermediate: t('learn.difficulty.intermediate') || '中级', 
-      advanced: t('learn.difficulty.advanced') || '高级',
-      all: t('learn.difficulty.all') || '全部',
-    };
-    return difficultyMap[difficulty] || difficulty;
-  };
 
   // 分类显示
   const getCategoryDisplayName = (category: string) => {
@@ -148,7 +135,6 @@ export default function LearnPageClient({ initialTutorials, locale }: LearnPageC
           /* 教程列表 */
           filteredTutorials.length > 0 ? (
             <LearningPath
-              category={selectedCategory}
               tutorials={filteredTutorials}
               userProgress={userProgress}
               locale={locale}
@@ -185,7 +171,6 @@ export default function LearnPageClient({ initialTutorials, locale }: LearnPageC
                 };
                 const info = categoryInfo[category as keyof typeof categoryInfo] || { icon: '📖', desc: t('learn.path.basic.desc') };
                 const needsAuth = requiresAuth(category);
-                const hasAccess = !needsAuth || !!user;
 
                 return (
                   <Card

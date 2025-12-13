@@ -39,8 +39,7 @@ const ShaderCanvas: React.FC<ShaderCanvasProps> = ({
   const animationRef = useRef<number>(0);
   const startTimeRef = useRef<number>(Date.now());
 
-  // 优化：跟踪编译状态和最后的有效代码
-  const [lastValidFragmentShader, setLastValidFragmentShader] = useState<string>('');
+  // 优化：跟踪编译状态
   const [compileError, setCompileError] = useState<string | null>(null);
   const compileTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
@@ -195,7 +194,6 @@ const ShaderCanvas: React.FC<ShaderCanvasProps> = ({
         return false;
       }
       programRef.current = program;
-      setLastValidFragmentShader(fragmentShader);
       return true;
     };
 

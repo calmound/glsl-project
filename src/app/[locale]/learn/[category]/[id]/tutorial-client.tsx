@@ -10,7 +10,7 @@ import { type Locale, addLocaleToPathname } from '../../../../../lib/i18n';
 import ShaderCanvasNew from '../../../../../components/common/shader-canvas-new';
 import CodeEditor from '../../../../../components/ui/code-editor';
 import { createBrowserSupabase } from '../../../../../lib/supabase';
-import { parseShaderError, formatErrorMessage } from '../../../../../lib/shader-error-parser';
+import { parseShaderError } from '../../../../../lib/shader-error-parser';
 import { SnippetSelector } from '../../../../../components/common/snippet-selector';
 import { requiresAuth } from '../../../../../lib/access-control';
 import LoginPromptOverlay from '../../../../../components/auth/login-prompt-overlay';
@@ -771,7 +771,6 @@ export default function TutorialPageClient({
       {/* 登录提示遮罩 */}
       {showLoginPrompt && (
         <LoginPromptOverlay
-          category={category}
           onClose={() => setShowLoginPrompt(false)}
         />
       )}

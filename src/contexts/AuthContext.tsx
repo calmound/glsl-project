@@ -1,6 +1,6 @@
 'use client';
 
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState, useCallback } from 'react';
 import { User } from '@supabase/supabase-js';
 import { createBrowserSupabase } from '../lib/supabase';
 
@@ -19,19 +19,21 @@ const AuthContext = createContext<AuthContextType>({
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
-  const supabase = createBrowserSupabase();
 
-  const refreshUser = async () => {
+  const refreshUser = useCallback(async () => {
     try {
+      const supabase = createBrowserSupabase();
       const { data: { user } } = await supabase.auth.getUser();
       setUser(user);
     } catch (error) {
       console.error('Error fetching user:', error);
       setUser(null);
     }
-  };
+  }, []);
 
   useEffect(() => {
+    const supabase = createBrowserSupabase();
+
     // 初始化时获取用户信息
     refreshUser().finally(() => setLoading(false));
 
@@ -43,7 +45,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     return () => {
       subscription.unsubscribe();
     };
-  }, []);
+  }, [refreshUser]);
 
   return (
     <AuthContext.Provider value={{ user, loading, refreshUser }}>

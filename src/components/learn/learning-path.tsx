@@ -22,13 +22,12 @@ interface UserProgress {
 }
 
 interface LearningPathProps {
-  category: string;
   tutorials: Tutorial[];
   userProgress: Record<string, UserProgress>;
   locale: Locale;
 }
 
-export function LearningPath({ category, tutorials, userProgress, locale }: LearningPathProps) {
+export function LearningPath({ tutorials, userProgress, locale }: LearningPathProps) {
   const router = useRouter();
   const { t } = useLanguage();
 

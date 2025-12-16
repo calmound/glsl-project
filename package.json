@@ -10,6 +10,7 @@
     "xml": "node scripts/generate-sitemap.js"
   },
   "dependencies": {
+    "@codemirror/autocomplete": "^6.20.0",
     "@codemirror/lang-javascript": "^6.2.4",
     "@codemirror/language": "^6.11.0",
     "@codemirror/state": "^6.5.2",

@@ -14,6 +14,7 @@ import { parseShaderError } from '../../../../../lib/shader-error-parser';
 import { SnippetSelector } from '../../../../../components/common/snippet-selector';
 import { requiresAuth } from '../../../../../lib/access-control';
 import LoginPromptOverlay from '../../../../../components/auth/login-prompt-overlay';
+import { savePendingCode, getPendingCode, clearPendingCode } from '../../../../../lib/code-storage';
 
 interface Tutorial {
   id: string;
@@ -182,6 +183,21 @@ export default function TutorialPageClient({
     setUserCode(exerciseCode);
     setInitialCode(exerciseCode);
   }, [tutorialId, serverInitialCode, shaders.exercise, shaders.fragment]);
+
+  // 登录后恢复本地保存的代码
+  useEffect(() => {
+    // 只在用户登录状态下才尝试恢复
+    if (user) {
+      const savedCode = getPendingCode(tutorialId);
+      if (savedCode) {
+        console.log('🔄 检测到本地保存的代码，正在恢复...');
+        setUserCode(savedCode);
+        addToast(t('tutorial.code_restored', '已恢复您之前编辑的代码'), 'success', 3000);
+        // 恢复后清除本地存储
+        clearPendingCode(tutorialId);
+      }
+    }
+  }, [user, tutorialId]);
 
   const saveCodeToDatabase = useCallback(async (code: string) => {
     console.log('💾 [客户端] 开始保存代码到数据库...');
@@ -653,16 +669,24 @@ export default function TutorialPageClient({
         const { data: { user }, error: authError } = await supabase.auth.getUser();
 
         if (authError || !user) {
-          // 未登录或登录已过期，提示用户去登录
+          // 未登录或登录已过期，保存代码到本地，然后提示用户去登录
           console.error('用户未登录或 session 已过期:', authError);
+
+          // 保存当前代码到 localStorage
+          savePendingCode(tutorialId, userCode);
+
+          // 构造返回URL（当前页面的完整路径）
+          const returnUrl = addLocaleToPathname(`/learn/${category}/${tutorialId}`, locale);
+
           addToast(
-            '⚠️ ' + t('tutorial.login_required', '请先登录后再提交代码'),
-            'error',
+            '⚠️ ' + t('tutorial.login_required', '请先登录后再提交代码，您的代码已保存'),
+            'info',
             5000
           );
-          // 跳转到登录页
+
+          // 跳转到登录页，携带返回URL
           setTimeout(() => {
-            router.push('/signin');
+            router.push(`/signin?redirect=${encodeURIComponent(returnUrl)}`);
           }, 1500);
           return;
         }
@@ -983,6 +1007,8 @@ export default function TutorialPageClient({
                 onChange={handleUserCodeChange}
                 onBlur={handleEditorBlur}
                 readOnly={!hasAccess}
+                category={category}
+                locale={locale}
               />
             </div>
 

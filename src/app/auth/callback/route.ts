@@ -4,11 +4,11 @@ import { createServerSupabase } from "@/lib/supabase-server";
 export async function GET(request: Request) {
   const { searchParams, origin } = new URL(request.url);
   const code = searchParams.get('code');
-  
+
   if (code) {
     const supabase = await createServerSupabase();
     const { data, error } = await supabase.auth.exchangeCodeForSession(code);
-    
+
     if (!error && data?.user) {
       // ✅ 登录成功时：同步/更新资料表
       await supabase.from("profiles").upsert({
@@ -19,7 +19,7 @@ export async function GET(request: Request) {
         last_login_at: new Date().toISOString()
       });
 
-      // ✅ 跳转到首页（/）而不是 /app
+      // ✅ 跳转到首页，redirect URL 会在客户端从 localStorage 读取并处理
       return NextResponse.redirect(new URL("/", origin));
     }
   }

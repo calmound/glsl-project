@@ -1,10 +1,21 @@
 "use client";
 import { createBrowserSupabase } from "@/lib/supabase";
+import { useSearchParams } from "next/navigation";
+import { Suspense } from "react";
 
-export default function SignIn() {
+function SignInContent() {
+  const searchParams = useSearchParams();
+  const redirect = searchParams.get('redirect');
+
   const signInWith = async (provider: "google" | "github") => {
     try {
       const supabase = createBrowserSupabase();
+
+      // 如果有redirect参数，保存到localStorage（OAuth流程中query参数可能丢失）
+      if (redirect) {
+        console.log('💾 保存 redirect URL 到 localStorage:', redirect);
+        localStorage.setItem('auth_redirect', redirect);
+      }
 
       const { error } = await supabase.auth.signInWithOAuth({
         provider,
@@ -12,7 +23,7 @@ export default function SignIn() {
           redirectTo: `${window.location.origin}/auth/callback`,
         },
       });
-      
+
       if (error) {
         console.error('登录错误:', error);
         alert('登录失败，请重试');
@@ -57,5 +68,17 @@ export default function SignIn() {
         </div>
       </div>
     </main>
+  );
+}
+
+export default function SignIn() {
+  return (
+    <Suspense fallback={
+      <main className="min-h-screen flex items-center justify-center bg-gray-50">
+        <div className="text-gray-600">加载中...</div>
+      </main>
+    }>
+      <SignInContent />
+    </Suspense>
   );
 }

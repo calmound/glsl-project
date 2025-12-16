@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import MainLayout from '../../components/layout/main-layout';
 import Card from '../../components/ui/card';
@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button';
 import WelcomeMessage from '../../components/ui/welcome-message';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { type Locale, addLocaleToPathname } from '../../lib/i18n';
+import { useAuth } from '../../contexts/AuthContext';
 
 interface HomePageClientProps {
   locale: Locale;
@@ -16,7 +17,20 @@ interface HomePageClientProps {
 export default function HomePageClient({ locale }: HomePageClientProps) {
   const { t } = useLanguage();
   const router = useRouter();
-  
+  const { user } = useAuth();
+
+  // 检查登录后是否需要跳转回原页面
+  useEffect(() => {
+    if (user) {
+      const authRedirect = localStorage.getItem('auth_redirect');
+      if (authRedirect) {
+        console.log('🔄 检测到登录后跳转URL，正在跳转:', authRedirect);
+        localStorage.removeItem('auth_redirect');
+        router.push(authRedirect);
+      }
+    }
+  }, [user, router]);
+
   const handleStartLearning = () => {
     router.push(addLocaleToPathname('/learn', locale));
   };

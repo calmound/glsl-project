@@ -25,7 +25,6 @@ const CodeEditor: React.FC<CodeEditorProps> = ({
   onChange,
   onBlur,
   readOnly = false,
-  category = 'basic',
   locale = 'zh'
 }) => {
   const [code, setCode] = useState(initialCode);

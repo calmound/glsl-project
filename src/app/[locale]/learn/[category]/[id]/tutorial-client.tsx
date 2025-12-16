@@ -11,7 +11,6 @@ import ShaderCanvasNew from '../../../../../components/common/shader-canvas-new'
 import CodeEditor from '../../../../../components/ui/code-editor';
 import { createBrowserSupabase } from '../../../../../lib/supabase';
 import { parseShaderError } from '../../../../../lib/shader-error-parser';
-import { SnippetSelector } from '../../../../../components/common/snippet-selector';
 import { requiresAuth } from '../../../../../lib/access-control';
 import LoginPromptOverlay from '../../../../../components/auth/login-prompt-overlay';
 import { savePendingCode, getPendingCode, clearPendingCode } from '../../../../../lib/code-storage';
@@ -77,6 +76,7 @@ export default function TutorialPageClient({
   const [isCorrect, setIsCorrect] = useState<boolean | null>(null);
   const [activeTab, setActiveTab] = useState<'tutorial' | 'answer'>('tutorial');
   const [compileError, setCompileError] = useState<string | null>(null);
+  const [isErrorDismissed, setIsErrorDismissed] = useState(false);
   const [toasts, setToasts] = useState<Array<{
     id: string;
     message: string;
@@ -98,19 +98,6 @@ export default function TutorialPageClient({
   const handleCompileError = useCallback((error: string | null) => {
     setCompileError(error);
   }, []);
-
-  // 处理代码片段插入
-  const handleInsertSnippet = useCallback((snippetCode: string) => {
-    setUserCode(prevCode => {
-      // 如果当前代码为空或只有空白字符，直接使用片段代码
-      if (!prevCode.trim()) {
-        return snippetCode;
-      }
-      // 否则，在代码末尾添加片段（添加换行符）
-      return prevCode + '\n\n' + snippetCode;
-    });
-    addToast(t('tutorial.snippet_inserted', '代码片段已插入'), 'success', 2000);
-  }, [addToast, t]);
 
   // 自动保存逻辑（防抖 2 秒）
   const saveTimeoutRef = useRef<NodeJS.Timeout | null>(null);
@@ -612,15 +599,17 @@ export default function TutorialPageClient({
     setUserCode(code);
     setIsSubmitted(false);
     setIsCorrect(null);
+    setIsErrorDismissed(false); // 代码改变时重新显示错误
   };
 
   // 运行用户代码
   const handleRunCode = () => {
     console.log('运行用户代码:', userCode);
-    
+    setIsErrorDismissed(false); // 运行时重新显示错误
+
     // WebGL 编译验证
     const validation = validateShaderWithWebGL(userCode);
-    
+
     if (!validation.isValid) {
       // 显示每个错误作为单独的通知
       validation.errors.forEach((error, index) => {
@@ -630,7 +619,7 @@ export default function TutorialPageClient({
       });
       return;
     }
-    
+
     addToast(t('tutorial.compile_success'), 'success');
     console.log('着色器编译成功');
   };
@@ -973,15 +962,11 @@ export default function TutorialPageClient({
         {/* 右侧区域：代码编辑和预览 */}
         <div className="w-3/5 flex flex-col bg-gray-50" style={{ height: 'calc(100vh - 61px)' }}>
           {/* 上部分：代码编辑器 */}
-          <div className="p-4" style={{ height: 'calc(100vh - 61px - 280px)' }}>
+          <div className="p-4 flex flex-col" style={{ height: 'calc(100vh - 61px - 280px)' }}>
+            {/* 标题栏 */}
             <div className="flex items-center justify-between mb-3">
-              <h3 className="text-md font-semibold">{t('tutorial.code_editor', 'GLSL 代码编辑器')}</h3>
+              <h3 className="text-md font-semibold">{t('tutorial.editor', 'GLSL 代码编辑器')}</h3>
               <div className="flex gap-2">
-                <SnippetSelector
-                  category={category}
-                  onInsert={handleInsertSnippet}
-                  locale={locale}
-                />
                 <Button variant="outline" size="sm" onClick={handleRunCode}>
                   {t('tutorial.run', '运行')}
                 </Button>
@@ -1001,7 +986,9 @@ export default function TutorialPageClient({
                 </Button>
               </div>
             </div>
-            <div className="border rounded-lg overflow-hidden" style={{ height: 'calc(100% - 60px)' }}>
+
+            {/* 代码编辑器 */}
+            <div className="flex-1 border rounded-lg overflow-hidden">
               <CodeEditor
                 initialCode={userCode}
                 onChange={handleUserCodeChange}
@@ -1012,10 +999,10 @@ export default function TutorialPageClient({
               />
             </div>
 
-            {/* 编译错误提示 */}
-            {compileError && (
-              <div className="mt-2 p-3 bg-red-50 border border-red-200 rounded-lg">
-                <div className="flex items-start gap-2">
+            {/* 编译错误提示 - 放在编辑器下方 */}
+            {compileError && !isErrorDismissed && (
+              <div className="mt-3 p-3 bg-red-50 border-l-4 border-red-500 rounded-r-lg shadow-sm">
+                <div className="flex items-start gap-3">
                   <svg
                     className="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5"
                     fill="none"
@@ -1026,23 +1013,35 @@ export default function TutorialPageClient({
                       strokeLinecap="round"
                       strokeLinejoin="round"
                       strokeWidth={2}
-                      d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                      d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
                     />
                   </svg>
-                  <div className="flex-1">
-                    <h4 className="text-sm font-semibold text-red-800 mb-1">
-                      {parseShaderError(compileError, locale).title}
-                    </h4>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center justify-between gap-2 mb-1">
+                      <h4 className="text-sm font-semibold text-red-800">
+                        {parseShaderError(compileError, locale).title}
+                      </h4>
+                      <button
+                        onClick={() => setIsErrorDismissed(true)}
+                        className="flex-shrink-0 text-red-400 hover:text-red-600 transition-colors"
+                        aria-label="关闭"
+                        type="button"
+                      >
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                      </button>
+                    </div>
                     {parseShaderError(compileError, locale).hint && (
                       <p className="text-sm text-red-700 mb-2">
                         💡 {parseShaderError(compileError, locale).hint}
                       </p>
                     )}
                     <details className="text-xs text-red-600 mt-2">
-                      <summary className="cursor-pointer hover:text-red-800">
+                      <summary className="cursor-pointer hover:text-red-800 font-medium">
                         {t('tutorial.error_details', '查看详细错误')}
                       </summary>
-                      <pre className="mt-2 p-2 bg-red-100 rounded overflow-x-auto">
+                      <pre className="mt-2 p-2 bg-red-100 rounded overflow-x-auto text-xs font-mono">
                         {compileError}
                       </pre>
                     </details>

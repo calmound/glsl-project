@@ -125,7 +125,18 @@ export const translations: Record<Locale, Translations> = {
     
     'home.applications.data.title': '数据可视化',
     'home.applications.data.description': '构建高性能的图表、图形和交互式数据展示',
-    
+
+    // Smart Autocomplete
+    'home.autocomplete.title': '智能代码提示',
+    'home.autocomplete.description': '我们的编辑器内置智能代码补全功能，让编程更加高效便捷',
+    'home.autocomplete.feature1.title': '即时提示',
+    'home.autocomplete.feature1.description': '输入时自动显示代码片段、函数和变量提示',
+    'home.autocomplete.feature2.title': '丰富的代码库',
+    'home.autocomplete.feature2.description': '60+ GLSL内置函数、20+ 常用代码片段、数学常量',
+    'home.autocomplete.feature3.title': '智能匹配',
+    'home.autocomplete.feature3.description': '根据上下文智能排序，最相关的建议优先显示',
+    'home.autocomplete.shortcut': '按 Ctrl+Space 或直接输入触发补全',
+
     // Learning system
     'home.learning.title': '完整的学习体系',
     'home.learning.description': '我们为您精心设计了完整的学习路径，从零基础到专业水平，每一步都有详细的指导和实践练习。无论您的目标是什么，我们都能帮您实现。',
@@ -313,7 +324,18 @@ export const translations: Record<Locale, Translations> = {
     
     'home.applications.data.title': 'Data Visualization',
     'home.applications.data.description': 'Build high-performance charts, graphics and interactive data displays',
-    
+
+    // Smart Autocomplete
+    'home.autocomplete.title': 'Smart Code Suggestions',
+    'home.autocomplete.description': 'Our editor features intelligent code completion to make programming more efficient and convenient',
+    'home.autocomplete.feature1.title': 'Instant Suggestions',
+    'home.autocomplete.feature1.description': 'Automatically shows code snippets, functions, and variables as you type',
+    'home.autocomplete.feature2.title': 'Rich Code Library',
+    'home.autocomplete.feature2.description': '60+ GLSL built-in functions, 20+ common code snippets, math constants',
+    'home.autocomplete.feature3.title': 'Smart Matching',
+    'home.autocomplete.feature3.description': 'Intelligently ranks suggestions by context, showing most relevant first',
+    'home.autocomplete.shortcut': 'Press Ctrl+Space or start typing to trigger completion',
+
     // Learning system
     'home.learning.title': 'Complete Learning System',
     'home.learning.description': 'We have carefully designed a complete learning path for you, from zero foundation to professional level, with detailed guidance and practical exercises at every step. Whatever your goal, we can help you achieve it.',

@@ -1,12 +1,32 @@
 {
   "id": "color-mixing",
-  "title": "颜色混合",
-  "title_en": "Color Mixing",
-  "description": "学习使用mix函数进行颜色混合，理解线性插值的概念和应用。",
-  "description_en": "Learn to use the mix function for color blending and understand the concept and application of linear interpolation.",
+  "title": {
+    "zh": "颜色混合",
+    "en": "Color Mixing"
+  },
+  "description": {
+    "zh": "学习使用mix函数进行颜色混合，理解线性插值的概念和应用。",
+    "en": "Learn to use the mix function for color blending and understand the concept and application of linear interpolation."
+  },
   "difficulty": "beginner",
   "category": "basic",
   "tags": ["颜色", "混合", "插值"],
+  "estimatedTime": 15,
+  "prerequisites": ["solid-color"],
+  "learningObjectives": {
+    "zh": [
+      "掌握 mix() 函数的使用方法",
+      "理解线性插值的数学原理",
+      "学习如何在两种颜色之间进行平滑过渡",
+      "了解插值因子对混合结果的影响"
+    ],
+    "en": [
+      "Master the usage of the mix() function",
+      "Understand the mathematical principles of linear interpolation",
+      "Learn how to create smooth transitions between two colors",
+      "Understand how the interpolation factor affects blending results"
+    ]
+  },
   "uniforms": {
     "u_time": 0.0,
     "u_resolution": [300, 300]

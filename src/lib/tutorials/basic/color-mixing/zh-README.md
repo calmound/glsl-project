@@ -68,9 +68,9 @@ vec3 black = vec3(0.0, 0.0, 0.0);
 
 1. **获取归一化坐标**：
    ```glsl
-   vec2 uv = gl_FragCoord.xy / vec2(300.0, 300.0);
+   vec2 uv = gl_FragCoord.xy / u_resolution.xy;
    ```
-   这里假设画布大小为300x300像素。
+   这里使用 `u_resolution` 保证不同画布尺寸下效果一致。
 
 2. **定义颜色**：
    ```glsl

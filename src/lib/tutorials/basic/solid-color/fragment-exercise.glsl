@@ -6,5 +6,6 @@ void main() {
     // 红色的 RGBA 值为 (1.0, 0.0, 0.0, 1.0)
     
     // 请在下面填写正确的代码：
-    gl_FragColor = vec4(/* 请填写红色的 RGB 值 */, 1.0);
+    // TODO: 将 RGB 改为红色 vec3(1.0, 0.0, 0.0)
+    gl_FragColor = vec4(vec3(0.0), 1.0);
 }

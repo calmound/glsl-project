@@ -77,7 +77,7 @@ float abs(float x);           // 绝对值
 
 1. **获取归一化坐标**：
    ```glsl
-   vec2 uv = gl_FragCoord.xy / vec2(300.0, 300.0);
+   vec2 uv = gl_FragCoord.xy / u_resolution.xy;
    ```
 
 2. **定义圆的参数**：

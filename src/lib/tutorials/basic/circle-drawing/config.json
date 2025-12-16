@@ -1,0 +1,34 @@
+{
+  "id": "circle-drawing",
+  "title": {
+    "zh": "圆形绘制（距离函数）",
+    "en": "Circle Drawing (Distance Function)"
+  },
+  "description": {
+    "zh": "使用归一化坐标与距离函数 length() 绘制圆形，并通过条件判断输出不同颜色。",
+    "en": "Draw a circle using normalized coordinates and the distance function length(), then color it with a simple conditional."
+  },
+  "difficulty": "beginner",
+  "category": "basic",
+  "tags": ["圆形", "length", "distance", "条件判断", "入门"],
+  "estimatedTime": 15,
+  "prerequisites": ["uv-coordinates", "simple-circle"],
+  "learningObjectives": {
+    "zh": [
+      "理解如何将 gl_FragCoord 转换为归一化坐标。",
+      "学会使用 length() 计算到中心点的距离。",
+      "通过距离阈值判断像素是否在圆内，并输出不同颜色。"
+    ],
+    "en": [
+      "Convert gl_FragCoord into normalized coordinates.",
+      "Use length() to compute distance to the center.",
+      "Use a distance threshold to decide inside/outside and output different colors."
+    ]
+  },
+  "uniforms": {
+    "u_time": 0.0,
+    "u_resolution": [300, 300]
+  },
+  "preview": "/api/shader/basic/circle-drawing"
+}
+

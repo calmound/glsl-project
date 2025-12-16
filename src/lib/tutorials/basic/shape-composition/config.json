@@ -1,0 +1,33 @@
+{
+  "id": "shape-composition",
+  "title": {
+    "zh": "形状组合",
+    "en": "Shape Composition"
+  },
+  "description": {
+    "zh": "将圆形与矩形的遮罩组合在一起，学习用 min/max 或简单的合成方式构建更复杂的图形。",
+    "en": "Combine circle and rectangle masks to build more complex shapes using min/max or simple compositing."
+  },
+  "difficulty": "intermediate",
+  "category": "basic",
+  "tags": ["组合", "遮罩", "step", "smoothstep", "max"],
+  "estimatedTime": 15,
+  "prerequisites": ["simple-rectangle", "simple-circle", "step-function-mask"],
+  "learningObjectives": {
+    "zh": [
+      "用 step/smoothstep 构造基础形状遮罩。",
+      "使用 max 将多个遮罩做并集组合。",
+      "通过 mix 输出组合后的前景/背景颜色。"
+    ],
+    "en": [
+      "Build basic shape masks with step/smoothstep.",
+      "Union multiple masks using max.",
+      "Output the composed result via mix."
+    ]
+  },
+  "uniforms": {
+    "u_time": 0.0,
+    "u_resolution": [300, 300]
+  },
+  "preview": "/api/shader/basic/shape-composition"
+}

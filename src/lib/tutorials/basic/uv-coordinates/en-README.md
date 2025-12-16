@@ -36,6 +36,14 @@ vec3 color = vec3(uv.x, uv.y, 0.0);
 
 Create a visualization that shows how UV coordinates work by using them as color values.
 
+### Optional Extension: Grid Overlay
+
+After you get the basic UV gradient working, try overlaying a simple grid:
+
+- Create repeating cells with `fract(uv * density)`
+- Turn the cell edges into a mask with `step`
+- Blend the grid lines on top of the UV color with `mix`
+
 ### Hints
 
 1. Use `uv.x` for red channel (horizontal gradient)

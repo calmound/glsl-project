@@ -69,7 +69,7 @@ bool condition = (x > 0.5);
 
 1. **获取归一化坐标**：
    ```glsl
-   vec2 uv = gl_FragCoord.xy / vec2(300.0, 300.0);
+   vec2 uv = gl_FragCoord.xy / u_resolution.xy;
    ```
 
 2. **定义矩形边界**：

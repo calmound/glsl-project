@@ -1,0 +1,34 @@
+{
+  "id": "stripes-bands",
+  "title": {
+    "zh": "条纹与带状图案",
+    "en": "Stripes and Bands"
+  },
+  "description": {
+    "zh": "使用 fract 与 step 构造重复的条纹图案，并用 mix 在两种颜色之间切换。",
+    "en": "Build repeating stripes with fract and step, and switch colors with mix."
+  },
+  "difficulty": "beginner",
+  "category": "basic",
+  "tags": ["fract", "step", "重复", "条纹", "mix"],
+  "estimatedTime": 12,
+  "prerequisites": ["uv-coordinates", "step-function-mask"],
+  "learningObjectives": {
+    "zh": [
+      "理解 fract 如何制造重复图案。",
+      "用 step 把连续数值变成 0/1 开关。",
+      "用 mix 将条纹开关映射为两种颜色。"
+    ],
+    "en": [
+      "Use fract to create repeating patterns.",
+      "Use step to turn a continuous value into a 0/1 switch.",
+      "Map the switch to two colors using mix."
+    ]
+  },
+  "uniforms": {
+    "u_time": 0.0,
+    "u_resolution": [300, 300]
+  },
+  "preview": "/api/shader/basic/stripes-bands"
+}
+

@@ -5,8 +5,14 @@ precision mediump float;
 varying vec2 vUv;
 
 void main() {
-    // TODO: 使用 step() 判断 vUv.x 是否大于 0.5，生成遮罩 mask
-    // TODO: 定义左右两侧的颜色
-    // TODO: 使用 mix() 混合颜色
-    // TODO: 输出最终颜色
+    vec3 leftColor = vec3(0.2, 1.0, 0.6);
+    vec3 rightColor = vec3(0.9, 0.3, 0.3);
+
+    // TODO: 使用 step(0.5, vUv.x) 生成遮罩 mask（左侧 0，右侧 1）
+    float mask = 0.0;
+
+    // TODO: 使用 mix(leftColor, rightColor, mask) 得到最终颜色
+    vec3 color = leftColor;
+
+    gl_FragColor = vec4(color, 1.0);
 }

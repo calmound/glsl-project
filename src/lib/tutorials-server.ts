@@ -35,70 +35,31 @@ interface TutorialConfig {
   preview?: string;
 }
 
-async function createMetadataSupabaseClient() {
-  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-
-  if (!supabaseUrl || !supabaseAnonKey) {
-    return null;
+function getDifficultyRank(difficulty: Tutorial['difficulty']): number {
+  switch (difficulty) {
+    case 'beginner':
+      return 0;
+    case 'intermediate':
+      return 1;
+    case 'advanced':
+      return 2;
+    default:
+      return 99;
   }
-
-  const { createClient } = await import('@supabase/supabase-js');
-
-  return createClient(supabaseUrl, supabaseAnonKey, {
-    auth: {
-      persistSession: false,
-      autoRefreshToken: false,
-      detectSessionInUrl: false,
-    },
-  });
 }
 
-// 获取教程数据的服务端函数（优化版：从数据库读取）
+// 获取教程数据的服务端函数（从文件系统读取）
 export async function getTutorials(locale: Locale): Promise<Tutorial[]> {
-  try {
-    const supabase = await createMetadataSupabaseClient();
-
-    if (!supabase) {
-      return getTutorialsFromFileSystem(locale);
-    }
-
-    // 从数据库查询教程元数据
-    const { data, error } = await supabase
-      .from('tutorial_metadata')
-      .select('*')
-      .order('category')
-      .order('order_index');
-
-    if (error) {
-      console.error('Error fetching tutorials from database:', error);
-      // 如果数据库查询失败，回退到文件系统读取
-      return getTutorialsFromFileSystem(locale);
-    }
-
-    if (!data || data.length === 0) {
-      console.warn('No tutorials found in database, falling back to file system');
-      return getTutorialsFromFileSystem(locale);
-    }
-
-    // 将数据库记录转换为 Tutorial 对象
-    return data.map(row => ({
-      id: row.id,
-      title: locale === 'en' ? row.title_en : row.title_zh,
-      description: locale === 'en' ? (row.description_en || row.description_zh) : (row.description_zh || row.description_en),
-      difficulty: row.difficulty as 'beginner' | 'intermediate' | 'advanced',
-      category: row.category,
-    }));
-  } catch (error) {
-    console.error('Error in getTutorials:', error);
-    // 发生任何错误时回退到文件系统读取
-    return getTutorialsFromFileSystem(locale);
-  }
+  return getTutorialsFromFileSystem(locale);
 }
 
 // 回退方案：从文件系统读取教程（原有逻辑）
 function getTutorialsFromFileSystem(locale: Locale): Tutorial[] {
-  const tutorials: Tutorial[] = [];
+  const tutorialsWithMeta: Array<{
+    tutorial: Tutorial;
+    prerequisitesCount: number;
+    estimatedTime: number;
+  }> = [];
   const tutorialsDir = path.join(process.cwd(), 'src/lib/tutorials');
 
   try {
@@ -139,12 +100,16 @@ function getTutorialsFromFileSystem(locale: Locale): Tutorial[] {
               description = locale === 'en' && config.description_en ? config.description_en : config.description;
             }
 
-            tutorials.push({
-              id: config.id,
-              title,
-              description,
-              difficulty: config.difficulty,
-              category: config.category,
+            tutorialsWithMeta.push({
+              tutorial: {
+                id: config.id,
+                title,
+                description,
+                difficulty: config.difficulty,
+                category: config.category,
+              },
+              prerequisitesCount: config.prerequisites?.length ?? 0,
+              estimatedTime: config.estimatedTime ?? Number.POSITIVE_INFINITY,
             });
           } catch (error) {
             console.error(`Error parsing config for ${tutorialDir}:`, error);
@@ -153,7 +118,23 @@ function getTutorialsFromFileSystem(locale: Locale): Tutorial[] {
       }
     }
 
-    return tutorials;
+    tutorialsWithMeta.sort((a, b) => {
+      const categoryCompare = a.tutorial.category.localeCompare(b.tutorial.category);
+      if (categoryCompare !== 0) return categoryCompare;
+
+      const difficultyCompare = getDifficultyRank(a.tutorial.difficulty) - getDifficultyRank(b.tutorial.difficulty);
+      if (difficultyCompare !== 0) return difficultyCompare;
+
+      const prereqCompare = a.prerequisitesCount - b.prerequisitesCount;
+      if (prereqCompare !== 0) return prereqCompare;
+
+      const timeCompare = a.estimatedTime - b.estimatedTime;
+      if (timeCompare !== 0) return timeCompare;
+
+      return a.tutorial.id.localeCompare(b.tutorial.id);
+    });
+
+    return tutorialsWithMeta.map(item => item.tutorial);
   } catch (error) {
     console.error('Error reading tutorials from file system:', error);
     return [];
@@ -233,50 +214,18 @@ export async function getTutorialReadme(category: string, id: string, locale?: L
   }
 }
 
-// 获取指定分类下的所有教程（优化版：从数据库读取）
+// 获取指定分类下的所有教程（从文件系统读取）
 export async function getTutorialsByCategory(category: string, locale: Locale): Promise<Tutorial[]> {
-  try {
-    const supabase = await createMetadataSupabaseClient();
-
-    if (!supabase) {
-      return getTutorialsByCategoryFromFileSystem(category, locale);
-    }
-
-    // 从数据库查询指定分类的教程
-    const { data, error } = await supabase
-      .from('tutorial_metadata')
-      .select('*')
-      .eq('category', category)
-      .order('order_index');
-
-    if (error) {
-      console.error(`Error fetching tutorials for category ${category}:`, error);
-      // 回退到文件系统
-      return getTutorialsByCategoryFromFileSystem(category, locale);
-    }
-
-    if (!data || data.length === 0) {
-      // 如果数据库中没有数据，回退到文件系统
-      return getTutorialsByCategoryFromFileSystem(category, locale);
-    }
-
-    // 转换为 Tutorial 对象
-    return data.map(row => ({
-      id: row.id,
-      title: locale === 'en' ? row.title_en : row.title_zh,
-      description: locale === 'en' ? (row.description_en || row.description_zh) : (row.description_zh || row.description_en),
-      difficulty: row.difficulty as 'beginner' | 'intermediate' | 'advanced',
-      category: row.category,
-    }));
-  } catch (error) {
-    console.error(`Error in getTutorialsByCategory for ${category}:`, error);
-    return getTutorialsByCategoryFromFileSystem(category, locale);
-  }
+  return getTutorialsByCategoryFromFileSystem(category, locale);
 }
 
 // 回退方案：从文件系统读取指定分类的教程
 function getTutorialsByCategoryFromFileSystem(category: string, locale: Locale): Tutorial[] {
-  const tutorials: Tutorial[] = [];
+  const tutorialsWithMeta: Array<{
+    tutorial: Tutorial;
+    prerequisitesCount: number;
+    estimatedTime: number;
+  }> = [];
   const categoryDir = path.join(process.cwd(), 'src/lib/tutorials', category);
 
   try {
@@ -313,12 +262,16 @@ function getTutorialsByCategoryFromFileSystem(category: string, locale: Locale):
             description = locale === 'en' && config.description_en ? config.description_en : config.description;
           }
 
-          tutorials.push({
-            id: config.id,
-            title,
-            description,
-            difficulty: config.difficulty,
-            category: config.category,
+          tutorialsWithMeta.push({
+            tutorial: {
+              id: config.id,
+              title,
+              description,
+              difficulty: config.difficulty,
+              category: config.category,
+            },
+            prerequisitesCount: config.prerequisites?.length ?? 0,
+            estimatedTime: config.estimatedTime ?? Number.POSITIVE_INFINITY,
           });
         } catch (error) {
           console.error(`Error parsing config for ${tutorialDir}:`, error);
@@ -326,7 +279,20 @@ function getTutorialsByCategoryFromFileSystem(category: string, locale: Locale):
       }
     }
 
-    return tutorials;
+    tutorialsWithMeta.sort((a, b) => {
+      const difficultyCompare = getDifficultyRank(a.tutorial.difficulty) - getDifficultyRank(b.tutorial.difficulty);
+      if (difficultyCompare !== 0) return difficultyCompare;
+
+      const prereqCompare = a.prerequisitesCount - b.prerequisitesCount;
+      if (prereqCompare !== 0) return prereqCompare;
+
+      const timeCompare = a.estimatedTime - b.estimatedTime;
+      if (timeCompare !== 0) return timeCompare;
+
+      return a.tutorial.id.localeCompare(b.tutorial.id);
+    });
+
+    return tutorialsWithMeta.map(item => item.tutorial);
   } catch (error) {
     console.error(`Error reading tutorials for category ${category}:`, error);
     return [];

@@ -1,0 +1,33 @@
+{
+  "id": "sdf-ring",
+  "title": {
+    "zh": "SDF 圆环",
+    "en": "SDF Ring"
+  },
+  "description": {
+    "zh": "使用距离场绘制圆环：通过 abs(length(p) - r) 得到环的距离，并用 smoothstep 构造平滑边缘。",
+    "en": "Draw a ring using a distance field: abs(length(p) - r) and smoothstep for smooth edges."
+  },
+  "difficulty": "intermediate",
+  "category": "basic",
+  "tags": ["SDF", "圆环", "smoothstep", "length"],
+  "estimatedTime": 15,
+  "prerequisites": ["simple-circle", "smooth-edges"],
+  "learningObjectives": {
+    "zh": [
+      "理解距离场如何表示形状边界。",
+      "使用 abs(length(p) - r) 构造圆环距离。",
+      "用 smoothstep 做抗锯齿/软边过渡。"
+    ],
+    "en": [
+      "Understand distance fields as shape boundaries.",
+      "Build a ring distance with abs(length(p) - r).",
+      "Use smoothstep for anti-aliased / soft edges."
+    ]
+  },
+  "uniforms": {
+    "u_time": 0.0,
+    "u_resolution": [300, 300]
+  },
+  "preview": "/api/shader/basic/sdf-ring"
+}

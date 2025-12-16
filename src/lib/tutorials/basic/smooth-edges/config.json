@@ -8,11 +8,11 @@
     "zh": "学习使用smoothstep函数创建平滑的边缘过渡效果，对比step函数的硬边缘。",
     "en": "Learn to create smooth edge transition effects using the smoothstep function, contrasting with the hard edges of the step function."
   },
-  "difficulty": "beginner",
+  "difficulty": "intermediate",
   "category": "basic",
   "tags": ["平滑", "边缘", "过渡", "smoothstep", "step函数"],
   "estimatedTime": 15,
-  "prerequisites": ["simple-circle", "step-function"],
+  "prerequisites": ["simple-circle", "step-function-mask"],
   "learningObjectives": {
     "zh": [
       "理解`smoothstep()`函数的三个参数及其作用。",

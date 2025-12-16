@@ -1,0 +1,33 @@
+{
+  "id": "aspect-ratio-uv",
+  "title": {
+    "zh": "纵横比修正的 UV",
+    "en": "Aspect-Ratio Corrected UV"
+  },
+  "description": {
+    "zh": "学习使用 u_resolution 修正 UV 的纵横比，让圆形在非正方形画布上依然保持为圆。",
+    "en": "Learn to correct UV aspect ratio with u_resolution so circles stay round on non-square canvases."
+  },
+  "difficulty": "intermediate",
+  "category": "basic",
+  "tags": ["UV", "u_resolution", "纵横比", "SDF", "圆形"],
+  "estimatedTime": 12,
+  "prerequisites": ["uv-coordinates"],
+  "learningObjectives": {
+    "zh": [
+      "理解画布纵横比对形状的影响。",
+      "学会使用 u_resolution 计算 aspect 并修正坐标。",
+      "能用距离场（length）绘制不变形的圆。"
+    ],
+    "en": [
+      "Understand how canvas aspect ratio affects shapes.",
+      "Compute aspect from u_resolution and correct coordinates.",
+      "Draw an undistorted circle using a distance field (length)."
+    ]
+  },
+  "uniforms": {
+    "u_time": 0.0,
+    "u_resolution": [300, 300]
+  },
+  "preview": "/api/shader/basic/aspect-ratio-uv"
+}

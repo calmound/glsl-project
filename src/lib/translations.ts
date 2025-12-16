@@ -16,7 +16,26 @@ export const translations: Record<Locale, Translations> = {
     'nav.login': '登录',
     'nav.logout': '退出',
     'nav.contact': '联系',
-    
+    'nav.feedback': '反馈',
+
+    // Feedback page
+    'feedback.title': '用户反馈',
+    'feedback.subtitle': '您的意见对我们很重要，帮助我们改进平台',
+    'feedback.type.label': '反馈类型',
+    'feedback.type.suggestion': '建议',
+    'feedback.type.bug': 'Bug报告',
+    'feedback.type.feature': '功能请求',
+    'feedback.type.other': '其他',
+    'feedback.email.label': '邮箱 (可选)',
+    'feedback.email.placeholder': '如需回复请填写邮箱',
+    'feedback.content.label': '反馈内容',
+    'feedback.content.placeholder': '请详细描述您的反馈...',
+    'feedback.submit': '提交反馈',
+    'feedback.submitting': '提交中...',
+    'feedback.success': '感谢您的反馈！我们会认真考虑您的意见。',
+    'feedback.error': '提交失败，请稍后重试',
+    'feedback.required': '请填写反馈内容',
+
     // Language switcher
     'language.chinese': '中文',
     'language.english': 'English',
@@ -215,7 +234,26 @@ export const translations: Record<Locale, Translations> = {
     'nav.login': 'Login',
     'nav.logout': 'Logout',
     'nav.contact': 'Contact',
-    
+    'nav.feedback': 'Feedback',
+
+    // Feedback page
+    'feedback.title': 'User Feedback',
+    'feedback.subtitle': 'Your feedback is important to us and helps improve the platform',
+    'feedback.type.label': 'Feedback Type',
+    'feedback.type.suggestion': 'Suggestion',
+    'feedback.type.bug': 'Bug Report',
+    'feedback.type.feature': 'Feature Request',
+    'feedback.type.other': 'Other',
+    'feedback.email.label': 'Email (Optional)',
+    'feedback.email.placeholder': 'Your email if you need a reply',
+    'feedback.content.label': 'Feedback Content',
+    'feedback.content.placeholder': 'Please describe your feedback in detail...',
+    'feedback.submit': 'Submit Feedback',
+    'feedback.submitting': 'Submitting...',
+    'feedback.success': 'Thank you for your feedback! We will carefully consider your suggestions.',
+    'feedback.error': 'Submission failed, please try again later',
+    'feedback.required': 'Please fill in the feedback content',
+
     // Language switcher
     'language.chinese': '中文',
     'language.english': 'English',

@@ -6,7 +6,7 @@ import { useLanguage } from '../../contexts/LanguageContext';
 import { addLocaleToPathname, removeLocaleFromPathname } from '../../lib/i18n';
 
 const LanguageSwitcher: React.FC = () => {
-  const { language, t } = useLanguage();
+  const { language } = useLanguage();
   const router = useRouter();
   const pathname = usePathname();
 

@@ -1,0 +1,36 @@
+{
+  "id": "uv-center-visual",
+  "title": {
+    "zh": "居中 UV 可视化",
+    "en": "Centered UV Visual"
+  },
+  "description": {
+    "zh": "把居中 UV（vUv-0.5）可视化成颜色。",
+    "en": "Visualize centered UV (vUv-0.5) as colors."
+  },
+  "difficulty": "beginner",
+  "category": "basic",
+  "tags": [
+    "basic"
+  ],
+  "estimatedTime": 10,
+  "prerequisites": [
+    "uv-coordinates"
+  ],
+  "learningObjectives": {
+    "zh": [
+      "练习基于坐标的着色"
+    ],
+    "en": [
+      "Practice coordinate-based coloring"
+    ]
+  },
+  "uniforms": {
+    "u_time": 0,
+    "u_resolution": [
+      300,
+      300
+    ]
+  },
+  "preview": "/api/shader/basic/uv-center-visual"
+}

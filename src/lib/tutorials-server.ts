@@ -339,6 +339,64 @@ export async function getTutorialShaders(category: string, id: string): Promise<
   }
 }
 
+function stripGlslComments(code: string): string {
+  // Remove block comments first, then line comments.
+  // This is a pragmatic implementation for our tutorial shaders (no string literals expected).
+  return code
+    .replace(/\/\*[\s\S]*?\*\//g, '')
+    .replace(/\/\/.*$/gm, '');
+}
+
+function buildEnglishShaderHeader(config: TutorialConfig | null): string {
+  if (!config || typeof config.title !== 'object' || typeof config.description !== 'object') {
+    return '/* Tutorial */\n\n';
+  }
+
+  const title = config.title.en || config.title.zh;
+  const description = config.description.en || config.description.zh;
+  const objectives = config.learningObjectives?.en || config.learningObjectives?.zh || [];
+
+  const lines = [
+    `/* ${title}`,
+    '',
+    description,
+  ];
+
+  if (objectives.length > 0) {
+    lines.push('', 'Learning objectives:', ...objectives.map(o => `- ${o}`));
+  }
+
+  lines.push('*/', '');
+  return `${lines.join('\n')}\n`;
+}
+
+export async function getTutorialShadersLocalized(
+  category: string,
+  id: string,
+  locale: Locale,
+): Promise<{
+  fragment: string;
+  vertex: string;
+  exercise: string;
+}> {
+  const shaders = await getTutorialShaders(category, id);
+
+  if (locale !== 'en') {
+    return shaders;
+  }
+
+  const config = await getTutorialConfig(category, id);
+  const header = buildEnglishShaderHeader(config);
+
+  const normalize = (code: string) => `${header}${stripGlslComments(code).trim()}\n`;
+
+  return {
+    fragment: normalize(shaders.fragment),
+    vertex: shaders.vertex ? normalize(shaders.vertex) : '',
+    exercise: normalize(shaders.exercise || shaders.fragment),
+  };
+}
+
 // 获取教程的完整配置信息（用于SEO）
 export async function getTutorialConfig(category: string, id: string): Promise<TutorialConfig | null> {
   const configPath = path.join(process.cwd(), 'src/lib/tutorials', category, id, 'config.json');

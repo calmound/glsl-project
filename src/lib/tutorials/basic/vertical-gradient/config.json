@@ -1,0 +1,36 @@
+{
+  "id": "vertical-gradient",
+  "title": {
+    "zh": "垂直渐变",
+    "en": "Vertical Gradient"
+  },
+  "description": {
+    "zh": "使用 vUv.y 创建从下到上的渐变。",
+    "en": "Create a bottom-to-top gradient with vUv.y."
+  },
+  "difficulty": "beginner",
+  "category": "basic",
+  "tags": [
+    "basic"
+  ],
+  "estimatedTime": 10,
+  "prerequisites": [
+    "uv-coordinates"
+  ],
+  "learningObjectives": {
+    "zh": [
+      "练习基于坐标的着色"
+    ],
+    "en": [
+      "Practice coordinate-based coloring"
+    ]
+  },
+  "uniforms": {
+    "u_time": 0,
+    "u_resolution": [
+      300,
+      300
+    ]
+  },
+  "preview": "/api/shader/basic/vertical-gradient"
+}

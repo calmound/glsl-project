@@ -12,24 +12,29 @@ void main() {
     // 练习1：创建基础重复
     // 使用 fract 函数将坐标重复
     float repeatCount = 5.0;
-    vec2 repeated = fract(uv * /* 请填写重复次数 */);
+    // TODO: 使用 repeatCount
+    vec2 repeated = fract(uv * repeatCount);
     
     // 练习2：在每个重复单元中创建图案
     // 将坐标重新居中到 [-0.5, 0.5] 范围
-    vec2 centered = repeated - vec2(/* 请填写中心偏移 */);
+    // TODO: centered = repeated - vec2(0.5)
+    vec2 centered = repeated - vec2(0.5);
     
     // 练习3：创建十字图案
     // 计算到坐标轴的距离
     float crossWidth = 0.1;
     float horizontal = step(-crossWidth, centered.y) * step(centered.y, crossWidth);
-    float vertical = step(-crossWidth, centered.x) * step(centered.x, /* 请填写宽度 */);
+    // TODO: 竖线宽度也使用 crossWidth
+    float vertical = step(-crossWidth, centered.x) * step(centered.x, crossWidth);
     
     // 组合十字图案
-    float cross = max(horizontal, /* 请填写垂直部分 */);
+    // TODO: cross = max(horizontal, vertical)
+    float cross = max(horizontal, vertical);
     
     // 练习4：创建圆形图案
     float distance = length(centered);
-    float circle = smoothstep(0.25, 0.2, /* 请填写距离变量 */);
+    // TODO: circle 使用 distance
+    float circle = smoothstep(0.25, 0.2, distance);
     
     // 练习5：创建动态效果
     // 让图案随时间变化
@@ -41,7 +46,8 @@ void main() {
     float pattern = mix(
         cross,
         circle,
-        /* 请填写切换因子 */
+        // TODO: 使用 switchTime 作为切换因子
+        switchTime
     );
     
     // 练习7：添加颜色变化
@@ -52,7 +58,8 @@ void main() {
     vec3 finalColor = mix(
         vec3(0.1), // 背景色
         mix(color1, color2, timeOffset),
-        /* 请填写图案变量 */
+        // TODO: 使用 pattern 作为遮罩
+        pattern
     );
     
     gl_FragColor = vec4(finalColor, 1.0);

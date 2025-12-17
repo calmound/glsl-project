@@ -1,0 +1,36 @@
+{
+  "id": "contrast-pow",
+  "title": {
+    "zh": "用 pow() 调整对比度",
+    "en": "Contrast with pow()"
+  },
+  "description": {
+    "zh": "对渐变值使用 pow() 改变曲线，调整对比度。",
+    "en": "Apply pow() to reshape a gradient curve."
+  },
+  "difficulty": "beginner",
+  "category": "basic",
+  "tags": [
+    "basic"
+  ],
+  "estimatedTime": 10,
+  "prerequisites": [
+    "uv-coordinates"
+  ],
+  "learningObjectives": {
+    "zh": [
+      "练习基于坐标的着色"
+    ],
+    "en": [
+      "Practice coordinate-based coloring"
+    ]
+  },
+  "uniforms": {
+    "u_time": 0,
+    "u_resolution": [
+      300,
+      300
+    ]
+  },
+  "preview": "/api/shader/basic/contrast-pow"
+}

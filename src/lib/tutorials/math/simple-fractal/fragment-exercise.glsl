@@ -15,7 +15,8 @@ void main() {
     
     // 练习1：初始化分形参数
     float fractal = 0.0;
-    float amplitude = /* 请填写初始振幅 */;
+    // TODO: 设置初始振幅（建议 0.5）
+    float amplitude = 0.5;
     
     // 练习2：创建分形循环
     // 通过多次迭代创建分形效果
@@ -27,14 +28,17 @@ void main() {
         pos = fract(pos) - 0.5;
         
         // 计算到中心的距离
-        float distance = length(/* 请填写位置变量 */);
+        // TODO: distance = length(pos)
+        float distance = length(pos);
         
         // 创建圆形并添加到分形中
         float circle = smoothstep(0.4, 0.3, distance);
-        fractal += circle * /* 请填写振幅变量 */;
+        // TODO: fractal += circle * amplitude
+        fractal += circle * amplitude;
         
         // 减小振幅，为下一层做准备
-        amplitude *= /* 请填写衰减因子 */;
+        // TODO: amplitude *= 0.5
+        amplitude *= 0.5;
     }
     
     // 练习3：添加动态颜色
@@ -50,7 +54,8 @@ void main() {
         finalColor = mix(
             vec3(0.1, 0.1, 0.2), // 背景色
             color1,
-            /* 请填写混合因子 */
+            // TODO: 用 fractal 作为混合因子（可适当放大）
+            fractal / 0.5
         );
     } else {
         finalColor = mix(
@@ -63,7 +68,8 @@ void main() {
     // 练习5：添加额外的动画效果
     // 让整体颜色随时间脉动
     float pulse = sin(u_time * 2.0) * 0.1 + 0.9;
-    finalColor *= /* 请填写脉动因子 */;
+    // TODO: 让 finalColor 乘以 pulse
+    finalColor *= pulse;
     
     gl_FragColor = vec4(finalColor, 1.0);
 }

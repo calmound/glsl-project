@@ -10,7 +10,8 @@ void main() {
     vec2 uv = gl_FragCoord.xy / vec2(300.0, 300.0);
     
     // 练习1：将坐标原点移到屏幕中心
-    vec2 centered = uv - vec2(/* 请填写中心点坐标 */);
+    // TODO: centered = uv - vec2(0.5)
+    vec2 centered = uv - vec2(0.5);
     
     // 练习2：创建旋转矩阵
     // 旋转角度随时间变化
@@ -20,14 +21,17 @@ void main() {
     
     // 2D旋转矩阵的应用
     vec2 rotated = vec2(
-        centered.x * cosA - centered.y * /* 请填写sin值 */,
-        centered.x * sinA + centered.y * /* 请填写cos值 */
+        // TODO: 替换为 centered.x * cosA - centered.y * sinA
+        centered.x * cosA - centered.y * sinA,
+        // TODO: 替换为 centered.x * sinA + centered.y * cosA
+        centered.x * sinA + centered.y * cosA
     );
     
     // 练习3：应用缩放变换
     // 缩放因子随时间变化
     float scale = 1.0 + sin(u_time * 2.0) * 0.5;
-    vec2 scaled = rotated * /* 请填写缩放因子 */;
+    // TODO: scaled = rotated * scale
+    vec2 scaled = rotated * scale;
     
     // 练习4：创建重复图案
     // 使用 fract 函数创建重复效果
@@ -38,7 +42,8 @@ void main() {
     vec2 cellCenter = repeated - vec2(0.5);
     
     // 计算到单元中心的距离
-    float distance = length(/* 请填写坐标变量 */);
+    // TODO: distance = length(cellCenter)
+    float distance = length(cellCenter);
     
     // 练习6：创建图案
     // 使用距离创建圆形图案
@@ -49,7 +54,8 @@ void main() {
     vec3 color = vec3(
         pattern * (sin(u_time + uv.x * 10.0) * 0.5 + 0.5),
         pattern * (cos(u_time + uv.y * 10.0) * 0.5 + 0.5),
-        pattern * /* 请填写蓝色分量 */
+        // TODO: 给蓝色通道一个变化（如 sin(u_time)）
+        pattern * (sin(u_time) * 0.5 + 0.5)
     );
     
     gl_FragColor = vec4(color, 1.0);

@@ -1,0 +1,38 @@
+{
+  "id": "stripes-horizontal",
+  "title": {
+    "zh": "水平条纹",
+    "en": "Horizontal Stripes"
+  },
+  "description": {
+    "zh": "使用 fract() 与 step() 创建水平条纹。",
+    "en": "Create horizontal stripes using fract() and step()."
+  },
+  "difficulty": "beginner",
+  "category": "patterns",
+  "tags": [
+    "fract",
+    "step",
+    "stripes"
+  ],
+  "estimatedTime": 12,
+  "prerequisites": [
+    "uv-coordinates"
+  ],
+  "learningObjectives": {
+    "zh": [
+      "构建重复图案"
+    ],
+    "en": [
+      "Build repeating patterns"
+    ]
+  },
+  "uniforms": {
+    "u_time": 0,
+    "u_resolution": [
+      300,
+      300
+    ]
+  },
+  "preview": "/api/shader/patterns/stripes-horizontal"
+}

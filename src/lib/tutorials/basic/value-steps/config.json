@@ -1,0 +1,40 @@
+{
+  "id": "value-steps",
+  "title": {
+    "zh": "阶梯值（量化）",
+    "en": "Value Steps (Quantization)"
+  },
+  "description": {
+    "zh": "使用 floor() 将连续渐变量化成离散阶梯。",
+    "en": "Quantize a smooth gradient into discrete steps using floor()."
+  },
+  "difficulty": "beginner",
+  "category": "basic",
+  "tags": [
+    "floor",
+    "quantize",
+    "gradient"
+  ],
+  "estimatedTime": 12,
+  "prerequisites": [
+    "horizontal-gradient"
+  ],
+  "learningObjectives": {
+    "zh": [
+      "使用 floor() 量化",
+      "理解离散与连续数值差异"
+    ],
+    "en": [
+      "Use floor() to quantize",
+      "Understand discrete vs continuous values"
+    ]
+  },
+  "uniforms": {
+    "u_time": 0,
+    "u_resolution": [
+      300,
+      300
+    ]
+  },
+  "preview": "/api/shader/basic/value-steps"
+}

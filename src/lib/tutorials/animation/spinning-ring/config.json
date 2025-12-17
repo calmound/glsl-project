@@ -1,0 +1,36 @@
+{
+  "id": "spinning-ring",
+  "title": {
+    "zh": "旋转圆环",
+    "en": "Spinning Ring"
+  },
+  "description": {
+    "zh": "旋转极角并给圆环着色。",
+    "en": "Rotate polar angle and colorize a ring."
+  },
+  "difficulty": "intermediate",
+  "category": "animation",
+  "tags": [
+    "animation"
+  ],
+  "estimatedTime": 12,
+  "prerequisites": [
+    "uv-coordinates"
+  ],
+  "learningObjectives": {
+    "zh": [
+      "使用 u_time 制作动画"
+    ],
+    "en": [
+      "Animate with u_time"
+    ]
+  },
+  "uniforms": {
+    "u_time": 0,
+    "u_resolution": [
+      300,
+      300
+    ]
+  },
+  "preview": "/api/shader/animation/spinning-ring"
+}

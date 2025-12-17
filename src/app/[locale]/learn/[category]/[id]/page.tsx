@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { getTutorial, getTutorialReadme, getTutorialShaders, getTutorialsByCategory, getTutorialConfig } from '../../../../../lib/tutorials-server';
+import { getTutorial, getTutorialReadme, getTutorialShadersLocalized, getTutorialsByCategory, getTutorialConfig } from '../../../../../lib/tutorials-server';
 import { getValidLocale, type Locale } from '../../../../../lib/i18n';
 import { getTranslationFunction } from '../../../../../lib/translations';
 import { createServerSupabase } from '../../../../../lib/supabase-server';
@@ -153,7 +153,7 @@ export default async function TutorialPage({ params }: TutorialPageProps) {
   // 获取教程内容和同分类的所有教程
   const [readme, shaders, categoryTutorials] = await Promise.all([
     getTutorialReadme(category, id, locale),
-    getTutorialShaders(category, id),
+    getTutorialShadersLocalized(category, id, locale),
     getTutorialsByCategory(category, locale),
   ]);
 

@@ -1,0 +1,41 @@
+{
+  "id": "lambert-sphere",
+  "title": {
+    "zh": "Lambert 光照（球）",
+    "en": "Lambert Lighting (Sphere)"
+  },
+  "description": {
+    "zh": "用估计法线实现 Lambert 漫反射，为球体着色。",
+    "en": "Shade a sphere with Lambert diffuse lighting using an estimated normal."
+  },
+  "difficulty": "intermediate",
+  "category": "lighting",
+  "tags": [
+    "lambert",
+    "normal",
+    "diffuse"
+  ],
+  "estimatedTime": 18,
+  "prerequisites": [
+    "simple-circle",
+    "smooth-edges"
+  ],
+  "learningObjectives": {
+    "zh": [
+      "估计法线",
+      "用 dot(n,l) 计算漫反射"
+    ],
+    "en": [
+      "Estimate a normal",
+      "Compute diffuse term with dot(n,l)"
+    ]
+  },
+  "uniforms": {
+    "u_time": 0,
+    "u_resolution": [
+      300,
+      300
+    ]
+  },
+  "preview": "/api/shader/lighting/lambert-sphere"
+}

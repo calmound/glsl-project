@@ -1,0 +1,36 @@
+{
+  "id": "sin-cos-curve",
+  "title": {
+    "zh": "Sin/Cos 曲线",
+    "en": "Sin/Cos Curve"
+  },
+  "description": {
+    "zh": "练习着色器中常用的数学基础积木。",
+    "en": "Practice core GLSL math building blocks used across shaders."
+  },
+  "difficulty": "beginner",
+  "category": "math",
+  "tags": [
+    "math"
+  ],
+  "estimatedTime": 12,
+  "prerequisites": [
+    "uv-coordinates"
+  ],
+  "learningObjectives": {
+    "zh": [
+      "理解效果背后的数学"
+    ],
+    "en": [
+      "Understand the math behind the effect"
+    ]
+  },
+  "uniforms": {
+    "u_time": 0,
+    "u_resolution": [
+      300,
+      300
+    ]
+  },
+  "preview": "/api/shader/math/sin-cos-curve"
+}

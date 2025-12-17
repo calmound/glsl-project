@@ -1,0 +1,41 @@
+{
+  "id": "rectangle-border",
+  "title": {
+    "zh": "矩形边框",
+    "en": "Rectangle Border"
+  },
+  "description": {
+    "zh": "通过“外矩形 - 内矩形”构造矩形边框。",
+    "en": "Create a border by subtracting an inner rectangle mask from an outer one."
+  },
+  "difficulty": "beginner",
+  "category": "basic",
+  "tags": [
+    "step",
+    "mask",
+    "rectangle"
+  ],
+  "estimatedTime": 12,
+  "prerequisites": [
+    "simple-rectangle",
+    "step-function-mask"
+  ],
+  "learningObjectives": {
+    "zh": [
+      "用 step 构造矩形遮罩",
+      "通过相减组合遮罩"
+    ],
+    "en": [
+      "Build rectangle masks with step",
+      "Combine masks using subtraction"
+    ]
+  },
+  "uniforms": {
+    "u_time": 0,
+    "u_resolution": [
+      300,
+      300
+    ]
+  },
+  "preview": "/api/shader/basic/rectangle-border"
+}

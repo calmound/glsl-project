@@ -1,53 +1,47 @@
 precision mediump float;
 
 uniform float u_time;
+uniform vec2 u_resolution;
+
+// 练习1：伪随机函数
+float random(vec2 st) {
+    // TODO: 替换大数值，观察随机分布变化
+    return fract(sin(dot(st.xy, vec2(12.9898, 78.233))) * 43758.5453123);
+}
+
+// 练习2：平滑噪声函数
+float noise(vec2 st) {
+    vec2 i = floor(st);
+    vec2 f = fract(st);
+
+    float a = random(i);
+    float b = random(i + vec2(1.0, 0.0));
+    float c = random(i + vec2(0.0, 1.0));
+    float d = random(i + vec2(1.0, 1.0));
+
+    vec2 u = f * f * (3.0 - 2.0 * f);
+
+    return mix(mix(a, b, u.x), mix(c, d, u.x), u.y);
+}
 
 void main() {
     // 练习：噪声纹理
     // 目标：创建伪随机噪声纹理
-    
-    // 获取当前像素的归一化坐标
-    vec2 uv = gl_FragCoord.xy / vec2(300.0, 300.0);
-    
-    // 练习1：实现伪随机函数
-    // 这个函数将输入值转换为看似随机的输出
-    float random(vec2 st) {
-        return fract(sin(dot(st.xy, vec2(12.9898, 78.233))) * /* 请填写大数值 */);
-    }
-    
-    // 练习2：实现噪声函数
-    float noise(vec2 st) {
-        // 获取整数和小数部分
-        vec2 i = floor(st);
-        vec2 f = fract(st);
-        
-        // 计算四个角的随机值
-        float a = random(i);
-        float b = random(i + vec2(1.0, 0.0));
-        float c = random(i + vec2(0.0, 1.0));
-        float d = random(i + vec2(/* 请填写右上角坐标 */));
-        
-        // 使用 smoothstep 进行平滑插值
-        vec2 u = f * f * (3.0 - 2.0 * f);
-        
-        // 双线性插值
-        return mix(
-            mix(a, b, u.x),
-            mix(c, d, u.x),
-            /* 请填写 y 方向插值因子 */
-        );
-    }
+
+    vec2 uv = gl_FragCoord.xy / u_resolution.xy;
     
     // 练习3：创建基础噪声
     // 缩放坐标以控制噪声的频率
     float scale = 8.0;
-    vec2 scaledUV = uv * /* 请填写缩放因子 */;
+    // TODO: 使用 scale 作为缩放因子
+    vec2 scaledUV = uv * scale;
     
     // 添加时间动画
     scaledUV += u_time * 0.1;
     
     // 生成基础噪声
-    float baseNoise = noise(/* 请填写缩放后的坐标 */);
+    // TODO: baseNoise = noise(scaledUV)
+    float baseNoise = noise(scaledUV);
     
     // 练习4：创建分形噪声（多层噪声叠加）
     float fractalNoise = 0.0;
@@ -56,9 +50,11 @@ void main() {
     
     // 叠加多层不同频率的噪声
     for (int i = 0; i < 4; i++) {
-        fractalNoise += noise(scaledUV * frequency) * /* 请填写振幅 */;
+        // TODO: 叠加 amplitude
+        fractalNoise += noise(scaledUV * frequency) * amplitude;
         frequency *= 2.0;
-        amplitude *= /* 请填写衰减因子 */;
+        // TODO: 振幅衰减（建议 0.5）
+        amplitude *= 0.5;
     }
     
     // 练习5：创建不同类型的噪声效果
@@ -74,7 +70,8 @@ void main() {
     float finalNoise = mix(
         mix(baseNoise, fractalNoise, 0.7),
         mix(turbulence, ridge, 0.5),
-        /* 请填写切换因子 */
+        // TODO: 使用 switchFactor 切换
+        switchFactor
     );
     
     // 练习7：将噪声转换为颜色
@@ -90,7 +87,8 @@ void main() {
         finalColor = mix(
             color2,
             color3,
-            /* 请填写混合因子 */
+            // TODO: 把 0.4-1.0 映射到 0-1
+            (finalNoise - 0.4) / 0.6
         );
     }
     

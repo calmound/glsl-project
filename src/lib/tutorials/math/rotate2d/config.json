@@ -1,0 +1,41 @@
+{
+  "id": "rotate2d",
+  "title": {
+    "zh": "二维旋转矩阵",
+    "en": "2D Rotation Matrix"
+  },
+  "description": {
+    "zh": "使用二维旋转矩阵旋转坐标。",
+    "en": "Rotate coordinates using a 2D rotation matrix."
+  },
+  "difficulty": "intermediate",
+  "category": "math",
+  "tags": [
+    "sin",
+    "cos",
+    "matrix"
+  ],
+  "estimatedTime": 15,
+  "prerequisites": [
+    "uv-coordinates",
+    "time-pulse"
+  ],
+  "learningObjectives": {
+    "zh": [
+      "构造 mat2 旋转矩阵",
+      "对形状应用旋转"
+    ],
+    "en": [
+      "Build mat2 rotation",
+      "Apply rotation to shapes"
+    ]
+  },
+  "uniforms": {
+    "u_time": 0,
+    "u_resolution": [
+      300,
+      300
+    ]
+  },
+  "preview": "/api/shader/math/rotate2d"
+}

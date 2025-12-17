@@ -12,17 +12,20 @@ void main() {
     // 练习1：创建动态的圆心位置
     // 让圆心在屏幕中央做圆周运动
     vec2 center = vec2(
-        0.5 + sin(u_time) * /* 请填写运动半径 */,
-        0.5 + cos(u_time) * /* 请填写运动半径 */
+        // TODO: 填写运动半径（建议 0.2）
+        0.5 + sin(u_time) * 0.2,
+        0.5 + cos(u_time) * 0.2
     );
     
     // 练习2：计算到动态圆心的距离
     vec2 pos = uv - center;
-    float distance = /* 请填写距离计算 */;
+    // TODO: distance = length(pos)
+    float distance = length(pos);
     
     // 练习3：创建动态半径
     // 让圆的大小随时间变化
-    float radius = 0.1 + sin(u_time * 2.0) * /* 请填写半径变化幅度 */;
+    // TODO: 填写半径变化幅度（建议 0.05）
+    float radius = 0.1 + sin(u_time * 2.0) * 0.05;
     
     // 练习4：创建动态颜色
     // 让颜色随时间变化
@@ -37,14 +40,16 @@ void main() {
     float circle = smoothstep(
         radius + 0.02,  // 外边缘
         radius - 0.02,  // 内边缘
-        /* 请填写距离变量 */
+        // TODO: 填写距离变量（distance）
+        distance
     );
     
     // 练习6：混合背景和圆形颜色
     vec3 backgroundColor = vec3(0.1, 0.1, 0.2);
     vec3 finalColor = mix(
         backgroundColor,
-        /* 请填写圆形颜色 */,
+        // TODO: 使用 dynamicColor 作为圆形颜色
+        dynamicColor,
         circle
     );
     

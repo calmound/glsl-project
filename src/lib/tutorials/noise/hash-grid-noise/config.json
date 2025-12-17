@@ -1,0 +1,39 @@
+{
+  "id": "hash-grid-noise",
+  "title": {
+    "zh": "哈希格点噪声",
+    "en": "Hash Grid Noise"
+  },
+  "description": {
+    "zh": "使用简单哈希函数，为每个网格单元生成随机值。",
+    "en": "Generate a random value per grid cell using a small hash function."
+  },
+  "difficulty": "beginner",
+  "category": "noise",
+  "tags": [
+    "hash",
+    "random"
+  ],
+  "estimatedTime": 12,
+  "prerequisites": [
+    "uv-coordinates"
+  ],
+  "learningObjectives": {
+    "zh": [
+      "构造简单哈希函数",
+      "用 floor() 划分网格"
+    ],
+    "en": [
+      "Build a simple hash function",
+      "Use floor() to create grid cells"
+    ]
+  },
+  "uniforms": {
+    "u_time": 0,
+    "u_resolution": [
+      300,
+      300
+    ]
+  },
+  "preview": "/api/shader/noise/hash-grid-noise"
+}

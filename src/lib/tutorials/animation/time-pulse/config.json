@@ -1,0 +1,39 @@
+{
+  "id": "time-pulse",
+  "title": {
+    "zh": "时间脉冲",
+    "en": "Time Pulse"
+  },
+  "description": {
+    "zh": "使用 sin(u_time) 创建亮度脉冲动画。",
+    "en": "Create a pulsing brightness effect using sin(u_time)."
+  },
+  "difficulty": "beginner",
+  "category": "animation",
+  "tags": [
+    "u_time",
+    "sin"
+  ],
+  "estimatedTime": 10,
+  "prerequisites": [
+    "solid-color"
+  ],
+  "learningObjectives": {
+    "zh": [
+      "使用 u_time uniform",
+      "把 sin() 输出映射到 0-1"
+    ],
+    "en": [
+      "Use u_time uniform",
+      "Map sin() output to 0-1"
+    ]
+  },
+  "uniforms": {
+    "u_time": 0,
+    "u_resolution": [
+      300,
+      300
+    ]
+  },
+  "preview": "/api/shader/animation/time-pulse"
+}

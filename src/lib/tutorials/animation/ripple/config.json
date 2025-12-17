@@ -1,0 +1,41 @@
+{
+  "id": "ripple",
+  "title": {
+    "zh": "波纹",
+    "en": "Ripple"
+  },
+  "description": {
+    "zh": "将距离与时间结合到正弦波中，创建圆形波纹。",
+    "en": "Create circular ripples by combining distance and time in a sine wave."
+  },
+  "difficulty": "intermediate",
+  "category": "animation",
+  "tags": [
+    "u_time",
+    "sin",
+    "distance"
+  ],
+  "estimatedTime": 15,
+  "prerequisites": [
+    "simple-circle",
+    "time-pulse"
+  ],
+  "learningObjectives": {
+    "zh": [
+      "用距离作为波输入",
+      "用时间推进相位"
+    ],
+    "en": [
+      "Use distance as wave input",
+      "Animate phase with time"
+    ]
+  },
+  "uniforms": {
+    "u_time": 0,
+    "u_resolution": [
+      300,
+      300
+    ]
+  },
+  "preview": "/api/shader/animation/ripple"
+}

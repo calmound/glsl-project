@@ -1,0 +1,36 @@
+{
+  "id": "orbiting-dot",
+  "title": {
+    "zh": "环绕小点",
+    "en": "Orbiting Dot"
+  },
+  "description": {
+    "zh": "让一个小点围绕中心做圆周运动。",
+    "en": "Animate a small dot orbiting around the center."
+  },
+  "difficulty": "intermediate",
+  "category": "animation",
+  "tags": [
+    "animation"
+  ],
+  "estimatedTime": 12,
+  "prerequisites": [
+    "uv-coordinates"
+  ],
+  "learningObjectives": {
+    "zh": [
+      "使用 u_time 制作动画"
+    ],
+    "en": [
+      "Animate with u_time"
+    ]
+  },
+  "uniforms": {
+    "u_time": 0,
+    "u_resolution": [
+      300,
+      300
+    ]
+  },
+  "preview": "/api/shader/animation/orbiting-dot"
+}

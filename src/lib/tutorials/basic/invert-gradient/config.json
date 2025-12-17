@@ -1,0 +1,36 @@
+{
+  "id": "invert-gradient",
+  "title": {
+    "zh": "反向渐变",
+    "en": "Invert Gradient"
+  },
+  "description": {
+    "zh": "使用 (1.0 - t) 反转渐变方向。",
+    "en": "Invert a gradient using (1.0 - t)."
+  },
+  "difficulty": "beginner",
+  "category": "basic",
+  "tags": [
+    "basic"
+  ],
+  "estimatedTime": 10,
+  "prerequisites": [
+    "uv-coordinates"
+  ],
+  "learningObjectives": {
+    "zh": [
+      "练习基于坐标的着色"
+    ],
+    "en": [
+      "Practice coordinate-based coloring"
+    ]
+  },
+  "uniforms": {
+    "u_time": 0,
+    "u_resolution": [
+      300,
+      300
+    ]
+  },
+  "preview": "/api/shader/basic/invert-gradient"
+}

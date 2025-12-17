@@ -1,0 +1,40 @@
+{
+  "id": "moving-gradient",
+  "title": {
+    "zh": "移动渐变",
+    "en": "Moving Gradient"
+  },
+  "description": {
+    "zh": "通过随时间平移 vUv.x 让渐变动起来。",
+    "en": "Animate a gradient by shifting vUv.x over time."
+  },
+  "difficulty": "beginner",
+  "category": "animation",
+  "tags": [
+    "u_time",
+    "fract",
+    "gradient"
+  ],
+  "estimatedTime": 12,
+  "prerequisites": [
+    "horizontal-gradient"
+  ],
+  "learningObjectives": {
+    "zh": [
+      "用 fract() 循环",
+      "让 UV 因子随时间变化"
+    ],
+    "en": [
+      "Use fract() for looping motion",
+      "Animate UV-based factor"
+    ]
+  },
+  "uniforms": {
+    "u_time": 0,
+    "u_resolution": [
+      300,
+      300
+    ]
+  },
+  "preview": "/api/shader/animation/moving-gradient"
+}

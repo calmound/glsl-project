@@ -1,0 +1,36 @@
+{
+  "id": "rotating-uv",
+  "title": {
+    "zh": "旋转 UV",
+    "en": "Rotating UV"
+  },
+  "description": {
+    "zh": "让 UV 围绕中心随时间旋转。",
+    "en": "Rotate UV around the center over time."
+  },
+  "difficulty": "intermediate",
+  "category": "animation",
+  "tags": [
+    "animation"
+  ],
+  "estimatedTime": 12,
+  "prerequisites": [
+    "uv-coordinates"
+  ],
+  "learningObjectives": {
+    "zh": [
+      "使用 u_time 制作动画"
+    ],
+    "en": [
+      "Animate with u_time"
+    ]
+  },
+  "uniforms": {
+    "u_time": 0,
+    "u_resolution": [
+      300,
+      300
+    ]
+  },
+  "preview": "/api/shader/animation/rotating-uv"
+}

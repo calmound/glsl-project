@@ -11,7 +11,8 @@ void main() {
     
     // 练习1：创建基础渐变
     // 提示：可以直接使用 uv 坐标作为颜色分量
-    vec3 color1 = vec3(uv.x, uv.y, /* 请填写蓝色分量 */);
+    // TODO: 蓝色分量可以用 (uv.x + uv.y) * 0.5 或常量
+    vec3 color1 = vec3(uv.x, uv.y, (uv.x + uv.y) * 0.5);
     
     // 练习2：创建径向渐变
     // 计算到中心的距离
@@ -19,21 +20,24 @@ void main() {
     float distance = length(center);
     
     // 使用距离创建径向渐变
-    vec3 color2 = vec3(distance, /* 请填写绿色分量 */, 1.0 - distance);
+    // TODO: 绿色分量可用 1.0 - distance
+    vec3 color2 = vec3(distance, 1.0 - distance, 1.0 - distance);
     
     // 练习3：创建动态渐变
     // 使用时间创建动画效果
     float timeOffset = sin(u_time) * 0.5 + 0.5;
     vec3 color3 = vec3(
         uv.x + timeOffset * 0.3,
-        uv.y + /* 请填写时间偏移 */,
+        // TODO: 给 y 分量一个时间偏移（如 timeOffset * 0.2）
+        uv.y + timeOffset * 0.2,
         0.8
     );
     
     // 练习4：混合不同的渐变
     // 使用 mix 函数组合渐变效果
     vec3 finalColor = mix(
-        mix(color1, color2, /* 请填写混合因子 */),
+        // TODO: 混合因子可用 0.5 或 distance
+        mix(color1, color2, 0.5),
         color3,
         sin(u_time * 0.5) * 0.5 + 0.5
     );

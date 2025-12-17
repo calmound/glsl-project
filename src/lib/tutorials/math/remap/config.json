@@ -1,0 +1,39 @@
+{
+  "id": "remap",
+  "title": {
+    "zh": "Remap 函数",
+    "en": "Remap Function"
+  },
+  "description": {
+    "zh": "实现 remap() 辅助函数，用于区间映射。",
+    "en": "Implement a remap() helper to convert values between ranges."
+  },
+  "difficulty": "beginner",
+  "category": "math",
+  "tags": [
+    "remap",
+    "lerp"
+  ],
+  "estimatedTime": 12,
+  "prerequisites": [
+    "uv-coordinates"
+  ],
+  "learningObjectives": {
+    "zh": [
+      "编写简单函数",
+      "用它给渐变上色"
+    ],
+    "en": [
+      "Write a simple helper function",
+      "Use it to colorize a gradient"
+    ]
+  },
+  "uniforms": {
+    "u_time": 0,
+    "u_resolution": [
+      300,
+      300
+    ]
+  },
+  "preview": "/api/shader/math/remap"
+}

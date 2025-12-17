@@ -1,0 +1,40 @@
+{
+  "id": "vignette",
+  "title": {
+    "zh": "暗角（边缘变暗）",
+    "en": "Vignette (Edge Darkening)"
+  },
+  "description": {
+    "zh": "使用到中心的距离与 smoothstep() 让画面四周变暗。",
+    "en": "Use distance to center and smoothstep() to darken edges."
+  },
+  "difficulty": "beginner",
+  "category": "basic",
+  "tags": [
+    "distance",
+    "smoothstep"
+  ],
+  "estimatedTime": 12,
+  "prerequisites": [
+    "simple-circle",
+    "smooth-edges"
+  ],
+  "learningObjectives": {
+    "zh": [
+      "计算到中心的距离",
+      "用 smoothstep 构造暗角遮罩"
+    ],
+    "en": [
+      "Compute distance from center",
+      "Build a vignette mask with smoothstep"
+    ]
+  },
+  "uniforms": {
+    "u_time": 0,
+    "u_resolution": [
+      300,
+      300
+    ]
+  },
+  "preview": "/api/shader/basic/vignette"
+}

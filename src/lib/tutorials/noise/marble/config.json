@@ -1,0 +1,36 @@
+{
+  "id": "marble",
+  "title": {
+    "zh": "大理石纹理",
+    "en": "Marble"
+  },
+  "description": {
+    "zh": "学习程序化噪声的基础构件与常见风格化手法。",
+    "en": "Learn procedural noise building blocks and common stylizations."
+  },
+  "difficulty": "intermediate",
+  "category": "noise",
+  "tags": [
+    "noise"
+  ],
+  "estimatedTime": 15,
+  "prerequisites": [
+    "value-noise"
+  ],
+  "learningObjectives": {
+    "zh": [
+      "组合噪声函数得到更丰富的纹理"
+    ],
+    "en": [
+      "Combine noise functions for richer textures"
+    ]
+  },
+  "uniforms": {
+    "u_time": 0,
+    "u_resolution": [
+      300,
+      300
+    ]
+  },
+  "preview": "/api/shader/noise/marble"
+}

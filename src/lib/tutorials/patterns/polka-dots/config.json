@@ -1,0 +1,41 @@
+{
+  "id": "polka-dots",
+  "title": {
+    "zh": "波点",
+    "en": "Polka Dots"
+  },
+  "description": {
+    "zh": "把画面分成网格，并在每个格子中绘制圆点。",
+    "en": "Build a dot pattern on a grid and draw circles in each cell."
+  },
+  "difficulty": "beginner",
+  "category": "patterns",
+  "tags": [
+    "fract",
+    "smoothstep",
+    "pattern"
+  ],
+  "estimatedTime": 15,
+  "prerequisites": [
+    "simple-circle",
+    "uv-coordinates"
+  ],
+  "learningObjectives": {
+    "zh": [
+      "用 fract() 分格",
+      "用 smoothstep 画圆点"
+    ],
+    "en": [
+      "Use fract() grid cells",
+      "Draw circles with smoothstep"
+    ]
+  },
+  "uniforms": {
+    "u_time": 0,
+    "u_resolution": [
+      300,
+      300
+    ]
+  },
+  "preview": "/api/shader/patterns/polka-dots"
+}

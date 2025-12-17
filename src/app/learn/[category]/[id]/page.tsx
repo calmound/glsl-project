@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation';
 import {
   getTutorial,
   getTutorialReadme,
-  getTutorialShaders,
+  getTutorialShadersLocalized,
   getTutorialsByCategory,
   getTutorialConfig,
 } from '@/lib/tutorials-server';
@@ -105,7 +105,7 @@ export default async function TutorialPage({ params }: TutorialPageProps) {
 
   const [readme, shaders, categoryTutorials] = await Promise.all([
     getTutorialReadme(category, id, locale),
-    getTutorialShaders(category, id),
+    getTutorialShadersLocalized(category, id, locale),
     getTutorialsByCategory(category, locale),
   ]);
 
@@ -146,4 +146,3 @@ export default async function TutorialPage({ params }: TutorialPageProps) {
     />
   );
 }
-

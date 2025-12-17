@@ -1,0 +1,40 @@
+{
+  "id": "polar-gradient",
+  "title": {
+    "zh": "极坐标渐变（角度）",
+    "en": "Polar Gradient (Angle)"
+  },
+  "description": {
+    "zh": "将 UV 转换为极坐标角度，并映射到 0-1 渐变。",
+    "en": "Convert UV to polar angle and map it to a 0-1 gradient."
+  },
+  "difficulty": "intermediate",
+  "category": "basic",
+  "tags": [
+    "atan",
+    "polar",
+    "gradient"
+  ],
+  "estimatedTime": 15,
+  "prerequisites": [
+    "uv-coordinates"
+  ],
+  "learningObjectives": {
+    "zh": [
+      "使用 atan(y,x) 得到角度",
+      "把角度归一化到 0-1"
+    ],
+    "en": [
+      "Use atan(y, x) to get angle",
+      "Normalize angle into 0-1"
+    ]
+  },
+  "uniforms": {
+    "u_time": 0,
+    "u_resolution": [
+      300,
+      300
+    ]
+  },
+  "preview": "/api/shader/basic/polar-gradient"
+}

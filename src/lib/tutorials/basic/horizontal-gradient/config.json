@@ -1,0 +1,40 @@
+{
+  "id": "horizontal-gradient",
+  "title": {
+    "zh": "水平渐变",
+    "en": "Horizontal Gradient"
+  },
+  "description": {
+    "zh": "使用 vUv.x 与 mix() 创建从左到右的基础渐变。",
+    "en": "Create a simple left-to-right gradient using vUv.x and mix()."
+  },
+  "difficulty": "beginner",
+  "category": "basic",
+  "tags": [
+    "UV",
+    "mix",
+    "gradient"
+  ],
+  "estimatedTime": 10,
+  "prerequisites": [
+    "uv-visualizer"
+  ],
+  "learningObjectives": {
+    "zh": [
+      "使用 vUv.x 作为 0-1 因子",
+      "用 mix() 混合两种颜色"
+    ],
+    "en": [
+      "Use vUv.x as a 0-1 factor",
+      "Blend two colors with mix()"
+    ]
+  },
+  "uniforms": {
+    "u_time": 0,
+    "u_resolution": [
+      300,
+      300
+    ]
+  },
+  "preview": "/api/shader/basic/horizontal-gradient"
+}

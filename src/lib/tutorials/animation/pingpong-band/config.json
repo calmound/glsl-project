@@ -1,0 +1,36 @@
+{
+  "id": "pingpong-band",
+  "title": {
+    "zh": "往返移动亮带",
+    "en": "Ping-Pong Band"
+  },
+  "description": {
+    "zh": "用 sin(u_time) 让一条软边亮带左右往返移动。",
+    "en": "Move a soft band left and right using sin(u_time)."
+  },
+  "difficulty": "intermediate",
+  "category": "animation",
+  "tags": [
+    "animation"
+  ],
+  "estimatedTime": 12,
+  "prerequisites": [
+    "uv-coordinates"
+  ],
+  "learningObjectives": {
+    "zh": [
+      "使用 u_time 制作动画"
+    ],
+    "en": [
+      "Animate with u_time"
+    ]
+  },
+  "uniforms": {
+    "u_time": 0,
+    "u_resolution": [
+      300,
+      300
+    ]
+  },
+  "preview": "/api/shader/animation/pingpong-band"
+}

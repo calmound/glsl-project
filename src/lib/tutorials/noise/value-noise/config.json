@@ -1,0 +1,39 @@
+{
+  "id": "value-noise",
+  "title": {
+    "zh": "二维 Value Noise",
+    "en": "2D Value Noise"
+  },
+  "description": {
+    "zh": "通过对格点随机值插值，构造平滑噪声。",
+    "en": "Build smooth noise by interpolating hashed grid corners."
+  },
+  "difficulty": "intermediate",
+  "category": "noise",
+  "tags": [
+    "noise",
+    "mix"
+  ],
+  "estimatedTime": 15,
+  "prerequisites": [
+    "hash-grid-noise"
+  ],
+  "learningObjectives": {
+    "zh": [
+      "插值四个角的值",
+      "用平滑曲线处理 f"
+    ],
+    "en": [
+      "Interpolate corner values",
+      "Use smoothstep curve for f"
+    ]
+  },
+  "uniforms": {
+    "u_time": 0,
+    "u_resolution": [
+      300,
+      300
+    ]
+  },
+  "preview": "/api/shader/noise/value-noise"
+}

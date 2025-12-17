@@ -1,0 +1,36 @@
+{
+  "id": "brick-wall",
+  "title": {
+    "zh": "砖墙",
+    "en": "Brick Wall"
+  },
+  "description": {
+    "zh": "练习基于 UV 构建重复图案。",
+    "en": "Practice building repeating patterns from UV coordinates."
+  },
+  "difficulty": "beginner",
+  "category": "patterns",
+  "tags": [
+    "patterns"
+  ],
+  "estimatedTime": 12,
+  "prerequisites": [
+    "uv-coordinates"
+  ],
+  "learningObjectives": {
+    "zh": [
+      "使用 floor/fract/step 构建图案"
+    ],
+    "en": [
+      "Use floor/fract/step to create patterns"
+    ]
+  },
+  "uniforms": {
+    "u_time": 0,
+    "u_resolution": [
+      300,
+      300
+    ]
+  },
+  "preview": "/api/shader/patterns/brick-wall"
+}

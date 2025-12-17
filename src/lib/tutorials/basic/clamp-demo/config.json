@@ -1,0 +1,36 @@
+{
+  "id": "clamp-demo",
+  "title": {
+    "zh": "Clamp 演示",
+    "en": "Clamp Demo"
+  },
+  "description": {
+    "zh": "使用 clamp() 将数值限制在范围内。",
+    "en": "Use clamp() to keep values in range."
+  },
+  "difficulty": "beginner",
+  "category": "basic",
+  "tags": [
+    "basic"
+  ],
+  "estimatedTime": 10,
+  "prerequisites": [
+    "uv-coordinates"
+  ],
+  "learningObjectives": {
+    "zh": [
+      "练习基于坐标的着色"
+    ],
+    "en": [
+      "Practice coordinate-based coloring"
+    ]
+  },
+  "uniforms": {
+    "u_time": 0,
+    "u_resolution": [
+      300,
+      300
+    ]
+  },
+  "preview": "/api/shader/basic/clamp-demo"
+}

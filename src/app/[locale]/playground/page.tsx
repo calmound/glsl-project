@@ -1,6 +1,5 @@
 import { Metadata } from 'next';
 import { getValidLocale } from '../../../lib/i18n';
-import { getTranslationFunction } from '../../../lib/translations';
 import PlaygroundClient from './playground-client';
 
 interface PlaygroundPageProps {

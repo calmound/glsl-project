@@ -43,7 +43,6 @@ const PlaygroundCanvasEnhanced: React.FC<PlaygroundCanvasEnhancedProps> = ({
   textures = [],
   timeControl,
   onCompileError,
-  onTimeUpdate,
   showPerformance = false,
   onScreenshot,
   isFullscreen = false,
@@ -187,7 +186,6 @@ const PlaygroundCanvasEnhanced: React.FC<PlaygroundCanvasEnhancedProps> = ({
       currentTime = timeControl.currentTime;
     } else {
       const now = Date.now();
-      const deltaTime = (now - lastFrameTimeRef.current) / 1000;
       lastFrameTimeRef.current = now;
       currentTime = ((now - startTimeRef.current) / 1000);
     }

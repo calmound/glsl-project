@@ -119,7 +119,9 @@ const TexturePanel: React.FC<TexturePanelProps> = ({
 
               {/* 文件上传 */}
               <input
-                ref={(el) => (fileInputRefs.current[texture.id] = el)}
+                ref={(el) => {
+                  fileInputRefs.current[texture.id] = el;
+                }}
                 type="file"
                 accept="image/*"
                 onChange={(e) => handleFileSelect(index, e)}

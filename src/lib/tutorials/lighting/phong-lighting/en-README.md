@@ -1,49 +1,47 @@
-# Phong Lighting
+<!-- AUTO-GENERATED: tutorial-readme -->
+# Phong Lighting Model
 
-Learn the classic Phong lighting model to create realistic 3D lighting effects.
+Implement the basic Phong lighting model to simulate ambient, diffuse, and specular highlights on object surfaces.
+
+## Overview
+- Compute lighting terms and shade a shape.
 
 ## Learning Objectives
+- Understand the basic components of the Phong lighting model: ambient, diffuse, and specular reflection.
+- Learn how to calculate light vectors, view vectors, and reflection vectors in GLSL.
+- Master the formulas for diffuse and specular reflection and the meaning of their parameters.
+- Be able to implement a basic Phong lighting shader and observe the effects of adjusting parameters.
 
-- Understand the three components of the Phong lighting model
-- Learn how to calculate normal vectors and light directions
-- Master implementation of ambient, diffuse, and specular lighting
+## Prerequisites
+- vector-math
+- normal-vectors
+
+## Inputs
+- `vec2 u_resolution` — Canvas size in pixels.
+- `float u_time` — Time in seconds.
 
 ## Key Concepts
-
-### Phong Lighting Components
-
-1. **Ambient**: Base illumination, simulates indirect lighting
-2. **Diffuse**: Surface roughness, light scatters uniformly
-3. **Specular**: Surface smoothness, creates highlights
-
-### Lighting Calculation Formula
+- Diffuse lighting uses `max(dot(n, l), 0.0)`.
 
 ```glsl
-vec3 ambient = ambientStrength * lightColor;
-vec3 diffuse = max(dot(normal, lightDir), 0.0) * lightColor;
-vec3 specular = pow(max(dot(viewDir, reflectDir), 0.0), shininess) * lightColor;
-vec3 result = ambient + diffuse + specular;
+float diff = max(dot(n, lightDir), 0.0);
+```
+- Specular highlights use `pow` (Phong/Blinn-Phong).
+
+```glsl
+float spec = pow(max(dot(r, v), 0.0), shininess);
 ```
 
-### Key Vectors
+## How To Implement (Step-by-step)
+- Get normal `n` and a normalized light direction.
+- Compute diffuse term with `dot(n, l)`.
+- Optionally compute specular with `pow`.
+- Combine terms and output.
 
-- **Normal**: Surface perpendicular direction
-- **Light Direction**: From surface to light source
-- **View Direction**: From surface to observer
-- **Reflect Direction**: Light reflection direction
+## Self-check
+- Does it compile without errors?
+- Does the output match the goal?
+- Are key values kept in `[0,1]`?
 
-## Exercise
-
-Implement a complete Phong lighting model with ambient, diffuse, and specular components.
-
-### Hints
-
-1. Define light position and color
-2. Calculate surface normal (can use simple sphere normal)
-3. Implement calculations for all three lighting components
-4. Adjust intensity parameters for each component
-5. Combine final lighting result
-
-## Expected Result
-
-You should see a 3D surface with realistic lighting effects, including soft ambient light, angle-dependent diffuse lighting, and bright specular highlights.
+## Common Mistakes
+- Don’t use raw pixels without normalization.

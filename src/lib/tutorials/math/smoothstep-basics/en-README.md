@@ -1,12 +1,39 @@
+<!-- AUTO-GENERATED: tutorial-readme -->
 # Smoothstep Basics
 
 Practice core GLSL math building blocks used across shaders.
 
+## Overview
+- Implement a horizontal gradient using UV as the factor.
+
 ## Learning Objectives
 - Understand the math behind the effect
 
-## Exercise
-- Follow TODOs in fragment-exercise.glsl
+## Prerequisites
+- uv-coordinates
 
-## Hints
-- Keep values normalized (0-1)
+## Key Concepts
+- A horizontal gradient uses a 0-1 factor (usually UV) to blend colors.
+
+```glsl
+float t = vUv.x;
+vec3 color = vec3(t);
+```
+- Keep the factor inside `[0,1]`.
+
+```glsl
+t = clamp(t, 0.0, 1.0);
+```
+
+## How To Implement (Step-by-step)
+- Set factor: `t = vUv.x`.
+- Map `t` to a color (grayscale or `mix`).
+- Output `gl_FragColor` with alpha=1.
+
+## Self-check
+- Does it compile without errors?
+- Does the output match the goal?
+- Are key values kept in `[0,1]`?
+
+## Common Mistakes
+- Make sure `edge0 < edge1` for smoothstep().

@@ -1,40 +1,46 @@
+<!-- AUTO-GENERATED: tutorial-readme -->
 # Radial Gradient Center
 
+Create an outward-spreading radial gradient starting from the canvas center using distance().
+
+## Overview
+- Follow the steps to complete the exercise.
+
 ## Learning Objectives
+- Understand how to calculate the distance from a pixel to the canvas center.
+- Learn to use the `distance()` function to create radial effects.
+- Master how to map distance values to color gradients.
 
-Learn to use `distance()` to compute radial distance from the center and apply `mix()` to create a center-outward gradient.
-
----
+## Prerequisites
+- uv-coordinates
+- simple-circle
 
 ## Key Concepts
-
-### 1. Compute distance from center
-
-```glsl
-float dist = distance(vUv, vec2(0.5));
-```
-
-Center = 0, edges have higher values.
-
----
-
-### 2. Use `mix()` for radial blend
+- `vUv` is normalized UV in `[0,1]`.
 
 ```glsl
-vec3 color = mix(innerColor, outerColor, dist * scale);
+vec2 uv = vUv;
 ```
-
-- Closer to center → more innerColor
-- Farther out → more outerColor
-
-Adjust scale to tune gradient size.
-
----
-
-### 3. Output the result
+- Blend values with `mix(a, b, t)`.
 
 ```glsl
-gl_FragColor = vec4(color, 1.0);
+vec3 color = mix(colorA, colorB, t);
+```
+- Distance fields with `length/distance`.
+
+```glsl
+float d = length(uv - 0.5);
 ```
 
-You now have a radial gradient useful for glows, lighting effects, or backgrounds.
+## How To Implement (Step-by-step)
+- Start from vUv.
+- Compute a distance value for masks/shapes.
+- Use mix() to blend outputs.
+
+## Self-check
+- Does it compile without errors?
+- Does the output match the goal?
+- Are key values kept in `[0,1]`?
+
+## Common Mistakes
+- Clamp `t` into `[0,1]` when needed.

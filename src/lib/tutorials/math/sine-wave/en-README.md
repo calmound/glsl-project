@@ -1,47 +1,55 @@
-# Sine Wave
+<!-- AUTO-GENERATED: tutorial-readme -->
+# Sine Wave Animation
 
-Learn how to create wave patterns using trigonometric functions in GLSL.
+Learn to create wave effects using the sin function and understand the concepts of frequency, amplitude, and phase.
+
+## Overview
+- Implement a horizontal gradient using UV as the factor.
 
 ## Learning Objectives
+- Understand how the `sin()` function generates periodic waveforms.
+- Learn to adjust frequency, amplitude, and phase parameters to change waveform characteristics.
+- Master combining the time variable `u_time` with the `sin()` function to create dynamic waveforms.
+- Understand how to apply waveforms to color changes or shape displacements.
 
-- Understand how to use `sin()` and `cos()` functions
-- Learn to create wave-based visual effects
-- Practice controlling wave frequency and amplitude
+## Prerequisites
+- uv-coordinates
+- time-animation
+
+## Inputs
+- `vec2 u_resolution` — Canvas size in pixels.
+- `float u_time` — Time in seconds.
 
 ## Key Concepts
-
-### Sine Function
-
-The `sin()` function creates oscillating values:
-- Input: angle in radians
-- Output: value between -1.0 and 1.0
-- Creates smooth, periodic waves
-
-### Wave Parameters
-
-Control wave appearance:
-- **Frequency**: How many waves fit in the space
-- **Amplitude**: Height of the waves
-- **Phase**: Horizontal shift of the wave
-
-### Wave Equation
+- Normalize pixel coordinates to UV.
 
 ```glsl
-float wave = amplitude * sin(frequency * x + phase);
+vec2 uv = gl_FragCoord.xy / u_resolution.xy;
+```
+- A horizontal gradient uses a 0-1 factor (usually UV) to blend colors.
+
+```glsl
+float t = uv.x;
+vec3 color = vec3(t);
+```
+- Keep the factor inside `[0,1]`.
+
+```glsl
+t = clamp(t, 0.0, 1.0);
 ```
 
-## Exercise
+## How To Implement (Step-by-step)
+- wave = sin(uv.x * frequency)
+- animatedWave = sin(uv.x * 10.0 + u_time)
+- normalizedWave = animatedWave * 0.5 + 0.5
+- waveColor = mix(color1, color2, colorMix)
 
-Create a colorful sine wave pattern that varies across the screen.
+## Self-check
+- Does it compile without errors?
+- Does the output match the goal?
+- Are key values kept in `[0,1]`?
 
-### Hints
-
-1. Use UV coordinates as input to sine function
-2. Experiment with different frequencies (try `sin(uv.x * 10.0)`)
-3. Add multiple waves together for complex patterns
-4. Use wave values to control color intensity
-5. Try both horizontal and vertical waves
-
-## Expected Result
-
-You should see smooth, flowing wave patterns with colors that oscillate based on the sine function.
+## Common Mistakes
+- Clamp `t` into `[0,1]` when needed.
+- Don’t use raw pixels without normalization.
+- Make sure `edge0 < edge1` for smoothstep().

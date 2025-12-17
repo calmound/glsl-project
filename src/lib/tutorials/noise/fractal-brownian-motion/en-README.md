@@ -1,57 +1,53 @@
-# Fractal Brownian Motion
+<!-- AUTO-GENERATED: tutorial-readme -->
+# Fractal Brownian Motion (FBM)
 
-Learn how to implement fractal Brownian motion (fBm) to create complex natural textures.
+Create complex patterns with self-similarity by layering multiple noise octaves (usually Perlin or Simplex noise) with varying frequencies and amplitudes, often used to generate natural phenomena like mountains, clouds, and water surfaces.
+
+## Overview
+- Generate procedural noise and map it to color.
 
 ## Learning Objectives
+- Understand the basic principle of Fractal Brownian Motion: achieved by iteratively layering noise.
+- Learn how to implement the FBM algorithm in GLSL, including controlling octaves, persistence, and lacunarity.
+- Master how to use FBM to generate natural-looking textures like terrain and clouds.
+- Be able to adjust FBM parameters to achieve different styles of noise effects.
 
-- Understand the mathematical principles of fractal Brownian motion
-- Learn how to layer multiple noise octaves
-- Master advanced techniques for creating natural textures
+## Prerequisites
+- noise-functions
+- looping-constructs
+
+## Inputs
+- `vec2 u_resolution` — Canvas size in pixels.
+- `float u_time` — Time in seconds.
 
 ## Key Concepts
-
-### Fractal Brownian Motion (fBm)
-
-fBm is created by layering multiple noise functions with different frequencies and amplitudes:
-- Each octave has twice the frequency of the previous
-- Each octave has half the amplitude of the previous
-- Produces self-similar fractal characteristics
-
-### Octave Layering
+- Noise is built from random values on a grid plus smooth interpolation.
 
 ```glsl
-float fbm(vec2 p) {
-    float value = 0.0;
-    float amplitude = 0.5;
-    float frequency = 1.0;
-    
-    for (int i = 0; i < octaves; i++) {
-        value += amplitude * noise(p * frequency);
-        amplitude *= 0.5;
-        frequency *= 2.0;
-    }
-    return value;
-}
+vec2 i = floor(p);
+vec2 f = fract(p);
+vec2 u = f*f*(3.0-2.0*f);
+float n = mix(mix(a,b,u.x), mix(c,d,u.x), u.y);
+```
+- Map noise to color with `mix` or thresholds.
+
+```glsl
+vec3 color = mix(colorA, colorB, n);
 ```
 
-### Parameter Control
+## How To Implement (Step-by-step)
+- Scale UV to control frequency (e.g. `p = vUv * 6.0`).
+- Compute base noise (hash/valueNoise).
+- Optionally sum octaves (FBM) for detail.
+- Map noise to grayscale or color.
 
-- **Octaves**: Number of detail layers
-- **Persistence**: Amplitude decay rate
-- **Lacunarity**: Frequency growth rate
+## Self-check
+- Does it compile without errors?
+- Does the output match the goal?
+- Are key values kept in `[0,1]`?
 
-## Exercise
-
-Implement a fractal Brownian motion function to create natural textures like clouds or terrain.
-
-### Hints
-
-1. Start with a basic noise function
-2. Implement the octave layering loop
-3. Try different octave counts (4-8 octaves)
-4. Adjust persistence and lacunarity parameters
-5. Use the result to control color or height
-
-## Expected Result
-
-You should see complex natural textures with multiple levels of detail, resembling clouds, mountains, or other natural phenomena.
+## Common Mistakes
+- Clamp `t` into `[0,1]` when needed.
+- Don’t use raw pixels without normalization.
+- Make sure `edge0 < edge1` for smoothstep().
+- Change frequency by scaling before fract().

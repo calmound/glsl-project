@@ -1,46 +1,47 @@
-# Simple Circle
+<!-- AUTO-GENERATED: tutorial-readme -->
+# Drawing Circles
 
-Learn how to draw a basic circle using distance functions in GLSL.
+Learn to draw basic shapes using distance functions and understand the pixel coordinate system and distance function applications.
+
+## Overview
+- Use a distance field and a mask to shape the image.
 
 ## Learning Objectives
+- Understand the pixel coordinate system and how to center coordinates.
+- Master the usage of the `distance()` function to calculate the distance from a point to the circle's center.
+- Learn how to draw a circle based on distance and radius.
+- Understand the application of `step()` or `smoothstep()` functions in edge handling.
 
-- Understand distance-based shape rendering
-- Learn to use the `distance()` function
-- Practice creating smooth edges with `smoothstep()`
+## Prerequisites
+- uv-coordinates
+
+## Inputs
+- `vec2 u_resolution` — Canvas size in pixels.
+- `float u_time` — Time in seconds.
 
 ## Key Concepts
+- Distance to center builds a distance field.
 
-### Distance Function
-
-Calculate distance from current pixel to circle center:
 ```glsl
-float dist = distance(uv, center);
+vec2 p = vUv - 0.5;
+float d = length(p);
+```
+- Convert distance into a mask.
+
+```glsl
+float mask = 1.0 - smoothstep(r, r + aa, d);
 ```
 
-### Circle Rendering
+## How To Implement (Step-by-step)
+- Center coordinates: `p = vUv - 0.5`.
+- Compute distance: `d = length(p)`.
+- Build a mask with `smoothstep` or `step`.
+- Mix foreground/background by the mask.
 
-Create a circle by comparing distance to radius:
-- Inside circle: `dist < radius`
-- Outside circle: `dist >= radius`
+## Self-check
+- Does it compile without errors?
+- Does the output match the goal?
+- Are key values kept in `[0,1]`?
 
-### Smooth Edges
-
-Use `smoothstep()` for anti-aliased edges:
-```glsl
-float circle = 1.0 - smoothstep(radius - edge, radius + edge, dist);
-```
-
-## Exercise
-
-Draw a white circle on a black background, centered on the screen.
-
-### Hints
-
-1. Center the UV coordinates: `uv - 0.5`
-2. Choose an appropriate radius (try 0.3)
-3. Use `distance()` to calculate pixel distance from center
-4. Use `step()` or `smoothstep()` to create the circle
-
-## Expected Result
-
-You should see a clean white circle centered on a black background.
+## Common Mistakes
+- Don’t use raw pixels without normalization.

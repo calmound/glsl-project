@@ -1,44 +1,46 @@
+<!-- AUTO-GENERATED: tutorial-readme -->
 # 中心径向渐变
 
+以画布中心为起点，通过 distance() 创建向外扩散的径向渐变。
+
+## 概览
+- 按步骤完成练习。
+
 ## 学习目标
+- 理解如何计算像素点到画布中心的距离。
+- 学习使用`distance()`函数创建径向效果。
+- 掌握如何将距离值映射到颜色渐变。
 
-你将学习如何根据像素到中心的距离，创建从中心向外扩散的渐变视觉效果。
+## 前置知识
+- uv-coordinates
+- simple-circle
 
----
-
-## 核心概念详解
-
-### 1. 使用 `distance()` 获取距离
-
-我们先计算每个像素到中心点 `(0.5, 0.5)` 的距离：
-
-```glsl
-float dist = distance(vUv, vec2(0.5));
-```
-
-中心点距离为 0，越远距离越大。
-
----
-
-### 2. 构建径向渐变
-
-使用 `mix()` 按距离插值颜色：
+## 关键概念
+- `vUv` 是归一化 UV（`[0,1]`）。
 
 ```glsl
-vec3 color = mix(innerColor, outerColor, dist * 缩放因子);
+vec2 uv = vUv;
 ```
-
-- `dist` 越小 → 趋近 `innerColor`
-- `dist` 越大 → 趋近 `outerColor`
-
-缩放因子控制颜色过渡的范围。
-
----
-
-### 3. 输出颜色
+- 用 `mix(a, b, t)` 混合/插值。
 
 ```glsl
-gl_FragColor = vec4(color, 1.0);
+vec3 color = mix(colorA, colorB, t);
+```
+- 用 `length/distance` 构造距离场。
+
+```glsl
+float d = length(uv - 0.5);
 ```
 
-这就形成了一个从中心向外变暗或变色的放射状渐变。
+## 如何实现（步骤）
+- 计算 vUv 到中心的距离 dist
+- 使用 mix() 按距离混合颜色
+- 输出径向渐变颜色
+
+## 自检
+- 是否能无错误编译？
+- 输出是否符合目标？
+- 关键数值是否在 `[0,1]`？
+
+## 常见坑
+- 必要时把 `t` 用 clamp 限制到 `[0,1]`。

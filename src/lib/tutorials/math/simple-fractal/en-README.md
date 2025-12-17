@@ -1,51 +1,55 @@
-# Simple Fractal
+<!-- AUTO-GENERATED: tutorial-readme -->
+# Simple Fractals
 
-Learn how to create basic fractal patterns using iterative mathematical functions.
+Learn to create simple fractal patterns and understand the application of recursion and self-similarity concepts in shaders.
+
+## Overview
+- Implement a horizontal gradient using UV as the factor.
 
 ## Learning Objectives
+- Understand the basic concept of self-similarity in fractal patterns.
+- Learn to generate simple fractals in a fragment shader through iteration or recursion.
+- Master the application of coordinate transformations (e.g., scaling, translation) in fractal generation.
+- Understand how to control the number of iterations to adjust the complexity and detail of fractals.
 
-- Understand iterative algorithms in shaders
-- Learn to create self-similar patterns
-- Practice using loops and mathematical transformations
+## Prerequisites
+- uv-coordinates
+- pattern-repetition
+
+## Inputs
+- `float u_time` — Time in seconds.
+- `vec2 u_resolution` — Canvas size in pixels.
 
 ## Key Concepts
+- Normalize pixel coordinates to UV.
 
-### Fractal Basics
-
-Fractals are patterns that repeat at different scales:
-- Self-similarity at multiple zoom levels
-- Created through iterative processes
-- Mathematical beauty in simple rules
-
-### Iterative Process
-
-Basic fractal algorithm:
 ```glsl
-vec2 z = uv;
-for (int i = 0; i < iterations; i++) {
-    z = transform(z);
-    if (length(z) > threshold) break;
-}
+vec2 uv = gl_FragCoord.xy / u_resolution.xy;
+```
+- A horizontal gradient uses a 0-1 factor (usually UV) to blend colors.
+
+```glsl
+float t = uv.x;
+vec3 color = vec3(t);
+```
+- Keep the factor inside `[0,1]`.
+
+```glsl
+t = clamp(t, 0.0, 1.0);
 ```
 
-### Common Transformations
+## How To Implement (Step-by-step)
+- distance = length(pos)
+- fractal += circle * amplitude
+- amplitude *= 0.5
 
-- Mandelbrot: `z = z*z + c`
-- Julia sets: `z = z*z + constant`
-- Simple geometric transformations
+## Self-check
+- Does it compile without errors?
+- Does the output match the goal?
+- Are key values kept in `[0,1]`?
 
-## Exercise
-
-Create a simple fractal pattern using iterative coordinate transformations.
-
-### Hints
-
-1. Start with centered UV coordinates: `uv - 0.5`
-2. Use a loop to apply transformations repeatedly
-3. Track when values exceed a threshold
-4. Color based on iteration count
-5. Experiment with different transformation functions
-
-## Expected Result
-
-You should see an intricate fractal pattern with repeating structures at different scales.
+## Common Mistakes
+- Clamp `t` into `[0,1]` when needed.
+- Don’t use raw pixels without normalization.
+- Make sure `edge0 < edge1` for smoothstep().
+- Change frequency by scaling before fract().

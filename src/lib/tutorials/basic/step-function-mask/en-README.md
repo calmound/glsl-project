@@ -1,42 +1,43 @@
+<!-- AUTO-GENERATED: tutorial-readme -->
 # Step Function Mask
 
+Construct a mask with clear boundaries using the step() function, mastering binary processing in GLSL.
+
+## Overview
+- Implement a horizontal gradient using UV as the factor.
+
 ## Learning Objectives
+- Understand how the `step(edge, x)` function works and how it returns 0.0 or 1.0.
+- Learn to use the `step()` function to create hard edge effects based on a threshold.
+- Master applying the `step()` function to distance fields or UV coordinates to create shape masks.
+- Be able to use masks to achieve coloring or effects in specific areas.
 
-Learn to use the `step()` function to create a sharp left-right division on screen. This is a basic technique for masking, logic control, and crisp UI effects.
-
----
+## Prerequisites
+- simple-circle
+- uv-coordinates
 
 ## Key Concepts
-
-### 1. `step(edge, x)`
-
-This function outputs:
+- A horizontal gradient uses a 0-1 factor (usually UV) to blend colors.
 
 ```glsl
-float result = step(edge, x);
+float t = vUv.x;
+vec3 color = vec3(t);
 ```
-
-- Returns `0.0` when `x < edge`
-- Returns `1.0` when `x >= edge`
-
----
-
-### 2. Creating a vertical split
-
-We use `vUv.x` to get horizontal position:
+- Keep the factor inside `[0,1]`.
 
 ```glsl
-float mask = step(0.5, vUv.x);
+t = clamp(t, 0.0, 1.0);
 ```
 
-Fragments on the left will return 0, right side returns 1.
+## How To Implement (Step-by-step)
+- Set factor: `t = vUv.x`.
+- Map `t` to a color (grayscale or `mix`).
+- Output `gl_FragColor` with alpha=1.
 
----
+## Self-check
+- Does it compile without errors?
+- Does the output match the goal?
+- Are key values kept in `[0,1]`?
 
-### 3. Color blending using mask
-
-```glsl
-vec3 color = mix(leftColor, rightColor, mask);
-```
-
-This creates a hard edge color division in the middle of the screen.
+## Common Mistakes
+- Clamp `t` into `[0,1]` when needed.

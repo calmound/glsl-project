@@ -1,15 +1,45 @@
+<!-- AUTO-GENERATED: tutorial-readme -->
 # Shape Composition
 
-Complex images are often built by **combining masks**. Here you will:
+Combine circle and rectangle masks to build more complex shapes using min/max or simple compositing.
 
-- Create a rectangle mask with `step`
-- Create a circle mask with `smoothstep`
-- Combine them using `max` (union)
+## Overview
+- Use a distance field and a mask to shape the image.
 
-## Exercise
+## Learning Objectives
+- Build basic shape masks with step/smoothstep.
+- Union multiple masks using max.
+- Output the composed result via mix.
 
-1. Build `rectMask` for a centered rectangle
-2. Build `circleMask` for a circle
-3. Combine with `max(rectMask, circleMask)`
-4. Mix background/foreground colors
+## Prerequisites
+- simple-rectangle
+- simple-circle
+- step-function-mask
 
+## Key Concepts
+- Distance to center builds a distance field.
+
+```glsl
+vec2 p = vUv - 0.5;
+float d = length(p);
+```
+- Convert distance into a mask.
+
+```glsl
+float mask = 1.0 - smoothstep(r, r + aa, d);
+```
+
+## How To Implement (Step-by-step)
+- Center coordinates: `p = vUv - 0.5`.
+- Compute distance: `d = length(p)`.
+- Build a mask with `smoothstep` or `step`.
+- Mix foreground/background by the mask.
+
+## Self-check
+- Does it compile without errors?
+- Does the output match the goal?
+- Are key values kept in `[0,1]`?
+
+## Common Mistakes
+- Clamp `t` into `[0,1]` when needed.
+- Make sure `edge0 < edge1` for smoothstep().

@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { useRouter } from 'next/navigation';
+import ReactMarkdown from 'react-markdown';
 import { Button } from '@/components/ui/button';
 import { ToastContainer } from '@/components/ui/toast';
 import { useLanguage } from '../../../../../contexts/LanguageContext';
@@ -879,29 +880,45 @@ export default function TutorialPageClient({
                 </div>
 
                 {/* README 内容 */}
-                {readme && (
-                  <div className="mb-6">
-                    <div className="flex items-center justify-between mb-3">
-                      <h2 className="text-md font-semibold text-green-600">💡 {t('tutorial.content', '教程内容')}</h2>
-                    </div>
-                    <div className="text-sm text-gray-700 bg-green-50 p-3 rounded-lg prose prose-sm max-w-none">
-                      <div 
-                        className="markdown-content"
-                        dangerouslySetInnerHTML={{ 
-                          __html: readme
-                            .replace(/^# .+$/gm, '') // 移除一级标题
-                            .replace(/^## (.+)$/gm, '<h3 class="font-semibold text-green-700 mt-4 mb-2">$1</h3>') // 二级标题
-                            .replace(/^### (.+)$/gm, '<h4 class="font-medium text-green-600 mt-3 mb-1">$1</h4>') // 三级标题
-                            .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>') // 粗体
-                            .replace(/`(.+?)`/g, '<code class="bg-gray-200 px-1 rounded text-xs">$1</code>') // 行内代码
-                            .replace(/\n\n/g, '</p><p class="mb-2">') // 段落
-                            .replace(/^(.+)$/gm, '<p class="mb-2">$1</p>') // 包装段落
-                            .replace(/<p class="mb-2"><\/p>/g, '') // 移除空段落
-                        }}
-                      />
-                    </div>
-                  </div>
-                )}
+	                {readme && (
+	                  <div className="mb-6">
+	                    <div className="flex items-center justify-between mb-3">
+	                      <h2 className="text-md font-semibold text-green-600">💡 {t('tutorial.content', '教程内容')}</h2>
+	                    </div>
+	                    <div className="text-sm text-gray-700 bg-green-50 p-3 rounded-lg prose prose-sm max-w-none">
+	                      <ReactMarkdown
+	                        components={{
+	                          h1: () => null,
+	                          h2: ({ children }) => (
+	                            <h3 className="font-semibold text-green-700 mt-4 mb-2">{children}</h3>
+	                          ),
+	                          h3: ({ children }) => (
+	                            <h4 className="font-medium text-green-600 mt-3 mb-1">{children}</h4>
+	                          ),
+	                          p: ({ children }) => <p className="mb-2">{children}</p>,
+	                          ul: ({ children }) => <ul className="list-disc pl-5 mb-2">{children}</ul>,
+	                          ol: ({ children }) => <ol className="list-decimal pl-5 mb-2">{children}</ol>,
+	                          li: ({ children }) => <li className="mb-1">{children}</li>,
+	                          code: ({ children }) => (
+	                            <code className="bg-gray-200 px-1 rounded text-xs">{children}</code>
+	                          ),
+	                          pre: ({ children }) => (
+	                            <pre className="bg-gray-900 text-gray-100 p-3 rounded-md overflow-auto text-xs">
+	                              {children}
+	                            </pre>
+	                          ),
+	                          a: ({ children, href }) => (
+	                            <a className="text-blue-600 underline" href={href}>
+	                              {children}
+	                            </a>
+	                          ),
+	                        }}
+	                      >
+	                        {readme}
+	                      </ReactMarkdown>
+	                    </div>
+	                  </div>
+	                )}
 
                 {/* 如果没有README内容，显示默认知识点 */}
                 {!readme && (

@@ -1,57 +1,58 @@
-# UV Coordinates
+<!-- AUTO-GENERATED: tutorial-readme -->
+# UV Coordinates Basics
 
-Learn the fundamentals of UV coordinate system in GLSL shaders.
+Understanding UV coordinate system in shaders and its applications. Learn how to map UV coordinates to colors to create gradient effects.
+
+## Overview
+- Follow the steps to complete the exercise.
 
 ## Learning Objectives
+- Understand the UV coordinate system (typically ranging from 0 to 1) and its representation on a 2D plane.
+- Learn how to access built-in UV coordinates in a fragment shader (e.g., `gl_FragCoord.xy / u_resolution.xy`).
+- Master using the x or y component of UV coordinates directly as values for color channels to create simple linear gradients.
+- Understand that UV coordinates are fundamental for texture mapping.
 
-- Understand the UV coordinate system
-- Learn how to manipulate and transform coordinates
-- Practice using coordinates for pattern creation
+## Prerequisites
+- solid-color
+
+## Inputs
+- `vec2 u_resolution` — Canvas size in pixels.
 
 ## Key Concepts
+- Normalize pixel coordinates using `u_resolution`.
 
-### UV Coordinate System
-
-UV coordinates map screen space to 0.0-1.0 range:
-- **U**: Horizontal axis (left = 0.0, right = 1.0)
-- **V**: Vertical axis (bottom = 0.0, top = 1.0)
-- Origin (0,0) is at bottom-left corner
-
-### Coordinate Transformations
-
-Common transformations:
-- **Centering**: `uv - 0.5` (range: -0.5 to 0.5)
-- **Scaling**: `uv * scale`
-- **Translation**: `uv + offset`
-- **Rotation**: Using rotation matrices
-
-### Coordinate Visualization
-
-Use coordinates directly as colors:
 ```glsl
-vec3 color = vec3(uv.x, uv.y, 0.0);
+vec2 uv = gl_FragCoord.xy / u_resolution.xy;
+```
+- Blend values with `mix(a, b, t)`.
+
+```glsl
+vec3 color = mix(colorA, colorB, t);
+```
+- Build a hard mask with `step`.
+
+```glsl
+float mask = step(0.5, uv.x);
+```
+- Use `floor/fract/mod` for tiling and repetition.
+
+```glsl
+vec2 cell = floor(uv * 10.0);
+float m = mod(cell.x + cell.y, 2.0);
 ```
 
-## Exercise
+## How To Implement (Step-by-step)
+- Normalize coordinates to UV.
+- Build a hard mask with step().
+- Use floor/fract/mod for repetition or patterns.
+- Use mix() to blend outputs.
 
-Create a visualization that shows how UV coordinates work by using them as color values.
+## Self-check
+- Does it compile without errors?
+- Does the output match the goal?
+- Are key values kept in `[0,1]`?
 
-### Optional Extension: Grid Overlay
-
-After you get the basic UV gradient working, try overlaying a simple grid:
-
-- Create repeating cells with `fract(uv * density)`
-- Turn the cell edges into a mask with `step`
-- Blend the grid lines on top of the UV color with `mix`
-
-### Hints
-
-1. Use `uv.x` for red channel (horizontal gradient)
-2. Use `uv.y` for green channel (vertical gradient)
-3. Set blue channel to 0.0 or a constant
-4. Experiment with coordinate transformations
-5. Try `abs(uv - 0.5)` for different effects
-
-## Expected Result
-
-You should see a gradient that transitions from black at bottom-left to yellow at top-right, clearly showing the UV coordinate mapping.
+## Common Mistakes
+- Clamp `t` into `[0,1]` when needed.
+- Don’t use raw pixels without normalization.
+- Change frequency by scaling before fract().

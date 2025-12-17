@@ -1,42 +1,42 @@
+<!-- AUTO-GENERATED: tutorial-readme -->
 # Rectangle Color Split
 
+Divide the screen area into two colors (left and right) using an if condition, mastering fragment judgment logic.
+
+## Overview
+- Implement a horizontal gradient using UV as the factor.
+
 ## Learning Objectives
+- Understand how to use `if` conditional statements in GLSL.
+- Learn to divide the screen based on the x-value of UV coordinates.
+- Master the method of assigning different colors to different regions.
 
-Use `if` conditions in GLSL to divide the screen into regions and assign different colors based on position.
-
----
+## Prerequisites
+- uv-coordinates
+- solid-color
 
 ## Key Concepts
-
-### 1. Conditional Logic
-
-```glsl
-if (vUv.x < 0.5) {
-    color = leftColor;
-} else {
-    color = rightColor;
-}
-```
-
-A simple branch based on horizontal position.
-
----
-
-### 2. Region Determination
-
-Use `vUv.x` to identify fragment location:
-
-- Less than 0.5 → left side
-- Greater or equal → right side
-
----
-
-### 3. Output Color
-
-Assign the color and render:
+- A horizontal gradient uses a 0-1 factor (usually UV) to blend colors.
 
 ```glsl
-gl_FragColor = vec4(color, 1.0);
+float t = vUv.x;
+vec3 color = vec3(t);
+```
+- Keep the factor inside `[0,1]`.
+
+```glsl
+t = clamp(t, 0.0, 1.0);
 ```
 
-This pattern is useful for UI states, graph regions, and interaction zones.
+## How To Implement (Step-by-step)
+- Set factor: `t = vUv.x`.
+- Map `t` to a color (grayscale or `mix`).
+- Output `gl_FragColor` with alpha=1.
+
+## Self-check
+- Does it compile without errors?
+- Does the output match the goal?
+- Are key values kept in `[0,1]`?
+
+## Common Mistakes
+- If output is black, check your mask/factor isn’t always 0.

@@ -1,81 +1,48 @@
-# Basic Gradient Effect
+<!-- AUTO-GENERATED: tutorial-readme -->
+# Basic Gradient Effects
 
-In this exercise, you’ll implement a simple vertical gradient using GLSL. By learning how to map pixel coordinates to color values, you'll understand how to use position data to build visual effects.
+Learn how to create linear and radial gradient effects using GLSL
 
----
+## Overview
+- Implement a vertical gradient using UV as the factor.
 
 ## Learning Objectives
+- Understand the principles of linear gradients
+- Learn the mathematical foundations of radial gradients
+- Master color blending techniques in GLSL
 
-- Understand how to get the current fragment’s position using `gl_FragCoord`
-- Learn to normalize coordinates using `u_resolution`
-- Map position data to color values to create gradient effects
-- Construct color outputs using `vec4`
-
----
+## Inputs
+- `vec2 u_resolution` — Canvas size in pixels.
+- `float u_time` — Time in seconds.
 
 ## Key Concepts
-
-### 1. Get the current pixel position
-
-In the fragment shader, each pixel has a specific screen position. This is provided by `gl_FragCoord.xy`, measured in pixels.
-
-```glsl
-vec2 pos = gl_FragCoord.xy;
-```
-
-This gives us the exact pixel location being rendered.
-
----
-
-### 2. Normalize screen coordinates to UV
-
-To make the effect resolution-independent, we convert pixel coordinates to a normalized UV space ranging from 0.0 to 1.0.
-
-We do this by dividing the pixel position by the total canvas size passed in through the `u_resolution` uniform.
+- Normalize pixel coordinates to UV.
 
 ```glsl
 vec2 uv = gl_FragCoord.xy / u_resolution.xy;
 ```
-
-- Bottom-left corner → `uv = (0.0, 0.0)`
-- Top-right corner → `uv = (1.0, 1.0)`
-
-UV coordinates are the foundation of shader-based positioning and effects.
-
----
-
-### 3. Use UV to control color channels
-
-You can assign a component of the UV coordinates to control one of the RGB color channels.
-
-- `uv.y` corresponds to vertical position. If you assign this to the blue channel, the image becomes bluer from bottom to top (a vertical gradient).
-- Similarly, using `uv.x` will create a horizontal gradient from left to right.
-
-You can even combine them, like `(uv.x + uv.y) / 2.0`, to create a diagonal blend. This technique is how we convert 2D spatial data into visual output.
-
----
-
-### 4. Output the color
-
-Colors in GLSL are represented as a `vec4` with four components:
+- A vertical gradient uses a 0-1 factor (usually UV) to blend colors.
 
 ```glsl
-vec4 color = vec4(R, G, B, A);
-gl_FragColor = color;
+float t = uv.y;
+vec3 color = vec3(t);
+```
+- Keep the factor inside `[0,1]`.
+
+```glsl
+t = clamp(t, 0.0, 1.0);
 ```
 
-Each component is a float from 0.0 to 1.0. You can dynamically assign values from UV to individual channels to create gradient effects.
+## How To Implement (Step-by-step)
+- Normalize coordinates: `uv = gl_FragCoord.xy / u_resolution.xy`.
+- Set factor: `t = uv.y`.
+- Map `t` to a color (grayscale or `mix`).
+- Output `gl_FragColor` with alpha=1.
 
----
+## Self-check
+- Does it compile without errors?
+- Does the output match the goal?
+- Are key values kept in `[0,1]`?
 
-## Exercise
-
-Using the concepts above, try to create a **vertical gradient** from white to blue:
-
-1. Use `gl_FragCoord.xy` to get pixel position
-2. Normalize it to UV using `u_resolution`
-3. Extract `uv.y` as the gradient value
-4. Keep red and green channels fixed
-5. Use `vec4` to build the final color and assign it to `gl_FragColor`
-
-
+## Common Mistakes
+- Don’t use raw pixels without normalization.

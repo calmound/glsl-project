@@ -1,48 +1,50 @@
+<!-- AUTO-GENERATED: tutorial-readme -->
 # Smooth Edges
 
-Learn how to create anti-aliased, smooth edges in your shader graphics.
+Learn to create smooth edge transition effects using the smoothstep function, contrasting with the hard edges of the step function.
+
+## Overview
+- Use a distance field and a mask to shape the image.
 
 ## Learning Objectives
+- Understand the three parameters of the `smoothstep()` function and their roles.
+- Learn how to use `smoothstep()` to create a smooth transition between two values.
+- Compare the effect differences between `smoothstep()` and `step()` in edge processing.
+- Master applying `smoothstep()` to shape edges to achieve anti-aliasing or softening effects.
 
-- Understand the importance of anti-aliasing in shaders
-- Learn to use `smoothstep()` function effectively
-- Practice creating smooth transitions between colors
+## Prerequisites
+- simple-circle
+- step-function-mask
+
+## Inputs
+- `vec2 u_resolution` — Canvas size in pixels.
+- `float u_time` — Time in seconds.
 
 ## Key Concepts
+- Distance to center builds a distance field.
 
-### Anti-Aliasing
+```glsl
+vec2 p = vUv - 0.5;
+float d = length(p);
+```
+- Convert distance into a mask.
 
-Smooth edges prevent jagged, pixelated appearance:
-- Sharp transitions create aliasing artifacts
-- Smooth transitions look more professional
-- Essential for high-quality graphics
+```glsl
+float mask = 1.0 - smoothstep(r, r + aa, d);
+```
 
-### smoothstep() Function
+## How To Implement (Step-by-step)
+- Center coordinates: `p = vUv - 0.5`.
+- Compute distance: `d = length(p)`.
+- Build a mask with `smoothstep` or `step`.
+- Mix foreground/background by the mask.
 
-The `smoothstep(edge0, edge1, x)` function:
-- Returns 0.0 when `x <= edge0`
-- Returns 1.0 when `x >= edge1`
-- Smooth interpolation between edge0 and edge1
-- Creates natural-looking transitions
+## Self-check
+- Does it compile without errors?
+- Does the output match the goal?
+- Are key values kept in `[0,1]`?
 
-### Edge Control
-
-Control smoothness by adjusting edge parameters:
-- Smaller difference = sharper edge
-- Larger difference = softer edge
-
-## Exercise
-
-Create a circle with perfectly smooth, anti-aliased edges.
-
-### Hints
-
-1. Calculate distance from center: `distance(uv, center)`
-2. Use `smoothstep()` instead of `step()` for the edge
-3. Try: `smoothstep(radius + 0.01, radius - 0.01, dist)`
-4. Experiment with different edge widths
-5. Compare with sharp edges to see the difference
-
-## Expected Result
-
-You should see a circle with perfectly smooth edges, free from pixelation or jagged artifacts.
+## Common Mistakes
+- Clamp `t` into `[0,1]` when needed.
+- Don’t use raw pixels without normalization.
+- Make sure `edge0 < edge1` for smoothstep().

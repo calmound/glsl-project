@@ -1,49 +1,59 @@
+<!-- AUTO-GENERATED: tutorial-readme -->
 # UV坐标基础
 
+理解着色器中的UV坐标系统及其应用。学习如何将UV坐标映射到颜色，创建渐变效果。
+
+## 概览
+- 按步骤完成练习。
+
 ## 学习目标
+- 理解UV坐标系（通常为0到1范围）及其在2D平面上的表示。
+- 学习如何在片元着色器中访问内置的UV坐标（例如`gl_FragCoord.xy / u_resolution.xy`）。
+- 掌握将UV坐标的x或y分量直接用作颜色通道的值，以创建简单的线性渐变。
+- 了解UV坐标是纹理映射的基础。
 
-理解着色器中的UV坐标系统，掌握如何使用UV坐标进行图形绘制和效果创建。
+## 前置知识
+- solid-color
 
-## 核心概念
+## 输入
+- `vec2 u_resolution` — 画布尺寸（像素）。
 
-### 1. 什么是UV坐标
-
-- UV坐标是二维纹理坐标系统
-- U轴对应水平方向（0.0到1.0，从左到右）
-- V轴对应垂直方向（0.0到1.0，从下到上）
-
-### 2. 坐标归一化
+## 关键概念
+- 用 `u_resolution` 把像素坐标归一化。
 
 ```glsl
 vec2 uv = gl_FragCoord.xy / u_resolution.xy;
 ```
+- 用 `mix(a, b, t)` 混合/插值。
 
-- `gl_FragCoord.xy` 是当前像素的屏幕坐标
-- `u_resolution.xy` 是画布的像素尺寸
-- 归一化后的坐标范围为 (0.0, 1.0)
+```glsl
+vec3 color = mix(colorA, colorB, t);
+```
+- 用 `step` 构造硬边遮罩。
 
-### 3. 坐标变换
+```glsl
+float mask = step(0.5, uv.x);
+```
+- 用 `floor/fract/mod` 做分段与重复。
 
-- **居中坐标**: `uv - 0.5` 将坐标原点移到中心
-- **对称坐标**: `abs(uv - 0.5)` 创建对称效果
-- **重复坐标**: `fract(uv * scale)` 创建重复图案
+```glsl
+vec2 cell = floor(uv * 10.0);
+float m = mod(cell.x + cell.y, 2.0);
+```
 
-### 4. 常用应用
+## 如何实现（步骤）
+- 使用 gl_FragCoord.xy
+- 使用 u_resolution
+- 将 uv 映射到颜色：vec3(uv, 0.0)
+- 设定网格密度（如 10.0）
+- 使用 mix(uvColor, gridColor, gridLines) 混合
 
-- 创建渐变效果
-- 绘制几何图形
-- 纹理映射
-- 图案生成
+## 自检
+- 是否能无错误编译？
+- 输出是否符合目标？
+- 关键数值是否在 `[0,1]`？
 
-## 练习建议
-
-1. 将 UV 直接映射到颜色：`vec3(uv, 0.0)`
-2. 实验不同的坐标变换（居中、缩放、重复）
-3. 进阶：用 `fract` + `step` 叠加网格线，帮助你观察坐标分布
-
-## 相关函数
-
-- `fract(x)`: 返回x的小数部分
-- `abs(x)`: 绝对值函数
-- `step(edge, x)`: 阶跃函数
-- `smoothstep(edge0, edge1, x)`: 平滑阶跃函数
+## 常见坑
+- 必要时把 `t` 用 clamp 限制到 `[0,1]`。
+- 不要直接用像素坐标，记得归一化。
+- 先缩放再 fract() 才能改变密度。

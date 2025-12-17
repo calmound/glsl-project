@@ -1,35 +1,43 @@
+<!-- AUTO-GENERATED: tutorial-readme -->
 # Two-Color Blended Gradient
 
-In this exercise, we'll implement a horizontal gradient that smoothly transitions between two colors. This helps build an understanding of UV mapping and color interpolation in GLSL.
+Achieve a left-to-right two-color gradient effect on the screen through linear interpolation, mastering the basics of blending and UV coordinates in GLSL.
+
+## Overview
+- Implement a horizontal gradient using UV as the factor.
 
 ## Learning Objectives
+- Understand the application of linear interpolation (mix function) in color blending.
+- Learn how to use the x-component of UV coordinates to control the gradient direction.
+- Master creating simple two-color horizontal gradient effects.
+- Understand how colors are represented and manipulated in GLSL.
 
-- Understand the role of `vUv` as a texture coordinate;
-- Use the `mix` function to interpolate between two colors;
-- Implement a directional gradient using UV coordinates.
+## Prerequisites
+- uv-coordinates
+- solid-color
 
 ## Key Concepts
-
-### `vUv`: UV Coordinates
-
-The `vUv` value represents the normalized 2D position of a pixel on the surface, usually ranging from `0.0` to `1.0`.
+- A horizontal gradient uses a 0-1 factor (usually UV) to blend colors.
 
 ```glsl
-varying vec2 vUv;
+float t = vUv.x;
+vec3 color = mix(colorA, colorB, t);
 ```
-
-### `mix(a, b, t)`: Linear Interpolation
-
-The `mix` function interpolates smoothly between two values:
+- Keep the factor inside `[0,1]`.
 
 ```glsl
-vec3 color = mix(colorA, colorB, vUv.x);
+t = clamp(t, 0.0, 1.0);
 ```
 
-### `gl_FragColor`
+## How To Implement (Step-by-step)
+- Set factor: `t = vUv.x`.
+- Map `t` to a color (grayscale or `mix`).
+- Output `gl_FragColor` with alpha=1.
 
-Final output is passed to the screen through:
+## Self-check
+- Does it compile without errors?
+- Does the output match the goal?
+- Are key values kept in `[0,1]`?
 
-```glsl
-gl_FragColor = vec4(blendedColor, 1.0);
-```
+## Common Mistakes
+- Clamp `t` into `[0,1]` when needed.

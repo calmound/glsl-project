@@ -1,27 +1,46 @@
+<!-- AUTO-GENERATED: tutorial-readme -->
 # 纵横比修正的 UV
 
-当画布不是正方形时，基于归一化 UV 绘制的形状可能会出现拉伸。在这个练习里，你将使用 `u_resolution` **修正纵横比**，让圆形在非正方形画布上依然保持为圆。
+学习使用 u_resolution 修正 UV 的纵横比，让圆形在非正方形画布上依然保持为圆。
+
+## 概览
+- 用距离场与遮罩来塑形。
 
 ## 学习目标
+- 理解画布纵横比对形状的影响。
+- 学会使用 u_resolution 计算 aspect 并修正坐标。
+- 能用距离场（length）绘制不变形的圆。
 
-- 使用 `u_resolution` 计算纵横比
-- 对居中的 UV 坐标进行纵横比修正
-- 使用距离场（`length`）绘制圆形，并用 `smoothstep` 构造遮罩
+## 前置知识
+- uv-coordinates
 
-## 核心思路
+## 输入
+- `vec2 u_resolution` — 画布尺寸（像素）。
 
-1. 让 UV 以画面中心为原点：
+## 关键概念
+- 到中心的距离可以构造距离场。
 
 ```glsl
 vec2 p = vUv - 0.5;
+float d = length(p);
 ```
-
-2. 用纵横比修正 X 分量：
+- 把距离转换为遮罩。
 
 ```glsl
-float aspect = u_resolution.x / u_resolution.y;
-p.x *= aspect;
+float mask = 1.0 - smoothstep(r, r + aa, d);
 ```
 
-3. 用 `length(p)` 得到到中心的距离，并用 `smoothstep` 得到平滑边缘遮罩。
+## 如何实现（步骤）
+- 居中坐标：`p = vUv - 0.5`。
+- 计算距离：`d = length(p)`。
+- 用 `smoothstep` 或 `step` 构造遮罩。
+- 用遮罩混合前景/背景。
 
+## 自检
+- 是否能无错误编译？
+- 输出是否符合目标？
+- 关键数值是否在 `[0,1]`？
+
+## 常见坑
+- 必要时把 `t` 用 clamp 限制到 `[0,1]`。
+- `smoothstep` 通常要保证 `edge0 < edge1`。

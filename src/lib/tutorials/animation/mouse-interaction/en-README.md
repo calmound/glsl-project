@@ -1,46 +1,50 @@
+<!-- AUTO-GENERATED: tutorial-readme -->
 # Mouse Interaction
 
-Learn how to create interactive shaders that respond to mouse input.
+Learn to create interactive effects using mouse coordinates and understand the passing and usage of uniform variables.
+
+## Overview
+- Use a distance field and a mask to shape the image.
 
 ## Learning Objectives
+- Understand how to receive and use mouse coordinates (`u_mouse`) in GLSL.
+- Learn to dynamically change shader output based on mouse position.
+- Master the method of passing data between CPU and GPU using uniform variables.
 
-- Understand how to use mouse coordinates in shaders
-- Learn to create interactive visual effects
-- Practice distance calculations and circular effects
+## Prerequisites
+- uv-coordinates
+- uniforms
+
+## Inputs
+- `vec2 u_resolution` — Canvas size in pixels.
+- `vec2 u_mouse` — Mouse position in pixels.
+- `float u_time` — Time in seconds.
 
 ## Key Concepts
+- Distance to center builds a distance field.
 
-### Mouse Uniforms
-
-The shader receives mouse position through uniforms:
-- `u_mouse`: Mouse position in screen coordinates
-- Normalize mouse coordinates to match UV space
-
-### Distance Function
-
-Use `distance()` function to calculate proximity to mouse:
 ```glsl
-float dist = distance(uv, mousePos);
+vec2 p = vUv - 0.5;
+float d = length(p);
+```
+- Convert distance into a mask.
+
+```glsl
+float mask = 1.0 - smoothstep(r, r + aa, d);
 ```
 
-### Interactive Effects
+## How To Implement (Step-by-step)
+- mouse = u_mouse / u_resolution
+- distToMouse = distance(uv, mouse)
+- mouseColor = vec3(mouse, 0.5)
+- pulse = sin(u_time * speed) * 0.5 + 0.5
 
-Create effects that change based on mouse position:
-- Color changes near mouse cursor
-- Ripple effects from mouse position
-- Brightness or size variations
+## Self-check
+- Does it compile without errors?
+- Does the output match the goal?
+- Are key values kept in `[0,1]`?
 
-## Exercise
-
-Create a shader that draws a bright circle that follows the mouse cursor.
-
-### Hints
-
-1. Normalize mouse coordinates: `u_mouse / u_resolution`
-2. Calculate distance from current pixel to mouse position
-3. Use `smoothstep()` to create a smooth circular falloff
-4. Make the circle brighter near the center
-
-## Expected Result
-
-You should see a bright circular glow that follows your mouse cursor around the screen.
+## Common Mistakes
+- Clamp `t` into `[0,1]` when needed.
+- Don’t use raw pixels without normalization.
+- Make sure `edge0 < edge1` for smoothstep().

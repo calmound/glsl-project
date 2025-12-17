@@ -1,27 +1,43 @@
+<!-- AUTO-GENERATED: tutorial-readme -->
 # Color Blending Gradient
 
-## Learning Objectives
+Implement a horizontal gradient between red and blue using the mix() function to help understand linear interpolation.
 
-This example teaches how to use the `mix` function in a fragment shader to blend two colors horizontally using the `vUv.x` coordinate.
+## Overview
+- Implement a horizontal gradient using UV as the factor.
+
+## Learning Objectives
+- Gain a deeper understanding of how the `mix(colorA, colorB, factor)` function interpolates between two colors based on a factor.
+- Learn to use the x-component of UV coordinates as the interpolation factor for the `mix` function.
+- Master creating gradient effects that smoothly transition from one specified color to another.
+- Be able to adjust the interpolation factor to change the way the gradient transitions.
+
+## Prerequisites
+- basic-color-blend
+- uv-coordinates
 
 ## Key Concepts
-
-### 1. `vUv`: UV Coordinates
-
-Each fragment has a `vUv` ranging from 0 to 1. It can be used to represent the fragment’s position on the screen.
+- A horizontal gradient uses a 0-1 factor (usually UV) to blend colors.
 
 ```glsl
-varying vec2 vUv;
+float t = vUv.x;
+vec3 color = mix(colorA, colorB, t);
 ```
-
-In this example, we use `vUv.x` to control the color blend along the horizontal axis.
-
-### 2. `mix(a, b, t)`: Linear Interpolation
-
-This function blends `a` and `b` based on `t`:
+- Keep the factor inside `[0,1]`.
 
 ```glsl
-vec3 color = mix(colorA, colorB, vUv.x);
+t = clamp(t, 0.0, 1.0);
 ```
 
-When `vUv.x = 0`, it shows `colorA`; when `vUv.x = 1`, it shows `colorB`. In between, it's a smooth transition.
+## How To Implement (Step-by-step)
+- Set factor: `t = vUv.x`.
+- Map `t` to a color (grayscale or `mix`).
+- Output `gl_FragColor` with alpha=1.
+
+## Self-check
+- Does it compile without errors?
+- Does the output match the goal?
+- Are key values kept in `[0,1]`?
+
+## Common Mistakes
+- Clamp `t` into `[0,1]` when needed.

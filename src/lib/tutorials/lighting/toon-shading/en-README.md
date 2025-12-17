@@ -1,50 +1,51 @@
+<!-- AUTO-GENERATED: tutorial-readme -->
 # Toon Shading
 
-Learn how to create cartoon-style non-photorealistic rendering effects.
+Implement a non-photorealistic rendering technique that simulates the visual style of cartoons or comic books by quantizing light intensity into discrete color levels, often combined with edge detection.
+
+## Overview
+- Compute lighting terms and shade a shape.
 
 ## Learning Objectives
+- Understand the basic principles of toon shading: discretization of lighting.
+- Learn how to use `step()` or `floor()` functions to map continuous light intensity to a limited number of color levels.
+- Master basic edge detection methods (e.g., based on the dot product of normal and view direction) and their application in toon shading.
+- Be able to implement a toon shader with hard shadows and outlines.
+- Explore how to change the style of toon rendering by adjusting the number of color levels and colors.
 
-- Understand the basics of non-photorealistic rendering
-- Learn how to quantize lighting values for cartoon effects
-- Master using step functions to create hard boundaries
+## Prerequisites
+- phong-lighting
+- step-function
+- edge-detection-techniques
+
+## Inputs
+- `vec2 u_resolution` — Canvas size in pixels.
+- `float u_time` — Time in seconds.
 
 ## Key Concepts
+- Diffuse lighting uses `max(dot(n, l), 0.0)`.
 
-### Non-Photorealistic Rendering
-
-Characteristics of toon shading:
-- Clear light-shadow boundaries
-- Limited color gradations
-- Flat lighting effects
-- Hand-drawn animation style
-
-### Lighting Quantization
-
-Convert continuous lighting values to discrete levels:
 ```glsl
-float lightIntensity = dot(normal, lightDir);
-float toonLevel = floor(lightIntensity * levels) / levels;
+float diff = max(dot(n, lightDir), 0.0);
+```
+- Specular highlights use `pow` (Phong/Blinn-Phong).
+
+```glsl
+float spec = pow(max(dot(r, v), 0.0), shininess);
 ```
 
-### Hard Boundary Creation
+## How To Implement (Step-by-step)
+- Get normal `n` and a normalized light direction.
+- Compute diffuse term with `dot(n, l)`.
+- Optionally compute specular with `pow`.
+- Combine terms and output.
 
-Use `step()` function to create clear light-shadow divisions:
-```glsl
-float toon = step(threshold, lightIntensity);
-```
+## Self-check
+- Does it compile without errors?
+- Does the output match the goal?
+- Are key values kept in `[0,1]`?
 
-## Exercise
-
-Create a cartoon-style shading effect with clear light-shadow layering.
-
-### Hints
-
-1. Calculate basic diffuse lighting
-2. Use `step()` or `floor()` functions to quantize lighting values
-3. Define 2-4 lighting levels
-4. Assign different color intensities to each level
-5. Optionally add simple outline effects
-
-## Expected Result
-
-You should see a cartoon-style 3D surface with clear light-shadow boundaries and flat color gradations, similar to animated cartoon visuals.
+## Common Mistakes
+- Clamp `t` into `[0,1]` when needed.
+- Don’t use raw pixels without normalization.
+- Make sure `edge0 < edge1` for smoothstep().

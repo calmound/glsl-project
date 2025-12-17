@@ -1,49 +1,53 @@
+<!-- AUTO-GENERATED: tutorial-readme -->
 # Noise Texture
 
-Learn how to generate and use noise functions to create organic textures.
+Learn to create pseudo-random noise textures and understand the important role of noise in procedural texture generation.
+
+## Overview
+- Generate procedural noise and map it to color.
 
 ## Learning Objectives
+- Understand the basic concept of pseudo-random noise.
+- Learn a simple noise generation algorithm.
+- Master how to map noise values to colors or patterns.
+- Understand the application of noise in texture generation and special effects.
 
-- Understand pseudo-random number generation in shaders
-- Learn to create noise functions from scratch
-- Practice using noise for texture generation
+## Prerequisites
+- uv-coordinates
+- time-animation
+
+## Inputs
+- `float u_time` — Time in seconds.
+- `vec2 u_resolution` — Canvas size in pixels.
 
 ## Key Concepts
+- Noise is built from random values on a grid plus smooth interpolation.
 
-### Pseudo-Random Functions
-
-Create randomness using mathematical functions:
 ```glsl
-float random(vec2 st) {
-    return fract(sin(dot(st.xy, vec2(12.9898,78.233))) * 43758.5453123);
-}
+vec2 i = floor(p);
+vec2 f = fract(p);
+vec2 u = f*f*(3.0-2.0*f);
+float n = mix(mix(a,b,u.x), mix(c,d,u.x), u.y);
+```
+- Map noise to color with `mix` or thresholds.
+
+```glsl
+vec3 color = mix(colorA, colorB, n);
 ```
 
-### Noise Generation
+## How To Implement (Step-by-step)
+- Scale UV to control frequency (e.g. `p = vUv * 6.0`).
+- Compute base noise (hash/valueNoise).
+- Optionally sum octaves (FBM) for detail.
+- Map noise to grayscale or color.
 
-Build noise by:
-1. Creating random values at grid points
-2. Interpolating between neighboring values
-3. Combining multiple octaves for detail
+## Self-check
+- Does it compile without errors?
+- Does the output match the goal?
+- Are key values kept in `[0,1]`?
 
-### Texture Applications
-
-Use noise for:
-- Surface textures (wood, marble, clouds)
-- Displacement mapping
-- Animated effects
-
-## Exercise
-
-Create a noise-based texture that resembles organic patterns like clouds or marble.
-
-### Hints
-
-1. Start with a basic random function
-2. Scale UV coordinates to control noise frequency
-3. Use `smoothstep()` or `mix()` for smooth interpolation
-4. Experiment with different scaling factors
-
-## Expected Result
-
-You should see an organic, cloud-like texture with smooth variations across the screen.
+## Common Mistakes
+- Clamp `t` into `[0,1]` when needed.
+- Don’t use raw pixels without normalization.
+- Make sure `edge0 < edge1` for smoothstep().
+- Change frequency by scaling before fract().

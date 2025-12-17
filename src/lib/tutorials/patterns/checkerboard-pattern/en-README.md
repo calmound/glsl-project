@@ -1,41 +1,43 @@
+<!-- AUTO-GENERATED: tutorial-readme -->
 # Checkerboard Pattern
 
+Combine the mod() function with floor() to generate a black and white checkerboard texture.
+
+## Overview
+- Implement a horizontal gradient using UV as the factor.
+
 ## Learning Objectives
+- Understand how the `floor()` function rounds down and the `mod()` function calculates the modulus.
+- Learn how to control the size of the checkerboard by scaling UV coordinates.
+- Master the logic of distinguishing different squares by using `mod(sum, 2.0)` on the result of `floor(uv.x) + floor(uv.y)`.
+- Be able to generate checkerboard patterns with custom colors and sizes.
 
-Learn to create a checkerboard pattern using `floor()` and `mod()`, and understand how to discretize UV coordinates into grid-based logic.
-
----
+## Prerequisites
+- uv-coordinates
+- step-function-mask
 
 ## Key Concepts
-
-### 1. Discretizing UV space
-
-To make a grid, scale and floor UV coordinates:
+- A horizontal gradient uses a 0-1 factor (usually UV) to blend colors.
 
 ```glsl
-float x = floor(vUv.x * 8.0);
-float y = floor(vUv.y * 8.0);
+float t = vUv.x;
+vec3 color = vec3(t);
 ```
-
-This splits the screen into an 8×8 grid.
-
----
-
-### 2. Alternating pattern logic
+- Keep the factor inside `[0,1]`.
 
 ```glsl
-float pattern = mod(x + y, 2.0);
+t = clamp(t, 0.0, 1.0);
 ```
 
-- Even sum: 0 → white
-- Odd sum: 1 → black
+## How To Implement (Step-by-step)
+- Set factor: `t = vUv.x`.
+- Map `t` to a color (grayscale or `mix`).
+- Output `gl_FragColor` with alpha=1.
 
----
+## Self-check
+- Does it compile without errors?
+- Does the output match the goal?
+- Are key values kept in `[0,1]`?
 
-### 3. Blending two colors
-
-```glsl
-vec3 color = mix(vec3(1.0), vec3(0.0), pattern);
-```
-
-This creates a simple and efficient checkerboard.
+## Common Mistakes
+- Clamp `t` into `[0,1]` when needed.

@@ -1,14 +1,44 @@
+<!-- AUTO-GENERATED: tutorial-readme -->
 # Stripes and Bands
 
-This exercise builds a repeating stripe pattern using:
+Build repeating stripes with fract and step, and switch colors with mix.
 
-- `fract(x)` to repeat a value every 1.0
-- `step(edge, x)` to convert a value into a hard 0/1 mask
+## Overview
+- Create repeating stripes using `fract` and `step`.
 
-## Exercise
+## Learning Objectives
+- Use fract to create repeating patterns.
+- Use step to turn a continuous value into a 0/1 switch.
+- Map the switch to two colors using mix.
 
-1. Multiply `vUv.x` by a stripe count
-2. Use `fract` to keep it in `[0, 1)`
-3. Use `step` to split each stripe into two halves (0 vs 1)
-4. Use `mix` to pick a color based on the mask
+## Prerequisites
+- uv-coordinates
+- step-function-mask
 
+## Key Concepts
+- Stripes come from repeating coordinates with `fract` and converting them to a 0/1 mask.
+
+```glsl
+float count = 12.0;
+float v = fract(vUv.x * count);
+float mask = step(0.5, v);
+```
+- Use `mix` to select between two colors.
+
+```glsl
+vec3 color = mix(colorA, colorB, mask);
+```
+
+## How To Implement (Step-by-step)
+- Repeat with `fract(vUv.x * count)`.
+- Convert to mask with `step(0.5, v)`.
+- Use `mix` to switch colors by mask.
+
+## Self-check
+- Does it compile without errors?
+- Does the output match the goal?
+- Are key values kept in `[0,1]`?
+
+## Common Mistakes
+- Clamp `t` into `[0,1]` when needed.
+- Change frequency by scaling before fract().

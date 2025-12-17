@@ -1,46 +1,49 @@
+<!-- AUTO-GENERATED: tutorial-readme -->
 # Pattern Repetition
 
-Learn how to create repeating geometric patterns in GLSL shaders.
+Learn how to create repetitive geometric patterns, including grid systems, random variations, and animation effects
+
+## Overview
+- Use a distance field and a mask to shape the image.
 
 ## Learning Objectives
+- Master methods for creating grid systems
+- Learn to use the fract function to create repetitive effects
+- Understand how to add random variations to each grid cell
+- Master procedural pattern generation techniques
 
-- Understand how to use modulo operations for pattern repetition
-- Learn coordinate transformation and scaling techniques
-- Master creating tiled effects
+## Prerequisites
+- coordinate-transformation
+- simple-circle
+
+## Inputs
+- `float u_time` — Time in seconds.
+- `vec2 u_resolution` — Canvas size in pixels.
 
 ## Key Concepts
+- Distance to center builds a distance field.
 
-### Modulo Operation (mod)
-
-Use the `mod()` function to create repetition:
 ```glsl
-vec2 repeatedUV = mod(uv * scale, 1.0);
+vec2 p = vUv - 0.5;
+float d = length(p);
+```
+- Convert distance into a mask.
+
+```glsl
+float mask = 1.0 - smoothstep(r, r + aa, d);
 ```
 
-### Coordinate Scaling
+## How To Implement (Step-by-step)
+- centered = repeated - vec2(0.5)
+- cross = max(horizontal, vertical)
 
-Control repetition count by scaling UV coordinates:
-- Larger scale values = more repetitions
-- Smaller scale values = fewer repetitions
+## Self-check
+- Does it compile without errors?
+- Does the output match the goal?
+- Are key values kept in `[0,1]`?
 
-### Tiled Patterns
-
-Steps to create tiled effects:
-1. Scale UV coordinates
-2. Apply modulo operation
-3. Draw pattern within each tile
-
-## Exercise
-
-Create a repeating circular pattern arranged in a grid across the screen.
-
-### Hints
-
-1. Use `mod(uv * 4.0, 1.0)` to create a 4x4 repetition grid
-2. Draw circles centered in each tile
-3. Use `distance()` function to calculate distance to tile center
-4. Use `smoothstep()` to create smooth circular edges
-
-## Expected Result
-
-You should see a neat grid of circular patterns, with each circle centered within its tile.
+## Common Mistakes
+- Clamp `t` into `[0,1]` when needed.
+- Don’t use raw pixels without normalization.
+- Make sure `edge0 < edge1` for smoothstep().
+- Change frequency by scaling before fract().

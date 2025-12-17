@@ -1,66 +1,52 @@
+<!-- AUTO-GENERATED: tutorial-readme -->
 # 平滑边缘
 
+学习使用smoothstep函数创建平滑的边缘过渡效果，对比step函数的硬边缘。
+
+## 概览
+- 用距离场与遮罩来塑形。
+
 ## 学习目标
-- 理解 `smoothstep()` 函数的工作原理
-- 学习创建平滑的边缘过渡效果
-- 对比 `step()` 和 `smoothstep()` 的区别
-- 掌握边缘控制技巧
+- 理解`smoothstep()`函数的三个参数及其作用。
+- 学习如何使用`smoothstep()`在两个值之间创建平滑过渡。
+- 对比`smoothstep()`和`step()`在边缘处理上的效果差异。
+- 掌握将`smoothstep()`应用于形状边缘以实现抗锯齿或柔化效果。
 
-## 核心概念
+## 前置知识
+- simple-circle
+- step-function-mask
 
-### smoothstep() 函数
+## 输入
+- `vec2 u_resolution` — 画布尺寸（像素）。
+- `float u_time` — 时间（秒）。
+
+## 关键概念
+- 到中心的距离可以构造距离场。
+
 ```glsl
-smoothstep(edge0, edge1, x)
+vec2 p = vUv - 0.5;
+float d = length(p);
 ```
-- `edge0` - 过渡开始位置
-- `edge1` - 过渡结束位置
-- `x` - 输入值
-- 在 edge0 和 edge1 之间创建平滑的 S 型曲线过渡
-- 当 x < edge0 时返回 0.0
-- 当 x > edge1 时返回 1.0
-- 当 edge0 < x < edge1 时返回平滑插值
+- 把距离转换为遮罩。
 
-### step() vs smoothstep()
 ```glsl
-// 硬边缘（突然变化）
-float hard = step(0.5, x);
-
-// 平滑边缘（渐变过渡）
-float smooth = smoothstep(0.4, 0.6, x);
+float mask = 1.0 - smoothstep(r, r + aa, d);
 ```
 
-### 边缘宽度控制
-```glsl
-float radius = 0.5;
-float edgeWidth = 0.1; // 边缘宽度
+## 如何实现（步骤）
+- 用 step 构造硬边缘圆，并让圆内为 1.0
+- 使用 radius 与 softness 构造平滑边缘
+- 用 max(squareCoord.x, squareCoord.y) 计算方形距离
+- 用 smoothstep 设置方形平滑范围（如 0.15 到 0.15 + softness）
+- 尝试用 max 组合 smoothCircle 与 smoothSquare
+- 用 combined 或其它函数作为混合因子
 
-float edge0 = radius - edgeWidth;
-float edge1 = radius + edgeWidth;
-float mask = smoothstep(edge0, edge1, distance);
-```
+## 自检
+- 是否能无错误编译？
+- 输出是否符合目标？
+- 关键数值是否在 `[0,1]`？
 
-### 反向平滑
-```glsl
-// 从 1.0 到 0.0 的平滑过渡
-float inverseMask = 1.0 - smoothstep(edge0, edge1, distance);
-```
-
-## 应用场景
-- 抗锯齿效果
-- 柔和的图形边缘
-- 渐变遮罩
-- 光晕效果
-- UI 元素的柔和边框
-
-## 练习建议
-1. 调整 edge0 和 edge1 的值，观察边缘变化
-2. 尝试创建不同形状的平滑边缘
-3. 使用 mix 函数结合 smoothstep 创建颜色过渡
-4. 对比 step 和 smoothstep 的视觉效果
-5. 创建多层平滑边缘效果
-
-## 相关函数
-- `smoothstep()` - 平滑阶跃函数
-- `step()` - 阶跃函数
-- `mix()` - 线性插值
-- `length()` - 向量长度
+## 常见坑
+- 必要时把 `t` 用 clamp 限制到 `[0,1]`。
+- 不要直接用像素坐标，记得归一化。
+- `smoothstep` 通常要保证 `edge0 < edge1`。

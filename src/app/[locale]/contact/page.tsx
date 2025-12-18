@@ -22,11 +22,30 @@ export async function generateMetadata({ params }: ContactPageProps): Promise<Me
   return {
     title,
     description,
+    keywords:
+      locale === 'zh'
+        ? '联系我们, 联系Shader Learn, GLSL问题咨询, 着色器学习支持, WebGL帮助, 技术支持邮箱'
+        : 'contact us, contact Shader Learn, GLSL support, shader learning help, WebGL assistance, technical support email',
+    authors: [{ name: 'Shader Learn' }],
+    creator: 'Shader Learn',
+    publisher: 'Shader Learn',
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        'max-video-preview': -1,
+        'max-image-preview': 'large',
+        'max-snippet': -1,
+      },
+    },
     alternates: {
       canonical,
       languages: {
-        en: '/contact',
-        zh: '/zh/contact',
+        'en': '/contact',
+        'zh-CN': '/zh/contact',
+        'x-default': '/contact',
       },
     },
     openGraph: {
@@ -34,7 +53,15 @@ export async function generateMetadata({ params }: ContactPageProps): Promise<Me
       description,
       type: 'website',
       url: `${baseUrl}${canonical}`,
-      images: [`${baseUrl}/og-image.png`],
+      siteName: 'Shader Learn',
+      images: [
+        {
+          url: `${baseUrl}/og-image.png`,
+          width: 1200,
+          height: 630,
+          alt: 'Contact Shader Learn',
+        },
+      ],
       locale: locale === 'zh' ? 'zh_CN' : 'en_US',
     },
     twitter: {
@@ -42,7 +69,10 @@ export async function generateMetadata({ params }: ContactPageProps): Promise<Me
       title,
       description,
       images: [`${baseUrl}/og-image.png`],
+      creator: '@ShaderLearn',
+      site: '@ShaderLearn',
     },
+    category: 'Education',
   }
 }
 

@@ -3,6 +3,7 @@ import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import MainLayout from '../../../components/layout/main-layout';
 import LearnPageClient from './learn-client';
+import LearnStructuredData from '../../../components/seo/learn-structured-data';
 import { getValidLocale, type Locale, isValidLocale } from '../../../lib/i18n';
 import { getTranslationFunction } from '../../../lib/translations';
 import { getTutorials } from '../../../lib/tutorials-server';
@@ -28,14 +29,29 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   return {
     title: `${title} - ${t('header.title')}`,
     description,
-    keywords: locale === 'en' 
-      ? 'GLSL tutorials, WebGL lessons, shader programming course, graphics programming learning'
-      : 'GLSL教程, WebGL课程, 着色器编程学习, 图形编程教学',
+    keywords: locale === 'en'
+      ? 'GLSL tutorials, WebGL lessons, shader programming course, graphics programming learning, fragment shader tutorial, vertex shader course, GPU programming lessons, shader basics, advanced shader techniques, WebGL education, interactive shader learning, GLSL examples, shader exercises'
+      : 'GLSL教程, WebGL课程, 着色器编程学习, 图形编程教学, 片段着色器教程, 顶点着色器课程, GPU编程课程, 着色器基础, 高级着色器技术, WebGL教育, 交互式着色器学习, GLSL示例, 着色器练习',
+    authors: [{ name: 'Shader Learn' }],
+    creator: 'Shader Learn',
+    publisher: 'Shader Learn',
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        'max-video-preview': -1,
+        'max-image-preview': 'large',
+        'max-snippet': -1,
+      },
+    },
     openGraph: {
       title,
       description,
       type: 'website',
       url,
+      siteName: 'Shader Learn',
       images: [{
         url: `${baseUrl}/og-image.png`,
         width: 1200,
@@ -49,14 +65,18 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       title,
       description,
       images: [`${baseUrl}/og-image.png`],
+      creator: '@ShaderLearn',
+      site: '@ShaderLearn',
     },
     alternates: {
       canonical: locale === 'en' ? '/learn' : `/${locale}/learn`,
       languages: {
         'en': '/learn',
-        'zh': '/zh/learn',
+        'zh-CN': '/zh/learn',
+        'x-default': '/learn',
       },
     },
+    category: 'Education',
   };
 }
 
@@ -76,7 +96,8 @@ export default async function LearnPage({ params }: PageProps) {
   
   return (
     <MainLayout>
-      <LearnPageClient 
+      <LearnStructuredData locale={locale as 'en' | 'zh'} tutorials={tutorials} />
+      <LearnPageClient
         initialTutorials={tutorials}
         locale={locale}
       />

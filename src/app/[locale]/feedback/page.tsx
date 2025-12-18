@@ -22,21 +22,55 @@ export async function generateMetadata({ params }: FeedbackPageProps): Promise<M
     title: `${title} - ${t('site.name')}`,
     description: description,
     keywords: validLocale === 'zh'
-      ? ['反馈', '用户意见', '建议', 'Bug反馈', 'GLSL学习']
-      : ['feedback', 'user feedback', 'suggestions', 'bug report', 'GLSL learning'],
+      ? '反馈, 用户意见, 建议, Bug反馈, GLSL学习, 问题报告, 功能建议, 用户体验反馈'
+      : 'feedback, user feedback, suggestions, bug report, GLSL learning, issue report, feature request, user experience feedback',
+    authors: [{ name: 'Shader Learn' }],
+    creator: 'Shader Learn',
+    publisher: 'Shader Learn',
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        'max-video-preview': -1,
+        'max-image-preview': 'large',
+        'max-snippet': -1,
+      },
+    },
     openGraph: {
       title: `${title} - ${t('site.name')}`,
       description: description,
       url: `${baseUrl}/${validLocale === 'en' ? '' : validLocale + '/'}feedback`,
       siteName: t('site.name'),
+      images: [
+        {
+          url: `${baseUrl}/og-image.png`,
+          width: 1200,
+          height: 630,
+          alt: 'Shader Learn Feedback',
+        },
+      ],
       locale: validLocale === 'zh' ? 'zh_CN' : 'en_US',
       type: 'website',
     },
     twitter: {
-      card: 'summary',
+      card: 'summary_large_image',
       title: `${title} - ${t('site.name')}`,
       description: description,
+      images: [`${baseUrl}/og-image.png`],
+      creator: '@ShaderLearn',
+      site: '@ShaderLearn',
     },
+    alternates: {
+      canonical: validLocale === 'en' ? '/feedback' : `/${validLocale}/feedback`,
+      languages: {
+        'en': '/feedback',
+        'zh-CN': '/zh/feedback',
+        'x-default': '/feedback',
+      },
+    },
+    category: 'Education',
   };
 }
 

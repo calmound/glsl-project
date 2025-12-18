@@ -104,6 +104,7 @@ function generateSitemapXML(tutorialIds) {
   // 主要页面配置
   const pages = [
     { path: 'learn', priority: '0.9', changefreq: 'weekly' },
+    { path: 'playground', priority: '0.9', changefreq: 'weekly' },
     { path: 'about', priority: '0.7', changefreq: 'monthly' },
     { path: 'glslify-guide', priority: '0.8', changefreq: 'monthly' },
     { path: 'examples', priority: '0.8', changefreq: 'weekly' },

@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import { getValidLocale } from '../../../lib/i18n';
 import MainLayout from '../../../components/layout/main-layout';
+import AboutStructuredData from '../../../components/seo/about-structured-data';
 
 interface AboutPageProps {
   params: Promise<{
@@ -25,14 +26,36 @@ export async function generateMetadata({ params }: AboutPageProps): Promise<Meta
     description,
     keywords:
       locale === 'zh'
-        ? '关于我们, GLSL平台, 着色器学习, 图形编程教育, WebGL教程'
-        : 'about us, GLSL platform, shader learning, graphics programming education, WebGL tutorials',
+        ? '关于我们, GLSL平台, 着色器学习, 图形编程教育, WebGL教程, Shader Learn使命, 在线着色器编辑器, 免费GLSL课程, 图形编程社区, WebGL学习资源'
+        : 'about us, GLSL platform, shader learning, graphics programming education, WebGL tutorials, Shader Learn mission, online shader editor, free GLSL courses, graphics programming community, WebGL learning resources',
+    authors: [{ name: 'Shader Learn' }],
+    creator: 'Shader Learn',
+    publisher: 'Shader Learn',
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        'max-video-preview': -1,
+        'max-image-preview': 'large',
+        'max-snippet': -1,
+      },
+    },
     openGraph: {
       title,
       description,
       type: 'website',
       url: locale === 'en' ? `${baseUrl}/about` : `${baseUrl}/${locale}/about`,
-      images: [`${baseUrl}/og-image.png`],
+      siteName: 'Shader Learn',
+      images: [
+        {
+          url: `${baseUrl}/og-image.png`,
+          width: 1200,
+          height: 630,
+          alt: 'About Shader Learn',
+        },
+      ],
       locale: locale === 'zh' ? 'zh_CN' : 'en_US',
     },
     twitter: {
@@ -40,14 +63,18 @@ export async function generateMetadata({ params }: AboutPageProps): Promise<Meta
       title,
       description,
       images: [`${baseUrl}/og-image.png`],
+      creator: '@ShaderLearn',
+      site: '@ShaderLearn',
     },
     alternates: {
       canonical: locale === 'en' ? '/about' : `/${locale}/about`,
       languages: {
-        en: '/about',
-        zh: '/zh/about',
+        'en': '/about',
+        'zh-CN': '/zh/about',
+        'x-default': '/about',
       },
     },
+    category: 'Education',
   };
 }
 
@@ -57,6 +84,7 @@ export default async function AboutPage({ params }: AboutPageProps) {
 
   return (
     <MainLayout>
+      <AboutStructuredData locale={locale as 'en' | 'zh'} />
       <div className="container mx-auto px-4 py-8">
         <div className="max-w-4xl mx-auto">
           <h1 className="text-4xl font-bold mb-8 text-center">

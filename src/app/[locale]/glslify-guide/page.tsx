@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import { getValidLocale } from '../../../lib/i18n';
 import MainLayout from '../../../components/layout/main-layout';
+import GlslifyStructuredData from '../../../components/seo/glslify-structured-data';
 
 interface GlslifyGuidePageProps {
   params: Promise<{
@@ -26,14 +27,36 @@ export async function generateMetadata({ params }: GlslifyGuidePageProps): Promi
     description,
     keywords:
       locale === 'zh'
-        ? 'Glslify, GLSL, 模块化, 着色器, 代码重用, WebGL'
-        : 'Glslify, GLSL, modular, shader, code reuse, WebGL',
+        ? 'Glslify, GLSL, 模块化, 着色器, 代码重用, WebGL, GLSL模块, 着色器库, 代码组织, 着色器开发工具, npm着色器包, GLSL函数库, 模块化编程'
+        : 'Glslify, GLSL, modular, shader, code reuse, WebGL, GLSL modules, shader library, code organization, shader development tools, npm shader packages, GLSL function library, modular programming',
+    authors: [{ name: 'Shader Learn' }],
+    creator: 'Shader Learn',
+    publisher: 'Shader Learn',
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        'max-video-preview': -1,
+        'max-image-preview': 'large',
+        'max-snippet': -1,
+      },
+    },
     openGraph: {
       title,
       description,
       type: 'article',
       url,
-      images: [`${baseUrl}/og-image.png`],
+      siteName: 'Shader Learn',
+      images: [
+        {
+          url: `${baseUrl}/og-image.png`,
+          width: 1200,
+          height: 630,
+          alt: 'Glslify Guide - GLSL Module Management',
+        },
+      ],
       locale: locale === 'zh' ? 'zh_CN' : 'en_US',
     },
     twitter: {
@@ -41,14 +64,18 @@ export async function generateMetadata({ params }: GlslifyGuidePageProps): Promi
       title,
       description,
       images: [`${baseUrl}/og-image.png`],
+      creator: '@ShaderLearn',
+      site: '@ShaderLearn',
     },
     alternates: {
       canonical: locale === 'en' ? '/glslify-guide' : `/${locale}/glslify-guide`,
       languages: {
-        en: '/glslify-guide',
-        zh: '/zh/glslify-guide',
+        'en': '/glslify-guide',
+        'zh-CN': '/zh/glslify-guide',
+        'x-default': '/glslify-guide',
       },
     },
+    category: 'Technology',
   };
 }
 
@@ -58,6 +85,7 @@ export default async function GlslifyGuidePage({ params }: GlslifyGuidePageProps
 
   return (
     <MainLayout>
+      <GlslifyStructuredData locale={locale as 'en' | 'zh'} />
       <div className="container mx-auto px-4 py-8">
         <div className="max-w-4xl mx-auto">
           <h1 className="text-4xl font-bold mb-8 text-center">

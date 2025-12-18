@@ -2,6 +2,7 @@ import { Metadata } from 'next';
 import { getValidLocale } from '../../lib/i18n';
 import { getTranslationFunction } from '../../lib/translations';
 import HomePageClient from './home-client';
+import HomeStructuredData from '../../components/seo/home-structured-data';
 
 interface HomePageProps {
   params: Promise<{
@@ -23,14 +24,29 @@ export async function generateMetadata({ params }: HomePageProps): Promise<Metad
   return {
     title,
     description,
-    keywords: locale === 'en' 
-      ? 'GLSL tutorial, WebGL programming, shader learning, graphics programming, fragment shader, vertex shader'
-      : 'GLSL教程, WebGL编程, 着色器学习, 图形编程, 片段着色器, 顶点着色器',
+    keywords: locale === 'en'
+      ? 'GLSL tutorial, WebGL programming, shader learning, fragment shader, vertex shader, graphics programming, GPU programming, shader development, Three.js, shader editor, interactive tutorials, learn shaders, GLSL course, WebGL lessons, shader art, creative coding, computer graphics'
+      : 'GLSL教程, WebGL编程, 着色器学习, 片段着色器, 顶点着色器, 图形编程, GPU编程, 着色器开发, Three.js, 着色器编辑器, 交互式教程, 学习着色器, GLSL课程, WebGL课程, 着色器艺术, 创意编程, 计算机图形学',
+    authors: [{ name: 'Shader Learn' }],
+    creator: 'Shader Learn',
+    publisher: 'Shader Learn',
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        'max-video-preview': -1,
+        'max-image-preview': 'large',
+        'max-snippet': -1,
+      },
+    },
     openGraph: {
       title,
       description,
       type: 'website',
       url,
+      siteName: 'Shader Learn',
       images: [{
         url: `${baseUrl}/og-image.png`,
         width: 1200,
@@ -44,14 +60,18 @@ export async function generateMetadata({ params }: HomePageProps): Promise<Metad
       title,
       description,
       images: [`${baseUrl}/og-image.png`],
+      creator: '@ShaderLearn',
+      site: '@ShaderLearn',
     },
     alternates: {
       canonical: locale === 'en' ? '/' : `/${locale}`,
       languages: {
         'en': '/',
-        'zh': '/zh',
+        'zh-CN': '/zh',
+        'x-default': '/',
       },
     },
+    category: 'Education',
   };
 }
 
@@ -66,6 +86,11 @@ export async function generateStaticParams() {
 export default async function HomePage({ params }: HomePageProps) {
   const { locale: localeParam } = await params;
   const locale = getValidLocale(localeParam);
-  
-  return <HomePageClient locale={locale} />;
+
+  return (
+    <>
+      <HomeStructuredData locale={locale as 'en' | 'zh'} />
+      <HomePageClient locale={locale} />
+    </>
+  );
 }

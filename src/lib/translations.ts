@@ -11,7 +11,7 @@ export const translations: Record<Locale, Translations> = {
     'header.description': '专业的 GLSL 着色器编程学习平台，提供从基础到高级的完整学习路径。掌握现代图形编程技能，通过实战练习深入理解 WebGL 和着色器开发。',
     'nav.home': '首页',
     'nav.learn': '学习',
-    'nav.playground': 'Playground',
+    'nav.playground': '在线编辑器',
     'nav.examples': '示例',
     'nav.about': '关于',
     'nav.login': '登录',

@@ -42,6 +42,11 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
                   </Link>
                 </li>
                 <li>
+                  <Link href={addLocaleToPathname('/leaderboard', language)} className="text-gray-600 hover:text-primary transition-colors">
+                    {t('nav.leaderboard')}
+                  </Link>
+                </li>
+                <li>
                   <Link href={addLocaleToPathname('/feedback', language)} className="text-gray-600 hover:text-primary transition-colors">
                     {t('nav.feedback')}
                   </Link>

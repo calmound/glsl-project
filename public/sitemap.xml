@@ -56,6 +56,24 @@
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shader-learn.com/playground" />
   </url>
   <url>
+    <loc>https://www.shader-learn.com/leaderboard</loc>
+    <lastmod>2025-12-18T00:00:00Z</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shader-learn.com/leaderboard" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://www.shader-learn.com/zh/leaderboard" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shader-learn.com/leaderboard" />
+  </url>
+  <url>
+    <loc>https://www.shader-learn.com/zh/leaderboard</loc>
+    <lastmod>2025-12-18T00:00:00Z</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shader-learn.com/leaderboard" />
+    <xhtml:link rel="alternate" hreflang="zh" href="https://www.shader-learn.com/zh/leaderboard" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shader-learn.com/leaderboard" />
+  </url>
+  <url>
     <loc>https://www.shader-learn.com/about</loc>
     <lastmod>2025-12-18T00:00:00Z</lastmod>
     <changefreq>monthly</changefreq>

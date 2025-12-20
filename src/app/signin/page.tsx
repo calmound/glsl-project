@@ -2,6 +2,7 @@
 import { createBrowserSupabase } from "@/lib/supabase";
 import { useSearchParams } from "next/navigation";
 import { Suspense } from "react";
+import MainLayout from "@/components/layout/main-layout";
 
 function SignInContent() {
   const searchParams = useSearchParams();
@@ -78,7 +79,9 @@ export default function SignIn() {
         <div className="text-gray-600">加载中...</div>
       </main>
     }>
-      <SignInContent />
+      <MainLayout>
+        <SignInContent />
+      </MainLayout>
     </Suspense>
   );
 }

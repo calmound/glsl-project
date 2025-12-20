@@ -3,6 +3,7 @@
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { useLanguage } from '../../contexts/LanguageContext';
+import { addLocaleToPathname } from '../../lib/i18n';
 import { useEffect } from 'react';
 
 interface BreadcrumbItem {
@@ -28,9 +29,10 @@ export default function Breadcrumb({ items, className = '' }: BreadcrumbProps) {
     const breadcrumbs: BreadcrumbItem[] = [];
     
     // 添加首页
+    const homeHref = addLocaleToPathname('/', language);
     breadcrumbs.push({
       name: t('nav.home'),
-      href: `/${language}`
+      href: homeHref === '/' ? '/' : homeHref.replace(/\/$/, '')
     });
     
     let currentPath = '';

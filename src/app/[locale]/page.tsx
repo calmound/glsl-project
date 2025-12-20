@@ -79,7 +79,6 @@ export async function generateMetadata({ params }: HomePageProps): Promise<Metad
 export async function generateStaticParams() {
   return [
     { locale: 'zh' },
-    { locale: 'en' },
   ];
 }
 

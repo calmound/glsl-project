@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { createBrowserSupabase } from '@/lib/supabase';
 import Link from 'next/link';
+import MainLayout from '@/components/layout/main-layout';
 
 export default function TestSupabasePage() {
   const [status, setStatus] = useState<any>({});
@@ -83,19 +84,22 @@ export default function TestSupabasePage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto mb-4"></div>
-          <p>测试 Supabase 连接...</p>
+      <MainLayout>
+        <div className="min-h-screen flex items-center justify-center">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto mb-4"></div>
+            <p>测试 Supabase 连接...</p>
+          </div>
         </div>
-      </div>
+      </MainLayout>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
-      <div className="max-w-4xl mx-auto px-4">
-        <h1 className="text-3xl font-bold mb-8">Supabase 连接测试</h1>
+    <MainLayout>
+      <div className="min-h-screen bg-gray-50 py-8">
+        <div className="max-w-4xl mx-auto px-4">
+          <h1 className="text-3xl font-bold mb-8">Supabase 连接测试</h1>
 
         {/* 客户端创建 */}
         <div className="bg-white rounded-lg shadow p-6 mb-4">
@@ -118,7 +122,7 @@ export default function TestSupabasePage() {
           {!status.authCheck?.user && (
             <div className="mt-4 p-4 bg-yellow-50 border border-yellow-200 rounded">
               <p className="text-yellow-800">
-                ⚠️ 未登录。请先<Link href="/login" className="underline text-blue-600">登录</Link>
+                ⚠️ 未登录。请先<Link href="/signin" className="underline text-blue-600">登录</Link>
               </p>
             </div>
           )}
@@ -160,13 +164,14 @@ export default function TestSupabasePage() {
         <div className="bg-blue-50 border border-blue-200 rounded-lg p-6">
           <h3 className="font-semibold mb-2">💡 下一步</h3>
           <ul className="list-disc list-inside space-y-1 text-sm">
-            <li>如果认证失败，请先<Link href="/login" className="underline text-blue-600">登录</Link></li>
+            <li>如果认证失败，请先<Link href="/signin" className="underline text-blue-600">登录</Link></li>
             <li>打开浏览器控制台查看详细日志</li>
             <li>检查 Network 标签查看请求详情</li>
             <li>如果数据库连接失败，检查 RLS 策略</li>
           </ul>
         </div>
+        </div>
       </div>
-    </div>
+    </MainLayout>
   );
 }

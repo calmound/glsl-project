@@ -116,21 +116,24 @@ export default function StructuredData({ type, data }: StructuredDataProps) {
     const structuredData = generateStructuredData();
     
     if (structuredData) {
-      // 移除已存在的结构化数据
-      const existingScript = document.querySelector('script[type="application/ld+json"]');
+      const selector = `script[data-structured-data="${type}"]`;
+
+      // 移除已存在的结构化数据（仅自身）
+      const existingScript = document.querySelector(selector);
       if (existingScript) {
         existingScript.remove();
       }
-      
+
       // 添加新的结构化数据
       const script = document.createElement('script');
       script.type = 'application/ld+json';
+      script.dataset.structuredData = type;
       script.textContent = JSON.stringify(structuredData);
       document.head.appendChild(script);
-      
+
       // 清理函数
       return () => {
-        const scriptToRemove = document.querySelector('script[type="application/ld+json"]');
+        const scriptToRemove = document.querySelector(selector);
         if (scriptToRemove) {
           scriptToRemove.remove();
         }

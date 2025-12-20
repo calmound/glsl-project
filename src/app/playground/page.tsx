@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import { getTranslationFunction } from '@/lib/translations';
 import PlaygroundClient from '@/app/[locale]/playground/playground-client';
+import MainLayout from '@/components/layout/main-layout';
 
 // English Playground page at /playground (default locale, no redirect)
 export async function generateMetadata(): Promise<Metadata> {
@@ -49,5 +50,9 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default function PlaygroundPage() {
-  return <PlaygroundClient locale="en" />;
+  return (
+    <MainLayout>
+      <PlaygroundClient locale="en" />
+    </MainLayout>
+  );
 }

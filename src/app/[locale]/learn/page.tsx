@@ -107,8 +107,5 @@ export default async function LearnPage({ params }: PageProps) {
 
 // 生成静态参数
 export function generateStaticParams() {
-  return [
-    { locale: 'zh' },
-    { locale: 'en' },
-  ];
+  return [{ locale: 'zh' }];
 }

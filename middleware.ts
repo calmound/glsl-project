@@ -37,7 +37,7 @@ export async function middleware(request: NextRequest) {
   }
 
   // 2. 检查是否是受保护路径
-  const protectedPaths = ['/app', '/signin'];
+  const protectedPaths = ['/app'];
   const isProtectedPath = protectedPaths.some(path => pathname.startsWith(path));
 
   // 如果不是受保护路径，直接放行（公开页面如 /learn, /about 等）
@@ -83,11 +83,6 @@ export async function middleware(request: NextRequest) {
   // 保护 /app 路径，未登录则重定向到登录页
   if (pathname.startsWith('/app') && !user) {
     return NextResponse.redirect(new URL('/signin', request.url));
-  }
-
-  // 如果已登录用户访问登录页，重定向到首页
-  if (pathname === '/signin' && user) {
-    return NextResponse.redirect(new URL('/', request.url));
   }
 
   return response;

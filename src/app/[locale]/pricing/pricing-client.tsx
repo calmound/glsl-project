@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation';
 import { CreemCheckout } from '@creem_io/nextjs';
 import MainLayout from '../../../components/layout/main-layout';
 import { useLanguage } from '../../../contexts/LanguageContext';
+import { addLocaleToPathname } from '../../../lib/i18n';
 import { useAuth } from '../../../contexts/AuthContext';
 import { Locale } from '../../../lib/i18n';
 import { Button, buttonVariants } from '@/components/ui/button';
@@ -111,10 +112,6 @@ export default function PricingClient({ locale }: PricingClientProps) {
         {
             question: t('pricing.faq.cancel.q') || '如何取消订阅？',
             answer: t('pricing.faq.cancel.a') || '目前是一次性付费 3 个月，无需手动取消，到期后自动结束。',
-        },
-        {
-            question: t('pricing.faq.team.q') || '有团队版吗？',
-            answer: t('pricing.faq.team.a') || '如需团队采购，请通过邮件联系我们获取企业版报价。',
         },
     ];
 
@@ -224,7 +221,13 @@ export default function PricingClient({ locale }: PricingClientProps) {
                                                 <Button
                                                     size="lg"
                                                     className="w-full text-lg h-14 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 shadow-lg"
-                                                    onClick={() => router.push(`/${locale}/signin?redirect=/pricing`)}
+                                                    onClick={() =>
+                                                        router.push(
+                                                            `/signin?redirect=${encodeURIComponent(
+                                                                addLocaleToPathname('/pricing', locale)
+                                                            )}`
+                                                        )
+                                                    }
                                                 >
                                                     {t('pricing.login_required') || '需要先登录才能订阅'}
                                                 </Button>
@@ -242,7 +245,7 @@ export default function PricingClient({ locale }: PricingClientProps) {
                                                 <CreemCheckout
                                                     productId={plan.productId}
                                                     referenceId={user.id}
-                                                    successUrl={`/${locale}/payment/success`}
+                                                    successUrl={addLocaleToPathname('/payment/success', locale)}
                                                     metadata={{
                                                         plan: plan.key,
                                                         userEmail: user.email || '',

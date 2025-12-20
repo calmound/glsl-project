@@ -10,6 +10,7 @@ import {
 import { getTranslationFunction } from '@/lib/translations';
 import { createServerSupabase } from '@/lib/supabase-server';
 import TutorialPageClient from '@/app/[locale]/learn/[category]/[id]/tutorial-client';
+import MainLayout from '@/components/layout/main-layout';
 
 export const dynamic = 'force-dynamic';
 export const revalidate = 0;
@@ -138,16 +139,18 @@ export default async function TutorialPage({ params }: TutorialPageProps) {
   }
 
   return (
-    <TutorialPageClient
-      tutorial={tutorial}
-      readme={readme}
-      shaders={shaders}
-      locale={locale}
-      category={category}
-      tutorialId={id}
-      categoryTutorials={categoryTutorials}
-      initialCode={initialCode ?? (shaders.exercise || shaders.fragment)}
-      isFree={isFree}
-    />
+    <MainLayout>
+      <TutorialPageClient
+        tutorial={tutorial}
+        readme={readme}
+        shaders={shaders}
+        locale={locale}
+        category={category}
+        tutorialId={id}
+        categoryTutorials={categoryTutorials}
+        initialCode={initialCode ?? (shaders.exercise || shaders.fragment)}
+        isFree={isFree}
+      />
+    </MainLayout>
   );
 }

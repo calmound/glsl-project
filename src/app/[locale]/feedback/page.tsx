@@ -2,6 +2,7 @@ import { Metadata } from 'next';
 import { getValidLocale } from '@/lib/i18n';
 import { getTranslationFunction } from '@/lib/translations';
 import FeedbackClient from './feedback-client';
+import MainLayout from '../../../components/layout/main-layout';
 
 interface FeedbackPageProps {
   params: Promise<{
@@ -78,5 +79,9 @@ export default async function FeedbackPage({ params }: FeedbackPageProps) {
   const { locale } = await params;
   const validLocale = getValidLocale(locale);
 
-  return <FeedbackClient locale={validLocale} />;
+  return (
+    <MainLayout>
+      <FeedbackClient locale={validLocale} />
+    </MainLayout>
+  );
 }

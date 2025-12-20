@@ -2,6 +2,7 @@ import { Metadata } from 'next';
 import { getValidLocale } from '../../../lib/i18n';
 import PlaygroundClient from './playground-client';
 import PlaygroundStructuredData from '../../../components/seo/playground-structured-data';
+import MainLayout from '../../../components/layout/main-layout';
 
 interface PlaygroundPageProps {
   params: Promise<{
@@ -86,9 +87,9 @@ export default async function PlaygroundPage({ params }: PlaygroundPageProps) {
   const locale = getValidLocale(localeParam);
 
   return (
-    <>
+    <MainLayout>
       <PlaygroundStructuredData locale={locale as 'en' | 'zh'} />
       <PlaygroundClient locale={locale} />
-    </>
+    </MainLayout>
   );
 }

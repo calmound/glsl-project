@@ -6,7 +6,7 @@ import { CreemPortal } from '@creem_io/nextjs';
 import MainLayout from '@/components/layout/main-layout';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useAuth } from '@/contexts/AuthContext';
-import { Locale } from '@/lib/i18n';
+import { Locale, addLocaleToPathname } from '@/lib/i18n';
 import { Button } from '@/components/ui/button';
 
 interface PaymentSuccessClientProps {
@@ -81,7 +81,7 @@ export default function PaymentSuccessClient({ locale, sessionId }: PaymentSucce
   useEffect(() => {
     if (!isActive) return;
     if (countdown <= 0) {
-      router.push(`/${locale}/learn`);
+      router.push(addLocaleToPathname('/learn', locale));
       return;
     }
 
@@ -93,7 +93,7 @@ export default function PaymentSuccessClient({ locale, sessionId }: PaymentSucce
   }, [countdown, isActive, locale, router]);
 
   const handleGoToLearning = () => {
-    router.push(`/${locale}/learn`);
+    router.push(addLocaleToPathname('/learn', locale));
   };
 
   return (

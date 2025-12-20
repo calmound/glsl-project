@@ -5,6 +5,7 @@ import { getValidLocale, type Locale } from '../../../../../lib/i18n';
 import { getTranslationFunction } from '../../../../../lib/translations';
 import { createServerSupabase } from '../../../../../lib/supabase-server';
 import TutorialPageClient from './tutorial-client';
+import MainLayout from '../../../../../components/layout/main-layout';
 
 // 强制此页面按请求动态渲染，确保可读取用户 Cookie 并从数据库回显代码
 export const dynamic = 'force-dynamic';
@@ -114,7 +115,7 @@ export async function generateMetadata({ params }: TutorialPageProps): Promise<M
 export async function generateStaticParams() {
   // 这里可以根据实际的教程数据生成静态参数
   // 为了简化，我们返回一些基本的参数组合
-  const locales: Locale[] = ['zh', 'en'];
+  const locales: Locale[] = ['zh'];
   const categories = ['basic', 'noise', 'lighting'];
   const tutorials = [
     'hello-world', 'colors', 'time-animation', 'mouse-interaction',
@@ -209,16 +210,18 @@ export default async function TutorialPage({ params }: TutorialPageProps) {
   console.log('🔍 [服务端] 默认代码来源:', shaders.exercise ? 'exercise' : 'fragment');
   
   return (
-    <TutorialPageClient
-      tutorial={tutorial}
-      readme={readme}
-      shaders={shaders}
-      locale={locale}
-      category={category}
-      tutorialId={id}
-      categoryTutorials={categoryTutorials}
-      initialCode={initialCode ?? (shaders.exercise || shaders.fragment)}
-      isFree={isFree}
-    />
+    <MainLayout>
+      <TutorialPageClient
+        tutorial={tutorial}
+        readme={readme}
+        shaders={shaders}
+        locale={locale}
+        category={category}
+        tutorialId={id}
+        categoryTutorials={categoryTutorials}
+        initialCode={initialCode ?? (shaders.exercise || shaders.fragment)}
+        isFree={isFree}
+      />
+    </MainLayout>
   );
 }

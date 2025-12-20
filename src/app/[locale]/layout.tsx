@@ -78,8 +78,10 @@ export async function generateMetadata({ params }: LocaleLayoutProps): Promise<M
 
 // 生成静态参数
 export async function generateStaticParams() {
-  return [{ locale: 'en' }, { locale: 'zh' }];
+  return [{ locale: 'zh' }];
 }
+
+export const dynamicParams = false;
 
 export default async function LocaleLayout({ children }: LocaleLayoutProps) {
   return children;

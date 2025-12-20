@@ -5,6 +5,7 @@ import { createPortal } from 'react-dom';
 import { useRouter } from 'next/navigation';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { Button } from '@/components/ui/button';
+import { addLocaleToPathname } from '../../lib/i18n';
 
 interface SubscriptionPromptProps {
     onClose?: () => void;
@@ -37,7 +38,7 @@ export default function SubscriptionPrompt({ onClose, title, description }: Subs
     }, []);
 
     const handleSubscribe = () => {
-        router.push(`/${language}/pricing`);
+        router.push(addLocaleToPathname('/pricing', language));
     };
 
     if (!mounted || !portalRoot) return null;

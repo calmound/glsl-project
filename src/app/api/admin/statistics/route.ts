@@ -4,7 +4,7 @@ import { createServerSupabase } from '@/lib/supabase-server';
 export const dynamic = 'force-dynamic';
 
 // 管理员邮箱列表（从环境变量读取）
-const ADMIN_EMAILS = (process.env.ADMIN_EMAILS || 'shaderlearn@hotmail.com').split(',');
+const ADMIN_EMAILS = (process.env.ADMIN_EMAILS || 'support@shader-learn.com').split(',');
 
 export async function GET() {
   try {
@@ -122,7 +122,7 @@ export async function GET() {
     const avgLearningTime =
       learningTimeStats && learningTimeStats.length > 0
         ? learningTimeStats.reduce((sum, s) => sum + s.total_learning_time_minutes, 0) /
-          learningTimeStats.length
+        learningTimeStats.length
         : 0;
 
     // 获取难度分布

@@ -80,7 +80,7 @@ export default async function ContactPage({ params }: ContactPageProps) {
   const { locale: localeParam } = await params
   const locale = getValidLocale(localeParam)
   const t = getTranslationFunction(locale)
-  const email = 'shaderlearn@hotmail.com'
+  const email = 'support@shader-learn.com'
 
   return (
     <MainLayout>

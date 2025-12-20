@@ -53,7 +53,7 @@ export async function generateMetadata({ params }: TermsPageProps): Promise<Meta
 export default async function TermsPage({ params }: TermsPageProps) {
   const { locale: localeParam } = await params;
   const locale = getValidLocale(localeParam);
-  const email = 'shaderlearn@hotmail.com';
+  const email = 'support@shader-learn.com';
   const refundPath = locale === 'en' ? '/legal/refund' : `/${locale}/legal/refund`;
 
   return (

@@ -53,7 +53,7 @@ export async function generateMetadata({ params }: RefundPageProps): Promise<Met
 export default async function RefundPage({ params }: RefundPageProps) {
   const { locale: localeParam } = await params;
   const locale = getValidLocale(localeParam);
-  const email = 'shaderlearn@hotmail.com';
+  const email = 'support@shader-learn.com';
 
   return (
     <MainLayout>

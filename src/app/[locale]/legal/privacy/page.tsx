@@ -53,7 +53,7 @@ export async function generateMetadata({ params }: PrivacyPageProps): Promise<Me
 export default async function PrivacyPage({ params }: PrivacyPageProps) {
   const { locale: localeParam } = await params;
   const locale = getValidLocale(localeParam);
-  const email = 'shaderlearn@hotmail.com';
+  const email = 'support@shader-learn.com';
 
   return (
     <MainLayout>

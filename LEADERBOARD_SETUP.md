@@ -102,7 +102,7 @@ SELECT update_user_statistics(id) FROM auth.users;
 ADMIN_EMAILS=your-admin-email@example.com,another-admin@example.com
 ```
 
-多个邮箱用逗号分隔。默认管理员邮箱是 `shaderlearn@hotmail.com`。
+多个邮箱用逗号分隔。默认管理员邮箱是 `support@shader-learn.com`。
 
 只有管理员才能看到以下内容：
 - 网站使用统计
@@ -226,4 +226,4 @@ VALUES ('用户ID', 'first_tutorial', 'tutorial_completion', 1);
 
 ## 联系支持
 
-如有问题，请联系：shaderlearn@hotmail.com
+如有问题，请联系：support@shader-learn.com

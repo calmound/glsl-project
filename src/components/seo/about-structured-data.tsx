@@ -19,7 +19,7 @@ const AboutStructuredData: React.FC<AboutStructuredDataProps> = ({ locale }) => 
       locale === 'zh'
         ? '致力于为开发者提供最全面、最易懂的着色器编程学习资源'
         : 'Dedicated to providing developers with the most comprehensive and accessible shader programming learning resources',
-    email: 'shaderlearn@hotmail.com',
+    email: 'support@shader-learn.com',
     foundingDate: '2024',
     sameAs: [
       'https://twitter.com/ShaderLearn',

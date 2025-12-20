@@ -920,7 +920,15 @@ export default function TutorialPageClient({
                           ul: ({ children }) => <ul className="list-disc pl-5 mb-2">{children}</ul>,
                           ol: ({ children }) => <ol className="list-decimal pl-5 mb-2">{children}</ol>,
                           li: ({ children }) => <li className="mb-1">{children}</li>,
-                          code: ({ inline, className, children }) => {
+                          code: ({
+                            inline,
+                            className,
+                            children,
+                          }: {
+                            inline?: boolean;
+                            className?: string;
+                            children?: React.ReactNode;
+                          }) => {
                             const codeText = Array.isArray(children) ? children.join('') : String(children);
                             const isInline =
                               inline ?? (!className && !codeText.includes('\n') && !codeText.includes('\r'));

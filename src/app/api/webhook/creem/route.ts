@@ -2,6 +2,12 @@ import { Webhook } from '@creem_io/nextjs';
 import { createClient } from '@supabase/supabase-js';
 
 type Metadata = Record<string, string | number | null | undefined>;
+type EntitlementRow = {
+  id: string;
+  start_date: string | null;
+  end_date: string | null;
+  plan_type: string | null;
+};
 
 const supabaseAdmin = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -66,7 +72,7 @@ async function recordEvent({
   userId: string | null;
   customerId: string | null;
   subscriptionId: string | null;
-  payload: Record<string, unknown>;
+  payload: unknown;
 }) {
   const { data: existingEvent, error: existingError } = await supabaseAdmin
     .from('payment_events')
@@ -193,7 +199,9 @@ async function updateEntitlementStatus({
     .eq('user_id', userId)
     .maybeSingle();
 
-  if (existing) {
+  const existingEntitlement = existing as EntitlementRow | null;
+
+  if (existingEntitlement) {
     const { error } = await supabaseAdmin
       .from('entitlements')
       .update(updatePayload)
@@ -211,8 +219,8 @@ async function updateEntitlementStatus({
   await upsertEntitlement({
     userId,
     status,
-    planType: existing?.plan_type || 'pro_90days',
-    startDate: existing?.start_date || fallbackStart,
+    planType: 'pro_90days',
+    startDate: fallbackStart,
     endDate: fallbackEnd,
     customerId,
     subscriptionId,
@@ -231,7 +239,7 @@ async function handleGrantAccess({
 }: {
   eventType: string;
   eventId: string;
-  payload: Record<string, unknown>;
+  payload: unknown;
   metadata: Metadata;
   customerId: string | null;
   subscriptionId: string | null;
@@ -285,7 +293,7 @@ async function handleRevokeAccess({
 }: {
   eventType: string;
   eventId: string;
-  payload: Record<string, unknown>;
+  payload: unknown;
   metadata: Metadata;
   customerId: string | null;
   subscriptionId: string | null;

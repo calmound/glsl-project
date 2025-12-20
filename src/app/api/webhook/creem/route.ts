@@ -9,16 +9,29 @@ type EntitlementRow = {
   plan_type: string | null;
 };
 
-const supabaseAdmin = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!,
-  {
+let supabaseAdminClient: ReturnType<typeof createClient> | null = null;
+
+function getSupabaseAdmin() {
+  if (supabaseAdminClient) {
+    return supabaseAdminClient;
+  }
+
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
+
+  if (!url || !key) {
+    throw new Error('Missing Supabase server env vars for webhook.');
+  }
+
+  supabaseAdminClient = createClient(url, key, {
     auth: {
       autoRefreshToken: false,
       persistSession: false,
     },
-  }
-);
+  });
+
+  return supabaseAdminClient;
+}
 
 function getEntityId(entity: unknown): string | null {
   if (!entity) return null;
@@ -74,7 +87,7 @@ async function recordEvent({
   subscriptionId: string | null;
   payload: unknown;
 }) {
-  const { data: existingEvent, error: existingError } = await supabaseAdmin
+  const { data: existingEvent, error: existingError } = await getSupabaseAdmin()
     .from('payment_events')
     .select('id, processed')
     .eq('event_id', eventId)
@@ -88,7 +101,7 @@ async function recordEvent({
     return { shouldProcess: !existingEvent.processed, processed: existingEvent.processed };
   }
 
-  const { error: insertError } = await supabaseAdmin.from('payment_events').insert({
+  const { error: insertError } = await getSupabaseAdmin().from('payment_events').insert({
     event_id: eventId,
     event_type: eventType,
     user_id: userId,
@@ -100,7 +113,7 @@ async function recordEvent({
 
   if (insertError) {
     console.error('❌ [Webhook] 记录事件失败:', insertError);
-    const { data: duplicateEvent } = await supabaseAdmin
+    const { data: duplicateEvent } = await getSupabaseAdmin()
       .from('payment_events')
       .select('id, processed')
       .eq('event_id', eventId)
@@ -114,7 +127,7 @@ async function recordEvent({
 }
 
 async function markEventProcessed(eventId: string) {
-  const { error } = await supabaseAdmin
+  const { error } = await getSupabaseAdmin()
     .from('payment_events')
     .update({ processed: true, processed_at: new Date().toISOString() })
     .eq('event_id', eventId);
@@ -141,7 +154,7 @@ async function upsertEntitlement({
   customerId: string | null;
   subscriptionId: string | null;
 }) {
-  const { error } = await supabaseAdmin
+  const { error } = await getSupabaseAdmin()
     .from('entitlements')
     .upsert(
       {
@@ -193,7 +206,7 @@ async function updateEntitlementStatus({
     updatePayload.end_date = endDate;
   }
 
-  const { data: existing } = await supabaseAdmin
+  const { data: existing } = await getSupabaseAdmin()
     .from('entitlements')
     .select('id, start_date, end_date, plan_type')
     .eq('user_id', userId)
@@ -202,7 +215,7 @@ async function updateEntitlementStatus({
   const existingEntitlement = existing as EntitlementRow | null;
 
   if (existingEntitlement) {
-    const { error } = await supabaseAdmin
+    const { error } = await getSupabaseAdmin()
       .from('entitlements')
       .update(updatePayload)
       .eq('user_id', userId);

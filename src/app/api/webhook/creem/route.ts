@@ -8,8 +8,12 @@ type EntitlementRow = {
   end_date: string | null;
   plan_type: string | null;
 };
+type PaymentEventRow = {
+  id: string;
+  processed: boolean | null;
+};
 
-let supabaseAdminClient: ReturnType<typeof createClient> | null = null;
+let supabaseAdminClient: ReturnType<typeof createClient<any>> | null = null;
 
 function getSupabaseAdmin() {
   if (supabaseAdminClient) {
@@ -23,7 +27,7 @@ function getSupabaseAdmin() {
     throw new Error('Missing Supabase server env vars for webhook.');
   }
 
-  supabaseAdminClient = createClient(url, key, {
+  supabaseAdminClient = createClient<any>(url, key, {
     auth: {
       autoRefreshToken: false,
       persistSession: false,
@@ -97,8 +101,13 @@ async function recordEvent({
     console.error('❌ [Webhook] 查询事件失败:', existingError);
   }
 
-  if (existingEvent) {
-    return { shouldProcess: !existingEvent.processed, processed: existingEvent.processed };
+  const existingPaymentEvent = existingEvent as PaymentEventRow | null;
+
+  if (existingPaymentEvent) {
+    return {
+      shouldProcess: !existingPaymentEvent.processed,
+      processed: existingPaymentEvent.processed,
+    };
   }
 
   const { error: insertError } = await getSupabaseAdmin().from('payment_events').insert({
@@ -118,8 +127,13 @@ async function recordEvent({
       .select('id, processed')
       .eq('event_id', eventId)
       .maybeSingle();
-    if (duplicateEvent) {
-      return { shouldProcess: !duplicateEvent.processed, processed: duplicateEvent.processed };
+
+    const duplicatePaymentEvent = duplicateEvent as PaymentEventRow | null;
+    if (duplicatePaymentEvent) {
+      return {
+        shouldProcess: !duplicatePaymentEvent.processed,
+        processed: duplicatePaymentEvent.processed,
+      };
     }
   }
 

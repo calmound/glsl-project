@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # SDF Rectangle
 
 Practice core GLSL math building blocks used across shaders.

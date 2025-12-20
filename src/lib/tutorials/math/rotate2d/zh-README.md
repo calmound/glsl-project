@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # 二维旋转矩阵
 
 使用二维旋转矩阵旋转坐标。

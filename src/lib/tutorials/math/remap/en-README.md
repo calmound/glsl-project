@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # Remap Function
 
 Implement a remap() helper to convert values between ranges.

@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # 鼠标交互
 
 学习使用鼠标坐标创建交互效果，理解uniform变量的传递和使用。

@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # Coordinate Transformation
 
 Learn the basic principles of 2D coordinate transformations, including rotation, scaling, and creating repetitive patterns

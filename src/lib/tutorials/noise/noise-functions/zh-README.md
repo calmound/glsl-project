@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # 噪声函数
 
 学习和实现 GLSL 中常用的噪声函数，如随机噪声、值噪声和梯度噪声（如Perlin噪声的简化版），用于生成各种程序化纹理和效果。

@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # FBM (Fractal Brownian Motion)
 
 Learn procedural noise building blocks and common stylizations.

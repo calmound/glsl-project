@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # Time Animation
 
 Learn to create time-based animation effects using the u_time uniform variable and understand the application of sin functions in animation.

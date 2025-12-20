@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # Animated Noise
 
 Learn procedural noise building blocks and common stylizations.

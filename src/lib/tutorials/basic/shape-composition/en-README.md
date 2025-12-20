@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # Shape Composition
 
 Combine circle and rectangle masks to build more complex shapes using min/max or simple compositing.

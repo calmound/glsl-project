@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # Modulo Wrap
 
 Practice core GLSL math building blocks used across shaders.

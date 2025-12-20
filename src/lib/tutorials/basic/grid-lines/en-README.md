@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # Grid Lines
 
 Use fract() and step() to draw grid lines.

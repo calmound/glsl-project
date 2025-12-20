@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # Spinning Ring
 
 Rotate polar angle and colorize a ring.

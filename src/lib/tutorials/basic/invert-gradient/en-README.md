@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # Invert Gradient
 
 Invert a gradient using (1.0 - t).

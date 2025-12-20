@@ -920,11 +920,20 @@ export default function TutorialPageClient({
                           ul: ({ children }) => <ul className="list-disc pl-5 mb-2">{children}</ul>,
                           ol: ({ children }) => <ol className="list-decimal pl-5 mb-2">{children}</ol>,
                           li: ({ children }) => <li className="mb-1">{children}</li>,
-                          code: ({ children }) => (
-                            <code className="bg-gray-200 px-1 rounded text-xs">{children}</code>
-                          ),
+                          code: ({ inline, className, children }) => {
+                            const codeText = Array.isArray(children) ? children.join('') : String(children);
+                            const isInline =
+                              inline ?? (!className && !codeText.includes('\n') && !codeText.includes('\r'));
+                            return isInline ? (
+                              <code className="bg-slate-200 text-slate-900 px-1.5 py-0.5 rounded text-[0.85em]">
+                                {children}
+                              </code>
+                            ) : (
+                              <code className="block font-mono text-slate-100">{children}</code>
+                            );
+                          },
                           pre: ({ children }) => (
-                            <pre className="bg-gray-900 text-gray-100 p-3 rounded-md overflow-auto text-xs">
+                            <pre className="bg-slate-900 text-slate-100 p-4 rounded-md overflow-auto text-sm leading-relaxed">
                               {children}
                             </pre>
                           ),

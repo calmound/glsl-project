@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # Wave Warp
 
 Warp UV with a sine wave to create motion distortion.

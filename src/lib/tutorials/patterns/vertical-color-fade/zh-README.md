@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # 垂直颜色渐变
 
 基于 vUv.y 实现从下至上的颜色渐变，适合练习 UV 坐标使用。

@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # Smooth Edges
 
 Learn to create smooth edge transition effects using the smoothstep function, contrasting with the hard edges of the step function.

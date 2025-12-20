@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # Smooth Band
 
 Create a soft horizontal band using smoothstep().

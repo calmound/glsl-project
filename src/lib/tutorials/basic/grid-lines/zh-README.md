@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # 网格线
 
 使用 fract() 与 step() 绘制网格线。

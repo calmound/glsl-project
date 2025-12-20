@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # Ripple
 
 Create circular ripples by combining distance and time in a sine wave.

@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # Smoothstep Edge Fade
 
 Use smoothstep() to achieve a fade transition at the edges of a shape, contrasting with step().

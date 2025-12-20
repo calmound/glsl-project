@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # Vertical Color Fade
 
 Implement a bottom-to-top color gradient based on vUv.y, suitable for practicing UV coordinate usage.

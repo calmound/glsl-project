@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # Hash Grid Noise
 
 Generate a random value per grid cell using a small hash function.

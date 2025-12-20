@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # 中心径向渐变
 
 以画布中心为起点，通过 distance() 创建向外扩散的径向渐变。

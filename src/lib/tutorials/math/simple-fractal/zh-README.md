@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # 简单分形
 
 学习创建简单的分形图案，理解递归和自相似的概念在着色器中的应用。

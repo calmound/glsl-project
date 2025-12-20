@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # 圆形描边
 
 使用 abs(距离-半径) 与 smoothstep() 绘制圆环描边。

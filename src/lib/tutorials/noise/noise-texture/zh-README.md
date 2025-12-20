@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # 噪声纹理
 
 学习创建伪随机噪声纹理，理解噪声在程序化纹理生成中的重要作用。

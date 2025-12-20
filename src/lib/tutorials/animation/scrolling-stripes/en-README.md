@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # Scrolling Stripes
 
 Scroll stripes by adding time before fract().

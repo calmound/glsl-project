@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # Phong Lighting Model
 
 Implement the basic Phong lighting model to simulate ambient, diffuse, and specular highlights on object surfaces.

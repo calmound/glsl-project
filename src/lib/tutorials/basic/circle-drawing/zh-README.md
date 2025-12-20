@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # 圆形绘制（距离函数）
 
 使用归一化坐标与距离函数 length() 绘制圆形，并通过条件判断输出不同颜色。

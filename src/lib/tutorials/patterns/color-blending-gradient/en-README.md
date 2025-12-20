@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # Color Blending Gradient
 
 Implement a horizontal gradient between red and blue using the mix() function to help understand linear interpolation.

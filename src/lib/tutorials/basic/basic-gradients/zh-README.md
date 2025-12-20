@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # 基础渐变效果
 
 学习如何使用GLSL创建线性和径向渐变效果

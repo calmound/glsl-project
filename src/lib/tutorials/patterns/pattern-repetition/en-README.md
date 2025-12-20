@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # Pattern Repetition
 
 Learn how to create repetitive geometric patterns, including grid systems, random variations, and animation effects

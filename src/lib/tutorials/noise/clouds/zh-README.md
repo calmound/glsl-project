@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # 云朵
 
 学习程序化噪声的基础构件与常见风格化手法。

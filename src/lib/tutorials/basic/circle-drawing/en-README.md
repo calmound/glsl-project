@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # Circle Drawing (Distance Function)
 
 Draw a circle using normalized coordinates and the distance function length(), then color it with a simple conditional.

@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # Value Steps (Quantization)
 
 Quantize a smooth gradient into discrete steps using floor().

@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # Noise Color Map
 
 Learn procedural noise building blocks and common stylizations.

@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # Sine Wave Animation
 
 Learn to create wave effects using the sin function and understand the concepts of frequency, amplitude, and phase.

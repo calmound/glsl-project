@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # UV坐标基础
 
 理解着色器中的UV坐标系统及其应用。学习如何将UV坐标映射到颜色，创建渐变效果。

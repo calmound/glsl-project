@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # Angle Visualizer
 
 Practice core GLSL math building blocks used across shaders.

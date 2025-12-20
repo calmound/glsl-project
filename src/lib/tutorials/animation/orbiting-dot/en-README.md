@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # Orbiting Dot
 
 Animate a small dot orbiting around the center.

@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # Concentric Rings
 
 Practice building repeating patterns from UV coordinates.

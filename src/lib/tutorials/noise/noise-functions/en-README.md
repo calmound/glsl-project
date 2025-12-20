@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # Noise Functions
 
 Learn and implement common noise functions in GLSL, such as random noise, value noise, and gradient noise (like a simplified version of Perlin noise), used for generating various procedural textures and effects.

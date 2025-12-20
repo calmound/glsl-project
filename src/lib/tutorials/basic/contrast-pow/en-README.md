@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # Contrast with pow()
 
 Apply pow() to reshape a gradient curve.

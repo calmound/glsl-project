@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # 平滑带状遮罩
 
 用 smoothstep() 创建一条平滑的水平亮带。

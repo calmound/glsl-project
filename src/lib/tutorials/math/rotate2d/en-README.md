@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # 2D Rotation Matrix
 
 Rotate coordinates using a 2D rotation matrix.

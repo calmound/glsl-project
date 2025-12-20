@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # Aspect-Ratio Corrected UV
 
 Learn to correct UV aspect ratio with u_resolution so circles stay round on non-square canvases.

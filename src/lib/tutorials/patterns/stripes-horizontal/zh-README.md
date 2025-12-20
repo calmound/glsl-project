@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # 水平条纹
 
 使用 fract() 与 step() 创建水平条纹。

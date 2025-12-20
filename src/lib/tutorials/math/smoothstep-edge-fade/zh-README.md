@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # 柔边渐隐
 
 使用 smoothstep() 实现图形边缘的渐隐过渡，对比 step()。

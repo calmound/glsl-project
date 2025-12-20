@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # 卡通渲染 (Toon Shading)
 
 实现一种非真实感渲染技术，通过将光照强度量化为离散的色阶，并通常结合边缘检测来模拟卡通或漫画书的视觉风格。

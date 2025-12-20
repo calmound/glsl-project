@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # 往返移动亮带
 
 用 sin(u_time) 让一条软边亮带左右往返移动。

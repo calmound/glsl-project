@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # Centered UV Visual
 
 Visualize centered UV (vUv-0.5) as colors.

@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # Simple Rectangle
 
 Learn to draw rectangles using conditional statements and understand coordinate ranges and boundary detection.

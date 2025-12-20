@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # Color Cycle
 
 Cycle RGB channels over time using sin().

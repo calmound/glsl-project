@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # Time Pulse
 
 Create a pulsing brightness effect using sin(u_time).

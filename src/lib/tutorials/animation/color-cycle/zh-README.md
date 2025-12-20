@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # 颜色循环
 
 使用 sin() 让 RGB 通道随时间循环变化。

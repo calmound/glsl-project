@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # Gradient Grid
 
 Practice building repeating patterns from UV coordinates.

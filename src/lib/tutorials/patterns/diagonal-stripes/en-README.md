@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # Diagonal Stripes
 
 Practice building repeating patterns from UV coordinates.

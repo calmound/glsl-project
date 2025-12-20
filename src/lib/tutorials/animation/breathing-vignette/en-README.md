@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # Breathing Vignette
 
 Animate vignette strength over time.

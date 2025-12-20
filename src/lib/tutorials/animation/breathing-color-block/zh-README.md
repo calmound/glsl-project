@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # 呼吸色块
 
 使用 sin() 函数和时间变量实现周期变化的颜色呼吸动画。

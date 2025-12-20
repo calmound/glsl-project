@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # 对角线渐变
 
 使用 vUv.x 和 vUv.y 组合出对角线方向的渐变，并用 mix 完成颜色插值。

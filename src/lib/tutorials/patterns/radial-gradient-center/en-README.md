@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # Radial Gradient Center
 
 Create an outward-spreading radial gradient starting from the canvas center using distance().

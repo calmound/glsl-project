@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # 旋转圆环
 
 旋转极角并给圆环着色。

@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # Checkerboard Pattern
 
 Combine the mod() function with floor() to generate a black and white checkerboard texture.

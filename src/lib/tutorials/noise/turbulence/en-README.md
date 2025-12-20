@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # Turbulence
 
 Learn procedural noise building blocks and common stylizations.

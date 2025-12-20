@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # Rectangle Color Split
 
 Divide the screen area into two colors (left and right) using an if condition, mastering fragment judgment logic.

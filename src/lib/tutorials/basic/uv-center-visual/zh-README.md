@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # 居中 UV 可视化
 
 把居中 UV（vUv-0.5）可视化成颜色。

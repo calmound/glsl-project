@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # Ping-Pong Band
 
 Move a soft band left and right using sin(u_time).

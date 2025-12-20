@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # 形状组合
 
 将圆形与矩形的遮罩组合在一起，学习用 min/max 或简单的合成方式构建更复杂的图形。

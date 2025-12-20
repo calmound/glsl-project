@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # Polka Dots
 
 Build a dot pattern on a grid and draw circles in each cell.

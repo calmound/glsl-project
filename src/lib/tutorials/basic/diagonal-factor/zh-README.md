@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # 对角线因子
 
 构造 (vUv.x+vUv.y)/2 的对角线因子并可视化。

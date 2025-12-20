@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # Horizontal Stripes
 
 Create horizontal stripes using fract() and step().

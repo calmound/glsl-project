@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # 绘制圆形
 
 学习使用距离函数绘制基本图形，理解像素坐标系统和distance函数的应用。

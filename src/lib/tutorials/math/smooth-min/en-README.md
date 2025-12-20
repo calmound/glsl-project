@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # Smooth Min
 
 Practice core GLSL math building blocks used across shaders.

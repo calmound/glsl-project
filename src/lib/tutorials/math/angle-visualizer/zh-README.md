@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # 角度可视化
 
 练习着色器中常用的数学基础积木。

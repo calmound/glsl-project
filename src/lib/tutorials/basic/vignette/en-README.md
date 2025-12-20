@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # Vignette (Edge Darkening)
 
 Use distance to center and smoothstep() to darken edges.

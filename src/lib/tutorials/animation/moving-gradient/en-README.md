@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # Moving Gradient
 
 Animate a gradient by shifting vUv.x over time.

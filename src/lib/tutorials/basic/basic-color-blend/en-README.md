@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # Two-Color Blended Gradient
 
 Achieve a left-to-right two-color gradient effect on the screen through linear interpolation, mastering the basics of blending and UV coordinates in GLSL.

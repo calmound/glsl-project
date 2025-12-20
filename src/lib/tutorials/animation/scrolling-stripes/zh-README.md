@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # 滚动条纹
 
 在 fract() 前加时间，让条纹滚动。

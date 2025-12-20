@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # 垂直渐变
 
 使用 vUv.y 创建从下到上的渐变。

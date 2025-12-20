@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # 波纹
 
 将距离与时间结合到正弦波中，创建圆形波纹。

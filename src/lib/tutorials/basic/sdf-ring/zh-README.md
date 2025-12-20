@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # SDF 圆环
 
 使用距离场绘制圆环：通过 abs(length(p) - r) 得到环的距离，并用 smoothstep 构造平滑边缘。

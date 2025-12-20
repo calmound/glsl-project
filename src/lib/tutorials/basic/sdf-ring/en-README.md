@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # SDF Ring
 
 Draw a ring using a distance field: abs(length(p) - r) and smoothstep for smooth edges.

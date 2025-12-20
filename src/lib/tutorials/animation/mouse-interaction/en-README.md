@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # Mouse Interaction
 
 Learn to create interactive effects using mouse coordinates and understand the passing and usage of uniform variables.

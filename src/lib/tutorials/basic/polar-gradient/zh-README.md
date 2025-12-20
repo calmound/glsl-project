@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # 极坐标渐变（角度）
 
 将 UV 转换为极坐标角度，并映射到 0-1 渐变。

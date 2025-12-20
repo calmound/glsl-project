@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # Phong光照模型
 
 实现基础的Phong光照模型，模拟物体表面的环境光、漫反射和镜面高光效果。

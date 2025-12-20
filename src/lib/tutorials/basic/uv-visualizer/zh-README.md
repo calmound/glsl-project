@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # UV 可视化
 
 将 UV 坐标直接转为颜色值，便于理解 vUv 的颜色映射。

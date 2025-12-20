@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # Polar Gradient (Angle)
 
 Convert UV to polar angle and map it to a 0-1 gradient.

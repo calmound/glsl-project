@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # 中心圆遮罩
 
 使用 distance() 创建一个以画布中心为圆心的遮罩区域。

@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # Brick Wall
 
 Practice building repeating patterns from UV coordinates.

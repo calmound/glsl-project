@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # Breathing Color Block
 
 Implement a periodically changing color breathing animation using the sin() function and a time variable.

@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # Point Light
 
 Learn core lighting terms (diffuse/specular/rim) on a simple sphere.

@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # 移动渐变
 
 通过随时间平移 vUv.x 让渐变动起来。

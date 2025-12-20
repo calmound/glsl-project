@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # 时间脉冲
 
 使用 sin(u_time) 创建亮度脉冲动画。

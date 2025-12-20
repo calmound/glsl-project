@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # Vertical Gradient
 
 Create a bottom-to-top gradient with vUv.y.

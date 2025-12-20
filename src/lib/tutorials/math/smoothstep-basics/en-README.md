@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # Smoothstep Basics
 
 Practice core GLSL math building blocks used across shaders.

@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # Solid Color Fill
 
 Learn the most basic shader concepts and create solid color fill effects. Understand the role of gl_FragColor and RGBA color mode.

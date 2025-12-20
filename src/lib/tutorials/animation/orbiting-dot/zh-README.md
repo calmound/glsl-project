@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # 环绕小点
 
 让一个小点围绕中心做圆周运动。

@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # 双色矩形分割
 
 利用 if 条件将屏幕区域分为左右两色，掌握片元判断逻辑。

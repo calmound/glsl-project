@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # Clamp & Saturate
 
 Practice core GLSL math building blocks used across shaders.

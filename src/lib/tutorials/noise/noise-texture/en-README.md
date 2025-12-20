@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # Noise Texture
 
 Learn to create pseudo-random noise textures and understand the important role of noise in procedural texture generation.

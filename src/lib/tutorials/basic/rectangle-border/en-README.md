@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # Rectangle Border
 
 Create a border by subtracting an inner rectangle mask from an outer one.

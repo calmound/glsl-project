@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # Checker 10x10
 
 Practice building repeating patterns from UV coordinates.

@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # Diagonal Gradient
 
 Combine vUv.x and vUv.y to create a diagonal gradient and interpolate colors with mix.

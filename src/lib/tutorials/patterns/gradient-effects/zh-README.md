@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # 渐变效果
 
 学习创建多种渐变效果，包括线性渐变、径向渐变、角度渐变和动态混合

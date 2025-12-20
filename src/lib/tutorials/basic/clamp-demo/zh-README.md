@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # Clamp 演示
 
 使用 clamp() 将数值限制在范围内。

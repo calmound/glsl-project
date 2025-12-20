@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # 时间动画
 
 学习使用u_time uniform变量创建随时间变化的动画效果，理解sin函数在动画中的应用。

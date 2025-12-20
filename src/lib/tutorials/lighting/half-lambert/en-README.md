@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # Half-Lambert
 
 Learn core lighting terms (diffuse/specular/rim) on a simple sphere.

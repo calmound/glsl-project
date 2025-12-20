@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # 哈希格点噪声
 
 使用简单哈希函数，为每个网格单元生成随机值。

@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # 条纹与带状图案
 
 使用 fract 与 step 构造重复的条纹图案，并用 mix 在两种颜色之间切换。

@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # Marble
 
 Learn procedural noise building blocks and common stylizations.

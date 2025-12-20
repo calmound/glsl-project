@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # 纯色填充
 
 学习最基础的着色器概念，创建纯色填充效果。理解gl_FragColor的作用和RGBA颜色模式。

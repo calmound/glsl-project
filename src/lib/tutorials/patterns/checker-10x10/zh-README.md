@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # 10x10 棋盘格
 
 练习基于 UV 构建重复图案。

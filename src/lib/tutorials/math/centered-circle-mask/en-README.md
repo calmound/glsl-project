@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # Centered Circle Mask
 
 Create a mask area centered on the canvas using distance().

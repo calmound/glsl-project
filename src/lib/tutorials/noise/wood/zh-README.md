@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # 木纹年轮
 
 学习程序化噪声的基础构件与常见风格化手法。

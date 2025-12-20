@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # 平滑边缘
 
 学习使用smoothstep函数创建平滑的边缘过渡效果，对比step函数的硬边缘。

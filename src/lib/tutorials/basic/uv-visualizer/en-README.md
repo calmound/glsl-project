@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # UV Visualizer
 
 Directly convert UV coordinates to color values to facilitate understanding of vUv color mapping.

@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # 硬边遮罩
 
 通过 step() 函数构造一个具有明确边界的遮罩，掌握 GLSL 中的二值化处理。

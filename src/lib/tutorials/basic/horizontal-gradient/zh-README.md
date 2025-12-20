@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # 水平渐变
 
 使用 vUv.x 与 mix() 创建从左到右的基础渐变。

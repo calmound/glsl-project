@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # 分形布朗运动 (FBM)
 
 通过叠加多个不同频率和振幅的噪声层（通常是Perlin噪声或Simplex噪声）来创建具有自相似性的复杂图案，常用于生成自然现象如山脉、云彩、水面等。

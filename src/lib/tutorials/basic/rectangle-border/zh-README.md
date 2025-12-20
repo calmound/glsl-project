@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # 矩形边框
 
 通过“外矩形 - 内矩形”构造矩形边框。

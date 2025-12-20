@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # 反向渐变
 
 使用 (1.0 - t) 反转渐变方向。

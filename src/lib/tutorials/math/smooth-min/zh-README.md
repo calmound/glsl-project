@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # 平滑最小值
 
 练习着色器中常用的数学基础积木。

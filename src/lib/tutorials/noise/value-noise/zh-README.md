@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # 二维 Value Noise
 
 通过对格点随机值插值，构造平滑噪声。

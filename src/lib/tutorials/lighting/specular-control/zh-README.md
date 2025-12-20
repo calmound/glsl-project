@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # 高光控制
 
 在简单球体上学习光照项（漫反射/高光/边缘光）。

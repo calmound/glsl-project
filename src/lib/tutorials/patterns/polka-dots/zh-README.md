@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # 波点
 
 把画面分成网格，并在每个格子中绘制圆点。

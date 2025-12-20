@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # 2D Value Noise
 
 Build smooth noise by interpolating hashed grid corners.

@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # Step Function Mask
 
 Construct a mask with clear boundaries using the step() function, mastering binary processing in GLSL.

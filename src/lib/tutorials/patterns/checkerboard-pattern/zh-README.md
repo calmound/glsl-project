@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # 棋盘格图案
 
 结合 mod() 函数与 floor()，生成黑白相间的棋盘格纹理。

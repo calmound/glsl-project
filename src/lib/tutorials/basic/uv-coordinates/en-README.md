@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # UV Coordinates Basics
 
 Understanding UV coordinate system in shaders and its applications. Learn how to map UV coordinates to colors to create gradient effects.

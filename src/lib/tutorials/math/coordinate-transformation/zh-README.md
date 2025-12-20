@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # 坐标变换
 
 学习2D坐标变换的基本原理，包括旋转、缩放和重复图案的创建

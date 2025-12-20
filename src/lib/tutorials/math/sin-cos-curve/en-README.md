@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # Sin/Cos Curve
 
 Practice core GLSL math building blocks used across shaders.

@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # 图案重复
 
 学习如何创建重复的几何图案，包括网格系统、随机变化和动画效果

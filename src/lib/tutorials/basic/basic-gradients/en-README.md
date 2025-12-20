@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # Basic Gradient Effects
 
 Learn how to create linear and radial gradient effects using GLSL

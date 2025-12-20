@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # 颜色混合
 
 学习使用mix函数进行颜色混合，理解线性插值的概念和应用。

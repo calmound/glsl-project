@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # 纵横比修正的 UV
 
 学习使用 u_resolution 修正 UV 的纵横比，让圆形在非正方形画布上依然保持为圆。

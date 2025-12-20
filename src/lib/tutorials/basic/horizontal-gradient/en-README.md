@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # Horizontal Gradient
 
 Create a simple left-to-right gradient using vUv.x and mix().

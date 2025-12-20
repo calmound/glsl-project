@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # Blinn-Phong
 
 Learn core lighting terms (diffuse/specular/rim) on a simple sphere.

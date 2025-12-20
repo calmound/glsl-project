@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # Truchet Tiles
 
 Practice building repeating patterns from UV coordinates.

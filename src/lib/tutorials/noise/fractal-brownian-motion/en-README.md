@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # Fractal Brownian Motion (FBM)
 
 Create complex patterns with self-similarity by layering multiple noise octaves (usually Perlin or Simplex noise) with varying frequencies and amplitudes, often used to generate natural phenomena like mountains, clouds, and water surfaces.

@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # 用 pow() 调整对比度
 
 对渐变值使用 pow() 改变曲线，调整对比度。

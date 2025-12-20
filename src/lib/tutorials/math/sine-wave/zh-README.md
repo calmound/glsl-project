@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # 正弦波动画
 
 学习使用sin函数创建波形效果，理解频率、振幅和相位的概念。

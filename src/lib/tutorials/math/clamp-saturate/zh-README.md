@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # Clamp 与饱和
 
 练习着色器中常用的数学基础积木。

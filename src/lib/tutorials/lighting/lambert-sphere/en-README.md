@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # Lambert Lighting (Sphere)
 
 Shade a sphere with Lambert diffuse lighting using an estimated normal.

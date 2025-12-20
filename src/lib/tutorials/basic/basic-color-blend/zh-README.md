@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # 双色混合渐变
 
 通过线性插值在屏幕上实现从左至右的双色渐变效果，掌握 GLSL 中的混合与 UV 坐标基础。

@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # Simple Fractals
 
 Learn to create simple fractal patterns and understand the application of recursion and self-similarity concepts in shaders.

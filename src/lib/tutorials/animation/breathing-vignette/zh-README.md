@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # 呼吸暗角
 
 让暗角强度随时间呼吸变化。

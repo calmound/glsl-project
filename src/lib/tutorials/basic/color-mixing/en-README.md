@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # Color Mixing
 
 Learn to use the mix function for color blending and understand the concept and application of linear interpolation.

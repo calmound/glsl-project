@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # Gradient Effects
 
 Learn to create various gradient effects, including linear gradients, radial gradients, angular gradients, and dynamic blending

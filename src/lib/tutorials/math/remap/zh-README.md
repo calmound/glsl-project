@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # Remap 函数
 
 实现 remap() 辅助函数，用于区间映射。

@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # 颜色混合渐变
 
 通过 mix() 函数在红蓝两色之间实现水平渐变，帮助理解线性插值。

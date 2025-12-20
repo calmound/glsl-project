@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # 简单矩形
 
 学习使用条件判断绘制矩形，理解坐标范围和边界检测。

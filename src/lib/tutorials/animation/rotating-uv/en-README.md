@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # Rotating UV
 
 Rotate UV around the center over time.

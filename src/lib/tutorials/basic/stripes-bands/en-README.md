@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # Stripes and Bands
 
 Build repeating stripes with fract and step, and switch colors with mix.

@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # Vertical Stripes
 
 Practice building repeating patterns from UV coordinates.

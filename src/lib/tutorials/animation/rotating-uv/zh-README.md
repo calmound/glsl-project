@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # 旋转 UV
 
 让 UV 围绕中心随时间旋转。

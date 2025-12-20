@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # Toon Shading
 
 Implement a non-photorealistic rendering technique that simulates the visual style of cartoons or comic books by quantizing light intensity into discrete color levels, often combined with edge detection.

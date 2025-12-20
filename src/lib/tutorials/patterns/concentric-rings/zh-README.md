@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # 同心圆环
 
 练习基于 UV 构建重复图案。

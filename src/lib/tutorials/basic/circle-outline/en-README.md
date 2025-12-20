@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # Circle Outline
 
 Draw a ring by using abs(distance - radius) and smoothstep().

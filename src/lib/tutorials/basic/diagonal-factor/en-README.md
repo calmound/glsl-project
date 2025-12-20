@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # Diagonal Factor
 
 Build a diagonal factor (vUv.x+vUv.y)/2 and colorize it.

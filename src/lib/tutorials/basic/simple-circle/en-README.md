@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # Drawing Circles
 
 Learn to draw basic shapes using distance functions and understand the pixel coordinate system and distance function applications.

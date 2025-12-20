@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # 阶梯值（量化）
 
 使用 floor() 将连续渐变量化成离散阶梯。

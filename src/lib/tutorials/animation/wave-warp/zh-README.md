@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # 波动扭曲
 
 用正弦波扭曲 UV，产生动态变形。

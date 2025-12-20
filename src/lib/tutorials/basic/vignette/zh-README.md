@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # 暗角（边缘变暗）
 
 使用到中心的距离与 smoothstep() 让画面四周变暗。

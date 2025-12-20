@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # Lambert 光照（球）
 
 用估计法线实现 Lambert 漫反射，为球体着色。

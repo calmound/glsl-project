@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 
 const ROOT = path.join(process.cwd(), 'src/lib/tutorials');
-const MARKER = '<!-- AUTO-GENERATED: tutorial-readme -->';
+const MARKER = '';
 
 function readJson(filePath) {
   return JSON.parse(fs.readFileSync(filePath, 'utf8'));

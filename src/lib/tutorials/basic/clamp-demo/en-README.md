@@ -1,4 +1,4 @@
-<!-- AUTO-GENERATED: tutorial-readme -->
+
 # Clamp Demo
 
 Use clamp() to keep values in range.

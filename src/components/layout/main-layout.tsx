@@ -5,7 +5,6 @@ import Link from 'next/link';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { addLocaleToPathname } from '@/lib/i18n';
 import LanguageSwitcher from '../ui/language-switcher';
-import LogoutLink from '@/components/auth/logout-link';
 import LoginLink from '@/components/auth/login-link';
 import UserProfile from '@/components/auth/user-profile';
 
@@ -66,7 +65,6 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
             <LanguageSwitcher />
             <UserProfile />
             <LoginLink />
-            <LogoutLink />
           </div>
         </div>
       </header >

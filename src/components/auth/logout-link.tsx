@@ -18,20 +18,20 @@ export default function LogoutLink() {
 
   const handleLogout = async () => {
     const supabase = createBrowserSupabase()
-    
+
     // 可选：添加确认对话框
     const confirmed = window.confirm(
-      language === 'zh' 
-        ? '确定要退出登录吗？' 
+      language === 'zh'
+        ? '确定要退出登录吗？'
         : 'Are you sure you want to logout?'
     )
-    
+
     if (!confirmed) return
 
     try {
       setIsLoggingOut(true)
       const { error } = await supabase.auth.signOut()
-      
+
       if (error) {
         console.error('登出错误:', error)
         alert(language === 'zh' ? '登出失败，请重试' : 'Logout failed, please try again')
@@ -59,7 +59,7 @@ export default function LogoutLink() {
     <button
       onClick={handleLogout}
       disabled={isLoggingOut}
-      className="px-4 py-2 rounded border border-gray-300 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+      className="px-1 py-1.5 text-sm rounded-md border border-gray-200 text-gray-600 hover:text-primary hover:border-primary/40 hover:bg-primary/5 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
       title={user.email || undefined}
     >
       {isLoggingOut
@@ -69,4 +69,3 @@ export default function LogoutLink() {
     </button>
   )
 }
-

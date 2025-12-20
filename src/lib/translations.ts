@@ -20,6 +20,9 @@ export const translations: Record<Locale, Translations> = {
     'nav.contact': '联系',
     'nav.feedback': '反馈',
     'nav.pricing': '订阅会员',
+    'welcome.back': '欢迎回来，{name}！🎉',
+    'welcome.subtitle': '您已成功登录，可以开始学习 GLSL 着色器了。',
+    'welcome.user_fallback': '用户',
 
     // Feedback page
     'feedback.title': '用户反馈',
@@ -322,6 +325,9 @@ export const translations: Record<Locale, Translations> = {
     'nav.contact': 'Contact',
     'nav.feedback': 'Feedback',
     'nav.pricing': 'Pricing',
+    'welcome.back': 'Welcome back, {name}! 🎉',
+    'welcome.subtitle': 'You are signed in and ready to learn GLSL shaders.',
+    'welcome.user_fallback': 'User',
 
     // Feedback page
     'feedback.title': 'User Feedback',

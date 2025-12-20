@@ -20,6 +20,16 @@ export default async function Dashboard() {
     .select("*")
     .eq("id", user.id)
     .single();
+  const { data: entitlement } = await supabase
+    .from("entitlements")
+    .select("status, plan_type, end_date")
+    .eq("user_id", user.id)
+    .maybeSingle();
+
+  const isEntitlementActive =
+    entitlement?.status === "active" &&
+    (!entitlement.end_date || new Date(entitlement.end_date) > new Date());
+  const planLabel = isEntitlementActive ? entitlement?.plan_type ?? "active" : "free";
 
   return (
     <MainLayout>
@@ -44,7 +54,7 @@ export default async function Dashboard() {
 
                 <div className="bg-green-50 p-4 rounded-lg">
                   <h3 className="text-lg font-medium text-green-900 mb-2">当前计划</h3>
-                  <p className="text-green-700">计划：{profile?.plan ?? 'free'}</p>
+                <p className="text-green-700">计划：{planLabel}</p>
                   <p className="text-green-700">角色：{profile?.role ?? 'user'}</p>
                 </div>
 

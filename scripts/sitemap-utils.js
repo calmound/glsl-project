@@ -110,6 +110,11 @@ function generateSitemapXML(tutorialIds) {
     { path: 'glslify-guide', priority: '0.8', changefreq: 'monthly' },
     { path: 'examples', priority: '0.8', changefreq: 'weekly' },
     { path: 'contact', priority: '0.6', changefreq: 'monthly' },
+    { path: 'feedback', priority: '0.6', changefreq: 'monthly' },
+    { path: 'pricing', priority: '0.7', changefreq: 'monthly' },
+    { path: 'legal/privacy', priority: '0.4', changefreq: 'yearly' },
+    { path: 'legal/terms', priority: '0.4', changefreq: 'yearly' },
+    { path: 'legal/refund', priority: '0.4', changefreq: 'yearly' },
   ];
 
   // 生成首页URL（每种语言）

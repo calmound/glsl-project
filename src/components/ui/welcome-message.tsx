@@ -1,12 +1,24 @@
 "use client";
 import { useAuth } from '@/contexts/AuthContext';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 export default function WelcomeMessage() {
   const { user, loading } = useAuth();
+  const { t } = useLanguage();
 
   if (loading) return null;
 
   if (user) {
+    const displayName =
+      user.user_metadata?.full_name ||
+      user.user_metadata?.name ||
+      user.email?.split('@')[0] ||
+      t('welcome.user_fallback', 'User');
+    const welcomeTitle = (t('welcome.back', '欢迎回来，{name}！🎉') || '').replace(
+      '{name}',
+      displayName
+    );
+
     return (
       <div className="bg-green-50 border border-green-200 rounded-lg p-4 mb-6">
         <div className="flex items-center">
@@ -17,10 +29,10 @@ export default function WelcomeMessage() {
           </div>
           <div className="ml-3">
             <p className="text-sm font-medium text-green-800">
-              欢迎回来，{user.user_metadata?.full_name || user.email}！🎉
+              {welcomeTitle}
             </p>
             <p className="text-sm text-green-700 mt-1">
-              您已成功登录，可以开始学习 GLSL 着色器了。
+              {t('welcome.subtitle', '您已成功登录，可以开始学习 GLSL 着色器了。')}
             </p>
           </div>
         </div>

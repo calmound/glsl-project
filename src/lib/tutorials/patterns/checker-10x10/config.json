@@ -32,5 +32,6 @@
       300
     ]
   },
-  "preview": "/api/shader/patterns/checker-10x10"
+  "preview": "/api/shader/patterns/checker-10x10",
+  "isFree": false
 }

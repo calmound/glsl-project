@@ -36,5 +36,6 @@
       300
     ]
   },
-  "preview": "/api/shader/basic/polar-gradient"
+  "preview": "/api/shader/basic/polar-gradient",
+  "isFree": true
 }

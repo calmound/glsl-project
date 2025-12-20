@@ -1,11 +1,18 @@
 "use client"
 import { useAuth } from '@/contexts/AuthContext'
 import Image from 'next/image'
+import { useEffect, useState } from 'react'
 
 export default function UserProfile() {
   const { user, loading } = useAuth()
+  const [mounted, setMounted] = useState(false)
 
-  if (loading) {
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  // 避免 hydration 不匹配，在客户端挂载前不渲染
+  if (!mounted || loading) {
     return null
   }
 

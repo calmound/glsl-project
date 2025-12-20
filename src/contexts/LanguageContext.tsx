@@ -20,16 +20,21 @@ interface LanguageProviderProps {
   initialLocale?: Locale;
 }
 
-export function LanguageProvider({ children, initialLocale = 'en' }: LanguageProviderProps) {
+export function LanguageProvider({ children }: LanguageProviderProps) {
   const router = useRouter();
   const pathname = usePathname();
-  const [language, setLanguageState] = useState<Locale>(initialLocale);
-  
-  // 从路径中获取当前语言
+
+  // 从 pathname 解析初始语言
+  const { locale: pathLocale } = getLocaleFromPathname(pathname);
+  const [language, setLanguageState] = useState<Locale>(pathLocale);
+
+  // 监听路径变化更新语言
   useEffect(() => {
     const { locale } = getLocaleFromPathname(pathname);
-    setLanguageState(locale);
-  }, [pathname]);
+    if (locale !== language) {
+      setLanguageState(locale);
+    }
+  }, [pathname, language]);
   
   // 切换语言函数
   const setLanguage = (newLocale: Locale) => {

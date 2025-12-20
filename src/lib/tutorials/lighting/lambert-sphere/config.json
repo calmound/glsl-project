@@ -37,5 +37,6 @@
       300
     ]
   },
-  "preview": "/api/shader/lighting/lambert-sphere"
+  "preview": "/api/shader/lighting/lambert-sphere",
+  "isFree": false
 }

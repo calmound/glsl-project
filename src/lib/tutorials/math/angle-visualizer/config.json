@@ -32,5 +32,6 @@
       300
     ]
   },
-  "preview": "/api/shader/math/angle-visualizer"
+  "preview": "/api/shader/math/angle-visualizer",
+  "isFree": true
 }

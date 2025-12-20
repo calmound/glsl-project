@@ -32,5 +32,6 @@
       300
     ]
   },
-  "preview": "/api/shader/math/sin-cos-curve"
+  "preview": "/api/shader/math/sin-cos-curve",
+  "isFree": false
 }

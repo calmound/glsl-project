@@ -10,9 +10,18 @@
   },
   "difficulty": "intermediate",
   "category": "math",
-  "tags": ["transformation", "rotation", "scaling", "matrix", "animation"],
+  "tags": [
+    "transformation",
+    "rotation",
+    "scaling",
+    "matrix",
+    "animation"
+  ],
   "estimatedTime": 25,
-  "prerequisites": ["uv-coordinates", "simple-circle"],
+  "prerequisites": [
+    "uv-coordinates",
+    "simple-circle"
+  ],
   "learningObjectives": {
     "zh": [
       "理解2D坐标变换的基本原理",
@@ -26,5 +35,6 @@
       "Learn how to implement scaling transformations",
       "Understand how to combine multiple transformations to create complex effects"
     ]
-  }
+  },
+  "isFree": false
 }

@@ -10,9 +10,18 @@
   },
   "difficulty": "beginner",
   "category": "math",
-  "tags": ["分形", "图案", "递归", "自相似", "程序化生成"],
+  "tags": [
+    "分形",
+    "图案",
+    "递归",
+    "自相似",
+    "程序化生成"
+  ],
   "estimatedTime": 25,
-  "prerequisites": ["uv-coordinates", "pattern-repetition"],
+  "prerequisites": [
+    "uv-coordinates",
+    "pattern-repetition"
+  ],
   "learningObjectives": {
     "zh": [
       "理解分形图案中自相似性的基本概念。",
@@ -28,8 +37,12 @@
     ]
   },
   "uniforms": {
-    "u_time": 0.0,
-    "u_resolution": [300, 300]
+    "u_time": 0,
+    "u_resolution": [
+      300,
+      300
+    ]
   },
-  "preview": "/api/shader/basic/simple-fractal"
+  "preview": "/api/shader/basic/simple-fractal",
+  "isFree": false
 }

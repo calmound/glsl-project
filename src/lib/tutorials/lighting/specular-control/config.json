@@ -32,5 +32,6 @@
       300
     ]
   },
-  "preview": "/api/shader/lighting/specular-control"
+  "preview": "/api/shader/lighting/specular-control",
+  "isFree": false
 }

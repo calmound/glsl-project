@@ -32,5 +32,6 @@
       300
     ]
   },
-  "preview": "/api/shader/noise/domain-warp"
+  "preview": "/api/shader/noise/domain-warp",
+  "isFree": false
 }

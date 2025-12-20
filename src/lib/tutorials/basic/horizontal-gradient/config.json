@@ -36,5 +36,6 @@
       300
     ]
   },
-  "preview": "/api/shader/basic/horizontal-gradient"
+  "preview": "/api/shader/basic/horizontal-gradient",
+  "isFree": true
 }

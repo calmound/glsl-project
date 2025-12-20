@@ -10,9 +10,17 @@
   },
   "difficulty": "intermediate",
   "category": "basic",
-  "tags": ["SDF", "圆环", "smoothstep", "length"],
+  "tags": [
+    "SDF",
+    "圆环",
+    "smoothstep",
+    "length"
+  ],
   "estimatedTime": 15,
-  "prerequisites": ["simple-circle", "smooth-edges"],
+  "prerequisites": [
+    "simple-circle",
+    "smooth-edges"
+  ],
   "learningObjectives": {
     "zh": [
       "理解距离场如何表示形状边界。",
@@ -26,8 +34,12 @@
     ]
   },
   "uniforms": {
-    "u_time": 0.0,
-    "u_resolution": [300, 300]
+    "u_time": 0,
+    "u_resolution": [
+      300,
+      300
+    ]
   },
-  "preview": "/api/shader/basic/sdf-ring"
+  "preview": "/api/shader/basic/sdf-ring",
+  "isFree": true
 }

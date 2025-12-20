@@ -80,7 +80,7 @@
 
 | 订阅周期 | 价格 | 月均价格 | 折扣 | 推荐度 |
 |---------|------|---------|------|-------|
-| 1个月 | **$9.9** | $9.9 | - | ⭐ |
+| 1个月 | **$9.99** | $9.99 | - | ⭐ |
 | 2个月 | **$15.9** | $8.0 | 节省19% | ⭐⭐ |
 | 3个月 | **$21.9** | $7.3 | 节省26% | ⭐⭐⭐ |
 
@@ -192,7 +192,7 @@ CREATE TABLE subscriptions (
   -- Creem 相关ID
   creem_subscription_id VARCHAR(255) UNIQUE,
   creem_customer_id VARCHAR(255),
-  creem_product_id VARCHAR(255),
+  NEXT_PUBLIC_CREEM_PRODUCT_ID VARCHAR(255),
 
   -- 元数据
   metadata JSONB,
@@ -292,7 +292,7 @@ COMMENT ON TABLE payment_events IS '支付事件日志表（用于调试和审�
     "user_id": "uuid",
     "status": "active",
     "plan_name": "1_month",
-    "plan_price": 9.9,
+    "plan_price": 9.99,
     "current_period_start": "2025-12-01T00:00:00Z",
     "current_period_end": "2026-01-01T00:00:00Z",
     "created_at": "2025-12-01T00:00:00Z"
@@ -582,7 +582,7 @@ NEXT_PUBLIC_SITE_URL=https://www.shader-learn.com
 
 **产品 1: 1个月订阅**
 - Name: GLSL Pro - 1 Month
-- Price: $9.9
+- Price: $9.99
 - Type: One-time payment (非周期订阅)
 - Description: 1个月完整访问权限
 

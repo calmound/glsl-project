@@ -32,5 +32,6 @@
       300
     ]
   },
-  "preview": "/api/shader/lighting/two-lights"
+  "preview": "/api/shader/lighting/two-lights",
+  "isFree": false
 }

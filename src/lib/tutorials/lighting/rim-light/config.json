@@ -32,5 +32,6 @@
       300
     ]
   },
-  "preview": "/api/shader/lighting/rim-light"
+  "preview": "/api/shader/lighting/rim-light",
+  "isFree": false
 }

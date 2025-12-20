@@ -32,5 +32,6 @@
       300
     ]
   },
-  "preview": "/api/shader/noise/noise-threshold"
+  "preview": "/api/shader/noise/noise-threshold",
+  "isFree": false
 }

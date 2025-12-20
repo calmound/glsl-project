@@ -37,5 +37,6 @@
       300
     ]
   },
-  "preview": "/api/shader/patterns/polka-dots"
+  "preview": "/api/shader/patterns/polka-dots",
+  "isFree": false
 }

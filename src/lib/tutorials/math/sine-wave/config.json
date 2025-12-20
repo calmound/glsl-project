@@ -10,9 +10,18 @@
   },
   "difficulty": "beginner",
   "category": "math",
-  "tags": ["正弦波", "动画", "数学", "sin函数", "时间"],
+  "tags": [
+    "正弦波",
+    "动画",
+    "数学",
+    "sin函数",
+    "时间"
+  ],
   "estimatedTime": 20,
-  "prerequisites": ["uv-coordinates", "time-animation"],
+  "prerequisites": [
+    "uv-coordinates",
+    "time-animation"
+  ],
   "learningObjectives": {
     "zh": [
       "理解`sin()`函数如何生成周期性波形。",
@@ -28,8 +37,12 @@
     ]
   },
   "uniforms": {
-    "u_time": 0.0,
-    "u_resolution": [300, 300]
+    "u_time": 0,
+    "u_resolution": [
+      300,
+      300
+    ]
   },
-  "preview": "/api/shader/basic/sine-wave"
+  "preview": "/api/shader/basic/sine-wave",
+  "isFree": false
 }

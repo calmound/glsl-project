@@ -32,5 +32,6 @@
       300
     ]
   },
-  "preview": "/api/shader/basic/contrast-pow"
+  "preview": "/api/shader/basic/contrast-pow",
+  "isFree": true
 }

@@ -32,5 +32,6 @@
       300
     ]
   },
-  "preview": "/api/shader/lighting/toon-lighting"
+  "preview": "/api/shader/lighting/toon-lighting",
+  "isFree": false
 }

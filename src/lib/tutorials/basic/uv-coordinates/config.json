@@ -10,9 +10,17 @@
   },
   "difficulty": "beginner",
   "category": "basic",
-  "tags": ["UV坐标", "基础", "坐标系统", "渐变", "纹理映射"],
+  "tags": [
+    "UV坐标",
+    "基础",
+    "坐标系统",
+    "渐变",
+    "纹理映射"
+  ],
   "estimatedTime": 10,
-  "prerequisites": ["solid-color"],
+  "prerequisites": [
+    "solid-color"
+  ],
   "learningObjectives": {
     "zh": [
       "理解UV坐标系（通常为0到1范围）及其在2D平面上的表示。",
@@ -37,5 +45,6 @@
       "description": "时间（秒）"
     }
   },
-  "preview": "/api/shader/basic/uv-coordinates"
+  "preview": "/api/shader/basic/uv-coordinates",
+  "isFree": true
 }

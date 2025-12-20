@@ -32,5 +32,6 @@
       300
     ]
   },
-  "preview": "/api/shader/basic/clamp-demo"
+  "preview": "/api/shader/basic/clamp-demo",
+  "isFree": true
 }

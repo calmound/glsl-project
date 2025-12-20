@@ -32,5 +32,6 @@
       300
     ]
   },
-  "preview": "/api/shader/patterns/gradient-grid"
+  "preview": "/api/shader/patterns/gradient-grid",
+  "isFree": false
 }

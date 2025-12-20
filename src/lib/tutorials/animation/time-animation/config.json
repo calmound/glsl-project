@@ -10,9 +10,18 @@
   },
   "difficulty": "beginner",
   "category": "animation",
-  "tags": ["动画", "时间", "sin函数", "uniform变量", "动态效果"],
+  "tags": [
+    "动画",
+    "时间",
+    "sin函数",
+    "uniform变量",
+    "动态效果"
+  ],
   "estimatedTime": 15,
-  "prerequisites": ["solid-color", "uv-coordinates"],
+  "prerequisites": [
+    "solid-color",
+    "uv-coordinates"
+  ],
   "learningObjectives": {
     "zh": [
       "理解`u_time` uniform变量如何将时间传递给着色器。",
@@ -28,8 +37,12 @@
     ]
   },
   "uniforms": {
-    "u_time": 0.0,
-    "u_resolution": [300, 300]
+    "u_time": 0,
+    "u_resolution": [
+      300,
+      300
+    ]
   },
-  "preview": "/api/shader/basic/time-animation"
+  "preview": "/api/shader/basic/time-animation",
+  "isFree": false
 }

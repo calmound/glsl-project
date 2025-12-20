@@ -311,7 +311,7 @@ CREATE TABLE subscriptions (
 
   creem_subscription_id VARCHAR(255) UNIQUE,
   creem_customer_id VARCHAR(255),
-  creem_product_id VARCHAR(255),
+  NEXT_PUBLIC_CREEM_PRODUCT_ID VARCHAR(255),
 
   metadata JSONB,
 

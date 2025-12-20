@@ -32,5 +32,6 @@
       300
     ]
   },
-  "preview": "/api/shader/basic/grid-lines"
+  "preview": "/api/shader/basic/grid-lines",
+  "isFree": true
 }

@@ -32,5 +32,6 @@
       300
     ]
   },
-  "preview": "/api/shader/noise/turbulence"
+  "preview": "/api/shader/noise/turbulence",
+  "isFree": false
 }

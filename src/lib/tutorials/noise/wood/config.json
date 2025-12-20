@@ -32,5 +32,6 @@
       300
     ]
   },
-  "preview": "/api/shader/noise/wood"
+  "preview": "/api/shader/noise/wood",
+  "isFree": false
 }

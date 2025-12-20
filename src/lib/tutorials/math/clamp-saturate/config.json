@@ -32,5 +32,6 @@
       300
     ]
   },
-  "preview": "/api/shader/math/clamp-saturate"
+  "preview": "/api/shader/math/clamp-saturate",
+  "isFree": false
 }

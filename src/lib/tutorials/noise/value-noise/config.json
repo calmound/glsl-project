@@ -35,5 +35,6 @@
       300
     ]
   },
-  "preview": "/api/shader/noise/value-noise"
+  "preview": "/api/shader/noise/value-noise",
+  "isFree": false
 }

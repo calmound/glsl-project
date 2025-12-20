@@ -32,5 +32,6 @@
       300
     ]
   },
-  "preview": "/api/shader/lighting/half-lambert"
+  "preview": "/api/shader/lighting/half-lambert",
+  "isFree": false
 }

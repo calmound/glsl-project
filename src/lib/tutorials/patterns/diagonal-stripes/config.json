@@ -32,5 +32,6 @@
       300
     ]
   },
-  "preview": "/api/shader/patterns/diagonal-stripes"
+  "preview": "/api/shader/patterns/diagonal-stripes",
+  "isFree": false
 }

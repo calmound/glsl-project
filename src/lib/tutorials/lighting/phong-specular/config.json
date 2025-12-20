@@ -32,5 +32,6 @@
       300
     ]
   },
-  "preview": "/api/shader/lighting/phong-specular"
+  "preview": "/api/shader/lighting/phong-specular",
+  "isFree": false
 }

@@ -32,5 +32,6 @@
       300
     ]
   },
-  "preview": "/api/shader/math/smoothstep-basics"
+  "preview": "/api/shader/math/smoothstep-basics",
+  "isFree": false
 }

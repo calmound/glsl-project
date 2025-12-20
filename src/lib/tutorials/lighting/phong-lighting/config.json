@@ -10,9 +10,19 @@
   },
   "difficulty": "intermediate",
   "category": "lighting",
-  "tags": ["光照", "Phong模型", "环境光", "漫反射", "镜面高光", "3D渲染"],
+  "tags": [
+    "光照",
+    "Phong模型",
+    "环境光",
+    "漫反射",
+    "镜面高光",
+    "3D渲染"
+  ],
   "estimatedTime": 45,
-  "prerequisites": ["vector-math", "normal-vectors"],
+  "prerequisites": [
+    "vector-math",
+    "normal-vectors"
+  ],
   "learningObjectives": {
     "zh": [
       "理解Phong光照模型的基本组成：环境光、漫反射和镜面高光。",
@@ -39,5 +49,6 @@
       "description_en": "Time (seconds)"
     }
   },
-  "preview": "/api/shader/lighting/phong-lighting"
+  "preview": "/api/shader/lighting/phong-lighting",
+  "isFree": false
 }

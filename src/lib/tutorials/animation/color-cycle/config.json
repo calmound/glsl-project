@@ -32,5 +32,6 @@
       300
     ]
   },
-  "preview": "/api/shader/animation/color-cycle"
+  "preview": "/api/shader/animation/color-cycle",
+  "isFree": false
 }

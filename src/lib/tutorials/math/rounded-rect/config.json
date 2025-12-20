@@ -32,5 +32,6 @@
       300
     ]
   },
-  "preview": "/api/shader/math/rounded-rect"
+  "preview": "/api/shader/math/rounded-rect",
+  "isFree": false
 }

@@ -10,9 +10,18 @@
   },
   "difficulty": "beginner",
   "category": "basic",
-  "tags": ["fract", "step", "重复", "条纹", "mix"],
+  "tags": [
+    "fract",
+    "step",
+    "重复",
+    "条纹",
+    "mix"
+  ],
   "estimatedTime": 12,
-  "prerequisites": ["uv-coordinates", "step-function-mask"],
+  "prerequisites": [
+    "uv-coordinates",
+    "step-function-mask"
+  ],
   "learningObjectives": {
     "zh": [
       "理解 fract 如何制造重复图案。",
@@ -26,9 +35,12 @@
     ]
   },
   "uniforms": {
-    "u_time": 0.0,
-    "u_resolution": [300, 300]
+    "u_time": 0,
+    "u_resolution": [
+      300,
+      300
+    ]
   },
-  "preview": "/api/shader/basic/stripes-bands"
+  "preview": "/api/shader/basic/stripes-bands",
+  "isFree": true
 }
-

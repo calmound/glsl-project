@@ -10,9 +10,17 @@
   },
   "difficulty": "beginner",
   "category": "patterns",
-  "tags": ["渐变", "径向渐变", "distance函数", "图形基础"],
+  "tags": [
+    "渐变",
+    "径向渐变",
+    "distance函数",
+    "图形基础"
+  ],
   "estimatedTime": 15,
-  "prerequisites": ["uv-coordinates", "simple-circle"],
+  "prerequisites": [
+    "uv-coordinates",
+    "simple-circle"
+  ],
   "learningObjectives": {
     "zh": [
       "理解如何计算像素点到画布中心的距离。",
@@ -24,5 +32,6 @@
       "Learn to use the `distance()` function to create radial effects.",
       "Master how to map distance values to color gradients."
     ]
-  }
+  },
+  "isFree": false
 }

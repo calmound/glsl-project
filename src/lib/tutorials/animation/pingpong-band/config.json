@@ -32,5 +32,6 @@
       300
     ]
   },
-  "preview": "/api/shader/animation/pingpong-band"
+  "preview": "/api/shader/animation/pingpong-band",
+  "isFree": false
 }

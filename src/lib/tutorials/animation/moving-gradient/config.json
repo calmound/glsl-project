@@ -36,5 +36,6 @@
       300
     ]
   },
-  "preview": "/api/shader/animation/moving-gradient"
+  "preview": "/api/shader/animation/moving-gradient",
+  "isFree": false
 }

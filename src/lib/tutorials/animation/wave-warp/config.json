@@ -32,5 +32,6 @@
       300
     ]
   },
-  "preview": "/api/shader/animation/wave-warp"
+  "preview": "/api/shader/animation/wave-warp",
+  "isFree": false
 }

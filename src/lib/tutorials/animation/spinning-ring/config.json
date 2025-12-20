@@ -32,5 +32,6 @@
       300
     ]
   },
-  "preview": "/api/shader/animation/spinning-ring"
+  "preview": "/api/shader/animation/spinning-ring",
+  "isFree": false
 }

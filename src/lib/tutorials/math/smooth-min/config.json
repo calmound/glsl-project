@@ -32,5 +32,6 @@
       300
     ]
   },
-  "preview": "/api/shader/math/smooth-min"
+  "preview": "/api/shader/math/smooth-min",
+  "isFree": false
 }

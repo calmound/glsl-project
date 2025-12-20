@@ -32,5 +32,6 @@
       300
     ]
   },
-  "preview": "/api/shader/patterns/brick-wall"
+  "preview": "/api/shader/patterns/brick-wall",
+  "isFree": true
 }

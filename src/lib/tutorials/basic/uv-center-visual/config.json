@@ -32,5 +32,6 @@
       300
     ]
   },
-  "preview": "/api/shader/basic/uv-center-visual"
+  "preview": "/api/shader/basic/uv-center-visual",
+  "isFree": true
 }

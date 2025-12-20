@@ -10,9 +10,17 @@
   },
   "difficulty": "beginner",
   "category": "animation",
-  "tags": ["交互", "鼠标", "uniform", "动态效果"],
+  "tags": [
+    "交互",
+    "鼠标",
+    "uniform",
+    "动态效果"
+  ],
   "estimatedTime": 15,
-  "prerequisites": ["uv-coordinates", "uniforms"],
+  "prerequisites": [
+    "uv-coordinates",
+    "uniforms"
+  ],
   "learningObjectives": {
     "zh": [
       "理解如何在GLSL中接收和使用鼠标坐标 (`u_mouse`)。",
@@ -26,9 +34,16 @@
     ]
   },
   "uniforms": {
-    "u_time": 0.0,
-    "u_resolution": [300, 300],
-    "u_mouse": [150, 150]
+    "u_time": 0,
+    "u_resolution": [
+      300,
+      300
+    ],
+    "u_mouse": [
+      150,
+      150
+    ]
   },
-  "preview": "/api/shader/basic/mouse-interaction"
+  "preview": "/api/shader/basic/mouse-interaction",
+  "isFree": false
 }

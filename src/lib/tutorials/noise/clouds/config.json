@@ -32,5 +32,6 @@
       300
     ]
   },
-  "preview": "/api/shader/noise/clouds"
+  "preview": "/api/shader/noise/clouds",
+  "isFree": false
 }

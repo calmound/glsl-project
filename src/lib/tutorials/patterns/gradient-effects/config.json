@@ -10,9 +10,18 @@
   },
   "difficulty": "intermediate",
   "category": "patterns",
-  "tags": ["gradient", "color", "blending", "animation", "effects"],
+  "tags": [
+    "gradient",
+    "color",
+    "blending",
+    "animation",
+    "effects"
+  ],
   "estimatedTime": 20,
-  "prerequisites": ["basic-gradients", "uv-coordinates"],
+  "prerequisites": [
+    "basic-gradients",
+    "uv-coordinates"
+  ],
   "learningObjectives": {
     "zh": [
       "掌握多种渐变效果的创建方法",
@@ -26,5 +35,6 @@
       "Learn to implement angular and wave gradients",
       "Understand how to dynamically blend multiple gradient effects"
     ]
-  }
+  },
+  "isFree": false
 }

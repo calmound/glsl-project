@@ -32,5 +32,6 @@
       300
     ]
   },
-  "preview": "/api/shader/basic/diagonal-factor"
+  "preview": "/api/shader/basic/diagonal-factor",
+  "isFree": true
 }

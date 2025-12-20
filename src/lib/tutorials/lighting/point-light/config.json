@@ -32,5 +32,6 @@
       300
     ]
   },
-  "preview": "/api/shader/lighting/point-light"
+  "preview": "/api/shader/lighting/point-light",
+  "isFree": false
 }

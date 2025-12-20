@@ -10,9 +10,16 @@
   },
   "difficulty": "beginner",
   "category": "basic",
-  "tags": ["图形", "圆形", "距离函数", "坐标系统"],
+  "tags": [
+    "图形",
+    "圆形",
+    "距离函数",
+    "坐标系统"
+  ],
   "estimatedTime": 15,
-  "prerequisites": ["uv-coordinates"],
+  "prerequisites": [
+    "uv-coordinates"
+  ],
   "learningObjectives": {
     "zh": [
       "理解像素坐标系以及如何将坐标中心化。",
@@ -28,8 +35,12 @@
     ]
   },
   "uniforms": {
-    "u_time": 0.0,
-    "u_resolution": [300, 300]
+    "u_time": 0,
+    "u_resolution": [
+      300,
+      300
+    ]
   },
-  "preview": "/api/shader/basic/simple-circle"
+  "preview": "/api/shader/basic/simple-circle",
+  "isFree": true
 }

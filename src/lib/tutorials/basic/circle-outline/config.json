@@ -37,5 +37,6 @@
       300
     ]
   },
-  "preview": "/api/shader/basic/circle-outline"
+  "preview": "/api/shader/basic/circle-outline",
+  "isFree": true
 }

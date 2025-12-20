@@ -12,8 +12,8 @@ import ShaderCanvasNew from '../../../../../components/common/shader-canvas-new'
 import CodeEditor from '../../../../../components/ui/code-editor';
 import { createBrowserSupabase } from '../../../../../lib/supabase';
 import { parseShaderError } from '../../../../../lib/shader-error-parser';
-import { requiresAuth } from '../../../../../lib/access-control';
 import LoginPromptOverlay from '../../../../../components/auth/login-prompt-overlay';
+import SubscriptionPrompt from '../../../../../components/subscription/subscription-prompt';
 import { savePendingCode, getPendingCode, clearPendingCode } from '../../../../../lib/code-storage';
 
 interface Tutorial {
@@ -37,6 +37,7 @@ interface TutorialPageClientProps {
   tutorialId: string;
   categoryTutorials: Tutorial[];
   initialCode?: string; // 从服务端预取的用户代码
+  isFree: boolean; // 是否免费教程
 }
 
 export default function TutorialPageClient({
@@ -48,19 +49,24 @@ export default function TutorialPageClient({
   tutorialId,
   categoryTutorials,
   initialCode: serverInitialCode,
+  isFree,
 }: TutorialPageClientProps) {
   const router = useRouter();
   const { t } = useLanguage();
-  const { user } = useAuth();
+  const { user, hasActiveSubscription } = useAuth();
 
-  // 权限控制
-  const needsAuth = requiresAuth(category);
-  const hasAccess = !needsAuth || !!user;
+  // 权限控制：基于订阅的权限检查
   const [showLoginPrompt, setShowLoginPrompt] = useState(false);
+  const [showSubscriptionPrompt, setShowSubscriptionPrompt] = useState(false);
+
+  // 计算访问权限状态
+  const hasAccess = isFree || (!!user && hasActiveSubscription);
+  const needsLogin = !isFree && !user;
+  const needsSubscription = !isFree && !!user && !hasActiveSubscription;
 
   // 优先使用服务端预取的代码，其次是练习代码
   const exerciseCode = serverInitialCode || shaders.exercise || shaders.fragment;
-  
+
   console.log('🔍 [客户端] TutorialPageClient 初始化:', {
     tutorialId,
     hasServerInitialCode: !!serverInitialCode,
@@ -70,7 +76,7 @@ export default function TutorialPageClient({
     finalExerciseCodeLength: exerciseCode.length,
     codeSource: serverInitialCode ? '数据库' : (shaders.exercise ? '练习代码' : '完整代码')
   });
-  
+
   const [userCode, setUserCode] = useState(exerciseCode);
   const [initialCode, setInitialCode] = useState(exerciseCode);
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -105,14 +111,19 @@ export default function TutorialPageClient({
   const supabase = createBrowserSupabase();
   const fetchedOnceRef = useRef(false);
 
-  // 权限检查：如果需要登录但未登录，显示登录提示
+  // 权限检查：根据不同情况显示不同的提示
   useEffect(() => {
-    if (needsAuth && !user) {
+    if (needsLogin) {
       setShowLoginPrompt(true);
+      setShowSubscriptionPrompt(false);
+    } else if (needsSubscription) {
+      setShowLoginPrompt(false);
+      setShowSubscriptionPrompt(true);
     } else {
       setShowLoginPrompt(false);
+      setShowSubscriptionPrompt(false);
     }
-  }, [needsAuth, user]);
+  }, [needsLogin, needsSubscription]);
 
   // 客户端兜底：挂载后尝试从数据库读取用户已保存代码
   useEffect(() => {
@@ -189,19 +200,19 @@ export default function TutorialPageClient({
 
   const saveCodeToDatabase = useCallback(async (code: string) => {
     console.log('💾 [客户端] 开始保存代码到数据库...');
-    
+
     try {
       // 1. 获取用户信息
       console.log('💾 [客户端] 正在获取用户信息...');
       const { data: { user }, error: authError } = await supabase.auth.getUser();
-      
+
       if (authError) {
         console.error('❌ [客户端] 获取用户信息失败:', authError);
         return;
       }
-      
+
       console.log('💾 [客户端] 用户状态:', user ? `已登录 (${user.id})` : '未登录');
-      
+
       if (!user) {
         console.log('⚠️ [客户端] 未登录，跳过保存');
         return;
@@ -215,7 +226,7 @@ export default function TutorialPageClient({
         language: 'glsl',
         is_draft: true,
       };
-      
+
       console.log('💾 [客户端] 准备保存数据:', {
         formId: tutorialId,
         codeLength: code.length,
@@ -225,10 +236,10 @@ export default function TutorialPageClient({
       // 3. 执行 upsert - 不使用 .select()，避免额外的查询
       console.log('💾 [客户端] 发送 upsert 请求...');
       const startTime = Date.now();
-      
+
       const { error } = await supabase
         .from('user_form_code')
-        .upsert(dataToSave, { 
+        .upsert(dataToSave, {
           onConflict: 'user_id,form_id',
           ignoreDuplicates: false
         });
@@ -301,7 +312,7 @@ export default function TutorialPageClient({
   // WebGL 着色器编译验证
   const validateShaderWithWebGL = (fragmentShaderCode: string): { isValid: boolean; errors: string[] } => {
     const errors: string[] = [];
-    
+
     if (!fragmentShaderCode.trim()) {
       errors.push('error: empty shader source');
       return { isValid: false, errors };
@@ -311,7 +322,7 @@ export default function TutorialPageClient({
       // 创建临时canvas进行WebGL编译测试
       const canvas = document.createElement('canvas');
       const gl = canvas.getContext('webgl');
-      
+
       if (!gl) {
         errors.push('error: WebGL not supported');
         return { isValid: false, errors };
@@ -352,7 +363,7 @@ export default function TutorialPageClient({
           gl_Position = position;
         }
       `;
-      
+
       const vertexShader = gl.createShader(gl.VERTEX_SHADER);
       if (!vertexShader) {
         errors.push('error: failed to create vertex shader');
@@ -412,17 +423,17 @@ export default function TutorialPageClient({
       console.log('开始比较Canvas渲染结果');
       console.log('用户代码长度:', userCode.length);
       console.log('正确代码长度:', correctCode.length);
-      
+
       try {
         // 创建两个临时canvas进行渲染比较
         const canvas1 = document.createElement('canvas');
         const canvas2 = document.createElement('canvas');
         canvas1.width = canvas2.width = 256;
         canvas1.height = canvas2.height = 256;
-        
+
         const gl1 = canvas1.getContext('webgl', { preserveDrawingBuffer: true });
         const gl2 = canvas2.getContext('webgl', { preserveDrawingBuffer: true });
-        
+
         if (!gl1 || !gl2) {
           console.log('WebGL上下文创建失败');
           resolve(false);
@@ -443,12 +454,12 @@ export default function TutorialPageClient({
         const renderShader = (gl: WebGLRenderingContext, fragmentCode: string, label: string): boolean => {
           try {
             console.log(`开始渲染${label}`);
-            
+
             // 编译顶点着色器
             const vertexShader = gl.createShader(gl.VERTEX_SHADER)!;
             gl.shaderSource(vertexShader, defaultVertexShader);
             gl.compileShader(vertexShader);
-            
+
             if (!gl.getShaderParameter(vertexShader, gl.COMPILE_STATUS)) {
               console.log(`${label}顶点着色器编译失败:`, gl.getShaderInfoLog(vertexShader));
               return false;
@@ -483,7 +494,7 @@ export default function TutorialPageClient({
             gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
             const positions = [-1, -1, 1, -1, -1, 1, -1, 1, 1, -1, 1, 1];
             gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(positions), gl.STATIC_DRAW);
-            
+
             if (positionLocation >= 0) {
               gl.enableVertexAttribArray(positionLocation);
               gl.vertexAttribPointer(positionLocation, 2, gl.FLOAT, false, 0, 0);
@@ -492,7 +503,7 @@ export default function TutorialPageClient({
             // 设置uniforms
             const timeLocation = gl.getUniformLocation(program, 'u_time');
             if (timeLocation) gl.uniform1f(timeLocation, 0.0);
-            
+
             const resolutionLocation = gl.getUniformLocation(program, 'u_resolution');
             if (resolutionLocation) gl.uniform2f(resolutionLocation, 256, 256);
 
@@ -501,10 +512,10 @@ export default function TutorialPageClient({
             gl.clearColor(0, 0, 0, 1);
             gl.clear(gl.COLOR_BUFFER_BIT);
             gl.drawArrays(gl.TRIANGLES, 0, 6);
-            
+
             // 确保渲染完成
             gl.finish();
-            
+
             console.log(`${label}渲染完成`);
             return true;
           } catch (error) {
@@ -521,7 +532,7 @@ export default function TutorialPageClient({
           resolve(false);
           return;
         }
-        
+
         if (!success2) {
           console.log('正确代码渲染失败');
           resolve(false);
@@ -532,56 +543,56 @@ export default function TutorialPageClient({
         setTimeout(() => {
           try {
             console.log('开始读取像素数据');
-            
+
             // 创建像素数据数组
             const pixels1 = new Uint8Array(256 * 256 * 4);
             const pixels2 = new Uint8Array(256 * 256 * 4);
-            
+
             // 读取像素数据
             gl1.readPixels(0, 0, 256, 256, gl1.RGBA, gl1.UNSIGNED_BYTE, pixels1);
             gl2.readPixels(0, 0, 256, 256, gl2.RGBA, gl2.UNSIGNED_BYTE, pixels2);
-            
+
             console.log('像素数据读取完成');
-            
+
             // 计算像素差异
             let diffCount = 0;
             const threshold = 10; // 增加容错阈值
-            
+
             // 采样比较（每隔4个像素比较一次，减少计算量）
             const sampleStep = 4;
             let sampleCount = 0;
-            
+
             for (let y = 0; y < 256; y += sampleStep) {
               for (let x = 0; x < 256; x += sampleStep) {
                 const i = (y * 256 + x) * 4;
                 sampleCount++;
-                
+
                 const r1 = pixels1[i], g1 = pixels1[i + 1], b1 = pixels1[i + 2];
                 const r2 = pixels2[i], g2 = pixels2[i + 1], b2 = pixels2[i + 2];
-                
+
                 // 计算颜色距离
                 const colorDistance = Math.sqrt(
-                  Math.pow(r1 - r2, 2) + 
-                  Math.pow(g1 - g2, 2) + 
+                  Math.pow(r1 - r2, 2) +
+                  Math.pow(g1 - g2, 2) +
                   Math.pow(b1 - b2, 2)
                 );
-                
+
                 if (colorDistance > threshold) {
                   diffCount++;
                 }
               }
             }
-            
+
             const similarity = 1 - (diffCount / sampleCount);
             const isMatch = similarity > 0.90; // 降低相似度要求到90%
-            
+
             console.log(`像素比较结果:`);
             console.log(`- 采样像素数: ${sampleCount}`);
             console.log(`- 差异像素数: ${diffCount}`);
             console.log(`- 相似度: ${(similarity * 100).toFixed(2)}%`);
             console.log(`- 阈值: ${threshold}`);
             console.log(`- 是否匹配: ${isMatch}`);
-            
+
             resolve(isMatch);
           } catch (error) {
             console.log('像素比较出错:', error);
@@ -636,7 +647,7 @@ export default function TutorialPageClient({
   const handleSubmitCode = async () => {
     // 首先进行WebGL编译验证
     const validation = validateShaderWithWebGL(userCode);
-    
+
     if (!validation.isValid) {
       // 显示每个错误作为单独的通知
       validation.errors.forEach((error, index) => {
@@ -646,14 +657,14 @@ export default function TutorialPageClient({
       });
       return;
     }
-    
+
     setIsSubmitted(true);
-    
+
     // 比较Canvas渲染结果（本地验证）
     try {
       const isRenderingCorrect = await compareCanvasOutput(userCode, shaders.fragment);
       setIsCorrect(isRenderingCorrect);
-      
+
       if (isRenderingCorrect) {
         // 先检查登录状态 - 使用 getUser() 验证 JWT 是否有效
         const { data: { user }, error: authError } = await supabase.auth.getUser();
@@ -789,6 +800,12 @@ export default function TutorialPageClient({
         />
       )}
 
+      {showSubscriptionPrompt && (
+        <SubscriptionPrompt
+          onClose={() => setShowSubscriptionPrompt(false)}
+        />
+      )}
+
       {/* Toast 容器 */}
       <ToastContainer toasts={toasts} onRemoveToast={removeToast} />
 
@@ -805,13 +822,19 @@ export default function TutorialPageClient({
                 {t('common.back', '返回')}
               </Button>
               <h1 className="text-lg font-semibold">{tutorial.title}</h1>
+              <button
+                onClick={() => setShowSubscriptionPrompt(true)}
+                className="ml-2 px-2 py-0.5 bg-gradient-to-r from-blue-600 to-indigo-600 text-white text-xs font-bold rounded shadow hover:shadow-md transition-shadow animate-pulse"
+              >
+                PRO
+              </button>
             </div>
-            
+
             {/* 导航按钮 */}
             <div className="flex items-center gap-2">
-              <Button 
-                variant="outline" 
-                size="sm" 
+              <Button
+                variant="outline"
+                size="sm"
                 onClick={handlePrevTutorial}
                 disabled={!prevTutorial}
                 className="flex items-center gap-1"
@@ -821,14 +844,14 @@ export default function TutorialPageClient({
                 </svg>
                 {t('tutorial.prev', '上一个')}
               </Button>
-              
+
               <span className="text-sm text-gray-500">
                 {currentIndex + 1} / {categoryTutorials.length}
               </span>
-              
-              <Button 
-                variant="outline" 
-                size="sm" 
+
+              <Button
+                variant="outline"
+                size="sm"
                 onClick={handleNextTutorial}
                 disabled={!nextTutorial}
                 className="flex items-center gap-1"
@@ -846,21 +869,19 @@ export default function TutorialPageClient({
             <div className="flex">
               <button
                 onClick={() => setActiveTab('tutorial')}
-                className={`px-4 py-3 text-sm font-medium border-b-2 transition-colors ${
-                  activeTab === 'tutorial'
-                    ? 'border-blue-500 text-blue-600 bg-blue-50'
-                    : 'border-transparent text-gray-500 hover:text-gray-700 hover:bg-gray-50'
-                }`}
+                className={`px-4 py-3 text-sm font-medium border-b-2 transition-colors ${activeTab === 'tutorial'
+                  ? 'border-blue-500 text-blue-600 bg-blue-50'
+                  : 'border-transparent text-gray-500 hover:text-gray-700 hover:bg-gray-50'
+                  }`}
               >
                 📚 {t('tutorial.tab.tutorial', '教程介绍')}
               </button>
               <button
                 onClick={() => setActiveTab('answer')}
-                className={`px-4 py-3 text-sm font-medium border-b-2 transition-colors ${
-                  activeTab === 'answer'
-                    ? 'border-green-500 text-green-600 bg-green-50'
-                    : 'border-transparent text-gray-500 hover:text-gray-700 hover:bg-gray-50'
-                }`}
+                className={`px-4 py-3 text-sm font-medium border-b-2 transition-colors ${activeTab === 'answer'
+                  ? 'border-green-500 text-green-600 bg-green-50'
+                  : 'border-transparent text-gray-500 hover:text-gray-700 hover:bg-gray-50'
+                  }`}
               >
                 💡 {t('tutorial.tab.answer', '参考答案')}
               </button>
@@ -880,45 +901,45 @@ export default function TutorialPageClient({
                 </div>
 
                 {/* README 内容 */}
-	                {readme && (
-	                  <div className="mb-6">
-	                    <div className="flex items-center justify-between mb-3">
-	                      <h2 className="text-md font-semibold text-green-600">💡 {t('tutorial.content', '教程内容')}</h2>
-	                    </div>
-	                    <div className="text-sm text-gray-700 bg-green-50 p-3 rounded-lg prose prose-sm max-w-none">
-	                      <ReactMarkdown
-	                        components={{
-	                          h1: () => null,
-	                          h2: ({ children }) => (
-	                            <h3 className="font-semibold text-green-700 mt-4 mb-2">{children}</h3>
-	                          ),
-	                          h3: ({ children }) => (
-	                            <h4 className="font-medium text-green-600 mt-3 mb-1">{children}</h4>
-	                          ),
-	                          p: ({ children }) => <p className="mb-2">{children}</p>,
-	                          ul: ({ children }) => <ul className="list-disc pl-5 mb-2">{children}</ul>,
-	                          ol: ({ children }) => <ol className="list-decimal pl-5 mb-2">{children}</ol>,
-	                          li: ({ children }) => <li className="mb-1">{children}</li>,
-	                          code: ({ children }) => (
-	                            <code className="bg-gray-200 px-1 rounded text-xs">{children}</code>
-	                          ),
-	                          pre: ({ children }) => (
-	                            <pre className="bg-gray-900 text-gray-100 p-3 rounded-md overflow-auto text-xs">
-	                              {children}
-	                            </pre>
-	                          ),
-	                          a: ({ children, href }) => (
-	                            <a className="text-blue-600 underline" href={href}>
-	                              {children}
-	                            </a>
-	                          ),
-	                        }}
-	                      >
-	                        {readme}
-	                      </ReactMarkdown>
-	                    </div>
-	                  </div>
-	                )}
+                {readme && (
+                  <div className="mb-6">
+                    <div className="flex items-center justify-between mb-3">
+                      <h2 className="text-md font-semibold text-green-600">💡 {t('tutorial.content', '教程内容')}</h2>
+                    </div>
+                    <div className="text-sm text-gray-700 bg-green-50 p-3 rounded-lg prose prose-sm max-w-none">
+                      <ReactMarkdown
+                        components={{
+                          h1: () => null,
+                          h2: ({ children }) => (
+                            <h3 className="font-semibold text-green-700 mt-4 mb-2">{children}</h3>
+                          ),
+                          h3: ({ children }) => (
+                            <h4 className="font-medium text-green-600 mt-3 mb-1">{children}</h4>
+                          ),
+                          p: ({ children }) => <p className="mb-2">{children}</p>,
+                          ul: ({ children }) => <ul className="list-disc pl-5 mb-2">{children}</ul>,
+                          ol: ({ children }) => <ol className="list-decimal pl-5 mb-2">{children}</ol>,
+                          li: ({ children }) => <li className="mb-1">{children}</li>,
+                          code: ({ children }) => (
+                            <code className="bg-gray-200 px-1 rounded text-xs">{children}</code>
+                          ),
+                          pre: ({ children }) => (
+                            <pre className="bg-gray-900 text-gray-100 p-3 rounded-md overflow-auto text-xs">
+                              {children}
+                            </pre>
+                          ),
+                          a: ({ children, href }) => (
+                            <a className="text-blue-600 underline" href={href}>
+                              {children}
+                            </a>
+                          ),
+                        }}
+                      >
+                        {readme}
+                      </ReactMarkdown>
+                    </div>
+                  </div>
+                )}
 
                 {/* 如果没有README内容，显示默认知识点 */}
                 {!readme && (
@@ -1108,7 +1129,7 @@ export default function TutorialPageClient({
                   </div>
                 </div>
               </div>
-              
+
               {/* 导航区域 - 只在完成练习后显示 */}
               {isCorrect && (
                 <div className="border-t pt-3 mt-3">
@@ -1121,16 +1142,16 @@ export default function TutorialPageClient({
                         </span>
                       )}
                     </div>
-                    
+
                     <div className="flex items-center gap-2">
                       {prevTutorial && (
                         <Button variant="outline" size="sm" onClick={handlePrevTutorial}>
                           ← {prevTutorial.title}
                         </Button>
                       )}
-                      
+
                       {nextTutorial && (
-                        <Button 
+                        <Button
                           onClick={handleNextTutorial}
                           className="bg-blue-600 hover:bg-blue-700 text-white"
                           size="sm"
@@ -1138,7 +1159,7 @@ export default function TutorialPageClient({
                           {nextTutorial.title} →
                         </Button>
                       )}
-                      
+
                       {!nextTutorial && (
                         <Button variant="outline" size="sm" onClick={handleBack}>
                           {t('tutorial.back_to_list', '返回列表')}

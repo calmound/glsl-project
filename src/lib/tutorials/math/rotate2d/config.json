@@ -37,5 +37,6 @@
       300
     ]
   },
-  "preview": "/api/shader/math/rotate2d"
+  "preview": "/api/shader/math/rotate2d",
+  "isFree": false
 }

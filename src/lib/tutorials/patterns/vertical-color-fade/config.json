@@ -10,9 +10,17 @@
   },
   "difficulty": "beginner",
   "category": "patterns",
-  "tags": ["颜色渐变", "UV坐标", "垂直渐变", "线性插值"],
+  "tags": [
+    "颜色渐变",
+    "UV坐标",
+    "垂直渐变",
+    "线性插值"
+  ],
   "estimatedTime": 10,
-  "prerequisites": ["uv-coordinates", "basic-gradients"],
+  "prerequisites": [
+    "uv-coordinates",
+    "basic-gradients"
+  ],
   "learningObjectives": {
     "zh": [
       "学习如何使用UV坐标的y分量来控制颜色变化。",
@@ -28,8 +36,12 @@
     ]
   },
   "uniforms": {
-    "u_time": 0.0,
-    "u_resolution": [300, 300]
+    "u_time": 0,
+    "u_resolution": [
+      300,
+      300
+    ]
   },
-  "preview": "/api/shader/basic/vertical-color-fade"
+  "preview": "/api/shader/basic/vertical-color-fade",
+  "isFree": false
 }

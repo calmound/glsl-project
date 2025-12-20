@@ -32,5 +32,6 @@
       300
     ]
   },
-  "preview": "/api/shader/basic/smooth-band"
+  "preview": "/api/shader/basic/smooth-band",
+  "isFree": true
 }

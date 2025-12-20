@@ -35,5 +35,6 @@
       300
     ]
   },
-  "preview": "/api/shader/math/remap"
+  "preview": "/api/shader/math/remap",
+  "isFree": false
 }

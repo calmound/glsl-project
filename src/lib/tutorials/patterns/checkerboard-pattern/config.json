@@ -10,9 +10,18 @@
   },
   "difficulty": "beginner",
   "category": "patterns",
-  "tags": ["棋盘格", "图案生成", "mod函数", "floor函数", "程序化纹理"],
+  "tags": [
+    "棋盘格",
+    "图案生成",
+    "mod函数",
+    "floor函数",
+    "程序化纹理"
+  ],
   "estimatedTime": 20,
-  "prerequisites": ["uv-coordinates", "step-function-mask"],
+  "prerequisites": [
+    "uv-coordinates",
+    "step-function-mask"
+  ],
   "learningObjectives": {
     "zh": [
       "理解`floor()`函数如何取整以及`mod()`函数如何取模。",
@@ -28,8 +37,12 @@
     ]
   },
   "uniforms": {
-    "u_time": 0.0,
-    "u_resolution": [300, 300]
+    "u_time": 0,
+    "u_resolution": [
+      300,
+      300
+    ]
   },
-  "preview": "/api/shader/basic/checkerboard-pattern"
+  "preview": "/api/shader/basic/checkerboard-pattern",
+  "isFree": false
 }

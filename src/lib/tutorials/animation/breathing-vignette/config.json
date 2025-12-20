@@ -32,5 +32,6 @@
       300
     ]
   },
-  "preview": "/api/shader/animation/breathing-vignette"
+  "preview": "/api/shader/animation/breathing-vignette",
+  "isFree": false
 }

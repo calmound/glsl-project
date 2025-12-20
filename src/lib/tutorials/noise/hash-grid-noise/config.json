@@ -35,5 +35,6 @@
       300
     ]
   },
-  "preview": "/api/shader/noise/hash-grid-noise"
+  "preview": "/api/shader/noise/hash-grid-noise",
+  "isFree": true
 }

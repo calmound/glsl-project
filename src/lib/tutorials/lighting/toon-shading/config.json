@@ -10,9 +10,20 @@
   },
   "difficulty": "advanced",
   "category": "lighting",
-  "tags": ["卡通渲染", "NPR", "非真实感渲染", "色阶", "边缘检测", "风格化渲染"],
+  "tags": [
+    "卡通渲染",
+    "NPR",
+    "非真实感渲染",
+    "色阶",
+    "边缘检测",
+    "风格化渲染"
+  ],
   "estimatedTime": 75,
-  "prerequisites": ["phong-lighting", "step-function", "edge-detection-techniques"],
+  "prerequisites": [
+    "phong-lighting",
+    "step-function",
+    "edge-detection-techniques"
+  ],
   "learningObjectives": {
     "zh": [
       "理解卡通渲染的基本原理：光照的离散化处理。",
@@ -41,5 +52,6 @@
       "description_en": "Time (seconds)"
     }
   },
-  "preview": "/api/shader/lighting/toon-shading"
+  "preview": "/api/shader/lighting/toon-shading",
+  "isFree": false
 }

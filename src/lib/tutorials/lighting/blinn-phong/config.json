@@ -32,5 +32,6 @@
       300
     ]
   },
-  "preview": "/api/shader/lighting/blinn-phong"
+  "preview": "/api/shader/lighting/blinn-phong",
+  "isFree": false
 }

@@ -32,5 +32,6 @@
       300
     ]
   },
-  "preview": "/api/shader/basic/invert-gradient"
+  "preview": "/api/shader/basic/invert-gradient",
+  "isFree": true
 }

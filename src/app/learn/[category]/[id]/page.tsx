@@ -103,6 +103,10 @@ export default async function TutorialPage({ params }: TutorialPageProps) {
     notFound();
   }
 
+  // 获取教程配置（用于权限检查）
+  const tutorialConfig = await getTutorialConfig(category, id);
+  const isFree = tutorialConfig?.isFree ?? false;
+
   const [readme, shaders, categoryTutorials] = await Promise.all([
     getTutorialReadme(category, id, locale),
     getTutorialShadersLocalized(category, id, locale),
@@ -143,6 +147,7 @@ export default async function TutorialPage({ params }: TutorialPageProps) {
       tutorialId={id}
       categoryTutorials={categoryTutorials}
       initialCode={initialCode ?? (shaders.exercise || shaders.fragment)}
+      isFree={isFree}
     />
   );
 }

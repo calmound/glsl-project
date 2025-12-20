@@ -10,9 +10,19 @@
   },
   "difficulty": "intermediate",
   "category": "basic",
-  "tags": ["组合", "遮罩", "step", "smoothstep", "max"],
+  "tags": [
+    "组合",
+    "遮罩",
+    "step",
+    "smoothstep",
+    "max"
+  ],
   "estimatedTime": 15,
-  "prerequisites": ["simple-rectangle", "simple-circle", "step-function-mask"],
+  "prerequisites": [
+    "simple-rectangle",
+    "simple-circle",
+    "step-function-mask"
+  ],
   "learningObjectives": {
     "zh": [
       "用 step/smoothstep 构造基础形状遮罩。",
@@ -26,8 +36,12 @@
     ]
   },
   "uniforms": {
-    "u_time": 0.0,
-    "u_resolution": [300, 300]
+    "u_time": 0,
+    "u_resolution": [
+      300,
+      300
+    ]
   },
-  "preview": "/api/shader/basic/shape-composition"
+  "preview": "/api/shader/basic/shape-composition",
+  "isFree": true
 }

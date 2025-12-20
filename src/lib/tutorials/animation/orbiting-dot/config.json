@@ -32,5 +32,6 @@
       300
     ]
   },
-  "preview": "/api/shader/animation/orbiting-dot"
+  "preview": "/api/shader/animation/orbiting-dot",
+  "isFree": false
 }

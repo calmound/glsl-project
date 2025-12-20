@@ -32,5 +32,6 @@
       300
     ]
   },
-  "preview": "/api/shader/animation/rotating-uv"
+  "preview": "/api/shader/animation/rotating-uv",
+  "isFree": false
 }

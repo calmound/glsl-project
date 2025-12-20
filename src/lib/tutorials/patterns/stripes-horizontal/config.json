@@ -34,5 +34,6 @@
       300
     ]
   },
-  "preview": "/api/shader/patterns/stripes-horizontal"
+  "preview": "/api/shader/patterns/stripes-horizontal",
+  "isFree": false
 }

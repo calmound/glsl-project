@@ -10,9 +10,17 @@
   },
   "difficulty": "beginner",
   "category": "noise",
-  "tags": ["噪声", "纹理", "随机", "程序化生成"],
+  "tags": [
+    "噪声",
+    "纹理",
+    "随机",
+    "程序化生成"
+  ],
   "estimatedTime": 20,
-  "prerequisites": ["uv-coordinates", "time-animation"],
+  "prerequisites": [
+    "uv-coordinates",
+    "time-animation"
+  ],
   "learningObjectives": {
     "zh": [
       "理解伪随机噪声的基本概念。",
@@ -28,8 +36,12 @@
     ]
   },
   "uniforms": {
-    "u_time": 0.0,
-    "u_resolution": [300, 300]
+    "u_time": 0,
+    "u_resolution": [
+      300,
+      300
+    ]
   },
-  "preview": "/api/shader/basic/noise-texture"
+  "preview": "/api/shader/basic/noise-texture",
+  "isFree": false
 }

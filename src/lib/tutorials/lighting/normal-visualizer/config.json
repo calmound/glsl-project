@@ -32,5 +32,6 @@
       300
     ]
   },
-  "preview": "/api/shader/lighting/normal-visualizer"
+  "preview": "/api/shader/lighting/normal-visualizer",
+  "isFree": false
 }

@@ -10,9 +10,19 @@
   },
   "difficulty": "intermediate",
   "category": "noise",
-  "tags": ["分形", "布朗运动", "FBM", "噪声叠加", "程序化纹理", "地形生成"],
+  "tags": [
+    "分形",
+    "布朗运动",
+    "FBM",
+    "噪声叠加",
+    "程序化纹理",
+    "地形生成"
+  ],
   "estimatedTime": 60,
-  "prerequisites": ["noise-functions", "looping-constructs"],
+  "prerequisites": [
+    "noise-functions",
+    "looping-constructs"
+  ],
   "learningObjectives": {
     "zh": [
       "理解分形布朗运动的基本原理：通过迭代叠加噪声实现。",
@@ -39,5 +49,6 @@
       "description_en": "Time (seconds)"
     }
   },
-  "preview": "/api/shader/noise/fractal-brownian-motion"
+  "preview": "/api/shader/noise/fractal-brownian-motion",
+  "isFree": false
 }

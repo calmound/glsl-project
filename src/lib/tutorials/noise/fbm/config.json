@@ -32,5 +32,6 @@
       300
     ]
   },
-  "preview": "/api/shader/noise/fbm"
+  "preview": "/api/shader/noise/fbm",
+  "isFree": false
 }

@@ -37,5 +37,6 @@
       300
     ]
   },
-  "preview": "/api/shader/animation/ripple"
+  "preview": "/api/shader/animation/ripple",
+  "isFree": false
 }

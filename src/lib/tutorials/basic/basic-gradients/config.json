@@ -10,7 +10,11 @@
   },
   "difficulty": "beginner",
   "category": "basic",
-  "tags": ["渐变", "基础", "颜色"],
+  "tags": [
+    "渐变",
+    "基础",
+    "颜色"
+  ],
   "estimatedTime": 15,
   "prerequisites": [],
   "learningObjectives": {
@@ -26,8 +30,12 @@
     ]
   },
   "uniforms": {
-    "u_time": 0.0,
-    "u_resolution": [300, 300]
+    "u_time": 0,
+    "u_resolution": [
+      300,
+      300
+    ]
   },
-  "preview": "/api/shader/basic/basic-gradients"
+  "preview": "/api/shader/basic/basic-gradients",
+  "isFree": true
 }

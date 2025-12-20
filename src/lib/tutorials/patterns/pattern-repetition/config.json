@@ -10,9 +10,18 @@
   },
   "difficulty": "intermediate",
   "category": "patterns",
-  "tags": ["pattern", "repetition", "grid", "procedural", "animation"],
+  "tags": [
+    "pattern",
+    "repetition",
+    "grid",
+    "procedural",
+    "animation"
+  ],
   "estimatedTime": 30,
-  "prerequisites": ["coordinate-transformation", "simple-circle"],
+  "prerequisites": [
+    "coordinate-transformation",
+    "simple-circle"
+  ],
   "learningObjectives": {
     "zh": [
       "掌握网格系统的创建方法",
@@ -26,5 +35,6 @@
       "Understand how to add random variations to each grid cell",
       "Master procedural pattern generation techniques"
     ]
-  }
+  },
+  "isFree": false
 }

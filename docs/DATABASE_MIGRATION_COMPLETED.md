@@ -58,7 +58,7 @@ CREATE TABLE subscriptions (
   -- Creem 集成字段
   creem_subscription_id VARCHAR(255) UNIQUE,
   creem_customer_id VARCHAR(255),
-  creem_product_id VARCHAR(255),
+  NEXT_PUBLIC_CREEM_PRODUCT_ID VARCHAR(255),
 
   -- 元数据
   metadata JSONB,
@@ -168,7 +168,7 @@ CREATE TRIGGER sync_profile_plan_trigger
 | trial_end | timestamptz | nullable | - | 试用结束时间 |
 | creem_subscription_id | varchar(255) | UNIQUE | - | Creem 订阅ID |
 | creem_customer_id | varchar(255) | nullable | - | Creem 客户ID |
-| creem_product_id | varchar(255) | nullable | - | Creem 产品ID |
+| NEXT_PUBLIC_CREEM_PRODUCT_ID | varchar(255) | nullable | - | Creem 产品ID |
 | metadata | jsonb | nullable | - | 元数据 |
 | created_at | timestamptz | nullable | now() | 创建时间 |
 | updated_at | timestamptz | nullable | now() | 更新时间 |
@@ -281,7 +281,7 @@ return hasAccess;
   current_period_end: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000), // +1月
   creem_subscription_id: event.subscription_id,
   creem_customer_id: event.customer_id,
-  creem_product_id: event.product_id
+  NEXT_PUBLIC_CREEM_PRODUCT_ID: event.product_id
 }
 ```
 

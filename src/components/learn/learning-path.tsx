@@ -1,9 +1,11 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { type Locale, addLocaleToPathname } from '../../lib/i18n';
 import { useLanguage } from '../../contexts/LanguageContext';
+import { useAuth } from '../../contexts/AuthContext';
+import SubscriptionPrompt from '../subscription/subscription-prompt';
 
 interface Tutorial {
   id: string;
@@ -11,6 +13,7 @@ interface Tutorial {
   description: string;
   difficulty: 'beginner' | 'intermediate' | 'advanced';
   category: string;
+  isFree?: boolean;
 }
 
 interface UserProgress {
@@ -30,33 +33,51 @@ interface LearningPathProps {
 export function LearningPath({ tutorials, userProgress, locale }: LearningPathProps) {
   const router = useRouter();
   const { t } = useLanguage();
+  const { hasActiveSubscription } = useAuth();
+  const [showSubscriptionPrompt, setShowSubscriptionPrompt] = useState(false);
+
+  // 处理教程点击
+  const handleTutorialClick = (tutorial: Tutorial) => {
+    const isFree = tutorial.isFree ?? false;
+    const needsSubscription = !isFree && !hasActiveSubscription;
+
+    if (needsSubscription) {
+      // 付费教程且无订阅，显示订阅提示
+      setShowSubscriptionPrompt(true);
+    } else {
+      // 免费教程或已订阅，直接跳转
+      router.push(addLocaleToPathname(`/learn/${tutorial.category}/${tutorial.id}`, locale));
+    }
+  };
 
   return (
-    <div className="bg-white rounded-lg p-6 border border-gray-200">
-      <h3 className="text-lg font-semibold mb-6 text-gray-900">{t('learn.path.learning_path')}</h3>
-      <div className="space-y-1">
-        {tutorials.map((tutorial, index) => {
-          const progress = userProgress[tutorial.id];
-          const isCompleted = progress?.is_passed || false;
+    <>
+      {/* 订阅提示弹窗 */}
+      {showSubscriptionPrompt && (
+        <SubscriptionPrompt
+          onClose={() => setShowSubscriptionPrompt(false)}
+        />
+      )}
 
-          // 调试：打印每个教程的状态
-          console.log(`📊 [Tutorial ${tutorial.id}]`, {
-            hasProgress: !!progress,
-            isCompleted,
-            isPassed: progress?.is_passed,
-            hasSubmitted: progress?.has_submitted,
-            attempts: progress?.attempts
-          });
+      <div className="bg-white rounded-lg p-6 border border-gray-200">
+        <h3 className="text-lg font-semibold mb-6 text-gray-900">{t('learn.path.learning_path')}</h3>
+        <div className="space-y-1">
+          {tutorials.map((tutorial, index) => {
+            const progress = userProgress[tutorial.id];
+            const isCompleted = progress?.is_passed || false;
+            const isFree = tutorial.isFree ?? false;
+            const needsSubscription = !isFree && !hasActiveSubscription;
 
-          return (
-            <div key={tutorial.id}>
-              {/* 教程节点 */}
-              <div
-                className="flex items-center gap-4 p-3 rounded-lg hover:bg-gray-50 transition-colors cursor-pointer"
-                onClick={() =>
-                  router.push(addLocaleToPathname(`/learn/${tutorial.category}/${tutorial.id}`, locale))
-                }
-              >
+            return (
+              <div key={tutorial.id}>
+                {/* 教程节点 */}
+                <div
+                  className={`
+                    flex items-center gap-4 p-3 rounded-lg transition-colors
+                    ${needsSubscription ? 'opacity-60 cursor-not-allowed' : 'hover:bg-gray-50 cursor-pointer'}
+                  `}
+                  onClick={() => handleTutorialClick(tutorial)}
+                >
                 {/* 序号节点 */}
                 <div
                   className={`
@@ -86,18 +107,27 @@ export function LearningPath({ tutorials, userProgress, locale }: LearningPathPr
                   )}
                 </div>
 
-                {/* 难度标签 */}
-                <span
-                  className={`text-xs px-2 py-1 rounded-full font-medium shrink-0 ${
-                    tutorial.difficulty === 'beginner'
-                      ? 'bg-green-100 text-green-800'
-                      : tutorial.difficulty === 'intermediate'
-                      ? 'bg-blue-100 text-blue-800'
-                      : 'bg-red-100 text-red-800'
-                  }`}
-                >
-                  {t(`learn.difficulty.${tutorial.difficulty}`)}
-                </span>
+                {/* 付费/免费标记 */}
+                <div className="flex items-center gap-2 shrink-0">
+                  {!isFree && (
+                    <span className="flex items-center gap-1 text-xs px-2 py-1 rounded-full font-medium bg-yellow-100 text-yellow-800">
+                      {needsSubscription ? '🔒' : '💎'}
+                      {needsSubscription ? t('learn.pro_required', 'Pro') : t('learn.pro', 'Pro')}
+                    </span>
+                  )}
+                  {/* 难度标签 */}
+                  <span
+                    className={`text-xs px-2 py-1 rounded-full font-medium ${
+                      tutorial.difficulty === 'beginner'
+                        ? 'bg-green-100 text-green-800'
+                        : tutorial.difficulty === 'intermediate'
+                        ? 'bg-blue-100 text-blue-800'
+                        : 'bg-red-100 text-red-800'
+                    }`}
+                  >
+                    {t(`learn.difficulty.${tutorial.difficulty}`)}
+                  </span>
+                </div>
               </div>
 
               {/* 连接线 */}
@@ -115,5 +145,6 @@ export function LearningPath({ tutorials, userProgress, locale }: LearningPathPr
         })}
       </div>
     </div>
+    </>
   );
 }

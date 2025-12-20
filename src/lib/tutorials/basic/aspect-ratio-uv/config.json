@@ -10,9 +10,17 @@
   },
   "difficulty": "intermediate",
   "category": "basic",
-  "tags": ["UV", "u_resolution", "纵横比", "SDF", "圆形"],
+  "tags": [
+    "UV",
+    "u_resolution",
+    "纵横比",
+    "SDF",
+    "圆形"
+  ],
   "estimatedTime": 12,
-  "prerequisites": ["uv-coordinates"],
+  "prerequisites": [
+    "uv-coordinates"
+  ],
   "learningObjectives": {
     "zh": [
       "理解画布纵横比对形状的影响。",
@@ -26,8 +34,12 @@
     ]
   },
   "uniforms": {
-    "u_time": 0.0,
-    "u_resolution": [300, 300]
+    "u_time": 0,
+    "u_resolution": [
+      300,
+      300
+    ]
   },
-  "preview": "/api/shader/basic/aspect-ratio-uv"
+  "preview": "/api/shader/basic/aspect-ratio-uv",
+  "isFree": true
 }

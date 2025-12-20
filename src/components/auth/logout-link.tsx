@@ -1,5 +1,5 @@
 "use client"
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useLanguage } from '@/contexts/LanguageContext'
 import { useAuth } from '@/contexts/AuthContext'
 import { createBrowserSupabase } from '@/lib/supabase'
@@ -9,7 +9,12 @@ export default function LogoutLink() {
   const { t, language } = useLanguage()
   const { user, loading, refreshUser } = useAuth()
   const [isLoggingOut, setIsLoggingOut] = useState(false)
+  const [mounted, setMounted] = useState(false)
   const router = useRouter()
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   const handleLogout = async () => {
     const supabase = createBrowserSupabase()
@@ -47,8 +52,8 @@ export default function LogoutLink() {
     }
   }
 
-  // 加载中或未登录时不显示登出按钮
-  if (loading || !user) return null
+  // 避免 hydration 不匹配，在客户端挂载前不渲染
+  if (!mounted || loading || !user) return null
 
   return (
     <button

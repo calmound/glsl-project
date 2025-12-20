@@ -10,9 +10,18 @@
   },
   "difficulty": "beginner",
   "category": "basic",
-  "tags": ["圆形", "length", "distance", "条件判断", "入门"],
+  "tags": [
+    "圆形",
+    "length",
+    "distance",
+    "条件判断",
+    "入门"
+  ],
   "estimatedTime": 15,
-  "prerequisites": ["uv-coordinates", "simple-circle"],
+  "prerequisites": [
+    "uv-coordinates",
+    "simple-circle"
+  ],
   "learningObjectives": {
     "zh": [
       "理解如何将 gl_FragCoord 转换为归一化坐标。",
@@ -26,9 +35,12 @@
     ]
   },
   "uniforms": {
-    "u_time": 0.0,
-    "u_resolution": [300, 300]
+    "u_time": 0,
+    "u_resolution": [
+      300,
+      300
+    ]
   },
-  "preview": "/api/shader/basic/circle-drawing"
+  "preview": "/api/shader/basic/circle-drawing",
+  "isFree": true
 }
-

@@ -8,10 +8,12 @@ interface Tutorial {
   description: string;
   difficulty: 'beginner' | 'intermediate' | 'advanced';
   category: string;
+  isFree?: boolean; // 是否免费
 }
 
 interface TutorialConfig {
   id: string;
+  isFree?: boolean; // 是否免费，默认 false（付费）
   title: {
     zh: string;
     en: string;
@@ -107,6 +109,7 @@ function getTutorialsFromFileSystem(locale: Locale): Tutorial[] {
                 description,
                 difficulty: config.difficulty,
                 category: config.category,
+                isFree: config.isFree ?? false, // 默认为付费
               },
               prerequisitesCount: config.prerequisites?.length ?? 0,
               estimatedTime: config.estimatedTime ?? Number.POSITIVE_INFINITY,
@@ -175,6 +178,7 @@ export async function getTutorial(category: string, id: string, locale: Locale):
       description,
       difficulty: config.difficulty,
       category: config.category,
+      isFree: config.isFree ?? false,
     };
   } catch (error) {
     console.error(`Error reading tutorial ${category}/${id}:`, error);
@@ -269,6 +273,7 @@ function getTutorialsByCategoryFromFileSystem(category: string, locale: Locale):
               description,
               difficulty: config.difficulty,
               category: config.category,
+              isFree: config.isFree ?? false,
             },
             prerequisitesCount: config.prerequisites?.length ?? 0,
             estimatedTime: config.estimatedTime ?? Number.POSITIVE_INFINITY,

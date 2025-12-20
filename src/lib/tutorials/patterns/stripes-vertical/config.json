@@ -32,5 +32,6 @@
       300
     ]
   },
-  "preview": "/api/shader/patterns/stripes-vertical"
+  "preview": "/api/shader/patterns/stripes-vertical",
+  "isFree": false
 }

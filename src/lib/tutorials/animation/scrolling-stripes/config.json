@@ -32,5 +32,6 @@
       300
     ]
   },
-  "preview": "/api/shader/animation/scrolling-stripes"
+  "preview": "/api/shader/animation/scrolling-stripes",
+  "isFree": false
 }

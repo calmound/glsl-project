@@ -10,9 +10,18 @@
   },
   "difficulty": "beginner",
   "category": "basic",
-  "tags": ["颜色混合", "渐变", "线性插值", "UV坐标", "GLSL基础"],
+  "tags": [
+    "颜色混合",
+    "渐变",
+    "线性插值",
+    "UV坐标",
+    "GLSL基础"
+  ],
   "estimatedTime": 15,
-  "prerequisites": ["uv-coordinates", "solid-color"],
+  "prerequisites": [
+    "uv-coordinates",
+    "solid-color"
+  ],
   "learningObjectives": {
     "zh": [
       "理解线性插值 (mix函数) 在颜色混合中的应用。",
@@ -28,8 +37,12 @@
     ]
   },
   "uniforms": {
-    "u_time": 0.0,
-    "u_resolution": [300, 300]
+    "u_time": 0,
+    "u_resolution": [
+      300,
+      300
+    ]
   },
-  "preview": "/api/shader/basic/basic-color-blend"
+  "preview": "/api/shader/basic/basic-color-blend",
+  "isFree": true
 }

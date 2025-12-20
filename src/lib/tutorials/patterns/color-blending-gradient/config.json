@@ -10,9 +10,18 @@
   },
   "difficulty": "beginner",
   "category": "patterns",
-  "tags": ["颜色混合", "渐变", "mix函数", "线性插值", "GLSL基础"],
+  "tags": [
+    "颜色混合",
+    "渐变",
+    "mix函数",
+    "线性插值",
+    "GLSL基础"
+  ],
   "estimatedTime": 15,
-  "prerequisites": ["basic-color-blend", "uv-coordinates"],
+  "prerequisites": [
+    "basic-color-blend",
+    "uv-coordinates"
+  ],
   "learningObjectives": {
     "zh": [
       "深入理解`mix(colorA, colorB, factor)`函数如何根据因子在两种颜色之间进行插值。",
@@ -28,8 +37,12 @@
     ]
   },
   "uniforms": {
-    "u_time": 0.0,
-    "u_resolution": [300, 300]
+    "u_time": 0,
+    "u_resolution": [
+      300,
+      300
+    ]
   },
-  "preview": "/api/shader/basic/color-blending-gradient"
+  "preview": "/api/shader/basic/color-blending-gradient",
+  "isFree": false
 }

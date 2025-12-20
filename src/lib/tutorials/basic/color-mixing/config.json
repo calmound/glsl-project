@@ -10,9 +10,15 @@
   },
   "difficulty": "beginner",
   "category": "basic",
-  "tags": ["颜色", "混合", "插值"],
+  "tags": [
+    "颜色",
+    "混合",
+    "插值"
+  ],
   "estimatedTime": 15,
-  "prerequisites": ["solid-color"],
+  "prerequisites": [
+    "solid-color"
+  ],
   "learningObjectives": {
     "zh": [
       "掌握 mix() 函数的使用方法",
@@ -28,8 +34,12 @@
     ]
   },
   "uniforms": {
-    "u_time": 0.0,
-    "u_resolution": [300, 300]
+    "u_time": 0,
+    "u_resolution": [
+      300,
+      300
+    ]
   },
-  "preview": "/api/shader/basic/color-mixing"
+  "preview": "/api/shader/basic/color-mixing",
+  "isFree": true
 }

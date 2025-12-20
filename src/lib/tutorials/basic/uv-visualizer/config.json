@@ -10,9 +10,16 @@
   },
   "difficulty": "beginner",
   "category": "basic",
-  "tags": ["UV坐标", "可视化", "颜色映射", "调试"],
+  "tags": [
+    "UV坐标",
+    "可视化",
+    "颜色映射",
+    "调试"
+  ],
   "estimatedTime": 10,
-  "prerequisites": ["uv-coordinates"],
+  "prerequisites": [
+    "uv-coordinates"
+  ],
   "learningObjectives": {
     "zh": [
       "学习如何将UV坐标的x和y分量分别映射到颜色的R和G通道。",
@@ -28,8 +35,12 @@
     ]
   },
   "uniforms": {
-    "u_time": 0.0,
-    "u_resolution": [300, 300]
+    "u_time": 0,
+    "u_resolution": [
+      300,
+      300
+    ]
   },
-  "preview": "/api/shader/basic/uv-visualizer"
+  "preview": "/api/shader/basic/uv-visualizer",
+  "isFree": true
 }

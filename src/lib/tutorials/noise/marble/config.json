@@ -32,5 +32,6 @@
       300
     ]
   },
-  "preview": "/api/shader/noise/marble"
+  "preview": "/api/shader/noise/marble",
+  "isFree": false
 }

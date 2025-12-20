@@ -10,9 +10,20 @@
   },
   "difficulty": "intermediate",
   "category": "noise",
-  "tags": ["噪声函数", "随机噪声", "值噪声", "梯度噪声", "Perlin噪声", "程序化生成"],
+  "tags": [
+    "噪声函数",
+    "随机噪声",
+    "值噪声",
+    "梯度噪声",
+    "Perlin噪声",
+    "程序化生成"
+  ],
   "estimatedTime": 50,
-  "prerequisites": ["glsl-data-types", "glsl-functions", "vector-operations"],
+  "prerequisites": [
+    "glsl-data-types",
+    "glsl-functions",
+    "vector-operations"
+  ],
   "learningObjectives": {
     "zh": [
       "理解不同类型噪声（随机噪声、值噪声、梯度噪声）的基本原理和特性。",
@@ -41,5 +52,6 @@
       "description_en": "Time (seconds)"
     }
   },
-  "preview": "/api/shader/noise/noise-functions"
+  "preview": "/api/shader/noise/noise-functions",
+  "isFree": false
 }

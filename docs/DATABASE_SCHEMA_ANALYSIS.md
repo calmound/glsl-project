@@ -170,7 +170,7 @@ CREATE TABLE subscriptions (
   -- Creem 相关ID
   creem_subscription_id VARCHAR(255) UNIQUE,
   creem_customer_id VARCHAR(255),
-  creem_product_id VARCHAR(255),
+  NEXT_PUBLIC_CREEM_PRODUCT_ID VARCHAR(255),
 
   -- 元数据
   metadata JSONB,
@@ -207,7 +207,7 @@ COMMENT ON COLUMN subscriptions.plan_name IS '订阅计划: 1_month, 2_month, 3_
   "trial_end": null,
   "creem_subscription_id": "sub_xxx",
   "creem_customer_id": "cus_xxx",
-  "creem_product_id": "prod_xxx",
+  "NEXT_PUBLIC_CREEM_PRODUCT_ID": "prod_xxx",
   "metadata": null,
   "created_at": "2025-12-01T00:00:00Z",
   "updated_at": "2025-12-01T00:00:00Z"
@@ -336,7 +336,7 @@ CREATE TABLE subscriptions (
   trial_end TIMESTAMPTZ,
   creem_subscription_id VARCHAR(255) UNIQUE,
   creem_customer_id VARCHAR(255),
-  creem_product_id VARCHAR(255),
+  NEXT_PUBLIC_CREEM_PRODUCT_ID VARCHAR(255),
   metadata JSONB,
   created_at TIMESTAMPTZ DEFAULT NOW(),
   updated_at TIMESTAMPTZ DEFAULT NOW()

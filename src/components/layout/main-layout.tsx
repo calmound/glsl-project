@@ -15,7 +15,7 @@ interface MainLayoutProps {
 
 const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
   const { t, language } = useLanguage();
-  
+
   return (
     <div className="min-h-screen flex flex-col">
       <header className="bg-white shadow-sm border-b">
@@ -56,6 +56,11 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
                     {t('nav.contact', 'Contact')}
                   </Link>
                 </li>
+                <li>
+                  <Link href={addLocaleToPathname('/pricing', language)} className="text-gray-600 hover:text-primary transition-colors font-medium text-blue-600">
+                    {t('nav.pricing', 'Pricing')}
+                  </Link>
+                </li>
               </ul>
             </nav>
             <LanguageSwitcher />
@@ -64,42 +69,36 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
             <LogoutLink />
           </div>
         </div>
-      </header>
+      </header >
 
       <main className="flex-grow  mx-auto w-full">{children}</main>
 
-      {/* <footer className="bg-gray-800 text-white py-8">
-        <div className="container mx-auto px-4">
-          <div className="flex flex-col md:flex-row justify-between">
-            <div className="mb-6 md:mb-0">
-              <h2 className="text-lg font-semibold mb-4">GLSL 项目</h2>
-              <p className="text-gray-300">一个基于 WebGL 和 GLSL 的图形渲染项目</p>
-            </div>
-            <div>
-              <h3 className="text-md font-semibold mb-3">链接</h3>
-              <ul className="space-y-2">
-                <li>
-                  <a
-                    href="https://github.com"
-                    className="text-gray-300 hover:text-white transition-colors"
-                  >
-                    GitHub
-                  </a>
-                </li>
-                <li>
-                  <a href="/docs" className="text-gray-300 hover:text-white transition-colors">
-                    文档
-                  </a>
-                </li>
-              </ul>
-            </div>
+      <footer className="border-t bg-white">
+        <div className="container mx-auto px-4 py-6 flex flex-col gap-4 md:flex-row md:items-center md:justify-between text-sm text-gray-600">
+          <div className="flex flex-wrap gap-4">
+            <Link
+              href={addLocaleToPathname('/legal/terms', language)}
+              className="hover:text-primary transition-colors"
+            >
+              {t('legal.terms', '服务条款')}
+            </Link>
+            <Link
+              href={addLocaleToPathname('/legal/privacy', language)}
+              className="hover:text-primary transition-colors"
+            >
+              {t('legal.privacy', '隐私政策')}
+            </Link>
+            <Link
+              href={addLocaleToPathname('/legal/refund', language)}
+              className="hover:text-primary transition-colors"
+            >
+              {t('legal.refund', '退款政策')}
+            </Link>
           </div>
-          <div className="mt-8 pt-6 border-t border-gray-700 text-center text-gray-400">
-            <p>© {new Date().getFullYear()} GLSL 项目. 保留所有权利。</p>
-          </div>
+          <div className="text-gray-500">© {new Date().getFullYear()} Shader Learn. {t('footer.rights')}</div>
         </div>
-      </footer> */}
-    </div>
+      </footer>
+    </div >
   );
 };
 

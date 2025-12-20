@@ -35,5 +35,6 @@
       300
     ]
   },
-  "preview": "/api/shader/animation/time-pulse"
+  "preview": "/api/shader/animation/time-pulse",
+  "isFree": true
 }

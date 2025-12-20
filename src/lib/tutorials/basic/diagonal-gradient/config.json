@@ -10,9 +10,17 @@
   },
   "difficulty": "beginner",
   "category": "basic",
-  "tags": ["UV", "渐变", "mix", "clamp"],
+  "tags": [
+    "UV",
+    "渐变",
+    "mix",
+    "clamp"
+  ],
   "estimatedTime": 10,
-  "prerequisites": ["uv-visualizer", "color-mixing"],
+  "prerequisites": [
+    "uv-visualizer",
+    "color-mixing"
+  ],
   "learningObjectives": {
     "zh": [
       "理解如何用 UV 坐标构造渐变因子。",
@@ -26,9 +34,12 @@
     ]
   },
   "uniforms": {
-    "u_time": 0.0,
-    "u_resolution": [300, 300]
+    "u_time": 0,
+    "u_resolution": [
+      300,
+      300
+    ]
   },
-  "preview": "/api/shader/basic/diagonal-gradient"
+  "preview": "/api/shader/basic/diagonal-gradient",
+  "isFree": true
 }
-

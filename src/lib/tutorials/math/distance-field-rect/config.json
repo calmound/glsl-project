@@ -32,5 +32,6 @@
       300
     ]
   },
-  "preview": "/api/shader/math/distance-field-rect"
+  "preview": "/api/shader/math/distance-field-rect",
+  "isFree": false
 }

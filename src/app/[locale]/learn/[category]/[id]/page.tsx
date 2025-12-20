@@ -142,14 +142,18 @@ export async function generateStaticParams() {
 export default async function TutorialPage({ params }: TutorialPageProps) {
   const { locale: localeParam, category, id } = await params;
   const locale = getValidLocale(localeParam);
-  
+
   // 获取教程数据
   const tutorial = await getTutorial(category, id, locale);
-  
+
   if (!tutorial) {
     notFound();
   }
-  
+
+  // 获取教程配置（用于权限检查）
+  const tutorialConfig = await getTutorialConfig(category, id);
+  const isFree = tutorialConfig?.isFree ?? false; // 默认为付费
+
   // 获取教程内容和同分类的所有教程
   const [readme, shaders, categoryTutorials] = await Promise.all([
     getTutorialReadme(category, id, locale),
@@ -214,6 +218,7 @@ export default async function TutorialPage({ params }: TutorialPageProps) {
       tutorialId={id}
       categoryTutorials={categoryTutorials}
       initialCode={initialCode ?? (shaders.exercise || shaders.fragment)}
+      isFree={isFree}
     />
   );
 }

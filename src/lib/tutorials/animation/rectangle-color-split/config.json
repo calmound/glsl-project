@@ -10,9 +10,17 @@
   },
   "difficulty": "beginner",
   "category": "animation",
-  "tags": ["条件判断", "矩形", "颜色分割", "逻辑控制"],
+  "tags": [
+    "条件判断",
+    "矩形",
+    "颜色分割",
+    "逻辑控制"
+  ],
   "estimatedTime": 10,
-  "prerequisites": ["uv-coordinates", "solid-color"],
+  "prerequisites": [
+    "uv-coordinates",
+    "solid-color"
+  ],
   "learningObjectives": {
     "zh": [
       "理解如何在GLSL中使用`if`条件语句。",
@@ -24,5 +32,6 @@
       "Learn to divide the screen based on the x-value of UV coordinates.",
       "Master the method of assigning different colors to different regions."
     ]
-  }
+  },
+  "isFree": false
 }

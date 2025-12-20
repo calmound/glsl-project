@@ -32,5 +32,6 @@
       300
     ]
   },
-  "preview": "/api/shader/lighting/shadow-fake"
+  "preview": "/api/shader/lighting/shadow-fake",
+  "isFree": false
 }

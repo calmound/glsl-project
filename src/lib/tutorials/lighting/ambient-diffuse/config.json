@@ -32,5 +32,6 @@
       300
     ]
   },
-  "preview": "/api/shader/lighting/ambient-diffuse"
+  "preview": "/api/shader/lighting/ambient-diffuse",
+  "isFree": true
 }

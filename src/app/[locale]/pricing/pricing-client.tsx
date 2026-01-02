@@ -354,17 +354,29 @@ export default function PricingClient({ locale }: PricingClientProps) {
                                                 </Button>
                                             )}
 
-                                            <p className="text-center text-xs text-gray-400 mt-4">
-                                                {user ? (
-                                                    locale === 'zh' ? (
-                                                        '🔒 微信安全支付 · 一次性购买 · 即时生效'
+                                            <div className="text-center mt-4 space-y-1">
+                                                <p className="text-xs text-gray-400">
+                                                    {user ? (
+                                                        locale === 'zh' ? (
+                                                            '🔒 微信安全支付 · 一次性购买 · 即时生效'
+                                                        ) : (
+                                                            '🔒 Secure payment · Auto-renewable · Instant access'
+                                                        )
                                                     ) : (
-                                                        '🔒 Secure payment · Auto-renewable · Instant access'
-                                                    )
-                                                ) : (
-                                                    t('pricing.login_required') || '需要先登录才能订阅'
+                                                        t('pricing.login_required') || '需要先登录才能订阅'
+                                                    )}
+                                                </p>
+                                                {user && locale === 'zh' && (
+                                                    <>
+                                                        <p className="text-xs text-amber-600">
+                                                            💡 如无法打开支付页面，请尝试关闭网络代理
+                                                        </p>
+                                                        <p className="text-xs text-blue-600">
+                                                            📧 如付费后未生效，请邮件联系，24小时内解决
+                                                        </p>
+                                                    </>
                                                 )}
-                                            </p>
+                                            </div>
                                         </div>
                                     </div>
                                 </Card>

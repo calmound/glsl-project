@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { CreemCheckout } from '@creem_io/nextjs';
 import MainLayout from '../../../components/layout/main-layout';
@@ -19,47 +19,106 @@ export default function PricingClient({ locale }: PricingClientProps) {
     const { t } = useLanguage();
     const router = useRouter();
     const { user, entitlement } = useAuth();
+    const [checkoutLoading, setCheckoutLoading] = useState<string | null>(null);
 
     const productId3m = process.env.NEXT_PUBLIC_CREEM_PRODUCT_ID;
     const productId1y =
         process.env.NEXT_PUBLIC_CREEM_PRODUCT_ID_YEARLY || 'prod_3MotYDNXslvvlqsbk3m3Uw';
 
-    const plans = [
-        {
-            key: 'pro_3m',
-            productId: productId3m,
-            title: t('pricing.plan_3m_title') || 'Pro · 3 个月',
-            price: t('pricing.plan_3m_price') || '$9.99',
-            period: t('pricing.period_3m') || '/ 3个月',
-            description:
-                t('pricing.plan_3m_desc') ||
-                '适合所有阶段的学习者，一次付费，畅享 90 天所有高级权益。',
-            highlight: true,
-        },
-        {
-            key: 'pro_1y',
-            productId: productId1y,
-            title: t('pricing.plan_1y_title') || 'Pro · 1 年',
-            price: t('pricing.plan_1y_price') || '$29.99',
-            period: t('pricing.period_1y') || '/ 1年',
-            description:
-                t('pricing.plan_1y_desc') ||
-                '年度订阅更划算，全年访问所有高级课程与练习。',
-            highlight: false,
-        },
-    ];
+    // 根据 locale 设置不同的价格和支付方式
+    // 从环境变量读取中文站价格（方便测试）
+    const price3Months = parseFloat(process.env.NEXT_PUBLIC_ZPAY_PRICE_3MONTHS || '49');
+    const price1Year = parseFloat(process.env.NEXT_PUBLIC_ZPAY_PRICE_1YEAR || '149');
+
+    const plans = locale === 'zh'
+        ? [
+            // 中文站 - ZPAY 支付
+            {
+                key: 'pro_3months',
+                productId: null, // 中文站不使用 Creem
+                title: 'Pro · 3 个月',
+                price: `¥${price3Months.toFixed(2)}`,
+                period: '/ 3个月',
+                description: '适合所有阶段的学习者，一次付费，畅享 90 天所有高级权益。',
+                highlight: true,
+            },
+            {
+                key: 'pro_1year',
+                productId: null,
+                title: 'Pro · 1 年',
+                price: `¥${price1Year.toFixed(2)}`,
+                period: '/ 1年',
+                description: `年度会员更划算，全年访问所有高级课程与练习。${price1Year >= 100 ? '月均仅 ¥' + (price1Year / 12).toFixed(1) + '！' : ''}`,
+                highlight: false,
+            },
+        ]
+        : [
+            // 英文站 - Creem 支付
+            {
+                key: 'pro_3m',
+                productId: productId3m,
+                title: 'Pro · 3 Months',
+                price: '$9.99',
+                period: '/ 3 months',
+                description: 'One-time payment for 90 days of premium access.',
+                highlight: true,
+            },
+            {
+                key: 'pro_1y',
+                productId: productId1y,
+                title: 'Pro · 1 Year',
+                price: '$29.99',
+                period: '/ 1 year',
+                description: 'Best value for a full year of premium access.',
+                highlight: false,
+            },
+        ];
 
     const isProActive =
         !!entitlement &&
         entitlement.status === 'active' &&
         new Date(entitlement.end_date) > new Date();
     const rawPlanType = entitlement?.plan_type;
-    const normalizedPlanType = rawPlanType === 'pro_90days' ? 'pro_3m' : rawPlanType;
+    // 统一映射套餐类型
+    const normalizedPlanType =
+        rawPlanType === 'pro_90days' ? (locale === 'zh' ? 'pro_3months' : 'pro_3m') :
+        rawPlanType === 'pro_3months' ? (locale === 'zh' ? 'pro_3months' : 'pro_3m') :
+        rawPlanType === 'pro_1year' ? 'pro_1year' :
+        rawPlanType === 'pro_3m' ? (locale === 'zh' ? 'pro_3months' : 'pro_3m') :
+        rawPlanType;
     const activePlanKey = isProActive ? normalizedPlanType : null;
     const activePlanLabel = plans.find(plan => plan.key === activePlanKey)?.title;
     const activePlanEnd = entitlement?.end_date
         ? new Date(entitlement.end_date).toLocaleDateString(locale === 'zh' ? 'zh-CN' : 'en-US')
         : null;
+
+    // ZPAY 支付处理函数（仅中文站）
+    const handleZPayCheckout = async (planKey: string) => {
+        if (!user) return;
+
+        setCheckoutLoading(planKey);
+        try {
+            const response = await fetch('/api/checkout-zpay', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ plan: planKey }),
+            });
+
+            const data = await response.json();
+
+            if (data.success && data.checkout_url) {
+                // 跳转到 ZPAY 支付页面
+                window.location.href = data.checkout_url;
+            } else {
+                alert(data.message || '创建支付失败，请稍后重试');
+                setCheckoutLoading(null);
+            }
+        } catch (error) {
+            console.error('ZPAY checkout error:', error);
+            alert('网络错误，请稍后重试');
+            setCheckoutLoading(null);
+        }
+    };
 
     const features = [
         {
@@ -241,7 +300,30 @@ export default function PricingClient({ locale }: PricingClientProps) {
                                                         ? t('pricing.current_button') || '当前方案'
                                                         : t('pricing.change_in_portal') || '请在管理订阅中更改'}
                                                 </Button>
+                                            ) : locale === 'zh' ? (
+                                                // 中文站 - ZPAY 微信支付
+                                                <Button
+                                                    size="lg"
+                                                    className="w-full text-lg h-14 bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 shadow-lg"
+                                                    onClick={() => handleZPayCheckout(plan.key)}
+                                                    disabled={checkoutLoading === plan.key}
+                                                >
+                                                    {checkoutLoading === plan.key ? (
+                                                        <span className="flex items-center gap-2">
+                                                            <svg className="animate-spin h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                                                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                                                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                                            </svg>
+                                                            跳转中...
+                                                        </span>
+                                                    ) : (
+                                                        <span className="flex items-center justify-center gap-2">
+                                                            💚 微信支付
+                                                        </span>
+                                                    )}
+                                                </Button>
                                             ) : plan.productId ? (
+                                                // 英文站 - Creem 信用卡支付
                                                 <CreemCheckout
                                                     productId={plan.productId}
                                                     referenceId={user.id}
@@ -259,7 +341,7 @@ export default function PricingClient({ locale }: PricingClientProps) {
                                                                 'w-full text-lg h-14 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 shadow-lg inline-flex justify-center',
                                                         })}
                                                     >
-                                                        {t('pricing.cta') || '立即订阅'}
+                                                        {t('pricing.cta') || 'Subscribe Now'}
                                                     </span>
                                                 </CreemCheckout>
                                             ) : (
@@ -274,7 +356,11 @@ export default function PricingClient({ locale }: PricingClientProps) {
 
                                             <p className="text-center text-xs text-gray-400 mt-4">
                                                 {user ? (
-                                                    t('pricing.secure_payment') || '安全支付 · 即时生效'
+                                                    locale === 'zh' ? (
+                                                        '🔒 微信安全支付 · 一次性购买 · 即时生效'
+                                                    ) : (
+                                                        '🔒 Secure payment · Auto-renewable · Instant access'
+                                                    )
                                                 ) : (
                                                     t('pricing.login_required') || '需要先登录才能订阅'
                                                 )}

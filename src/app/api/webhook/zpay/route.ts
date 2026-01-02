@@ -87,7 +87,6 @@ async function handleWebhook(request: NextRequest) {
 
     const outTradeNo = params.out_trade_no;
     const zpayTradeNo = params.trade_no;
-    const money = parseFloat(params.money);
 
     // ==================== 4. 解析业务参数 ====================
     let userId: string | null = null;
@@ -107,11 +106,11 @@ async function handleWebhook(request: NextRequest) {
     }
 
     // ==================== 5. 检查订单是否已处理（幂等） ====================
-    const { data: existingEvent } = await getSupabaseAdmin()
+    const { data: existingEvent } = (await getSupabaseAdmin()
       .from('payment_events')
       .select('id, processed')
       .eq('event_id', zpayTradeNo)
-      .maybeSingle();
+      .maybeSingle()) as { data: { id: string; processed: boolean } | null };
 
     if (existingEvent?.processed) {
       console.log('✅ [ZPAY Webhook] 订单已处理，跳过:', zpayTradeNo);
@@ -119,7 +118,8 @@ async function handleWebhook(request: NextRequest) {
     }
 
     // ==================== 6. 记录支付事件 ====================
-    await getSupabaseAdmin().from('payment_events').upsert(
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    await (getSupabaseAdmin().from('payment_events') as any).upsert(
       {
         event_id: zpayTradeNo,
         event_type: 'zpay.payment.success',
@@ -133,8 +133,9 @@ async function handleWebhook(request: NextRequest) {
     );
 
     // ==================== 7. 更新订单状态 ====================
-    const { error: updateOrderError } = await getSupabaseAdmin()
-      .from('orders')
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const { error: updateOrderError } = await (getSupabaseAdmin()
+      .from('orders') as any)
       .update({
         payment_status: 'paid',
         paid_at: new Date().toISOString(),
@@ -156,8 +157,9 @@ async function handleWebhook(request: NextRequest) {
     const now = new Date();
     const endDate = new Date(now.getTime() + planConfig.duration_days * 24 * 60 * 60 * 1000);
 
-    const { error: entitlementError } = await getSupabaseAdmin()
-      .from('entitlements')
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const { error: entitlementError } = await (getSupabaseAdmin()
+      .from('entitlements') as any)
       .upsert(
         {
           user_id: userId,
@@ -182,8 +184,9 @@ async function handleWebhook(request: NextRequest) {
     }
 
     // ==================== 9. 标记事件已处理 ====================
-    await getSupabaseAdmin()
-      .from('payment_events')
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    await (getSupabaseAdmin()
+      .from('payment_events') as any)
       .update({
         processed: true,
         processed_at: new Date().toISOString(),

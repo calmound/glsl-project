@@ -94,7 +94,7 @@ export async function POST(request: NextRequest) {
 
     // ==================== 6. 构建 ZPAY 支付参数 ====================
     // 注意：notify_url 和 return_url 都不支持带参数（文档要求）
-    const paymentParams = {
+    const paymentParams: Record<string, string> = {
       pid,
       type: 'wxpay', // 微信支付
       out_trade_no: outTradeNo,

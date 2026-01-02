@@ -82,6 +82,23 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
   }, [user]);
 
+  const syncProfile = useCallback(async (sessionUser: User | null) => {
+    if (!sessionUser) return;
+
+    try {
+      const supabase = createBrowserSupabase();
+      await supabase.from('profiles').upsert({
+        id: sessionUser.id,
+        email: sessionUser.email,
+        name: sessionUser.user_metadata?.full_name ?? sessionUser.email?.split('@')[0],
+        avatar_url: sessionUser.user_metadata?.avatar_url ?? null,
+        last_login_at: new Date().toISOString(),
+      });
+    } catch (error) {
+      console.error('❌ [AuthContext] 同步用户资料失败:', error);
+    }
+  }, []);
+
   // 计算是否有有效订阅
   const hasActiveSubscription = useMemo(() => {
     if (!entitlement) return false;
@@ -98,8 +115,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     refreshUser().finally(() => setLoading(false));
 
     // 监听认证状态变化
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
       setUser(session?.user ?? null);
+      if (event === 'SIGNED_IN') {
+        syncProfile(session?.user ?? null);
+      }
     });
 
     return () => {

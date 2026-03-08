@@ -1,7 +1,8 @@
 import { Metadata } from 'next';
 import LeaderboardClient from '@/app/[locale]/leaderboard/leaderboard-client';
+import { getBaseUrl } from '@/lib/metadata-common';
 
-const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.shader-learn.com';
+const baseUrl = getBaseUrl();
 
 export const metadata: Metadata = {
   title: 'GLSL Learning Leaderboard - Shader Learn',

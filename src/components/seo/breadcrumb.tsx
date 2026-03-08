@@ -59,9 +59,6 @@ export default function Breadcrumb({ items, className = '' }: BreadcrumbProps) {
         case 'examples':
           name = t('nav.examples');
           break;
-        case 'glslify-guide':
-          name = 'Glslify 指南';
-          break;
         default:
           // 对于动态路由，保持原始名称或进行格式化
           name = segment.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase());

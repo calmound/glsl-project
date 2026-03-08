@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { type Locale, addLocaleToPathname } from '../../lib/i18n';
+import { canAccessTutorial } from '../../lib/access-control';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { useAuth } from '../../contexts/AuthContext';
 import SubscriptionPrompt from '../subscription/subscription-prompt';
@@ -33,19 +34,16 @@ interface LearningPathProps {
 export function LearningPath({ tutorials, userProgress, locale }: LearningPathProps) {
   const router = useRouter();
   const { t } = useLanguage();
-  const { hasActiveSubscription } = useAuth();
+  const { user, hasActiveSubscription } = useAuth();
   const [showSubscriptionPrompt, setShowSubscriptionPrompt] = useState(false);
 
   // 处理教程点击
   const handleTutorialClick = (tutorial: Tutorial) => {
-    const isFree = tutorial.isFree ?? false;
-    const needsSubscription = !isFree && !hasActiveSubscription;
+    const access = canAccessTutorial(tutorial.isFree ?? false, hasActiveSubscription, !!user);
 
-    if (needsSubscription) {
-      // 付费教程且无订阅，显示订阅提示
+    if (!access.canAccess) {
       setShowSubscriptionPrompt(true);
     } else {
-      // 免费教程或已订阅，直接跳转
       router.push(addLocaleToPathname(`/learn/${tutorial.category}/${tutorial.id}`, locale));
     }
   };
@@ -66,7 +64,8 @@ export function LearningPath({ tutorials, userProgress, locale }: LearningPathPr
             const progress = userProgress[tutorial.id];
             const isCompleted = progress?.is_passed || false;
             const isFree = tutorial.isFree ?? false;
-            const needsSubscription = !isFree && !hasActiveSubscription;
+            const access = canAccessTutorial(isFree, hasActiveSubscription, !!user);
+            const needsSubscription = !access.canAccess;
 
             return (
               <div key={tutorial.id}>

@@ -125,7 +125,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     return () => {
       subscription.unsubscribe();
     };
-  }, [refreshUser]);
+  }, [refreshUser, syncProfile]);
 
   // 当用户状态变化时，刷新订阅信息
   useEffect(() => {

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 interface AdminStatistics {
   userMetrics: {
@@ -40,11 +40,7 @@ export default function AdminStats({ locale }: AdminStatsProps) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    fetchAdminStats();
-  }, []);
-
-  const fetchAdminStats = async () => {
+  const fetchAdminStats = useCallback(async () => {
     try {
       const response = await fetch('/api/admin/statistics');
 
@@ -71,7 +67,11 @@ export default function AdminStats({ locale }: AdminStatsProps) {
     } finally {
       setLoading(false);
     }
-  };
+  }, [locale]);
+
+  useEffect(() => {
+    fetchAdminStats();
+  }, [fetchAdminStats]);
 
   // 如果有错误或者不是管理员，不显示任何内容
   if (error || !stats) {

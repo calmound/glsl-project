@@ -35,7 +35,6 @@ Key pages:
 - Tutorial detail: `/[locale]/learn/[category]/[id]/page.tsx` (client: `tutorial-client.tsx`)
 - About: `/[locale]/about/page.tsx`
 - Examples: `/[locale]/examples/page.tsx`
-- Glslify guide: `/[locale]/glslify-guide/page.tsx`
 
 ### Internationalization (i18n)
 
@@ -76,20 +75,9 @@ Tutorials are file-based and stored in `src/lib/tutorials/[category]/[id]/`:
 
 ### WebGL/GLSL Integration
 
-**Webpack configuration** (`next.config.ts`):
-- Uses `glslify-loader` + `raw-loader` to import `.glsl`, `.vs`, `.fs`, `.vert`, `.frag` files
-- Supports `#pragma glslify:` directives for modular shaders
-
-**Shared GLSL utilities**: `src/lib/glsl/`
-- `colors.glsl` - Color manipulation functions
-- `math.glsl` - Math utilities
-- `noise.glsl` - Noise functions
-
-**Glslify modules installed**:
-- `glsl-noise` - Noise functions (simplex, perlin)
-- `glsl-hsl2rgb` - HSL to RGB conversion
-- `glsl-rotate` - Rotation transforms
-- `glsl-easings` - Easing functions
+**Shader source loading**:
+- Tutorial shader source is read from `src/lib/tutorials/**` on the server and passed to the client as plain strings.
+- The preview/editor path compiles those strings directly with WebGL at runtime.
 
 **Shader rendering components**:
 - `src/components/common/shader-canvas.tsx` - Main WebGL canvas with fragment/vertex shader compilation, uniform passing, animation loop
@@ -138,7 +126,6 @@ Tutorials are file-based and stored in `src/lib/tutorials/[category]/[id]/`:
 ### Utilities
 
 - `src/lib/utils.ts` - General utilities
-- `src/lib/shader-data.ts` - Legacy shader data (may be deprecated in favor of file-based tutorials)
 - `src/utils/glsl-lang.ts` - GLSL syntax definition for CodeMirror
 
 ### Styling
@@ -276,7 +263,6 @@ const supabase = await createServerSupabase();
 - **CodeMirror**: `@uiw/react-codemirror` for editor
 - **Markdown**: `react-markdown` for tutorial rendering
 - **Tailwind**: v4 with PostCSS
-- **GLSL tooling**: glslify, glslify-loader, raw-loader
 
 ## Known Patterns from Existing Code
 

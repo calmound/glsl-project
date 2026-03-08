@@ -118,7 +118,6 @@ async function handleWebhook(request: NextRequest) {
     }
 
     // ==================== 6. 记录支付事件 ====================
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     await (getSupabaseAdmin().from('payment_events') as any).upsert(
       {
         event_id: zpayTradeNo,
@@ -133,7 +132,6 @@ async function handleWebhook(request: NextRequest) {
     );
 
     // ==================== 7. 更新订单状态 ====================
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const { error: updateOrderError } = await (getSupabaseAdmin()
       .from('orders') as any)
       .update({
@@ -157,7 +155,6 @@ async function handleWebhook(request: NextRequest) {
     const now = new Date();
     const endDate = new Date(now.getTime() + planConfig.duration_days * 24 * 60 * 60 * 1000);
 
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const { error: entitlementError } = await (getSupabaseAdmin()
       .from('entitlements') as any)
       .upsert(
@@ -184,7 +181,6 @@ async function handleWebhook(request: NextRequest) {
     }
 
     // ==================== 9. 标记事件已处理 ====================
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     await (getSupabaseAdmin()
       .from('payment_events') as any)
       .update({

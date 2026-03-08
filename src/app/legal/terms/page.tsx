@@ -1,11 +1,10 @@
-import TermsPage, { generateMetadata as generateLocalizedMetadata } from '../../[locale]/legal/terms/page';
+import { TermsPageContent } from '@/app/legal/terms/terms-page-content';
+import { buildTermsMetadata } from '@/lib/static-page-metadata';
 
 export function generateMetadata() {
-  return generateLocalizedMetadata({
-    params: Promise.resolve({ locale: 'en' }),
-  });
+  return buildTermsMetadata('en');
 }
 
 export default function TermsPageDefaultLocale() {
-  return <TermsPage params={Promise.resolve({ locale: 'en' })} />;
+  return <TermsPageContent locale="en" />;
 }

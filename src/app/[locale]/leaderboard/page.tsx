@@ -1,5 +1,7 @@
 import { Metadata } from 'next';
-import { getValidLocale } from '../../../lib/i18n';
+import { resolveLocaleFromParams } from '../../../lib/locale-page';
+import { getBaseUrl, indexableRobots } from '../../../lib/metadata-common';
+import { buildLocaleAlternatesFor } from '../../../lib/seo';
 import LeaderboardClient from './leaderboard-client';
 
 interface LeaderboardPageProps {
@@ -9,8 +11,7 @@ interface LeaderboardPageProps {
 }
 
 export async function generateMetadata({ params }: LeaderboardPageProps): Promise<Metadata> {
-  const { locale: localeParam } = await params;
-  const locale = getValidLocale(localeParam);
+  const locale = await resolveLocaleFromParams(params);
 
   const title =
     locale === 'zh' ? 'GLSL 学习排行榜 - Shader Learn' : 'GLSL Learning Leaderboard - Shader Learn';
@@ -19,7 +20,7 @@ export async function generateMetadata({ params }: LeaderboardPageProps): Promis
       ? '查看 GLSL 学习排行榜，了解你的学习进度和排名。与其他开发者一起学习和进步，挑战更高排名！'
       : 'View the GLSL learning leaderboard and track your progress. Learn and improve with other developers, challenge for higher rankings!';
 
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.shader-learn.com';
+  const baseUrl = getBaseUrl();
 
   return {
     title,
@@ -31,17 +32,7 @@ export async function generateMetadata({ params }: LeaderboardPageProps): Promis
     authors: [{ name: 'Shader Learn' }],
     creator: 'Shader Learn',
     publisher: 'Shader Learn',
-    robots: {
-      index: true,
-      follow: true,
-      googleBot: {
-        index: true,
-        follow: true,
-        'max-video-preview': -1,
-        'max-image-preview': 'large',
-        'max-snippet': -1,
-      },
-    },
+    robots: indexableRobots,
     openGraph: {
       title,
       description,
@@ -66,21 +57,13 @@ export async function generateMetadata({ params }: LeaderboardPageProps): Promis
       creator: '@ShaderLearn',
       site: '@ShaderLearn',
     },
-    alternates: {
-      canonical: locale === 'en' ? '/leaderboard' : `/${locale}/leaderboard`,
-      languages: {
-        'en': '/leaderboard',
-        'zh-CN': '/zh/leaderboard',
-        'x-default': '/leaderboard',
-      },
-    },
+    alternates: buildLocaleAlternatesFor(locale, '/leaderboard'),
     category: 'Education',
   };
 }
 
 export default async function LeaderboardPage({ params }: LeaderboardPageProps) {
-  const { locale: localeParam } = await params;
-  const locale = getValidLocale(localeParam);
+  const locale = await resolveLocaleFromParams(params);
 
   return <LeaderboardClient locale={locale} />;
 }

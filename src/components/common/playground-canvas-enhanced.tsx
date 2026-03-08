@@ -356,6 +356,8 @@ const PlaygroundCanvasEnhanced: React.FC<PlaygroundCanvasEnhancedProps> = ({
     // 开始渲染
     render();
 
+    const textures = texturesRef.current;
+
     // 清理函数
     return () => {
       if (animationRef.current) {
@@ -368,10 +370,10 @@ const PlaygroundCanvasEnhanced: React.FC<PlaygroundCanvasEnhancedProps> = ({
         gl.deleteProgram(program);
       }
       // 清理纹理
-      texturesRef.current.forEach((texture) => {
+      textures.forEach((texture) => {
         gl.deleteTexture(texture);
       });
-      texturesRef.current.clear();
+      textures.clear();
     };
   }, [vertexShader, fragmentShader, width, height, createProgram, render, compileError]);
 

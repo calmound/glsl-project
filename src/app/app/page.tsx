@@ -86,13 +86,6 @@ export default async function Dashboard() {
                     <p className="text-gray-600 text-sm mt-1">浏览精选的 GLSL 示例</p>
                   </Link>
                   <Link
-                    href="/glslify-guide"
-                    className="p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors"
-                  >
-                    <h3 className="font-medium text-gray-900">Glslify 指南</h3>
-                    <p className="text-gray-600 text-sm mt-1">了解模块化 GLSL 开发</p>
-                  </Link>
-                  <Link
                     href="/about"
                     className="p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors"
                   >

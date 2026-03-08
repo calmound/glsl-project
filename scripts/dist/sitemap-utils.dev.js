@@ -220,7 +220,6 @@ function generateSitemapXML(tutorialIds) {
     priority: '0.7',
     changefreq: 'monthly'
   }, {
-    path: 'glslify-guide',
     priority: '0.8',
     changefreq: 'monthly'
   }, {

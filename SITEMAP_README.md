@@ -9,7 +9,6 @@
 - **学习页面**: 中文版 (`/learn`) 和英文版 (`/en/learn`)
 - **教程详情页**: 基于 `/src/lib/tutorials` 文件夹自动生成所有教程的中英文版本
 - **关于页面**: `/about`
-- **GLSL指南页面**: `/glslify-guide`
 
 ### 2. Robots.txt (`/robots.txt`)
 - 指向主 sitemap

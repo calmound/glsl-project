@@ -1,11 +1,10 @@
-import PrivacyPage, { generateMetadata as generateLocalizedMetadata } from '../../[locale]/legal/privacy/page';
+import { PrivacyPageContent } from '@/app/legal/privacy/privacy-page-content';
+import { buildPrivacyMetadata } from '@/lib/static-page-metadata';
 
 export function generateMetadata() {
-  return generateLocalizedMetadata({
-    params: Promise.resolve({ locale: 'en' }),
-  });
+  return buildPrivacyMetadata('en');
 }
 
 export default function PrivacyPageDefaultLocale() {
-  return <PrivacyPage params={Promise.resolve({ locale: 'en' })} />;
+  return <PrivacyPageContent locale="en" />;
 }

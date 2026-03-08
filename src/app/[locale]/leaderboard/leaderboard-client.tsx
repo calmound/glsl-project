@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import MainLayout from '@/components/layout/main-layout';
 import type { Locale } from '@/lib/i18n';
@@ -52,7 +52,7 @@ export default function LeaderboardClient({ locale }: LeaderboardClientProps) {
 
   const [loading, setLoading] = useState(true);
 
-  const fetchLeaderboard = async () => {
+  const fetchLeaderboard = useCallback(async () => {
     try {
       const response = await fetch(`/api/leaderboard?timeRange=all&limit=100`);
       const data = await response.json();
@@ -63,9 +63,9 @@ export default function LeaderboardClient({ locale }: LeaderboardClientProps) {
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
-  const fetchUserStatistics = async () => {
+  const fetchUserStatistics = useCallback(async () => {
     try {
       const response = await fetch('/api/user/statistics');
       const data = await response.json();
@@ -74,15 +74,14 @@ export default function LeaderboardClient({ locale }: LeaderboardClientProps) {
     } catch (error) {
       console.error('获取用户统计失败:', error);
     }
-  };
+  }, []);
 
   useEffect(() => {
     fetchLeaderboard();
     if (user) {
       fetchUserStatistics();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user]);
+  }, [fetchLeaderboard, fetchUserStatistics, user]);
 
 
 

@@ -2,28 +2,32 @@ import fs from 'fs';
 import path from 'path';
 import { type Locale } from './i18n';
 
-interface Tutorial {
+export interface Tutorial {
   id: string;
   title: string;
   description: string;
   difficulty: 'beginner' | 'intermediate' | 'advanced';
   category: string;
-  isFree?: boolean; // 是否免费
+  isFree?: boolean;
 }
 
-interface TutorialConfig {
+export interface TutorialConfig {
   id: string;
-  isFree?: boolean; // 是否免费，默认 false（付费）
-  title: {
-    zh: string;
-    en: string;
-  } | string;
-  title_en?: string; // 向后兼容
-  description: {
-    zh: string;
-    en: string;
-  } | string;
-  description_en?: string; // 向后兼容
+  isFree?: boolean;
+  title:
+    | {
+        zh: string;
+        en: string;
+      }
+    | string;
+  title_en?: string;
+  description:
+    | {
+        zh: string;
+        en: string;
+      }
+    | string;
+  description_en?: string;
   difficulty: 'beginner' | 'intermediate' | 'advanced';
   category: string;
   tags?: string[];
@@ -36,6 +40,25 @@ interface TutorialConfig {
   uniforms?: Record<string, any>;
   preview?: string;
 }
+
+export interface TutorialRouteParam {
+  category: string;
+  id: string;
+}
+
+type TutorialListItem = {
+  tutorial: Tutorial;
+  prerequisitesCount: number;
+  estimatedTime: number;
+};
+
+type TutorialDirectoryEntry = {
+  category: string;
+  tutorialDir: string;
+  fullPath: string;
+};
+
+const TUTORIALS_DIR = path.join(process.cwd(), 'src/lib/tutorials');
 
 function getDifficultyRank(difficulty: Tutorial['difficulty']): number {
   switch (difficulty) {
@@ -50,306 +73,222 @@ function getDifficultyRank(difficulty: Tutorial['difficulty']): number {
   }
 }
 
-// 获取教程数据的服务端函数（从文件系统读取）
-export async function getTutorials(locale: Locale): Promise<Tutorial[]> {
-  return getTutorialsFromFileSystem(locale);
+function getTutorialDirectory(category: string, id: string) {
+  const resolved = path.resolve(TUTORIALS_DIR, category, id);
+  if (!resolved.startsWith(TUTORIALS_DIR + path.sep)) {
+    throw new Error('Invalid tutorial path');
+  }
+  return resolved;
 }
 
-// 回退方案：从文件系统读取教程（原有逻辑）
-function getTutorialsFromFileSystem(locale: Locale): Tutorial[] {
-  const tutorialsWithMeta: Array<{
-    tutorial: Tutorial;
-    prerequisitesCount: number;
-    estimatedTime: number;
-  }> = [];
-  const tutorialsDir = path.join(process.cwd(), 'src/lib/tutorials');
+function getLocalizedField(
+  value: TutorialConfig['title'] | TutorialConfig['description'],
+  locale: Locale,
+  fallback?: string
+): string {
+  if (typeof value === 'object') {
+    return value[locale] || value.zh || value.en;
+  }
 
+  return locale === 'en' && fallback ? fallback : value;
+}
+
+function readJsonFile<T>(filePath: string): T | null {
   try {
-    // 读取所有分类目录
-    const categories = fs.readdirSync(tutorialsDir, { withFileTypes: true })
-      .filter(dirent => dirent.isDirectory())
-      .map(dirent => dirent.name);
-
-    for (const category of categories) {
-      const categoryDir = path.join(tutorialsDir, category);
-
-      // 读取分类下的所有教程目录
-      const tutorialDirs = fs.readdirSync(categoryDir, { withFileTypes: true })
-        .filter(dirent => dirent.isDirectory())
-        .map(dirent => dirent.name);
-
-      for (const tutorialDir of tutorialDirs) {
-        const configPath = path.join(categoryDir, tutorialDir, 'config.json');
-
-        if (fs.existsSync(configPath)) {
-          try {
-            const configContent = fs.readFileSync(configPath, 'utf-8');
-            const config: TutorialConfig = JSON.parse(configContent);
-
-            // 根据语言选择标题和描述
-            let title: string;
-            let description: string;
-
-            if (typeof config.title === 'object') {
-              title = config.title[locale] || config.title.zh;
-            } else {
-              title = locale === 'en' && config.title_en ? config.title_en : config.title;
-            }
-
-            if (typeof config.description === 'object') {
-              description = config.description[locale] || config.description.zh;
-            } else {
-              description = locale === 'en' && config.description_en ? config.description_en : config.description;
-            }
-
-            tutorialsWithMeta.push({
-              tutorial: {
-                id: config.id,
-                title,
-                description,
-                difficulty: config.difficulty,
-                category: config.category,
-                isFree: config.isFree ?? false, // 默认为付费
-              },
-              prerequisitesCount: config.prerequisites?.length ?? 0,
-              estimatedTime: config.estimatedTime ?? Number.POSITIVE_INFINITY,
-            });
-          } catch (error) {
-            console.error(`Error parsing config for ${tutorialDir}:`, error);
-          }
-        }
-      }
+    if (!fs.existsSync(filePath)) {
+      return null;
     }
 
-    tutorialsWithMeta.sort((a, b) => {
+    return JSON.parse(fs.readFileSync(filePath, 'utf-8')) as T;
+  } catch (error) {
+    console.error(`Error reading JSON file ${filePath}:`, error);
+    return null;
+  }
+}
+
+function readTextFile(filePath: string): string {
+  try {
+    if (!fs.existsSync(filePath)) {
+      return '';
+    }
+
+    return fs.readFileSync(filePath, 'utf-8');
+  } catch (error) {
+    console.error(`Error reading text file ${filePath}:`, error);
+    return '';
+  }
+}
+
+function listTutorialDirectories(category?: string): TutorialDirectoryEntry[] {
+  const baseDir = category ? path.join(TUTORIALS_DIR, category) : TUTORIALS_DIR;
+
+  if (!fs.existsSync(baseDir)) {
+    return [];
+  }
+
+  if (category) {
+    return fs
+      .readdirSync(baseDir, { withFileTypes: true })
+      .filter(dirent => dirent.isDirectory())
+      .map(dirent => ({
+        category,
+        tutorialDir: dirent.name,
+        fullPath: path.join(baseDir, dirent.name),
+      }));
+  }
+
+  return fs
+    .readdirSync(baseDir, { withFileTypes: true })
+    .filter(dirent => dirent.isDirectory())
+    .flatMap(dirent => {
+      const categoryName = dirent.name;
+      const categoryDir = path.join(baseDir, categoryName);
+
+      return fs
+        .readdirSync(categoryDir, { withFileTypes: true })
+        .filter(child => child.isDirectory())
+        .map(child => ({
+          category: categoryName,
+          tutorialDir: child.name,
+          fullPath: path.join(categoryDir, child.name),
+        }));
+    });
+}
+
+function normalizeTutorial(config: TutorialConfig, locale: Locale): Tutorial {
+  return {
+    id: config.id,
+    title: getLocalizedField(config.title, locale, config.title_en),
+    description: getLocalizedField(config.description, locale, config.description_en),
+    difficulty: config.difficulty,
+    category: config.category,
+    isFree: config.isFree ?? false,
+  };
+}
+
+function buildTutorialList(entries: TutorialDirectoryEntry[], locale: Locale, groupByCategory: boolean): Tutorial[] {
+  const tutorialsWithMeta: TutorialListItem[] = [];
+
+  for (const entry of entries) {
+    const configPath = path.join(entry.fullPath, 'config.json');
+    const config = readJsonFile<TutorialConfig>(configPath);
+
+    if (!config) {
+      continue;
+    }
+
+    tutorialsWithMeta.push({
+      tutorial: normalizeTutorial(config, locale),
+      prerequisitesCount: config.prerequisites?.length ?? 0,
+      estimatedTime: config.estimatedTime ?? Number.POSITIVE_INFINITY,
+    });
+  }
+
+  tutorialsWithMeta.sort((a, b) => {
+    if (groupByCategory) {
       const categoryCompare = a.tutorial.category.localeCompare(b.tutorial.category);
       if (categoryCompare !== 0) return categoryCompare;
+    }
 
-      const difficultyCompare = getDifficultyRank(a.tutorial.difficulty) - getDifficultyRank(b.tutorial.difficulty);
-      if (difficultyCompare !== 0) return difficultyCompare;
+    const difficultyCompare =
+      getDifficultyRank(a.tutorial.difficulty) - getDifficultyRank(b.tutorial.difficulty);
+    if (difficultyCompare !== 0) return difficultyCompare;
 
-      const prereqCompare = a.prerequisitesCount - b.prerequisitesCount;
-      if (prereqCompare !== 0) return prereqCompare;
+    const prereqCompare = a.prerequisitesCount - b.prerequisitesCount;
+    if (prereqCompare !== 0) return prereqCompare;
 
-      const timeCompare = a.estimatedTime - b.estimatedTime;
-      if (timeCompare !== 0) return timeCompare;
+    const timeCompare = a.estimatedTime - b.estimatedTime;
+    if (timeCompare !== 0) return timeCompare;
 
-      return a.tutorial.id.localeCompare(b.tutorial.id);
-    });
+    return a.tutorial.id.localeCompare(b.tutorial.id);
+  });
 
-    return tutorialsWithMeta.map(item => item.tutorial);
+  return tutorialsWithMeta.map(item => item.tutorial);
+}
+
+export async function getTutorials(locale: Locale): Promise<Tutorial[]> {
+  try {
+    return buildTutorialList(listTutorialDirectories(), locale, true);
   } catch (error) {
     console.error('Error reading tutorials from file system:', error);
     return [];
   }
 }
 
-// 获取单个教程数据
-export async function getTutorial(category: string, id: string, locale: Locale): Promise<Tutorial | null> {
-  const configPath = path.join(process.cwd(), 'src/lib/tutorials', category, id, 'config.json');
-  
+export async function getTutorialRouteParams(): Promise<TutorialRouteParam[]> {
   try {
-    if (!fs.existsSync(configPath)) {
-      return null;
-    }
-    
-    const configContent = fs.readFileSync(configPath, 'utf-8');
-    const config: TutorialConfig = JSON.parse(configContent);
-    
-    // 根据语言选择标题和描述
-    let title: string;
-    let description: string;
-    
-    if (typeof config.title === 'object') {
-      title = config.title[locale] || config.title.zh;
-    } else {
-      title = locale === 'en' && config.title_en ? config.title_en : config.title;
-    }
-    
-    if (typeof config.description === 'object') {
-      description = config.description[locale] || config.description.zh;
-    } else {
-      description = locale === 'en' && config.description_en ? config.description_en : config.description;
-    }
-    
-    return {
-      id: config.id,
-      title,
-      description,
-      difficulty: config.difficulty,
-      category: config.category,
-      isFree: config.isFree ?? false,
-    };
+    return listTutorialDirectories()
+      .map(entry => {
+        const config = readJsonFile<TutorialConfig>(path.join(entry.fullPath, 'config.json'));
+        if (!config?.id || !config.category) {
+          return null;
+        }
+
+        return {
+          category: config.category,
+          id: config.id,
+        };
+      })
+      .filter((value): value is TutorialRouteParam => value !== null)
+      .sort((a, b) => {
+        const categoryCompare = a.category.localeCompare(b.category);
+        if (categoryCompare !== 0) return categoryCompare;
+        return a.id.localeCompare(b.id);
+      });
   } catch (error) {
-    console.error(`Error reading tutorial ${category}/${id}:`, error);
+    console.error('Error reading tutorial route params from file system:', error);
+    return [];
+  }
+}
+
+export async function getTutorial(category: string, id: string, locale: Locale): Promise<Tutorial | null> {
+  const config = await getTutorialConfig(category, id);
+
+  if (!config) {
     return null;
   }
+
+  return normalizeTutorial(config, locale);
 }
 
-// 获取教程的README内容
 export async function getTutorialReadme(category: string, id: string, locale?: Locale): Promise<string> {
-  const tutorialDir = path.join(process.cwd(), 'src/lib/tutorials', category, id);
-  
-  try {
-    // 根据语言选择对应的README文件
-    let readmePath: string;
+  const tutorialDir = getTutorialDirectory(category, id);
+  const readmePath =
+    locale === 'en' && fs.existsSync(path.join(tutorialDir, 'en-README.md'))
+      ? path.join(tutorialDir, 'en-README.md')
+      : path.join(tutorialDir, 'zh-README.md');
 
-    if (locale === 'en') {
-      // 优先尝试英文README
-      const enReadmePath = path.join(tutorialDir, 'en-README.md');
-      if (fs.existsSync(enReadmePath)) {
-        readmePath = enReadmePath;
-      } else {
-        // 如果没有英文版本，回退到中文版本
-        readmePath = path.join(tutorialDir, 'zh-README.md');
-      }
-    } else {
-      // 中文或其他语言，使用zh-README
-      readmePath = path.join(tutorialDir, 'zh-README.md');
-    }
-    
-    if (fs.existsSync(readmePath)) {
-      return fs.readFileSync(readmePath, 'utf-8');
-    }
-    return '';
-  } catch (error) {
-    console.error(`Error reading README for ${category}/${id}:`, error);
-    return '';
-  }
+  return readTextFile(readmePath);
 }
 
-// 获取指定分类下的所有教程（从文件系统读取）
 export async function getTutorialsByCategory(category: string, locale: Locale): Promise<Tutorial[]> {
-  return getTutorialsByCategoryFromFileSystem(category, locale);
-}
-
-// 回退方案：从文件系统读取指定分类的教程
-function getTutorialsByCategoryFromFileSystem(category: string, locale: Locale): Tutorial[] {
-  const tutorialsWithMeta: Array<{
-    tutorial: Tutorial;
-    prerequisitesCount: number;
-    estimatedTime: number;
-  }> = [];
-  const categoryDir = path.join(process.cwd(), 'src/lib/tutorials', category);
-
   try {
-    if (!fs.existsSync(categoryDir)) {
-      return [];
-    }
-
-    // 读取分类下的所有教程目录
-    const tutorialDirs = fs.readdirSync(categoryDir, { withFileTypes: true })
-      .filter(dirent => dirent.isDirectory())
-      .map(dirent => dirent.name);
-
-    for (const tutorialDir of tutorialDirs) {
-      const configPath = path.join(categoryDir, tutorialDir, 'config.json');
-
-      if (fs.existsSync(configPath)) {
-        try {
-          const configContent = fs.readFileSync(configPath, 'utf-8');
-          const config: TutorialConfig = JSON.parse(configContent);
-
-          // 根据语言选择标题和描述
-          let title: string;
-          let description: string;
-
-          if (typeof config.title === 'object') {
-            title = config.title[locale] || config.title.zh;
-          } else {
-            title = locale === 'en' && config.title_en ? config.title_en : config.title;
-          }
-
-          if (typeof config.description === 'object') {
-            description = config.description[locale] || config.description.zh;
-          } else {
-            description = locale === 'en' && config.description_en ? config.description_en : config.description;
-          }
-
-          tutorialsWithMeta.push({
-            tutorial: {
-              id: config.id,
-              title,
-              description,
-              difficulty: config.difficulty,
-              category: config.category,
-              isFree: config.isFree ?? false,
-            },
-            prerequisitesCount: config.prerequisites?.length ?? 0,
-            estimatedTime: config.estimatedTime ?? Number.POSITIVE_INFINITY,
-          });
-        } catch (error) {
-          console.error(`Error parsing config for ${tutorialDir}:`, error);
-        }
-      }
-    }
-
-    tutorialsWithMeta.sort((a, b) => {
-      const difficultyCompare = getDifficultyRank(a.tutorial.difficulty) - getDifficultyRank(b.tutorial.difficulty);
-      if (difficultyCompare !== 0) return difficultyCompare;
-
-      const prereqCompare = a.prerequisitesCount - b.prerequisitesCount;
-      if (prereqCompare !== 0) return prereqCompare;
-
-      const timeCompare = a.estimatedTime - b.estimatedTime;
-      if (timeCompare !== 0) return timeCompare;
-
-      return a.tutorial.id.localeCompare(b.tutorial.id);
-    });
-
-    return tutorialsWithMeta.map(item => item.tutorial);
+    return buildTutorialList(listTutorialDirectories(category), locale, false);
   } catch (error) {
     console.error(`Error reading tutorials for category ${category}:`, error);
     return [];
   }
 }
 
-// 获取教程的着色器代码
-export async function getTutorialShaders(category: string, id: string): Promise<{
+export async function getTutorialShaders(
+  category: string,
+  id: string
+): Promise<{
   fragment: string;
   vertex: string;
   exercise: string;
 }> {
-  const tutorialDir = path.join(process.cwd(), 'src/lib/tutorials', category, id);
-  
-  const result = {
-    fragment: '',
-    vertex: '',
-    exercise: '',
+  const tutorialDir = getTutorialDirectory(category, id);
+
+  return {
+    fragment: readTextFile(path.join(tutorialDir, 'fragment.glsl')),
+    vertex: readTextFile(path.join(tutorialDir, 'vertex.glsl')),
+    exercise: readTextFile(path.join(tutorialDir, 'fragment-exercise.glsl')),
   };
-  
-  try {
-    // 读取片段着色器
-    const fragmentPath = path.join(tutorialDir, 'fragment.glsl');
-    if (fs.existsSync(fragmentPath)) {
-      result.fragment = fs.readFileSync(fragmentPath, 'utf-8');
-    }
-    
-    // 读取顶点着色器
-    const vertexPath = path.join(tutorialDir, 'vertex.glsl');
-    if (fs.existsSync(vertexPath)) {
-      result.vertex = fs.readFileSync(vertexPath, 'utf-8');
-    }
-    
-    // 读取练习着色器
-    const exercisePath = path.join(tutorialDir, 'fragment-exercise.glsl');
-    if (fs.existsSync(exercisePath)) {
-      result.exercise = fs.readFileSync(exercisePath, 'utf-8');
-    }
-    
-    return result;
-  } catch (error) {
-    console.error(`Error reading shaders for ${category}/${id}:`, error);
-    return result;
-  }
 }
 
 function stripGlslComments(code: string): string {
-  // Remove block comments first, then line comments.
-  // This is a pragmatic implementation for our tutorial shaders (no string literals expected).
-  return code
-    .replace(/\/\*[\s\S]*?\*\//g, '')
-    .replace(/\/\/.*$/gm, '');
+  return code.replace(/\/\*[\s\S]*?\*\//g, '').replace(/\/\/.*$/gm, '');
 }
 
 function buildEnglishShaderHeader(config: TutorialConfig | null): string {
@@ -361,14 +300,10 @@ function buildEnglishShaderHeader(config: TutorialConfig | null): string {
   const description = config.description.en || config.description.zh;
   const objectives = config.learningObjectives?.en || config.learningObjectives?.zh || [];
 
-  const lines = [
-    `/* ${title}`,
-    '',
-    description,
-  ];
+  const lines = [`/* ${title}`, '', description];
 
   if (objectives.length > 0) {
-    lines.push('', 'Learning objectives:', ...objectives.map(o => `- ${o}`));
+    lines.push('', 'Learning objectives:', ...objectives.map(objective => `- ${objective}`));
   }
 
   lines.push('*/', '');
@@ -378,7 +313,7 @@ function buildEnglishShaderHeader(config: TutorialConfig | null): string {
 export async function getTutorialShadersLocalized(
   category: string,
   id: string,
-  locale: Locale,
+  locale: Locale
 ): Promise<{
   fragment: string;
   vertex: string;
@@ -392,7 +327,6 @@ export async function getTutorialShadersLocalized(
 
   const config = await getTutorialConfig(category, id);
   const header = buildEnglishShaderHeader(config);
-
   const normalize = (code: string) => `${header}${stripGlslComments(code).trim()}\n`;
 
   return {
@@ -402,21 +336,6 @@ export async function getTutorialShadersLocalized(
   };
 }
 
-// 获取教程的完整配置信息（用于SEO）
 export async function getTutorialConfig(category: string, id: string): Promise<TutorialConfig | null> {
-  const configPath = path.join(process.cwd(), 'src/lib/tutorials', category, id, 'config.json');
-  
-  try {
-    if (!fs.existsSync(configPath)) {
-      return null;
-    }
-    
-    const configContent = fs.readFileSync(configPath, 'utf-8');
-    const config: TutorialConfig = JSON.parse(configContent);
-    
-    return config;
-  } catch (error) {
-    console.error(`Error reading config for ${category}/${id}:`, error);
-    return null;
-  }
+  return readJsonFile<TutorialConfig>(path.join(getTutorialDirectory(category, id), 'config.json'));
 }

@@ -9,7 +9,11 @@ export async function GET(request: Request, { params }: { params: Promise<{ cate
     const lang = searchParams.get('lang') || 'zh'; // 默认中文
     
     // 构建教程目录路径
-    const tutorialDir = path.join(process.cwd(), 'src', 'lib', 'tutorials', category, id);
+    const tutorialsBase = path.resolve(process.cwd(), 'src', 'lib', 'tutorials');
+    const tutorialDir = path.resolve(tutorialsBase, category, id);
+    if (!tutorialDir.startsWith(tutorialsBase + path.sep)) {
+      return NextResponse.json({ error: 'Invalid path' }, { status: 400 });
+    }
     
     // 检查目录是否存在
     if (!fs.existsSync(tutorialDir)) {

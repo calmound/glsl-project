@@ -7,7 +7,6 @@ import { useAuth } from '../../../contexts/AuthContext';
 import { type Locale } from '../../../lib/i18n';
 import { createBrowserSupabase } from '../../../lib/supabase';
 import { LearningPath } from '../../../components/learn/learning-path';
-import { requiresAuth } from '../../../lib/access-control';
 
 interface Tutorial {
   id: string;
@@ -15,6 +14,7 @@ interface Tutorial {
   description: string;
   difficulty: 'beginner' | 'intermediate' | 'advanced';
   category: string;
+  isFree?: boolean;
 }
 
 interface UserProgress {
@@ -170,7 +170,7 @@ export default function LearnPageClient({ initialTutorials, locale }: LearnPageC
                   lighting: { icon: '💡', desc: t('learn.path.lighting.desc') }
                 };
                 const info = categoryInfo[category as keyof typeof categoryInfo] || { icon: '📖', desc: t('learn.path.basic.desc') };
-                const needsAuth = requiresAuth(category);
+                const hasPremiumTutorials = categoryTutorials.some(tutorial => !(tutorial.isFree ?? false));
 
                 return (
                   <Card
@@ -179,7 +179,7 @@ export default function LearnPageClient({ initialTutorials, locale }: LearnPageC
                     onClick={() => setSelectedCategory(category)}
                   >
                     {/* 需要登录标记 */}
-                    {needsAuth && !user && (
+                    {hasPremiumTutorials && !user && (
                       <div className="absolute top-3 right-3 bg-yellow-100 text-yellow-800 rounded-full px-2 py-1 text-xs font-medium flex items-center gap-1">
                         <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
                           <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd" />

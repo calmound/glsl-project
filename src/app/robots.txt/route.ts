@@ -8,7 +8,6 @@ Allow: /
 
 # Sitemaps
 Sitemap: ${baseUrl}/sitemap.xml
-Sitemap: ${baseUrl}/sitemap-index.xml
 
 # Disallow API routes and admin paths
 Disallow: /api/

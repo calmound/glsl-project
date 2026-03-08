@@ -1,6 +1,9 @@
 import { Metadata } from 'next';
 // Nested layout: no <html>/<body> here
-import { getValidLocale } from '../../lib/i18n';
+import { resolveLocaleFromParams, getNonDefaultLocaleStaticParams } from '../../lib/locale-page';
+import { getBaseUrl, indexableRobots } from '../../lib/metadata-common';
+import { buildLocaleAlternatesFor } from '../../lib/seo';
+import { siteConfig } from '../../lib/site-config';
 import { getTranslationFunction } from '../../lib/translations';
 
 interface LocaleLayoutProps {
@@ -12,11 +15,10 @@ interface LocaleLayoutProps {
 
 // 生成元数据
 export async function generateMetadata({ params }: LocaleLayoutProps): Promise<Metadata> {
-  const { locale: localeParam } = await params;
-  const locale = getValidLocale(localeParam);
+  const locale = await resolveLocaleFromParams(params);
   const t = getTranslationFunction(locale);
 
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.shader-learn.com';
+  const baseUrl = getBaseUrl();
 
   return {
     title: {
@@ -24,34 +26,28 @@ export async function generateMetadata({ params }: LocaleLayoutProps): Promise<M
       default: t('header.title'),
     },
     description:
-      t('header.description') || '专业的 GLSL 着色器编程学习平台，提供从基础到高级的完整学习路径',
+      t('header.description') || siteConfig.descriptionZh,
     keywords:
       locale === 'zh'
         ? 'GLSL, WebGL, 着色器, 图形编程, 教程, 学习, 片段着色器, 顶点着色器, WebGL编程'
         : 'GLSL, WebGL, Shader, Graphics Programming, Tutorial, Learning, Fragment Shader, Vertex Shader, WebGL Programming',
-    authors: [{ name: 'GLSL Learning Platform', url: baseUrl }],
-    creator: 'GLSL Learning Platform',
-    publisher: 'GLSL Learning Platform',
+    authors: [{ name: siteConfig.legacyEnglishName, url: baseUrl }],
+    creator: siteConfig.legacyEnglishName,
+    publisher: siteConfig.legacyEnglishName,
     formatDetection: {
       email: false,
       address: false,
       telephone: false,
     },
     metadataBase: new URL(baseUrl),
-    alternates: {
-      canonical: locale === 'en' ? '/' : `/${locale}`,
-      languages: {
-        en: '/',
-        zh: '/zh',
-      },
-    },
+    alternates: buildLocaleAlternatesFor(locale, '/'),
     other: {
       sitemap: '/sitemap.xml',
     },
     twitter: {
       card: 'summary_large_image',
       title: t('header.title'),
-      description: t('header.description') || '专业的 GLSL 着色器编程学习平台',
+      description: t('header.description') || siteConfig.descriptionZh,
       images: [`${baseUrl}/og-image.png`],
     },
     openGraph: {
@@ -62,23 +58,13 @@ export async function generateMetadata({ params }: LocaleLayoutProps): Promise<M
       description: t('header.description'),
       images: [`${baseUrl}/og-image.png`],
     },
-    robots: {
-      index: true,
-      follow: true,
-      googleBot: {
-        index: true,
-        follow: true,
-        'max-video-preview': -1,
-        'max-image-preview': 'large',
-        'max-snippet': -1,
-      },
-    },
+    robots: indexableRobots,
   };
 }
 
 // 生成静态参数
 export async function generateStaticParams() {
-  return [{ locale: 'zh' }];
+  return getNonDefaultLocaleStaticParams();
 }
 
 export const dynamicParams = false;

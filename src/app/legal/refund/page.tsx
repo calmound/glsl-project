@@ -1,11 +1,10 @@
-import RefundPage, { generateMetadata as generateLocalizedMetadata } from '../../[locale]/legal/refund/page';
+import { RefundPageContent } from '@/app/legal/refund/refund-page-content';
+import { buildRefundMetadata } from '@/lib/static-page-metadata';
 
 export function generateMetadata() {
-  return generateLocalizedMetadata({
-    params: Promise.resolve({ locale: 'en' }),
-  });
+  return buildRefundMetadata('en');
 }
 
 export default function RefundPageDefaultLocale() {
-  return <RefundPage params={Promise.resolve({ locale: 'en' })} />;
+  return <RefundPageContent locale="en" />;
 }

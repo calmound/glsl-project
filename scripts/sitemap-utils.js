@@ -3,6 +3,10 @@ const path = require('path');
 
 // 语言配置
 const locales = ['en', 'zh'];
+const hreflangMap = {
+  en: 'en',
+  zh: 'zh-CN',
+};
 const defaultLocale = 'en';
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'https://www.shader-learn.com';
 
@@ -107,7 +111,6 @@ function generateSitemapXML(tutorialIds) {
     { path: 'playground', priority: '0.9', changefreq: 'weekly' },
     { path: 'leaderboard', priority: '0.8', changefreq: 'daily' },
     { path: 'about', priority: '0.7', changefreq: 'monthly' },
-    { path: 'glslify-guide', priority: '0.8', changefreq: 'monthly' },
     { path: 'examples', priority: '0.8', changefreq: 'weekly' },
     { path: 'contact', priority: '0.6', changefreq: 'monthly' },
     { path: 'feedback', priority: '0.6', changefreq: 'monthly' },
@@ -191,7 +194,9 @@ function generateHreflangLinks(path) {
     const fullPath = path ? `${localePath}/${path}` : localePath;
     const url = `${baseUrl}${fullPath}`;
 
-    hreflangLinks.push(`    <xhtml:link rel="alternate" hreflang="${locale}" href="${url}" />`);
+    hreflangLinks.push(
+      `    <xhtml:link rel="alternate" hreflang="${hreflangMap[locale]}" href="${url}" />`
+    );
   });
 
   // 添加x-default链接（指向默认语言）

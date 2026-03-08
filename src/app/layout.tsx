@@ -1,9 +1,15 @@
 import './globals.css';
 
+import { Metadata } from 'next';
 import { LanguageProvider } from '../contexts/LanguageContext';
 import { AuthProvider } from '../contexts/AuthContext';
 import StructuredData from '../components/seo/structured-data';
 import Script from 'next/script';
+import { getSiteUrl, siteConfig } from '../lib/site-config';
+
+export const metadata: Metadata = {
+  metadataBase: new URL(getSiteUrl()),
+};
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -12,7 +18,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         {/* Google tag (gtag.js) 使用 next/script，放置在 head 以便验证 */}
         <Script
           strategy="beforeInteractive"
-          src="https://www.googletagmanager.com/gtag/js?id=G-6X7J4WLHJ6"
+          src={`https://www.googletagmanager.com/gtag/js?id=${siteConfig.googleAnalyticsId}`}
         />
         <Script
           id="gtag-init"
@@ -22,7 +28,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               window.dataLayer = window.dataLayer || [];
               function gtag(){dataLayer.push(arguments);}
               gtag('js', new Date());
-              gtag('config', 'G-6X7J4WLHJ6', {
+              gtag('config', '${siteConfig.googleAnalyticsId}', {
                 page_path: window.location.pathname,
               });
             `,
@@ -35,16 +41,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <StructuredData
               type="website"
               data={{
-                name: 'GLSL 学习平台',
-                description:
-                  '专业的 GLSL 着色器编程学习平台，提供从基础到高级的完整学习路径',
-                url: process.env.NEXT_PUBLIC_BASE_URL || 'https://www.shader-learn.com',
+                name: siteConfig.legacyLocalizedName,
+                description: siteConfig.descriptionZh,
+                url: getSiteUrl(),
               }}
             />
             <StructuredData
               type="organization"
               data={{
-                name: 'GLSL Learning Platform',
+                name: siteConfig.legacyEnglishName,
               }}
             />
             {children}
